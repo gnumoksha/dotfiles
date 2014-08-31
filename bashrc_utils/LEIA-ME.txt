@@ -1,0 +1,5 @@
+Sistema rústico de recursos para o bash
+
+Para ativar adicione o seguinte no ~/.bashrc:
+
+source /diretorio/para/bashrc_utils/init.sh
