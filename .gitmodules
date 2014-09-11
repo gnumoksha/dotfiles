@@ -4,3 +4,12 @@
 [submodule "others/gnome-terminal-colors"]
 	path = others/gnome-terminal-colors
 	url = https://github.com/gnumoksha/gnome-terminal-colors.git
+[submodule "others/tomorrow-theme"]
+	path = others/tomorrow-theme
+	url = https://github.com/chriskempson/tomorrow-theme.git
+[submodule "others/base16-xfce4-terminal"]
+	path = others/base16-xfce4-terminal
+	url = https://github.com/chriskempson/base16-xfce4-terminal.git
+[submodule "others/konsole-tomorrow-theme"]
+	path = others/konsole-tomorrow-theme
+	url = https://github.com/dram/konsole-tomorrow-theme.git

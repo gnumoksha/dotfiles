@@ -61,7 +61,7 @@ Host condado
 
 Host gondor
 	# A conexao à este host é feita atraves do condado. Sao efetuados dois logins
-	HostName gondor.eutobias.org
+	HostName gondor
 	Port 22
 	User gondor
 	# [3]
@@ -73,8 +73,16 @@ Host gondor
 
 Host smaug
 	HostName smaug.eutobias.org
-	Port 6543
+	Port 22
 	User smaug
+	IdentityFile ~/.ssh/id_rsa-2048
+
+Host bombur
+	HostName bombur
+	Port 22
+	User root
+	ProxyCommand ssh -i ~/.ssh/id_rsa-2048 -q -W %h:%p smaug@smaug.eutobias.org
+	IdentityFile ~/.ssh/id_rsa-2048
 
 Host truta
 	HostName trutas.org

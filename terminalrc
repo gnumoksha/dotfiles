@@ -1,0 +1,42 @@
+# Arquivo de configuracao para o xfce4-terminal
+[Configuration]
+MiscAlwaysShowTabs=FALSE
+MiscBell=FALSE
+MiscBordersDefault=TRUE
+MiscCursorBlinks=FALSE
+MiscCursorShape=TERMINAL_CURSOR_SHAPE_BLOCK
+MiscDefaultGeometry=180x40
+MiscInheritGeometry=FALSE
+MiscMenubarDefault=TRUE
+MiscMouseAutohide=FALSE
+MiscToolbarDefault=FALSE
+MiscConfirmClose=TRUE
+MiscCycleTabs=TRUE
+MiscTabCloseButtons=TRUE
+MiscTabCloseMiddleClick=TRUE
+MiscTabPosition=GTK_POS_TOP
+MiscHighlightUrls=TRUE
+TitleMode=TERMINAL_TITLE_PREPEND
+ScrollingOnOutput=FALSE
+ScrollingLines=12000
+ShortcutsNoMnemonics=TRUE
+ShortcutsNoMenukey=TRUE
+
+#BackgroundDarkness=0,540000
+#ColorForeground=#dcdcdc
+#ColorBackground=#2c2c2c
+#ColorCursor=#dcdcdc
+#ColorPalette=#3f3f3f;#705050;#60b48a;#dfaf8f;#9ab8d7;#dc8cc3;#8cd0d3;#dcdcdc;#709080;#dca3a3;#72d5a3;#f0dfaf;#94bff3;#ec93d3;#93e0e3;#ffffff
+
+# https://github.com/chriskempson/base16-xfce4-terminal/blob/master/base16-flat.dark.terminalrc
+#ColorCursor=#e0e0e0
+#ColorForeground=#e0e0e0
+#ColorBackground=#2C3E50
+#ColorPalette=#2C3E50;#E74C3C;#2ECC71;#F1C40F;#3498DB;#9B59B6;#1ABC9C;#e0e0e0;#95A5A6;#E74C3C;#2ECC71;#F1C40F;#3498DB;#9B59B6;#1ABC9C;#ECF0F1
+
+# https://github.com/chriskempson/base16-xfce4-terminal/blob/master/base16-eighties.dark.terminalrc
+ColorCursor=#d3d0c8
+ColorForeground=#d3d0c8
+ColorBackground=#2d2d2d
+ColorPalette=#2d2d2d;#f2777a;#99cc99;#ffcc66;#6699cc;#cc99cc;#66cccc;#d3d0c8;#747369;#f2777a;#99cc99;#ffcc66;#6699cc;#cc99cc;#66cccc;#f2f0ec
+

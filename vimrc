@@ -6,8 +6,10 @@
 "
 " Objetivo destas configurações é aprimorar o uso genérico
 " do vim; em servidores, por exemplo.
-" Testado no vim 7.3
-" Tobias <tobias@gnu.eti.br>
+" Testado no vim
+"	7.3 debian
+"	7.4 debian jessie (testing)
+" Tobias <contato@eutobias.org>
 
 
 """""""""""""""""""""""""""""""
@@ -67,6 +69,7 @@ set wildchar=<TAB>
 " Destaque de sintexe.
 if has("syntax")
 	syntax on
+	colorscheme Tomorrow-Night
 endif
 
 " Quando definido para 'dark', vim vai tentar usar cores que ficam
@@ -98,7 +101,7 @@ set showmatch
 "set textwidth=79
 
 " Coluna 80 colorida
-"set colorcolumn=81
+set colorcolumn=81
 
 " Destaca a linha atual
 set cursorline

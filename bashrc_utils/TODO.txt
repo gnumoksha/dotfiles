@@ -1,3 +1,0 @@
-criar uma funcao para verificar se pacotes necessarios estao instalados
-
-
