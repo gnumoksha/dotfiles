@@ -112,7 +112,14 @@ mkdir ~/.config/htop/ 2>/dev/null
 [[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.config/htop/htoprc 2>/dev/null
 ln -s "$SCRIPTPATH/htoprc" ~/.config/htop/htoprc
 
-# xfce4-settings-editor -> xfce4-keyboard-shortcuts
+echo "Criando link para configuração do byobu"
+mkdir ~/.byobu 2>/dev/null
+[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.byobu/status 2>/dev/null
+ln -s "$SCRIPTPATH/byobu/status" ~/.byobu/status
+#TODO fazer automaticamente o procedimento mencionado abaixo
+echo "	NOTA: Para o byobu funcionar corretamente, execute xfce4-settings-editor
+	va em xfce4-keyboard-shortcuts e delete os alt-* e control-*, exceto os
+	que estao na chave xfwm4 > default"
 
 # cp others/tomorrow-theme/ipythonqt/tomorrownight.py /usr/lib/python2.7/dist-packages/pygments/styles/
 # ipython qtconsole --style=tomorrownight --stylesheet=/home/tobias/play/generic_projects/dotfiles/others/tomorrow-theme/ipythonqt/tomorrownight.css

@@ -70,6 +70,10 @@ set wildchar=<TAB>
 if has("syntax")
 	syntax on
 	colorscheme Tomorrow-Night
+	"força o vim a usar o modo de 256 cores
+	"set t_Co=256 " [4]
+	highlight Normal ctermbg=NONE| "[4]
+	highlight nonText ctermbg=NONE| "[4]
 endif
 
 " Quando definido para 'dark', vim vai tentar usar cores que ficam
@@ -173,7 +177,7 @@ set incsearch
 "                                        "
 """"""""""""""""""""""""""""""""""""""""""
 
-" Define o leader para ,
+" Define o leader (prefixo de comando) para ,
 let mapleader=","
 let g:mapleader=","
 
@@ -197,6 +201,14 @@ map <C-t><C-w> :tabclose<CR>
 " abre o console de erro
 map <leader>cc :botright cope<CR> 
 
+" [3] evita problemas apos usar shift :
+:command WQ wq
+:command Wq wq
+:command W w
+:command Q q
+
+" [3] Ao inves de usar : use ; que nao precisa do shift
+nnoremap ; :
 
 """"""""""""""""""""""""""""""""""""""""""
 "                                        "
@@ -249,9 +261,11 @@ endif
 "                                        "
 """"""""""""""""""""""""""""""""""""""""""
 "
-" /etc/vimrc de algum ubuntu < 13.04
-" https://wiki.archlinux.org/index.php/Vim/.vimrc
-" https://github.com/InFog/meuvim/blob/master/vimrc
+" [0] /etc/vimrc de algum ubuntu < 13.04
+" [1] https://wiki.archlinux.org/index.php/Vim/.vimrc
+" [2] https://github.com/InFog/meuvim/blob/master/vimrc
+" [3] https://coderwall.com/p/nckasg
+" [4] http://stackoverflow.com/questions/4325682/vim-colorschemes-not-changing-background-color
 "
 
 "EOF

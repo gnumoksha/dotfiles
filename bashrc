@@ -106,7 +106,8 @@ HISTFILESIZE=10000
 # Para o debian
 export PATH="$PATH:/sbin"
 export PATH="$PATH:/usr/games"
-
+# PHP composer
+export PATH="$PATH:~/.composer/vendor/bin"
 
 ###################################
 #             ALIASES             #
@@ -132,18 +133,33 @@ alias lixeira_apagar="trash-rm"
 ###################################
 
 entrar_no_env () {
+	#TODO criar um autocomplete com TAB
 	env=$1
 	diretorio='/home/tobias/play/python/'
 	if [[ -z $env ]]; then
-		echo "Uso: entrarNoEnv 'dir'
-	Onde 'dir' estah dentro de '$diretorio' e dentro dele ha um
-	ambiente virtual chamado env"
-	exit 1
+		echo "Uso: entrar_no_env 'dir'
+Onde 'dir' estah dentro de '$diretorio' e dentro dele ha um
+ambiente virtual chamado env"
+	return 1
 	fi
 	cd "${diretorio}/${env}"
 	if [[ $? -eq 0 ]]; then
 		source env/bin/activate
 	fi
+}
+
+entrar_no_projeto () {
+	#TODO criar um autocomplete com TAB
+	linguagem=$1
+	nome=$2
+	diretorio='/home/tobias/play/'
+	if [[ -z $linguagem ]]; then
+		echo "Uso: entrar_no_projeto 'linguagem' 'nome'
+Onde 'linguagem' e 'nome' estao dentro de '$diretorio'"
+		return 1
+	fi
+	cd "${diretorio}/${linguagem}/"
+	cd "${nome}"
 }
 
 iniciar_funcoesZZ () {
@@ -188,13 +204,15 @@ exibir_fortune () {
 	fi
 	programaCowSay=$(which cowsay)
 	if [ -f $programaCowSay ]; then
+		# cowsay -l exibe os arquivos disponiveis
 		diretorioCows='/usr/share/cowsay/cows'
 		numeroArquivosCow=$(ls -1 $diretorioCows | wc -l)
 		# http://www.cyberciti.biz/faq/bash-shell-script-generating-random-numbers/
 		numeroArquivoCowAleatorio=$( echo $((RANDOM%$numeroArquivosCow-1)) )
 		numeroArquivoCowAtual=0
 		#TODO usar array com indice numero ao inves do for
-		for arquivoCow in $(ls $diretorioCows); do
+		# ignora arquivos cow com desenhos desagradaveis
+		for arquivoCow in $(ls $diretorioCows --ignore='head-in.cow' --ignore="sodomized-sheep.cow"); do
 		        numeroArquivoCowAtual=$(($numeroArquivoCowAtual+1))
 		        if [ $numeroArquivoCowAtual -eq $numeroArquivoCowAleatorio ]; then
 		                echo $fraseFortune | $programaCowSay -f $arquivoCow
@@ -253,6 +271,6 @@ EOF
 exibir_fortune
 exibir_calendario
 
-#criar uma funcao para verificar se pacotes necessarios estao instalados
+#TODO criar uma funcao para verificar se pacotes necessarios estao instalados
 
 #EOF

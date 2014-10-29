@@ -85,7 +85,7 @@ Host bombur
 	IdentityFile ~/.ssh/id_rsa-2048
 
 Host truta
-	HostName trutas.org
+	HostName truta.org
 	Port 22
 	User senhor_supremo_do_universo
 
