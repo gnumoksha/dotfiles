@@ -7,10 +7,11 @@
 
 [user]
 	name = Tobias Sette
-	email = contato@eutobias.org
+	email = contato@tobias.ws
 
 [github]
 	user = gnumoksha
+	#token = 6ef8395fecf207165f1a82178ae1b984
 
 [color]
 	# [4]
@@ -23,20 +24,24 @@
 
 [diff]
 	# [0] [1] [2] [3]
-	external = /home/tobias/outros/softwares/instalados/scripts/git_diff.sh
-	tool = diffuse
+	#external = /home/tobias/outros/softwares/instalados/scripts/git_diff.sh
+	#tool = diffuse
+	tool = meld
 
 [core]
 	editor = vim
 	
 [merge]
-	tool = diffuse
+	tool = meld
 	
+[push]                                                                           
+	default = matching
+
 [gui]
 	editor = gedit
 	
 [alias]
-	enviar = push origin master
+	send = push origin master
 
 
 ############################

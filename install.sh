@@ -87,8 +87,10 @@ ln -s "$SCRIPTPATH/others/dircolors-solarized/dircolors.256dark" ~/.dir_colors
 
 echo "Criando link para configuração do agent ssh"
 mkdir ~/.ssh 2>/dev/null
-[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.ssh/config 2>/dev/null
-ln -s "$SCRIPTPATH/ssh/config" ~/.ssh/config
+[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.ssh/config ~/.ssh/*.config 2>/dev/null
+for arquivo in $(ls "$SCRIPTPATH/ssh/"); do
+    ln -s $SCRIPTPATH/ssh/$arquivo ~/.ssh/$arquivo
+done
 
 echo "Configurando o vim"
 [[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.vimrc 2>/dev/null
@@ -118,8 +120,8 @@ mkdir ~/.byobu 2>/dev/null
 ln -s "$SCRIPTPATH/byobu/status" ~/.byobu/status
 #TODO fazer automaticamente o procedimento mencionado abaixo
 echo "	NOTA: Para o byobu funcionar corretamente, execute xfce4-settings-editor
-	va em xfce4-keyboard-shortcuts e delete os alt-* e control-*, exceto os
-	que estao na chave xfwm4 > default"
+	va em xfce4-keyboard-shortcuts e delete os e control-fX e veja quais
+	dos alt-fX vai usar. Nao delete os que estao na chave xfwm4 > default"
 
 # cp others/tomorrow-theme/ipythonqt/tomorrownight.py /usr/lib/python2.7/dist-packages/pygments/styles/
 # ipython qtconsole --style=tomorrownight --stylesheet=/home/tobias/play/generic_projects/dotfiles/others/tomorrow-theme/ipythonqt/tomorrownight.css
