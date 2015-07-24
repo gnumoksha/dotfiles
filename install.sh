@@ -107,7 +107,7 @@ ln -s "$SCRIPTPATH/others/tomorrow-theme/GEdit/Tomorrow-Night-Eighties.xml" ~/.l
 
 echo "Criando link para configuração do git"
 [[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.gitconfig 2>/dev/null
-ln -s "$SCRIPTPATH/gitconfig" ~/.gitconfig
+ln -s "$SCRIPTPATH/git/gitconfig" ~/.gitconfig
 
 echo "Criando link para configuração do htop"
 mkdir ~/.config/htop/ 2>/dev/null

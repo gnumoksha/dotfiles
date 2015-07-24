@@ -30,8 +30,10 @@
 
 [core]
 	editor = vim
+	autocrlf = input
 	
 [merge]
+	# [5]
 	tool = meld
 	
 [push]                                                                           
@@ -41,7 +43,29 @@
 	editor = gedit
 	
 [alias]
+	# genericos
 	send = push origin master
+	add-all = add --all
+
+	# automacao do projeto [6]
+	changed-specs = !git diff --name-only master -- spec | egrep '.rb'
+	run-changed-specs = !zeus rspec `git changed-specs`
+	changed-files = !git diff --name-only master | cat
+
+	# analise de dados [6]
+	authors = !git log --format="%aN"
+	unique-authors = !git authors | sort -u
+	ranked-authors = !git authors | sort | uniq -c | sort -n
+	emails = !git log --format="%aE"
+	email-domains = !git log --format="%aE" | awk -F'@' '{print $2}'
+	unique-email-domains = !git email-domains | sort -u
+	ranked-email-domains = !git email-domains | sort | uniq -c | sort -n
+	one-week = !git diff --stat `git log --since='1 week' --format=%H | tail -1`
+
+
+[svn]
+	# [7]
+	rmdir = true
 
 
 ############################
@@ -54,5 +78,8 @@
 # [2] http://jeetworks.org/node/90
 # [3] http://stackoverflow.com/questions/255202/how-do-i-view-git-diff-output-with-a-visual-diff-program
 # [4] http://fellipe.com/blog/definindo-configuracoes-do-gitconfig-apos-a-instalacao-do-git/
+# [5] http://meldmerge.org/help/resolving-conflicts.html
+# [6] https://github.com/sdball/dotfiles/blob/master/.gitconfig
+# [7] https://git.wiki.kernel.org/index.php/Git-svn
 
 #EOF

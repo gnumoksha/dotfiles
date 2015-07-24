@@ -69,7 +69,7 @@ sublinhado="\[\033[00;4m\]"
 #if [[ $(whoami) == "root" ]]; then
 if [[ $EUID -eq 0 ]]; then
 	# para root
-	export PS1="${cor_marrom}\t ${cor_amarelo_fundo_vermelho}\u${cor_marrom}@${cor_verde_claro}\h${cor_nenhum}:\w\$ "
+	export PS1="${cor_marrom}\t ${cor_amarelo_fundo_vermelho}\u${cor_marrom}@${cor_verde_claro}\h${cor_nenhum}:\w# "
 else
 	export PS1="${cor_marrom}\t ${cor_azul_claro}\u${cor_marrom}@${cor_verde_claro}\h${cor_nenhum}:\w\$ "
 fi
@@ -109,7 +109,9 @@ HISTFILESIZE=10000
 export PATH="$PATH:/sbin"
 export PATH="$PATH:/usr/games"
 # PHP composer
-export PATH="$PATH:~/.composer/vendor/bin"
+export PATH="$PATH:/home/tobias/.composer/vendor/bin"
+# Binarios extras sem instalador para debian
+export PATH="$PATH:/home/tobias/outros/softwares/gnu+linux/bin"
 
 ###################################
 #             ALIASES             #
@@ -287,7 +289,8 @@ aguardar_pid() {
 
 # http://superuser.com/questions/247564/is-there-a-way-for-one-ssh-config-file-to-include-another-one
 # http://www.linuxsysadmintutorials.com/multiple-ssh-client-configuration-files/
-if [[ -e ~/.ssh/*.config ]]; then
+# #FIXME essa condicao sempre será verdadeira?
+if [[ $(ls ~/.ssh/*.config 2>/dev/null) ]]; then
 	rm ~/.ssh/config 2>/dev/null
 	for arquivo_ssh in $(ls ~/.ssh/*.config); do
 		cat $arquivo_ssh >> ~/.ssh/config
