@@ -8,9 +8,11 @@ Font=DejaVu Sans Mono,11,-1,5,50,0,0,0,0,0
 CursorShape=1
 
 [General]
-LocalTabTitleFormat=%w [%n]
+Command=/bin/zsh
+LocalTabTitleFormat=%u@%d
 Name=Tobias
 Parent=FALLBACK/
+RemoteTabTitleFormat=(%u) %H
 TerminalColumns=180
 TerminalRows=40
 

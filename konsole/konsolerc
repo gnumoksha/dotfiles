@@ -11,8 +11,9 @@ Favorites=Shell.profile,Tobias.profile
 SaveGeometryOnExit=false
 
 [MainWindow]
-State=AAAA/wAAAAD9AAAAAAAABmYAAALeAAAABAAAAAQAAAAIAAAACPwAAAAA
+State=AAAA/wAAAAD9AAAAAAAABVYAAAKoAAAABAAAAAQAAAAIAAAACPwAAAAA
 ToolBarsMovable=Disabled
+Window-Maximized 768x1366=true
 
 [TabBar]
 ShowQuickButtons=false
