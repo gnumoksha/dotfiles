@@ -132,6 +132,21 @@ alias lixeira_restaurar="trash-restore"
 alias lixeira_esvaziar="trash-empty"
 alias lixeira_apagar="trash-rm"
 
+## https://githowto.com/aliases
+alias git='LANG=en_US.UTF-8 git'
+#
+alias gs='git status '
+alias ga='git add '
+alias gb='git branch '
+alias gc='git commit'
+alias gd='git diff'
+alias go='git checkout '
+alias gk='gitk --all&'
+alias gx='gitx --all'
+#
+alias got='git '
+alias get='git '
+
 
 ###################################
 #             FUNÇÕES             #

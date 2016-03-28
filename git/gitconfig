@@ -25,8 +25,10 @@
 [diff]
 	# [0] [1] [2] [3]
 	#external = /home/tobias/outros/softwares/instalados/scripts/git_diff.sh
-	#tool = diffuse
+	# meld | diffuse | kompare | kdiff3
+	# diffmerge | bcompare
 	tool = meld
+	guitool = meld
 
 [core]
 	editor = vim
@@ -34,7 +36,9 @@
 	
 [merge]
 	# [5]
-	tool = meld
+	tool = kdiff3
+	# deleta os arquivos de backup após o merge ser resolvido
+	keepBackup = false
 	
 [push]                                                                           
 	default = matching
@@ -43,9 +47,22 @@
 	editor = gedit
 	
 [alias]
+	# comuns [8]
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+	type = cat-file -t
+	dump = cat-file -p
+	# [9]
+	last = log -1 HEAD
+
 	# genericos
 	send = push origin master
 	add-all = add --all
+	go = checkout
+	undo-changes = reset --hard
 
 	# automacao do projeto [6]
 	changed-specs = !git diff --name-only master -- spec | egrep '.rb'
@@ -81,5 +98,7 @@
 # [5] http://meldmerge.org/help/resolving-conflicts.html
 # [6] https://github.com/sdball/dotfiles/blob/master/.gitconfig
 # [7] https://git.wiki.kernel.org/index.php/Git-svn
+# [8] https://githowto.com/aliases
+# [9] https://git-scm.com/book/tr/v2/Git-Basics-Git-Aliases
 
 #EOF
