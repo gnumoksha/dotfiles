@@ -11,7 +11,6 @@
 
 [github]
 	user = gnumoksha
-	#token = 6ef8395fecf207165f1a82178ae1b984
 
 [color]
 	# [4]
@@ -30,16 +29,26 @@
 	tool = meld
 	guitool = meld
 
+[diff "exif"]
+	# For more comprehensive diff
+	# https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes
+        textconv = exiftool
+
 [core]
 	editor = vim
 	autocrlf = input
 	
 [merge]
 	# [5]
-	tool = kdiff3
+	tool = meld
 	# deleta os arquivos de backup após o merge ser resolvido
 	keepBackup = false
-	
+
+[merge "ours"]
+	# Merge strategy
+	# https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes#Merge-Strategies                                                             
+        driver = true
+
 [push]                                                                           
 	default = matching
 
