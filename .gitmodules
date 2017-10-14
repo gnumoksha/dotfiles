@@ -13,3 +13,12 @@
 [submodule "others/konsole-tomorrow-theme"]
 	path = others/konsole-tomorrow-theme
 	url = https://github.com/dram/konsole-tomorrow-theme.git
+[submodule "shell/zsh/oh-my-zsh"]
+	path = shell/zsh/oh-my-zsh
+	url = https://github.com/robbyrussell/oh-my-zsh.git
+[submodule "others/fonts/powerline"]
+	path = others/fonts/powerline
+	url = https://github.com/powerline/fonts.git
+[submodule "shell/zsh/powerlevel9k"]
+	path = shell/zsh/powerlevel9k
+	url = https://github.com/bhilburn/powerlevel9k.git

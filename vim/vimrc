@@ -35,7 +35,7 @@ autocmd! bufwritepost .vimrc source ~/.vimrc
 set showcmd
 
 " Exibe os numeros das linhas
-"set number
+set number
 
 " Mostra o número da linha e da coluna, separados por virgula,  onde
 " o cursor está. Desativado pois o texto na linha de status exibe estas
@@ -155,7 +155,7 @@ set incsearch
 "   Espaços no lugar de Tab   "
 """""""""""""""""""""""""""""""
 " ? numero de espacos que <Tab>
-"set tabstop=4
+set tabstop=4
 
 " numero de espacos a ser utilizado em cada autoindentação
 "set shiftwidth=4
@@ -253,7 +253,6 @@ if &term =~ "xterm.*"
 	cmap <Esc>[200~ <nop>
 	cmap <Esc>[201~ <nop>
 endif
-
 
 """"""""""""""""""""""""""""""""""""""""""
 "                                        "

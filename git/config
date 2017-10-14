@@ -1,13 +1,13 @@
 ############################
 #                          #
-# Configurações para o GIT #
+#    GIT configurations    #
 #                          #
 ############################
-
 
 [user]
 	name = Tobias Sette
 	email = contato@tobias.ws
+	signingkey = E724F606EFFF66F7
 
 [github]
 	user = gnumoksha
@@ -32,11 +32,11 @@
 [diff "exif"]
 	# For more comprehensive diff
 	# https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes
-        textconv = exiftool
+	textconv = exiftool
 
 [core]
 	editor = vim
-	autocrlf = input
+	autocrlf = input # valor 'true' causou erro no zsh: "command not found: ^M"
 	
 [merge]
 	# [5]
@@ -46,18 +46,18 @@
 
 [merge "ours"]
 	# Merge strategy
-	# https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes#Merge-Strategies                                                             
-        driver = true
+	# https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes#Merge-Strategies
+	driver = true
 
 [branch "master"]
 	rebase = true
 
-[push]                                                                           
+[push]
 	default = matching
 
 [gui]
 	editor = gedit
-	
+
 [alias]
 	# comuns [8]
 	co = checkout
@@ -75,11 +75,25 @@
 	add-all = add --all
 	go = checkout
 	undo-changes = reset --hard
+	f = fetch --all
+	
+	# quero apenas os arquivos para usar o software :)
+	# Fonte: git clone --help
+	my-download = clone --depth=1 --shallow-submodules --recurse-submodules
+	my-download-all-branches = !git download --no-single-branch
+
+	my-cherry-pick = cherry-pick -x
+
+	my-log-changes = !git log -p -m --first-parent -30
+	# [10]
+	showtool = "!showci () { rev=$(git rev-parse \"${*:-HEAD}\"); git difftool $rev~1 $rev; }; showci"
 
 	# automacao do projeto [6]
 	changed-specs = !git diff --name-only master -- spec | egrep '.rb'
 	run-changed-specs = !zeus rspec `git changed-specs`
 	changed-files = !git diff --name-only master | cat
+
+	unpushed = log @{push}..
 
 	# analise de dados [6]
 	authors = !git log --format="%aN"
@@ -91,10 +105,12 @@
 	ranked-email-domains = !git email-domains | sort | uniq -c | sort -n
 	one-week = !git diff --stat `git log --since='1 week' --format=%H | tail -1`
 
-
 [svn]
 	# [7]
 	rmdir = true
+	
+[cola]
+	spellcheck = false
 
 
 ############################
@@ -112,5 +128,6 @@
 # [7] https://git.wiki.kernel.org/index.php/Git-svn
 # [8] https://githowto.com/aliases
 # [9] https://git-scm.com/book/tr/v2/Git-Basics-Git-Aliases
+# [10] http://stackoverflow.com/questions/17558221/how-can-i-view-the-output-of-git-show-in-a-diff-viewer-like-meld-kdiff3-etc
 
 #EOF

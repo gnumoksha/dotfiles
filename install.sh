@@ -55,7 +55,7 @@ select xfceterminal in "Sim" "Nao"; do
 	if [[ $xfceterminal == "Sim" ]]; then
 		echo "Aplicando arquivo de configuracao para o terminal do xfce"
 		[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.config/xfce4/terminal/terminalrc 2>/dev/null
-		ln -s "$SCRIPTPATH/terminalrc" ~/.config/xfce4/terminal/terminalrc
+		ln -s "$SCRIPTPATH/shell/xfce4-terminal/terminalrc" ~/.config/xfce4/terminal/terminalrc
 		echo
 		echo
 	fi
@@ -72,17 +72,17 @@ select konsole in "Sim" "Nao"; do
 			[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.kde/share/apps/konsole/TomorrowNightEighties.colorscheme 2>/dev/null
 			ln -s "$SCRIPTPATH/others/konsole-tomorrow-theme/TomorrowNightEighties.colorscheme" ~/.kde/share/apps/konsole/TomorrowNightEighties.colorscheme
 			[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.kde/share/apps/konsole/Tobias.profile 2>/dev/null
-			ln -s "$SCRIPTPATH/konsole/Tobias.profile" ~/.kde/share/apps/konsole/Tobias.profile
+			ln -s "$SCRIPTPATH/shell/konsole/Tobias.profile" ~/.kde/share/apps/konsole/Tobias.profile
 			[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.kde/share/config/konsolerc 2>/dev/null
-			ln -s "$SCRIPTPATH/konsole/konsolerc" ~/.kde/share/config/konsolerc
+			ln -s "$SCRIPTPATH/shell/konsole/konsolerc" ~/.kde/share/config/konsolerc
 		else
 			echo "Aplicando arquivo de configuracao para o konsole maior que 2.x"
 			[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.local/share/konsole/TomorrowNightEighties.colorscheme 2>/dev/null
 			ln -s "$SCRIPTPATH/others/konsole-tomorrow-theme/TomorrowNightEighties.colorscheme" ~/.local/share/konsole/TomorrowNightEighties.colorscheme
 			[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.local/share/konsole/Tobias.profile 2>/dev/null
-			ln -s "$SCRIPTPATH/konsole/Tobias.profile" ~/.local/share/konsole/Tobias.profile
+			ln -s "$SCRIPTPATH/shell/konsole/Tobias.profile" ~/.local/share/konsole/Tobias.profile
 			[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.config/konsolerc 2>/dev/null
-			ln -s "$SCRIPTPATH/konsole/konsolerc" ~/.config/konsolerc
+			ln -s "$SCRIPTPATH/shell/konsole/konsolerc" ~/.config/konsolerc
 		fi
 		echo
 		echo
@@ -90,12 +90,21 @@ select konsole in "Sim" "Nao"; do
 	break
 done
 
-echo "Habilitando paranauês úteis no bash"
-BASHRC_UTILS="source \"$SCRIPTPATH/bashrc\""
-[[ ! $(grep -i "$BASHRC_UTILS" ~/.bashrc 2>/dev/null) ]] && echo "$BASHRC_UTILS" >> ~/.bashrc
+# O ~/.bashrc não é sobrescrito porque geralmente vem com configuracoes uteis para a distro.
+echo "Configuring BASH"
+BASH_GENERAL="source \"$SCRIPTPATH/shell/bash/general.sh\""
+[[ ! $(grep -i "$BASH_GENERAL" ~/.bashrc 2>/dev/null) ]] && echo "$BASH_GENERAL" >> ~/.bashrc
+#
+SHELL_GENERAL="source \"$SCRIPTPATH/shell/general/general.sh\""
+[[ ! $(grep -i "$SHELL_GENERAL" ~/.bashrc 2>/dev/null) ]] && echo "$SHELL_GENERAL" >> ~/.bashrc
+#
 [[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.bash_profile ~/.dir_colors 2>/dev/null
-ln -s "$SCRIPTPATH/bash_profile" ~/.bash_profile
+ln -s "$SCRIPTPATH/shell/bash/bash_profile" ~/.bash_profile
 ln -s "$SCRIPTPATH/others/dircolors-solarized/dircolors.256dark" ~/.dir_colors
+
+echo "Configuring ZSH"
+[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.zshrc 2>/dev/null
+ln -s "$SCRIPTPATH/shell/zsh/zshrc" ~/.zshrc
 
 echo "Criando link para configuração do agent ssh"
 mkdir ~/.ssh 2>/dev/null
@@ -104,22 +113,25 @@ for arquivo in $(ls "$SCRIPTPATH/ssh/"); do
     ln -s $SCRIPTPATH/ssh/$arquivo ~/.ssh/$arquivo
 done
 
-echo "Configurando o vim"
+echo "Configuring vim"
 [[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.vimrc 2>/dev/null
-ln -s "$SCRIPTPATH/vimrc" ~/.vimrc
+ln -s "$SCRIPTPATH/vim/vimrc" ~/.vimrc
 mkdir -p ~/.vim/colors 2>/dev/null
 [[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.vim/colors/Tomorrow-Night.vim 2>/dev/null
 ln -s "$SCRIPTPATH/others/tomorrow-theme/vim/colors/Tomorrow-Night.vim" ~/.vim/colors/Tomorrow-Night.vim
 
-echo "Configurando o gedit"
+echo "Configuring gedit"
 # /usr/share/gtksourceview-{2,3}.0/styles/
 mkdir -p ~/.local/share/gtksourceview-3.0/styles/ 2>/dev/null
 [[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.local/share/gtksourceview-3.0/styles/Tomorrow-Night-Eighties.xml 2>/dev/null
 ln -s "$SCRIPTPATH/others/tomorrow-theme/GEdit/Tomorrow-Night-Eighties.xml" ~/.local/share/gtksourceview-3.0/styles/Tomorrow-Night-Eighties.xml
 
 echo "Criando link para configuração do git"
-[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.gitconfig 2>/dev/null
-ln -s "$SCRIPTPATH/git/gitconfig" ~/.gitconfig
+[[ -d ~/.config/git ]] || mkdir ~/.config/git
+[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.config/git/config ~/.config/git/ignore ~/.config/git/attributes 2>/dev/null
+ln -s "$SCRIPTPATH/git/config" ~/.config/git/config
+ln -s "$SCRIPTPATH/git/ignore" ~/.config/git/ignore
+ln -s "$SCRIPTPATH/git/attributes" ~/.config/git/attributes
 
 echo "Criando link para configuração do htop"
 mkdir ~/.config/htop/ 2>/dev/null
@@ -129,7 +141,7 @@ ln -s "$SCRIPTPATH/htoprc" ~/.config/htop/htoprc
 echo "Criando link para configuração do byobu"
 mkdir ~/.byobu 2>/dev/null
 [[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.byobu/status 2>/dev/null
-ln -s "$SCRIPTPATH/byobu/status" ~/.byobu/status
+ln -s "$SCRIPTPATH/shell/byobu/status" ~/.byobu/status
 #TODO fazer automaticamente o procedimento mencionado abaixo
 echo "	NOTA: Para o byobu funcionar corretamente, execute xfce4-settings-editor
 	va em xfce4-keyboard-shortcuts e delete os e control-fX e veja quais
@@ -137,5 +149,7 @@ echo "	NOTA: Para o byobu funcionar corretamente, execute xfce4-settings-editor
 
 # cp others/tomorrow-theme/ipythonqt/tomorrownight.py /usr/lib/python2.7/dist-packages/pygments/styles/
 # ipython qtconsole --style=tomorrownight --stylesheet=/home/tobias/play/generic_projects/dotfiles/others/tomorrow-theme/ipythonqt/tomorrownight.css
+
+./others/fonts/powerline/install.sh
 
 #EOF
