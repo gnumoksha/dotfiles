@@ -62,28 +62,16 @@ select xfceterminal in "Sim" "Nao"; do
 	break
 done
 
-echo "Configurar o konsole?"
+echo "Do you want to configure KDE Konsole?"
 select konsole in "Sim" "Nao"; do
 	if [[ $konsole == "Sim" ]]; then
-		# Retorna a primeira parte (major version) do konsole
-		versao_konsole=$(konsole --version 2>&1 | grep -i 'konsole:' | cut -d ' ' -f 2 | cut -d '.' -f 1)
-		if [[ -z $versao_konsole || $versao_konsole -eq 2 ]]; then 
-			echo "Aplicando arquivo de configuracao para o konsole 2.x"
-			[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.kde/share/apps/konsole/TomorrowNightEighties.colorscheme 2>/dev/null
-			ln -s "$SCRIPTPATH/others/konsole-tomorrow-theme/TomorrowNightEighties.colorscheme" ~/.kde/share/apps/konsole/TomorrowNightEighties.colorscheme
-			[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.kde/share/apps/konsole/Tobias.profile 2>/dev/null
-			ln -s "$SCRIPTPATH/shell/konsole/Tobias.profile" ~/.kde/share/apps/konsole/Tobias.profile
-			[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.kde/share/config/konsolerc 2>/dev/null
-			ln -s "$SCRIPTPATH/shell/konsole/konsolerc" ~/.kde/share/config/konsolerc
-		else
-			echo "Aplicando arquivo de configuracao para o konsole maior que 2.x"
+			echo "Configuring KDE Konsole"
 			[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.local/share/konsole/TomorrowNightEighties.colorscheme 2>/dev/null
 			ln -s "$SCRIPTPATH/others/konsole-tomorrow-theme/TomorrowNightEighties.colorscheme" ~/.local/share/konsole/TomorrowNightEighties.colorscheme
 			[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.local/share/konsole/Tobias.profile 2>/dev/null
 			ln -s "$SCRIPTPATH/shell/konsole/Tobias.profile" ~/.local/share/konsole/Tobias.profile
 			[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.config/konsolerc 2>/dev/null
 			ln -s "$SCRIPTPATH/shell/konsole/konsolerc" ~/.config/konsolerc
-		fi
 		echo
 		echo
 	fi

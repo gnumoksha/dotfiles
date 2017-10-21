@@ -5,13 +5,13 @@ update_info=konsole.upd:2.9.0-global-options
 DefaultProfile=Tobias.profile
 
 [Favorite Profiles]
-Favorites=Shell.profile,Tobias.profile
+Favorites=Tobias.profile
 
 [KonsoleWindow]
 SaveGeometryOnExit=false
 
 [MainWindow]
-State=AAAA/wAAAAD9AAAAAAAABVYAAAKoAAAABAAAAAQAAAAIAAAACPwAAAAA
+State=AAAA/wAAAAD9AAAAAAAABmQAAAL2AAAABAAAAAQAAAAIAAAACPwAAAAA
 ToolBarsMovable=Disabled
 Window-Maximized 768x1366=true
 
