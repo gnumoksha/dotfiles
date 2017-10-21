@@ -150,6 +150,14 @@ echo "	NOTA: Para o byobu funcionar corretamente, execute xfce4-settings-editor
 # cp others/tomorrow-theme/ipythonqt/tomorrownight.py /usr/lib/python2.7/dist-packages/pygments/styles/
 # ipython qtconsole --style=tomorrownight --stylesheet=/home/tobias/play/generic_projects/dotfiles/others/tomorrow-theme/ipythonqt/tomorrownight.css
 
+# https://github.com/gabrielelana/awesome-terminal-fonts#how-to-install-linux
+cp -f others/fonts/awesome-terminal-fonts/build/*.ttf ~/.local/share/fonts/
+mkdir -p ~/.local/share/fonts/awesome-terminal-fonts_maps
+cp -f others/fonts/awesome-terminal-fonts/build/*.sh ~/.local/share/fonts/awesome-terminal-fonts_maps
+mkdir -p ~/.config/fontconfig/conf.d
+ln -fs "$SCRIPTPATH/others/fonts/awesome-terminal-fonts/config/10-symbols.conf" ~/.config/fontconfig/conf.d
+
+# Instala e atualiza o cache de fontes
 ./others/fonts/powerline/install.sh
 
 #EOF
