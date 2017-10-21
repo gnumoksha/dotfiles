@@ -23,4 +23,6 @@ alias git='LANG=en_US.UTF-8 git'
 
 alias my_to_clipboard="xclip -selection c"
 
+alias dd="dd status=progress"
+
 #EOF
