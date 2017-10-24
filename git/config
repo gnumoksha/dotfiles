@@ -20,6 +20,7 @@
 	status = auto
 	branch = auto
 	status = auto
+	ui = true
 
 [diff]
 	# [0] [1] [2] [3]
@@ -28,6 +29,7 @@
 	# diffmerge | bcompare
 	tool = meld
 	guitool = meld
+	submodule = log
 
 [diff "exif"]
 	# For more comprehensive diff
@@ -49,40 +51,76 @@
 	# https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes#Merge-Strategies
 	driver = true
 
-[branch "master"]
-	rebase = true
+[status]
+	submodulesummary = 1
+	
+[rebase]
+	autoStash = true
 
+[pull]
+	# https://stackoverflow.com/a/30209750/4668660
+	rebase = true
+	
 [push]
 	default = matching
+	# sempre envia as tags com anotacao referenciadas pelo branch que está sendo enviado
+	# https://stackoverflow.com/a/3745250/4668660
+	followTags = true
 
 [gui]
 	editor = gedit
 
+[log]
+	date = iso
+
 [alias]
+	# my- é meu prefixo para comandos. Utilizado para eu poder listar
+	# os meus aliases usando autocomplete no shell.
+	# alguns aliases nao tem o prefixo, para ser mais breve, mas sao
+	# redirecionados para o seu correspondendo com prefixo
+	
 	# comuns [8]
-	co = checkout
-	ci = commit
 	st = status
-	br = branch
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	type = cat-file -t
 	dump = cat-file -p
 	# [9]
-	last = log -1 HEAD
+	my-last = log -1 HEAD
 
 	# genericos
-	send = push origin master
-	add-all = add --all
-	go = checkout
-	undo-changes = reset --hard
-	f = fetch --all
-	
+	my-go = checkout
+	go = checkout # nao funciona autocomplete se nao for um alias simples
+	my-goTest = !git stash save --quiet "salvamento automatico durante git go" && git checkout "$1"
+	my-undo-changes = reset --hard
+	undo-changes = !git my-undo-changes
+	my-unstage = reset
+	unstage = !git my-unstage
+	# #TODO terminar este comando
+	#my-begin-agin = git reset --soft origin/dev
+
 	# quero apenas os arquivos para usar o software :)
 	# Fonte: git clone --help
 	my-download = clone --depth=1 --shallow-submodules --recurse-submodules
 	my-download-all-branches = !git download --no-single-branch
 
 	my-cherry-pick = cherry-pick -x
+
+	# automacao do projeto [6]
+	my-changed-specs = !git diff --name-only master -- spec | egrep '.rb'
+	my-run-changed-specs = !zeus rspec `git changed-specs`
+	my-changed-files = !git diff --name-only master | cat
+
+	# analise de dados [6]
+	my-list-authors = !git log --format="%aN"
+	my-list-unique-authors = !git authors | sort -u
+	my-list-ranked-authors = !git authors | sort | uniq -c | sort -n
+	my-list-emails = !git log --format="%aE"
+	my-list-email-domains = !git log --format="%aE" | awk -F'@' '{print $2}'
+	my-list-unique-email-domains = !git email-domains | sort -u
+	my-list-ranked-email-domains = !git email-domains | sort | uniq -c | sort -n
+	my-log-one-week = !git diff --stat `git log --since='1 week' --format=%H | tail -1`
+	#
+	#diff-commit = show --color --pretty=format:%b
 
 	my-log-changes = !git log -p -m --first-parent -30
 	# [10]
@@ -93,22 +131,26 @@
 	run-changed-specs = !zeus rspec `git changed-specs`
 	changed-files = !git diff --name-only master | cat
 
-	unpushed = log @{push}..
+	# https://stackoverflow.com/questions/2016901/viewing-unpushed-git-commits
+	my-log-unpushed = log @{push}..
 
-	# analise de dados [6]
-	authors = !git log --format="%aN"
-	unique-authors = !git authors | sort -u
-	ranked-authors = !git authors | sort | uniq -c | sort -n
-	emails = !git log --format="%aE"
-	email-domains = !git log --format="%aE" | awk -F'@' '{print $2}'
-	unique-email-domains = !git email-domains | sort -u
-	ranked-email-domains = !git email-domains | sort | uniq -c | sort -n
-	one-week = !git diff --stat `git log --since='1 week' --format=%H | tail -1`
+	# Nao utilizo um format no gitconfig para poder continuar usando o git log no formato comum ou perto disso
+	# Baseado em https://stackoverflow.com/a/9463536/4668660
+	my-log = log --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(20,trunc)%aN %C(auto,reset)%s%C(auto,red)% gD% D'
+
+	# how can I see which commits are in homol but not in prod? git my-compare homol...prod
+	# < significa que tem no homol
+	# > significa que tem no prod
+	# Baseado em: https://stackoverflow.com/a/7567953/4668660
+	# #TODO usar --no-merges ?
+	my-compare = !git my-log --left-right --graph --cherry-pick
+	compare = !git my-compare
+
 
 [svn]
 	# [7]
 	rmdir = true
-	
+
 [cola]
 	spellcheck = false
 

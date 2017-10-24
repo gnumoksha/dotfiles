@@ -19,7 +19,7 @@ alias dmesg="dmesg --color --ctime --decode"
 
 # Git in english
 # https://githowto.com/aliases
-alias git='LANG=en_US.UTF-8 git'
+#alias git='LANG=en_US.UTF-8 git'
 
 alias my_to_clipboard="xclip -selection c"
 
