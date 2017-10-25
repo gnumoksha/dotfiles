@@ -1,0 +1,29 @@
+# Path to your oh-my-zsh installation.
+export ZSH="/home/tobias/play/_side_projects/dotfiles/shell/zsh/oh-my-zsh"
+
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="maran"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(colored-man-pages copybuffer copydir docker docker-compose git \
+		git-flow-avh git-extras gpg-agent httpie \
+		nmap screen)
+
+source $ZSH/oh-my-zsh.sh
+
+source /home/tobias/play/_side_projects/dotfiles/shell/general/general.sh
+
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+#EOF
