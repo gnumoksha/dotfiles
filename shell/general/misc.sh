@@ -119,15 +119,15 @@ function show_calendar () {
 // alguns dos arquivo do man calendar nao existem
 LANG=pt_BR.UTF-8
 
-#include <calendar.birthday>
+//#include <calendar.birthday>
 #include <calendar.computer>
 //#include <calendar.fictional>
-#include <calendar.lotr>
+//#include <calendar.lotr>
 #include <calendar.debian>
 #include <calendar.ubuntu>
 #include <calendar.history>
 #include <calendar.music>
-//#include <calendar.space>
+//#include <calendar.space> not found
 EOF
 )
 	# Para que o calendar apareça apenas uma vez por dia
@@ -151,7 +151,7 @@ EOF
 
 		# por fim, chama o calendar exibindo apenas os eventos para a data atual
 		echo "--------------------------------------------------------------------------------"
-		$CALENDAR -A 0
+		$CALENDAR -A 1
 		echo "--------------------------------------------------------------------------------"
 	fi
 }
