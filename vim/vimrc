@@ -54,6 +54,42 @@ set statusline+=\ [%{&ff}/%Y]\ \|
 set statusline+=\ %<%0(%{hostname()}:%{DiretorioAtual()}%)\ \|
 set statusline+=%=%-10.(%l,%c%V%)\ %p%%/%L
 
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+set statusline+=%{fugitive#statusline()}
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+python3 from powerline.vim import setup as powerline_setup
+python3 powerline_setup()
+python3 del powerline_setup
+
+call plug#begin()
+Plug 'mhinz/vim-startify'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-syntastic/syntastic'
+"Plug 'tpope/vim-commentary'
+Plug 'scrooloose/nerdcommenter'
+Plug 'nanotech/jellybeans.vim', { 'tag': 'v1.6' }
+Plug 'mhinz/vim-janah'
+Plug 'chriskempson/base16-vim'
+" Initialize plugin system
+call plug#end()
+
+let base16colorspace=256
+
+map <C-n> :NERDTreeToggle<CR>
+"autocmd vimenter * NERDTree
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 " ? Iniciar a wild expansion na linha de comando usando <Tab>
 set wildchar=<TAB>
 
@@ -69,12 +105,16 @@ set wildchar=<TAB>
 " Destaque de sintexe.
 if has("syntax")
 	syntax on
-	colorscheme Tomorrow-Night
+	"colorscheme Tomorrow-Night
+	colorscheme jellybeans
 	"força o vim a usar o modo de 256 cores
 	"set t_Co=256 " [4]
 	highlight Normal ctermbg=NONE| "[4]
 	highlight nonText ctermbg=NONE| "[4]
 endif
+
+"autocmd ColorScheme janah highlight Normal ctermbg=235
+"colorscheme janah
 
 " Quando definido para 'dark', vim vai tentar usar cores que ficam
 " bom em um fundo escuro. Quando definido para 'light' vim vai tentar
@@ -200,12 +240,6 @@ map <C-t><C-w> :tabclose<CR>
 
 " abre o console de erro
 map <leader>cc :botright cope<CR> 
-
-" [3] evita problemas apos usar shift :
-:command WQ wq
-:command Wq wq
-:command W w
-:command Q q
 
 " [3] Ao inves de usar : use ; que nao precisa do shift
 nnoremap ; :
