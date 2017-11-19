@@ -1,0 +1,10 @@
+# http://wiki.x2go.org/doku.php/wiki:repositories:debian
+#
+# apt-key adv --recv-keys --keyserver keys.gnupg.net E1F958385BFE2B6E
+# apt-get update && apt-get install x2go-keyring && apt-get update && apt-cache search x2go
+#
+# X2Go Repository (release builds)
+#deb http://packages.x2go.org/debian jessie main
+# X2Go Repository (sources of release builds)
+#deb-src http://packages.x2go.org/debian jessie main
+

@@ -1,0 +1,5 @@
+# VirtualBox
+# https://www.virtualbox.org/wiki/Linux_Downloads
+# wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+deb http://download.virtualbox.org/virtualbox/debian stretch contrib
+

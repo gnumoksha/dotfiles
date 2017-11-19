@@ -1,0 +1,5 @@
+# Mega
+# comentado para utilizar o arquivo que fica no sources.list.d
+# deb https://mega.nz/linux/MEGAsync/xUbuntu_15.04/ ./
+deb https://mega.nz/linux/MEGAsync/Debian_9.0/ ./
+

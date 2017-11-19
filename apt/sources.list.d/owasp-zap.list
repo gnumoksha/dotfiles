@@ -1,0 +1,6 @@
+# OWASP - ZAP
+# https://software.opensuse.org/download.html?project=home%3Acabelo&package=owasp-zap
+# 21/06/17 Desabilitei porque nao tava funcionando até a epoca da palestra na
+# cryptorave
+#deb http://download.opensuse.org/repositories/home:/cabelo/Debian_8.0/ /
+

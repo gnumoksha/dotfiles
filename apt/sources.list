@@ -1,0 +1,76 @@
+# List of last Ubuntu versions
+# https://wiki.ubuntu.com/Releases
+#
+# Ubuntu 10.04 LTS (Lucid Lynx)
+# Ubuntu 10.10 (Maverick Meerkat)
+# Ubuntu 11.04 (Natty Narwhal)
+# Ubuntu 11.10 (Oneiric Ocelot)
+# Ubuntu 12.04 LTS (Precise Pangolin)
+# Ubuntu 12.10 (Quantal Quetzal)
+# Ubuntu 13.04 (Raring Ringtail)
+# Ubuntu 13.10 (Saucy Salamander)
+# Ubuntu 14.04 LTS (Trusty Tahr)
+# Ubuntu 14.10 (Utopic Unicorn)
+# Ubuntu 15.04 (Vivid Vervet)
+# Ubuntu 15.10 (Wily Werewolf)
+# Ubuntu 16.04 LTS (Xenial Xerus)
+# Ubuntu 16.10 (Yakkety Yak)
+# Ubuntu 17.04 (Zesty Zapus)
+# 17.10 (Artful Aardvark)
+
+# List of last Debian releases:
+# 10 - Buster
+# 9 - Stretch
+# 8 - Jessie
+# 7 - Wheezy
+# 6 - Squeeze
+# 5 - Lenny
+# 4 - Etch <3
+
+# O pacote distro-info-data armazena informacoes das versoes das distros em:
+# /usr/share/distro-info/{debian,ubuntu}.csv
+
+# List all packages in repository
+# grep ^Package: /var/lib/apt/lists/download.opensuse.org_repositories_home\:_Horst3180_Debian%5f8.0_*Packages
+
+# apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys $key
+# OR
+# apt-key adv --keyserver pgp.mit.edu --recv-keys 1AD28806
+# OR
+# wget http://download.opensuse.org/repositories/home:Horst3180/Debian_8.0/Release.key
+# apt-key add - Release.key
+# OR
+# wget -q -O - https://www.charlesproxy.com/packages/apt/PublicKey | sudo apt-key add -
+
+# dpkg --add-architecture i386 && apt-get update
+
+# Ver de onde o pacote está vindo
+# apt-cache policy docker
+
+# Fico sempre no Debian Testing
+deb http://deb.debian.org/debian/ testing main contrib non-free
+deb-src http://deb.debian.org/debian/ testing main contrib non-free
+
+# Conforme recomendado em https://wiki.debian.org/Status/Testing
+deb http://security.debian.org testing/updates main contrib non-free
+deb-src http://security.debian.org testing/updates main contrib non-free
+
+# Debian unstable (Sid) para caso precise de versoes mais recentes dos softwares
+deb http://deb.debian.org/debian/ unstable main contrib non-free
+deb-src http://deb.debian.org/debian/ unstable main contrib non-free
+
+# Stable
+deb http://deb.debian.org/debian/ stable main contrib non-free
+deb-src http://deb.debian.org/debian/ stable main contrib non-free
+
+
+# Debian oldstable(Jessie) Para usar PHP5
+#deb http://deb.debian.org/debian/ jessie main contrib non-free
+#deb-src http://deb.debian.org/debian/ jessie main contrib non-free
+
+
+
+#deb http://master.dl.sourceforge.net/project/d-apt/ d-apt main #APT repository for D
+
+
+#EOF

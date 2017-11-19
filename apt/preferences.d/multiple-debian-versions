@@ -1,0 +1,12 @@
+Package: *
+Pin: release a=testing
+Pin-Priority: 990
+
+Package: *
+Pin: release a=sid
+Pin-Priority: 200
+
+Package: *
+Pin: release a=stable
+Pin-Priority: 200
+

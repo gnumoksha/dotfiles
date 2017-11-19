@@ -1,0 +1,14 @@
+# https://github.com/horst3180/arc-theme
+# https://github.com/horst3180/vertex-theme
+# O Arc é melhor compilar, o do repositorio não funcionou a transparencia.
+# O Vertex não sei bem se funcionou
+# arc-theme vertex-theme
+# 21/06/17 desativei porque a chave GPG está com problemas e nao há versão para
+# Debian 9, este repositorio deve estar abandonado
+#deb http://download.opensuse.org/repositories/home:/Horst3180/Debian_8.0/ /
+
+# https://github.com/tista500/Adapta
+# adapta-gtk-theme
+deb http://ppa.launchpad.net/tista/adapta/ubuntu zesty main
+deb-src http://ppa.launchpad.net/tista/adapta/ubuntu zesty main 
+

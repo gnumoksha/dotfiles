@@ -1,0 +1,4 @@
+# http://gnumdk.github.io/lollypop-web/
+deb http://ppa.launchpad.net/gnumdk/lollypop/ubuntu zesty main
+deb-src http://ppa.launchpad.net/gnumdk/lollypop/ubuntu zesty main
+

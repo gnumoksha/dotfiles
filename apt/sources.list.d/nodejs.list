@@ -1,0 +1,4 @@
+# https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions
+deb https://deb.nodesource.com/node_6.x zesty main
+deb-src https://deb.nodesource.com/node_6.x zesty main
+

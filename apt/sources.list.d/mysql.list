@@ -1,0 +1,4 @@
+# MySQL
+# sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5072E1F5 
+# http://dev.mysql.com/downloads/repo/apt/
+
