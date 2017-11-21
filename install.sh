@@ -103,10 +103,7 @@ done
 
 echo "Configuring vim"
 [[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.vimrc 2>/dev/null
-ln -s "$SCRIPTPATH/vim/vimrc" ~/.vimrc
-mkdir -p ~/.vim/colors 2>/dev/null
-[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.vim/colors/Tomorrow-Night.vim 2>/dev/null
-ln -s "$SCRIPTPATH/others/tomorrow-theme/vim/colors/Tomorrow-Night.vim" ~/.vim/colors/Tomorrow-Night.vim
+ln -s "$SCRIPTPATH/vim/vimrc.dev" ~/.vimrc
 
 echo "Configuring gedit"
 # /usr/share/gtksourceview-{2,3}.0/styles/
