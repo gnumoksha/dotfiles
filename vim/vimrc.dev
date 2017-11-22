@@ -39,11 +39,17 @@ Plug 'Yggdroot/indentLine' " Display the indention levels with thin vertical lin
 Plug 'Shougo/vimshell.vim' " Powerful shell implemented by vim.
 Plug 'SirVer/ultisnips' " The ultimate snippet solution for Vim
 Plug 'honza/vim-snippets' " Snippets files for various programming languages.
+Plug 'Shougo/vimproc.vim', { 'do': 'make' } " Interactive command execution in Vim.
+Plug 'xolox/vim-misc' " Miscellaneous auto-load Vim scripts.
+Plug 'xolox/vim-session' " Extended session management for Vim (:mksession on steroids).
+
 " A code-completion engine for Vim.
 " Required: apt-get install build-essential cmake python-dev python3-dev
 " Bonus: apt-get install golang nodejs npm
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --js-completer' } 
-Plug 'Shougo/vimproc.vim', { 'do': 'make' } " Interactive command execution in Vim.
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --js-completer' }
+
+Plug 'junegunn/fzf', { 'dir': '/opt/_apps/_gnu+linux/_bin/fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " Git
 Plug 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal.
@@ -51,7 +57,7 @@ Plug 'gregsexton/gitv', {'on': ['Gitv']} " gitk for Vim.
 Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-" Color schemes
+" Colors
 Plug 'vim-scripts/CSApprox' " Make gvim-only colorschemes work transparently in terminal vim.
 Plug 'nanotech/jellybeans.vim', { 'tag': 'v1.6' }
 Plug 'mhinz/vim-janah'
@@ -121,6 +127,8 @@ set backspace=indent,eol,start
 " Força a exibição de caracteres não imprimíveis
 set listchars=tab:⇨\ ,eol:⏎,nbsp:☠,trail:•,extends:⟩,precedes:⟨
 set list
+
+
 
 """""""""""""""""""""""""""""""
 "             Tela            "
@@ -308,10 +316,67 @@ vnoremap > >gv
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+" Split
+noremap <Leader>h :<C-u>split<CR>
+noremap <Leader>v :<C-u>vsplit<CR>
+
+" Git
+noremap <Leader>ga :Gwrite<CR>
+noremap <Leader>gc :Gcommit<CR>
+noremap <Leader>gsh :Gpush<CR>
+noremap <Leader>gll :Gpull<CR>
+noremap <Leader>gs :Gstatus<CR>
+noremap <Leader>gb :Gblame<CR>
+noremap <Leader>gd :Gvdiff<CR>
+noremap <Leader>gr :Gremove<CR>
+
+" session management
+nnoremap <leader>so :OpenSession<Space>
+nnoremap <leader>ss :SaveSession<Space>
+nnoremap <leader>sd :DeleteSession<CR>
+nnoremap <leader>sc :CloseSession<CR>
+
+" Tabs
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
+nnoremap <silent> <S-t> :tabnew<CR>
+
+" Set working directory
+nnoremap <leader>. :lcd %:p:h<CR>
+
+" Opens an edit command with the path of the currently edited file filled in
+noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
+" Opens a tab edit command with the path of the currently edited file filled
+noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+" Buffer nav
+noremap <leader>z :bp<CR>
+noremap <leader>q :bp<CR>
+noremap <leader>x :bn<CR>
+noremap <leader>w :bn<CR>
+
+" Close buffer
+noremap <leader>c :bd<CR>
+
+" Clean search (highlight)
+nnoremap <silent> <leader><space> :noh<cr>
+
+" Switching windows
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+noremap <C-h> <C-w>h
+
+" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
 
 """""""""""""""""""""""""""""""
 "    Plugins configuration    "
 """""""""""""""""""""""""""""""
+" # TODO passar os mapeamentos para a area de mapeamentos?
 
 " NERDTree configuration
 let g:NERDTreeChDirMode=2
@@ -321,6 +386,7 @@ let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
+let g:nerdtree_tabs_open_on_gui_startup = 0 " Show vim-startify in a new gvim window without files
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 nnoremap <silent> <F3> :NERDTreeToggle<CR>
@@ -403,6 +469,38 @@ nnoremap <silent> <leader>sh :VimShellCreate<CR>
 " YouCompleteMe
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 let g:ycm_always_populate_location_list = 1
+
+" xolox/vim-session
+let g:session_directory = "~/.vim/session"
+let g:session_autoload = "no"
+let g:session_autosave = "no"
+let g:session_command_aliases = 1
+
+" fzf.vim
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>e :FZF -m<CR>
+"O que isto faz?
+cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
+
+" The Silver Searcher
+" https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+  set grepprg=ag\ --nogroup\ --nocolor
+else
+    echoerr "Execute: sudo apt install silversearcher-ag"
+endif
+
+" ripgrep
+" https://github.com/BurntSushi/ripgrep
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  set grepprg=rg\ --vimgrep
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+endif
 
 " StanAngeloff/php.vim (loaded by vim-polyglot)
 function! PhpSyntaxOverride()
