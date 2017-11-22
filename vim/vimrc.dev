@@ -34,7 +34,6 @@ Plug 'mhinz/vim-startify' " The fancy start screen for Vim.
 Plug 'scrooloose/nerdcommenter' " Vim plugin for intensely orgasmic commenting.
 Plug 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light as air.
 Plug 'vim-airline/vim-airline-themes' " A collection of themes for vim-airline.
-Plug 'majutsushi/tagbar' " Displays tags in a window, ordered by scope.
 Plug 'Yggdroot/indentLine' " Display the indention levels with thin vertical lines.
 Plug 'Shougo/vimshell.vim' " Powerful shell implemented by vim.
 Plug 'SirVer/ultisnips' " The ultimate snippet solution for Vim
@@ -42,6 +41,12 @@ Plug 'honza/vim-snippets' " Snippets files for various programming languages.
 Plug 'Shougo/vimproc.vim', { 'do': 'make' } " Interactive command execution in Vim.
 Plug 'xolox/vim-misc' " Miscellaneous auto-load Vim scripts.
 Plug 'xolox/vim-session' " Extended session management for Vim (:mksession on steroids).
+Plug 'iamcco/markdown-preview.vim' " Real-time markdown preview plugin for vim.
+
+Plug 'majutsushi/tagbar' " Displays tags in a window, ordered by scope.
+if !executable("ctags")
+    echoerr "Install exuberant-ctags in order to use tagbar plugin!"
+endif
 
 " A code-completion engine for Vim.
 " Required: apt-get install build-essential cmake python-dev python3-dev
@@ -187,7 +192,7 @@ set modelines=10
 
 set title
 set titleold="Terminal"
-set titlestring=%F
+set title titlestring=...%{strpart(expand(\"%:p:h\"),stridx(expand(\"%:p:h\"),\"/\",strlen(expand(\"%:p:h\"))-12))}%=%n.\ \ %{expand(\"%:t:r\")}\ %m\ %Y\ \ \ \ %l\ of\ %L " ref05
 
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 
@@ -214,7 +219,7 @@ set statusline+=%{fugitive#statusline()}
 " Faz com que o vim pule para a posição no arquivo onde se parou na última
 " fez que ele foi aberto
 if has("autocmd")
-	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 " copia a indentação anterior na auto indentação
 set copyindent
@@ -269,6 +274,8 @@ set expandtab
 " F2 = nerdtree find
 " F3 = nerdtree toggle
 " F4 = tags (symbols)
+" F8 = Markdown preview
+" F9 = Markdown preview
 
 " Define o leader (prefixo de comando) para ,
 let mapleader=","
@@ -374,7 +381,9 @@ vnoremap K :m '<-2<CR>gv=gv
 
 
 """""""""""""""""""""""""""""""
+"                             "
 "    Plugins configuration    "
+"                             "
 """""""""""""""""""""""""""""""
 " # TODO passar os mapeamentos para a area de mapeamentos?
 
@@ -502,6 +511,41 @@ if executable('rg')
   command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 endif
 
+" iamcco/markdown-preview.vim {{{
+" path to the chrome or the command to open chrome(or other modern browsers)
+" if set, g:mkdp_browserfunc would be ignored
+let g:mkdp_path_to_chrome = "/opt/_apps/_gnu+linux/_internet/firefox/firefox"
+
+" callback vim function to open browser, the only param is the url to open
+let g:mkdp_browserfunc = 'MKDP_browserfunc_default'
+
+" set to 1, the vim will open the preview window once enter the markdown
+" buffer
+let g:mkdp_auto_start = 0
+
+" set to 1, the vim will auto open preview window when you edit the
+" markdown file
+let g:mkdp_auto_open = 0
+
+" set to 1, the vim will auto close current preview window when change
+" from markdown buffer to another buffer
+let g:mkdp_auto_close = 1
+
+" set to 1, the vim will just refresh markdown when save the buffer or
+" leave from insert mode, default 0 is auto refresh markdown as you edit or
+" move the cursor
+let g:mkdp_refresh_slow = 0
+
+" set to 1, the MarkdownPreview command can be use for all files,
+" by default it just can be use in markdown file
+let g:mkdp_command_for_global = 0
+
+nmap <silent> <F8> <Plug>MarkdownPreview        " for normal mode
+imap <silent> <F8> <Plug>MarkdownPreview        " for insert mode
+nmap <silent> <F9> <Plug>StopMarkdownPreview    " for normal mode
+imap <silent> <F9> <Plug>StopMarkdownPreview    " for insert mode
+"}}}
+
 " StanAngeloff/php.vim (loaded by vim-polyglot)
 function! PhpSyntaxOverride()
   hi! def link phpDocTags  phpDefine
@@ -511,5 +555,12 @@ augroup phpSyntaxOverride
   autocmd!
   autocmd FileType php call PhpSyntaxOverride()
 augroup END
+
+"""""""""""""""""""""""""""""""
+"                             "
+"           References        "
+"                             "
+"""""""""""""""""""""""""""""""
+" 05 https://coderwall.com/p/lznfyw/better-title-string-for-vim
 
 "EOF
