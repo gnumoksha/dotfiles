@@ -142,10 +142,14 @@ set backspace=indent,eol,start
 set listchars=tab:⇨\ ,eol:⏎,nbsp:☠,trail:•,extends:⟩,precedes:⟨
 set list
 
+" Make File-Open track directory of current file
+set browsedir=buffer
 
 
 """""""""""""""""""""""""""""""
-"             Tela            "
+"                             "
+"           Screen            "
+"                             "
 """""""""""""""""""""""""""""""
 syntax on
 set ruler  " shows cursor position
@@ -221,10 +225,6 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 set statusline+=%{fugitive#statusline()}
 
-" ? Iniciar a wild expansion na linha de comando usando <Tab>
-"set wildmenu
-"set wildchar=<TAB>
-
 " Faz com que o vim pule para a posição no arquivo onde se parou na última
 " fez que ele foi aberto
 if has("autocmd")
@@ -238,13 +238,10 @@ set copyindent
 set showmatch
 " Define a largura do texto, em numero de caracteres
 "set textwidth=79
-" Coluna 80 colorida
-set colorcolumn=80
-" Destaca a linha atual
-set cursorline
+set colorcolumn=120 " Exibe uma marca na coluna especificada.
+set cursorline " Destaca a linha onde o cursor está.
 
-" Searching
-"{
+" Searching {{{
 " Igora case sensitive durante as buscas
 set ignorecase
 " Ignora a opcao 'ignorecase' se o texto a ser buscado contem caracteres
@@ -255,10 +252,9 @@ set hlsearch
 " Busca incremental. Vai buscando e mostrando os resultados conforme se
 " vai digitando o texto a buscar.
 set incsearch
-"}
+"}}}
 
-" Espaços no lugar de Tab
-"{
+" Espaços no lugar de Tab {{{
 " numero de espacos que <Tab>
 set tabstop=4
 " numero de espacos a ser utilizado em cada autoindentação
@@ -270,7 +266,8 @@ set softtabstop=0
 " e quando 'autoindent' esta ligado. Para inserir uma tabulacao
 " real quando 'expandtab' esta ligado, use Ctrl-V <Tab>
 set expandtab
-"}
+"}}}
+
 
 """"""""""""""""""""""""""""""""""""""""""
 "                                        "
@@ -318,11 +315,6 @@ noremap XX "+x<CR>
 " Faz com que blocos selecionados sejam reselecionados após identações
 vnoremap < <gv
 vnoremap > >gv
-
-" nova aba
-"map <C-t><C-t> :tabnew<CR>
-" fecha aba
-"map <C-t><C-w> :tabclose<CR>
 
 " abre o console de erro
 "map <leader>cc :botright cope<CR>
@@ -387,6 +379,22 @@ noremap <C-h> <C-w>h
 " Move visual block
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+
+" SmartHome
+" Pressing the Home key moves the cursor to the first nonblank character on
+" the line, or, if already at that position, to the start of the line.
+function! SmartHome()
+  let first_nonblank = match(getline('.'), '\S') + 1
+  if first_nonblank == 0
+    return col('.') + 1 >= col('$') ? '0' : '^'
+  endif
+  if col('.') == first_nonblank
+    return '0'  " if at first nonblank, go to start line
+  endif
+  return &wrap && wincol() > 1 ? 'g^' : '^'
+endfunction
+noremap <expr> <silent> <Home> SmartHome()
+imap <silent> <Home> <C-O><Home>
 
 
 """""""""""""""""""""""""""""""
@@ -470,8 +478,8 @@ nmap <silent> <F4> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 
 " ludovicchabant/vim-gutentags
-let g:gutentags_exclude = ['*.css', '*.html', '*.js']
 let g:gutentags_cache_dir = '~/.vim/gutentags'
+let g:gutentags_ctags_exclude = ['*.css', '*.html', '*.js']
 
 " vim-php/tagbar-phpctags.vim
 let g:tagbar_phpctags_bin='~/.vim/bin/phpctags'
@@ -577,9 +585,10 @@ augroup END
 
 """""""""""""""""""""""""""""""
 "                             "
-"           References        "
+"        Main References      "
 "                             "
 """""""""""""""""""""""""""""""
 " 05 https://coderwall.com/p/lznfyw/better-title-string-for-vim
+" 06 http://vim.wikia.com/wiki/VimTip315
 
 "EOF
