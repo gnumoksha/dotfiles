@@ -80,6 +80,7 @@
 	# redirecionados para o seu correspondendo com prefixo
 	
 	# comuns [8]
+	d = diff
 	st = status
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	type = cat-file -t

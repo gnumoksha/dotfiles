@@ -1,23 +1,22 @@
 """"""""""""""""""""""""""""""""""""""""""
 "                                        "
-"   Arquivo de configuracao para o VIM   "
+"       VIM configuration file for       "
+"          development purposes          "
 "                                        "
 """"""""""""""""""""""""""""""""""""""""""
+if !executable("curl")
+  echoerr "You do not have curl installed and you will need it :)"
+  execute "q!"
+endif
 
+"TODO how ignore debian vim home?
 
 """""""""""""""""""""""""""""""
 "                             "
-" Carrega arquivos externos   "
-" necessários (i.e. plugins)  "
+"         Load plugins        "
 "                             "
 """""""""""""""""""""""""""""""
-let vimplug_exists=expand('~/.vim/autoload/plug.vim')
-
-if !filereadable(vimplug_exists)
-  if !executable("curl")
-    echoerr "You have to install curl or first install vim-plug yourself!"
-    execute "q!"
-  endif
+if !filereadable(expand('~/.vim/autoload/plug.vim'))
   echo "Installing Vim-Plug..."
   echo ""
   silent !\curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -47,7 +46,7 @@ Plug 'ctrlpvim/ctrlp.vim' " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, 
 Plug 'ludovicchabant/vim-gutentags' " A Vim plugin that manages your tag files.
 Plug 'majutsushi/tagbar' " Displays tags in a window, ordered by scope.
 if !executable("ctags")
-    echoerr "Install exuberant-ctags in order to use tagbar plugin!"
+  echoerr "Install exuberant-ctags in order to use tagbar plugin!"
 endif
 
 " A code-completion engine for Vim.
@@ -65,31 +64,23 @@ Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutte
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Colors
-Plug 'vim-scripts/CSApprox' " Make gvim-only colorschemes work transparently in terminal vim.
-Plug 'nanotech/jellybeans.vim', { 'tag': 'v1.6' }
-Plug 'mhinz/vim-janah'
-Plug 'chriskempson/base16-vim'
-Plug 'tomasr/molokai'
+Plug 'godlygeek/csapprox' " (old: vim-scripts/CSApprox) Make gvim-only colorschemes work transparently in terminal vim.
+Plug 'joshdick/onedark.vim' " A dark Vim/Neovim color scheme inspired by Atom's One Dark syntax theme.
+Plug 'tomasr/molokai' " Molokai color scheme for Vim.
+Plug 'chriskempson/base16-vim' " Base16 for Vim.
+Plug 'mhinz/vim-janah' " A dark colorscheme for Vim.
+Plug 'nanotech/jellybeans.vim', { 'tag': 'v1.6' } " A colorful, dark color scheme for Vim.
 
 " Syntax
 Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
 "Plug 'ekalinin/Dockerfile.vim' " Vim syntax file & snippets for Docker's Dockerfile.
 
-" PHP
-" StanAngeloff/php.vim is loaded by vim-polyglot.
-Plug 'shawncplus/phpcomplete.vim'
-Plug 'arnaud-lb/vim-php-namespace'
-"Plug 'vim-php/vim-php-refactoring'
-Plug 'vim-php/tagbar-phpctags.vim'
-let phpctags_exists=expand('~/.vim/bin/phpctags')
-if !filereadable(phpctags_exists)
-  echo "Installing phpctags..."
-  echo ""
-  silent !\curl -fLo ~/.vim/bin/phpctags --create-dirs http://vim-php.com/phpctags/install/phpctags.phar
+" Includes plugins for specific languages
+" expand('%:p:h') means the directory where .vimrc is, as my .vimrc
+" is usually a symbolic link for my 'dotfiles' directory.
+if filereadable(expand('%:p:h') . '/plugins/php.vimrc')
+  source %:p:h/plugins/php.vimrc
 endif
-
-"Plug 'vim-php/vim-composer'
-"Plug 'wdalmut/vim-phpunit.git'
 
 " Initialize plugin system
 call plug#end()
@@ -97,7 +88,7 @@ call plug#end()
 
 """""""""""""""""""""""""""""""
 "                             "
-"     Definições genéricas    "
+"    General configurations   "
 "                             "
 """""""""""""""""""""""""""""""
 " http://stackoverflow.com/questions/5845557/in-a-vimrc-is-set-nocompatible-completely-useless
@@ -109,9 +100,9 @@ autocmd! bufwritepost .vimrc source ~/.vimrc
 " Enable hidden buffers
 set hidden
 
-" Diz ao vim para carregar ??
-" Este parametro é obrigatorio para este arquivo funcionar.
-filetype plugin on
+" Enable filetype detection, plugin and indent loading for specific file
+" types.
+filetype plugin indent on
 
 " Disable visualbell
 set noerrorbells visualbell t_vb=
@@ -144,6 +135,28 @@ set list
 
 " Make File-Open track directory of current file
 set browsedir=buffer
+
+"Keep backups of files in case I mess up :)
+set backup
+set backupcopy=yes
+set backupdir=$HOME/.vim/backups
+
+" Where store swap files.
+set directory=$HOME/.vim/swap//,.
+
+" Enable spell checking.
+if !filereadable(expand('~/.vim/spell/en.utf-8.sug'))
+  echo "Downloading spell files..."
+  echo ""
+  silent !\curl -fLo ~/.vim/spell/en.utf-8.sug --create-dirs http://ftp.vim.org/vim/runtime/spell/en.utf-8.sug
+  silent !\curl -fLo ~/.vim/spell/en.utf-8.spl --create-dirs http://ftp.vim.org/vim/runtime/spell/en.utf-8.spl
+
+  silent !\curl -fLo ~/.vim/spell/pt.utf-8.sug --create-dirs http://ftp.vim.org/vim/runtime/spell/pt.utf-8.sug
+  silent !\curl -fLo ~/.vim/spell/pt.utf-8.spl --create-dirs http://ftp.vim.org/vim/runtime/spell/pt.utf-8.spl
+endif
+set spell
+set spellfile=$HOME/.vim/spell/en.utf-8.add,$HOME/.vim/spell/pt.utf-8.add
+set spelllang=en,pt
 
 
 """""""""""""""""""""""""""""""
@@ -205,7 +218,7 @@ set modelines=10
 
 set title
 set titleold="Terminal"
-set title titlestring=...%{strpart(expand(\"%:p:h\"),stridx(expand(\"%:p:h\"),\"/\",strlen(expand(\"%:p:h\"))-12))}%=%n.\ \ %{expand(\"%:t:r\")}\ %m\ %Y\ \ \ \ %l\ of\ %L " ref05
+set title titlestring=...%{strpart(expand(\"%:p:h\"),stridx(expand(\"%:p:h\"),\"/\",strlen(expand(\"%:p:h\"))-12))}%=%n.\ \ %{expand(\"%:t:r\")}\ %m\ %Y\ \ \ \ %l\ of\ %L " [ref05]
 
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 
@@ -254,17 +267,20 @@ set hlsearch
 set incsearch
 "}}}
 
-" Espaços no lugar de Tab {{{
-" numero de espacos que <Tab>
-set tabstop=4
-" numero de espacos a ser utilizado em cada autoindentação
-set shiftwidth=4
-" ?
-set softtabstop=0
-" Use o numero apropriado de espacos para inserir um <Tab>. Os
-" espacos sao utilizados em indentacoes com os comandos '<' e '>'
-" e quando 'autoindent' esta ligado. Para inserir uma tabulacao
-" real quando 'expandtab' esta ligado, use Ctrl-V <Tab>
+" Default indent with tabs. [ref 08] {{{
+" Changes the width of the TAB character.
+"set tabstop=4
+" Affects what happens when you press >>, << or ==. It also affects how
+" automatic indentation works.
+"set shiftwidth=4
+" Affects what happens when you press the <TAB> or <BS> keys.
+" Its default value is the same as the value of 'tabstop'.
+"set softtabstop=0
+" Affects what happens when you press the <TAB> key.
+" If 'expandtab' is set, pressing the <TAB> key will always
+" insert 'softtabstop' amount of space characters.
+" Otherwise, the amount of spaces inserted is minimized
+" by using TAB characters.
 set expandtab
 "}}}
 
@@ -275,6 +291,7 @@ set expandtab
 "                                        "
 """"""""""""""""""""""""""""""""""""""""""
 
+" S = save file
 " <leader>cb = comment
 " <leader> c<space> = uncomment
 " F2 = nerdtree find
@@ -283,9 +300,14 @@ set expandtab
 " F8 = Markdown preview
 " F9 = Markdown preview
 
-" Define o leader (prefixo de comando) para ,
-let mapleader=","
-let g:mapleader=","
+" Leader key
+"let mapleader=","
+"let g:mapleader=","
+" [ref 07]
+map <space> <leader>
+map <space><space> <leader><leader>
+
+map S :w<cr>
 
 "Ao inves de usar : use ; que nao precisa do shift
 nnoremap ; :
@@ -481,9 +503,6 @@ let g:tagbar_autofocus = 1
 let g:gutentags_cache_dir = '~/.vim/gutentags'
 let g:gutentags_ctags_exclude = ['*.css', '*.html', '*.js']
 
-" vim-php/tagbar-phpctags.vim
-let g:tagbar_phpctags_bin='~/.vim/bin/phpctags'
-
 " indentLine
 let g:indentLine_char = '⁞'
 
@@ -573,15 +592,6 @@ imap <silent> <F9> <Plug>StopMarkdownPreview    " for insert mode
 " ctrlpvim/ctrlp.vim
 map <silent> <leader>jd :CtrlPTag<cr><c-\>w
 
-" StanAngeloff/php.vim (loaded by vim-polyglot)
-function! PhpSyntaxOverride()
-  hi! def link phpDocTags  phpDefine
-  hi! def link phpDocParam phpType
-endfunction
-augroup phpSyntaxOverride
-  autocmd!
-  autocmd FileType php call PhpSyntaxOverride()
-augroup END
 
 """""""""""""""""""""""""""""""
 "                             "
@@ -590,5 +600,7 @@ augroup END
 """""""""""""""""""""""""""""""
 " 05 https://coderwall.com/p/lznfyw/better-title-string-for-vim
 " 06 http://vim.wikia.com/wiki/VimTip315
+" 07 https://www.reddit.com/r/vim/comments/1vdrxg/space_is_a_big_key_what_do_you_map_it_to/
+" 08 http://vim.wikia.com/wiki/Indenting_source_code
 
 "EOF
