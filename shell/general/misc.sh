@@ -7,7 +7,9 @@ export PATH="$PATH:/usr/games"
 # PHP composer
 export PATH="$PATH:~/.config/composer/vendor/bin"
 # Binarios extras sem instalador para debian
-export PATH="$PATH:/opt/_apps/_gnu+linux/_bin/"
+export PATH="/opt/_apps/_gnu+linux/_bin:$PATH"
+# Python
+export PATH="$PATH:/home/tobias/.local/bin"
 
 # For Golang
 export GOPATH=/usr/src/tobias/go
