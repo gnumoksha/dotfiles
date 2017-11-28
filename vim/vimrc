@@ -4,12 +4,14 @@
 "          development purposes          "
 "                                        "
 """"""""""""""""""""""""""""""""""""""""""
+"TODO how ignore debian vim home?
+"TODO remove unused code (from basic.vim)"
+
 if !executable("curl")
   echoerr "You do not have curl installed and you will need it :)"
   execute "q!"
 endif
 
-"TODO how ignore debian vim home?
 
 """""""""""""""""""""""""""""""
 "                             "
@@ -52,13 +54,15 @@ endif
 " A code-completion engine for Vim.
 " Required: apt-get install build-essential cmake python-dev python3-dev
 " Bonus: apt-get install golang nodejs npm
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --js-completer' }
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --js-completer' }
 
 Plug 'junegunn/fzf', { 'dir': '/opt/_apps/_gnu+linux/_bin/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Git
 Plug 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal.
+Plug 'tpope/vim-rhubarb' " GitHub extension for fugitive.vim
+Plug 'shumphrey/fugitive-gitlab.vim' " An extension to fugitive.vim for gitlab support
 Plug 'gregsexton/gitv', {'on': ['Gitv']} " gitk for Vim.
 Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -145,18 +149,19 @@ set backupdir=$HOME/.vim/backups
 set directory=$HOME/.vim/swap//,.
 
 " Enable spell checking.
-if !filereadable(expand('~/.vim/spell/en.utf-8.sug'))
-  echo "Downloading spell files..."
-  echo ""
-  silent !\curl -fLo ~/.vim/spell/en.utf-8.sug --create-dirs http://ftp.vim.org/vim/runtime/spell/en.utf-8.sug
-  silent !\curl -fLo ~/.vim/spell/en.utf-8.spl --create-dirs http://ftp.vim.org/vim/runtime/spell/en.utf-8.spl
+" TODO enable spell checking only in a few file types
+"if !filereadable(expand('~/.vim/spell/en.utf-8.sug'))
+  "echo "Downloading spell files..."
+  "echo ""
+  "silent !\curl -fLo ~/.vim/spell/en.utf-8.sug --create-dirs http://ftp.vim.org/vim/runtime/spell/en.utf-8.sug
+  "silent !\curl -fLo ~/.vim/spell/en.utf-8.spl --create-dirs http://ftp.vim.org/vim/runtime/spell/en.utf-8.spl
 
-  silent !\curl -fLo ~/.vim/spell/pt.utf-8.sug --create-dirs http://ftp.vim.org/vim/runtime/spell/pt.utf-8.sug
-  silent !\curl -fLo ~/.vim/spell/pt.utf-8.spl --create-dirs http://ftp.vim.org/vim/runtime/spell/pt.utf-8.spl
-endif
-set spell
-set spellfile=$HOME/.vim/spell/en.utf-8.add,$HOME/.vim/spell/pt.utf-8.add
-set spelllang=en,pt
+  "silent !\curl -fLo ~/.vim/spell/pt.utf-8.sug --create-dirs http://ftp.vim.org/vim/runtime/spell/pt.utf-8.sug
+  "silent !\curl -fLo ~/.vim/spell/pt.utf-8.spl --create-dirs http://ftp.vim.org/vim/runtime/spell/pt.utf-8.spl
+"endif
+"set spell
+"set spellfile=$HOME/.vim/spell/en.utf-8.add,$HOME/.vim/spell/pt.utf-8.add
+"set spelllang=en,pt
 
 
 """""""""""""""""""""""""""""""
@@ -218,7 +223,9 @@ set modelines=10
 
 set title
 set titleold="Terminal"
-set title titlestring=...%{strpart(expand(\"%:p:h\"),stridx(expand(\"%:p:h\"),\"/\",strlen(expand(\"%:p:h\"))-12))}%=%n.\ \ %{expand(\"%:t:r\")}\ %m\ %Y\ \ \ \ %l\ of\ %L " [ref05]
+set titlestring=%F
+" This is nice, but makes scrolling very slow
+"set title titlestring=...%{strpart(expand(\"%:p:h\"),stridx(expand(\"%:p:h\"),\"/\",strlen(expand(\"%:p:h\"))-12))}%=%n.\ \ %{expand(\"%:t:r\")}\ %m\ %Y\ \ \ \ %l\ of\ %L " [ref05]
 
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 
@@ -290,16 +297,6 @@ set expandtab
 "              Keys mapping              "
 "                                        "
 """"""""""""""""""""""""""""""""""""""""""
-
-" S = save file
-" <leader>cb = comment
-" <leader> c<space> = uncomment
-" F2 = nerdtree find
-" F3 = nerdtree toggle
-" F4 = tags (symbols)
-" F8 = Markdown preview
-" F9 = Markdown preview
-
 " Leader key
 "let mapleader=","
 "let g:mapleader=","
@@ -359,6 +356,8 @@ noremap <Leader>gs :Gstatus<CR>
 noremap <Leader>gb :Gblame<CR>
 noremap <Leader>gd :Gvdiff<CR>
 noremap <Leader>gr :Gremove<CR>
+nnoremap <Leader>go :.Gbrowse<CR>
+
 
 " session management
 nnoremap <leader>so :OpenSession<Space>
@@ -528,6 +527,16 @@ let g:session_autoload = "no"
 let g:session_autosave = "no"
 let g:session_command_aliases = 1
 
+" tpope/vim-fugitive
+" The following autocommand will cause the quickfix window to open after any grep invocation
+autocmd QuickFixCmdPost *grep* cwindow
+
+" tpope/vim-rhubarb
+"let g:github_enterprise_urls = ['https://example.com']
+
+" fugitive-gitlab.vim
+"let g:fugitive_gitlab_domains = ['http://gitlab.com']
+
 " fzf.vim
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
@@ -598,6 +607,7 @@ map <silent> <leader>jd :CtrlPTag<cr><c-\>w
 "        Main References      "
 "                             "
 """""""""""""""""""""""""""""""
+" 04 https://github.com/avelino/vim-bootstrap/blob/master/vim_template/vimrc
 " 05 https://coderwall.com/p/lznfyw/better-title-string-for-vim
 " 06 http://vim.wikia.com/wiki/VimTip315
 " 07 https://www.reddit.com/r/vim/comments/1vdrxg/space_is_a_big_key_what_do_you_map_it_to/
