@@ -2,8 +2,9 @@
 
 
 " StanAngeloff/php.vim is loaded by vim-polyglot.
-Plug 'shawncplus/phpcomplete.vim'
-Plug 'arnaud-lb/vim-php-namespace'
+"Plug 'shawncplus/phpcomplete.vim' " Improved PHP omnicompletion
+Plug 'lvht/phpcd.vim' " A Intelligent/Smart PHP Complete Daemon Plugin for Vim/NeoVim
+Plug 'arnaud-lb/vim-php-namespace' " types "use" statements for you
 "Plug 'vim-php/vim-php-refactoring'
 Plug 'vim-php/tagbar-phpctags.vim'
 let phpctags_exists=expand('~/.vim/bin/phpctags')

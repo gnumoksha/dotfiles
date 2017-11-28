@@ -27,37 +27,30 @@ if !filereadable(expand('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
+" General purpose
 Plug 'scrooloose/nerdtree' " A tree explorer plugin for vim.
-Plug 'jistr/vim-nerdtree-tabs' " #TODO this plugin is not necessary https://github.com/scrooloose/nerdtree#faq
-Plug 'vim-syntastic/syntastic' " Syntax checking hacks for vim.
-Plug 'bronson/vim-trailing-whitespace' " Highlights trailing whitespace in red and provides :FixWhitespace to fix it.
+Plug 'jistr/vim-nerdtree-tabs' " TODO this plugin is not necessary https://github.com/scrooloose/nerdtree#faq
 Plug 'mhinz/vim-startify' " The fancy start screen for Vim.
-Plug 'scrooloose/nerdcommenter' " Vim plugin for intensely orgasmic commenting.
-Plug 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light as air.
-Plug 'vim-airline/vim-airline-themes' " A collection of themes for vim-airline.
-Plug 'Yggdroot/indentLine' " Display the indention levels with thin vertical lines.
-Plug 'Shougo/vimshell.vim' " Powerful shell implemented by vim.
-Plug 'SirVer/ultisnips' " The ultimate snippet solution for Vim
-Plug 'honza/vim-snippets' " Snippets files for various programming languages.
-Plug 'Shougo/vimproc.vim', { 'do': 'make' } " Interactive command execution in Vim.
 Plug 'xolox/vim-misc' " Miscellaneous auto-load Vim scripts.
 Plug 'xolox/vim-session' " Extended session management for Vim (:mksession on steroids).
-Plug 'iamcco/markdown-preview.vim' " Real-time markdown preview plugin for vim.
+Plug 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light as air.
+Plug 'vim-airline/vim-airline-themes' " A collection of themes for vim-airline.
+Plug 'Shougo/vimshell.vim' " Powerful shell implemented by vim.
+Plug 'Shougo/vimproc.vim', { 'do': 'make' } " Interactive command execution in Vim.
 Plug 'ctrlpvim/ctrlp.vim' " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
+Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
+Plug 'junegunn/fzf', { 'dir': '/opt/_apps/_gnu+linux/_bin/fzf', 'do': './install --all' } " A command-line fuzzy finder.
+Plug 'junegunn/fzf.vim' " Vim plugin for FZF: a command-line fuzzy finder.
 
-Plug 'ludovicchabant/vim-gutentags' " A Vim plugin that manages your tag files.
-Plug 'majutsushi/tagbar' " Displays tags in a window, ordered by scope.
-if !executable("ctags")
-  echoerr "Install exuberant-ctags in order to use tagbar plugin!"
-endif
-
-" A code-completion engine for Vim.
-" Required: apt-get install build-essential cmake python-dev python3-dev
-" Bonus: apt-get install golang nodejs npm
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --js-completer' }
-
-Plug 'junegunn/fzf', { 'dir': '/opt/_apps/_gnu+linux/_bin/fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" Color schemes and icons
+Plug 'godlygeek/csapprox' " (old: vim-scripts/CSApprox) Make gvim-only colorschemes work transparently in terminal vim.
+Plug 'tomasr/molokai' " Molokai color scheme for Vim.
+Plug 'junegunn/seoul256.vim' " Low-contrast Vim color scheme based on Seoul Colors.
+Plug 'joshdick/onedark.vim' " A dark Vim/Neovim color scheme inspired by Atom's One Dark syntax theme.
+Plug 'chriskempson/base16-vim' " Base16 for Vim.
+Plug 'mhinz/vim-janah' " A dark colorscheme for Vim.
+Plug 'nanotech/jellybeans.vim', { 'tag': 'v1.6' } " A colorful, dark color scheme for Vim.
+Plug 'ryanoasis/vim-devicons'  " Adds file type glyphs/icons to popular Vim plugins...
 
 " Git
 Plug 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal.
@@ -65,23 +58,35 @@ Plug 'tpope/vim-rhubarb' " GitHub extension for fugitive.vim
 Plug 'shumphrey/fugitive-gitlab.vim' " An extension to fugitive.vim for gitlab support
 Plug 'gregsexton/gitv', {'on': ['Gitv']} " gitk for Vim.
 Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Xuyuanp/nerdtree-git-plugin' " A plugin of NERDTree showing git status.
 
-" Colors
-Plug 'godlygeek/csapprox' " (old: vim-scripts/CSApprox) Make gvim-only colorschemes work transparently in terminal vim.
-Plug 'joshdick/onedark.vim' " A dark Vim/Neovim color scheme inspired by Atom's One Dark syntax theme.
-Plug 'tomasr/molokai' " Molokai color scheme for Vim.
-Plug 'chriskempson/base16-vim' " Base16 for Vim.
-Plug 'mhinz/vim-janah' " A dark colorscheme for Vim.
-Plug 'nanotech/jellybeans.vim', { 'tag': 'v1.6' } " A colorful, dark color scheme for Vim.
+" Helps mainly with software development
+"Plug 'vim-syntastic/syntastic' " Syntax checking hacks for vim. (conflicts
+"with 'w0rp/ale')
+"Plug 'bronson/vim-trailing-whitespace' " Highlights trailing whitespace in red and provides :FixWhitespace to fix it. ('w0rp/ale' do the same)
+Plug 'scrooloose/nerdcommenter' " Vim plugin for intensely orgasmic commenting.
+Plug 'Yggdroot/indentLine' " Display the indention levels with thin vertical lines.
+Plug 'SirVer/ultisnips' " The ultimate snippet solution for Vim.
+Plug 'honza/vim-snippets' " Snippets files for various programming languages.
+Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab.
+Plug 'ludovicchabant/vim-gutentags' " A Vim plugin that manages your tag files.
+Plug 'majutsushi/tagbar' " Displays tags in a window, ordered by scope.
+if !executable("ctags")
+  echoerr "Install exuberant-ctags in order to use tagbar plugin!"
+endif
+" A code-completion engine for Vim.
+" 2017-11-27 - Tobias - PHP support is insufficient.
+" Must have: apt-get install build-essential cmake python-dev python3-dev
+" Nice to have: apt-get install golang nodejs npm
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --js-completer' }
+"
+Plug 'w0rp/ale' " Asynchronous Lint Engine.
 
-" Syntax
-Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
-"Plug 'ekalinin/Dockerfile.vim' " Vim syntax file & snippets for Docker's Dockerfile.
-
-" Includes plugins for specific languages
+" For specific languages.
 " expand('%:p:h') means the directory where .vimrc is, as my .vimrc
 " is usually a symbolic link for my 'dotfiles' directory.
+Plug 'iamcco/markdown-preview.vim' " Real-time markdown preview plugin for vim.
+"Plug 'ekalinin/Dockerfile.vim' " Vim syntax file & snippets for Docker's Dockerfile.
 if filereadable(expand('%:p:h') . '/plugins/php.vimrc')
   source %:p:h/plugins/php.vimrc
 endif
@@ -446,6 +451,7 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
+let g:airline#extensions#ale#enabled = 1 " enable support for w0rp/ale in vimairline
 "
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -600,6 +606,18 @@ imap <silent> <F9> <Plug>StopMarkdownPreview    " for insert mode
 
 " ctrlpvim/ctrlp.vim
 map <silent> <leader>jd :CtrlPTag<cr><c-\>w
+
+" w0rp/ale
+"let g:ale_fix_on_save = 1 " fix files automatically on save.
+"let g:ale_completion_enabled = 1 " By now only TypeScript is supported.
+"let g:ale_sign_column_always = 1 " keep the sign gutter open at all times
+let g:ale_echo_msg_error_str = 'E' " is the string used for error severity.
+let g:ale_echo_msg_warning_str = 'W' " is the string used for warning severity.
+let g:ale_echo_msg_format = '[%linter%] [%severity%] %s' " the format of message echoed by ALE.
+"let g:ale_set_loclist = 0 " Toggle the loclist use.
+"let g:ale_set_quickfix = 1 " Toggle the quickfix use.
+"let g:ale_open_list = 1 " Oppen quickfix when ALE detects errors/warnings.
+"let g:ale_keep_list_window_open = 1 " Keep the window open even after errors disappear.
 
 
 """""""""""""""""""""""""""""""
