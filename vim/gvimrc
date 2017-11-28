@@ -1,0 +1,9 @@
+
+" The system menu file includes a "Buffers" menu and this disable it
+let no_buffers_menu=1
+
+" Size of gVim window
+set lines=999 columns=140
+
+"autocmd GUIEnter * winpos 100 50
+
