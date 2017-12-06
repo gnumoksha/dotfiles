@@ -184,6 +184,11 @@ set t_Co=256
 set guioptions=egmrti
 set gfn=Hack\ 12
 
+" If you prefer the scheme to match the original monokai background color.
+let g:molokai_original = 1
+" Alternative scheme under development for color terminals which attempts to bring the 256
+" color version as close as possible to the the default (dark) GUI version.
+"let g:rehash256 = 1
 colorscheme molokai
 
 " IndentLine
@@ -291,6 +296,8 @@ set expandtab
 "              Keys mapping              "
 "                                        "
 """"""""""""""""""""""""""""""""""""""""""
+nnoremap <F5> :filetype detect<CR>
+
 " Leader key
 "let mapleader=","
 "let g:mapleader=","
@@ -513,8 +520,8 @@ let g:vimshell_prompt =  '$ '
 nnoremap <silent> <leader>sh :VimShellCreate<CR>
 
 " YouCompleteMe
-nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
-let g:ycm_always_populate_location_list = 1
+"nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
+"let g:ycm_always_populate_location_list = 1
 
 " xolox/vim-session
 let g:session_directory = "~/.vim/session"
