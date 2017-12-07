@@ -40,7 +40,9 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' } " Interactive command execution in V
 Plug 'ctrlpvim/ctrlp.vim' " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
 Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
 Plug 'junegunn/fzf', { 'dir': '/opt/_apps/_gnu+linux/_bin/fzf', 'do': './install --all' } " A command-line fuzzy finder.
-Plug 'junegunn/fzf.vim' " Vim plugin for FZF: a command-line fuzzy finder.
+Plug 'junegunn/fzf.vim' " Vim plugin for FZF: a command-line fuzzy finder. TODO estudar mais este plugin. Ele é muito bom!
+Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim .
+Plug 'junegunn/limelight.vim' " Hyperfocus-writing in VimHyperfocus-writing in Vim.
 
 " Color schemes and icons
 Plug 'godlygeek/csapprox' " (old: vim-scripts/CSApprox) Make gvim-only colorschemes work transparently in terminal vim.
@@ -61,11 +63,12 @@ Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutte
 Plug 'Xuyuanp/nerdtree-git-plugin' " A plugin of NERDTree showing git status.
 
 " Helps mainly with software development
-"Plug 'vim-syntastic/syntastic' " Syntax checking hacks for vim. (conflicts
-"with 'w0rp/ale')
+"Plug 'vim-syntastic/syntastic' " Syntax checking hacks for vim. (conflicts with 'w0rp/ale')
 "Plug 'bronson/vim-trailing-whitespace' " Highlights trailing whitespace in red and provides :FixWhitespace to fix it. ('w0rp/ale' do the same)
 Plug 'scrooloose/nerdcommenter' " Vim plugin for intensely orgasmic commenting.
 Plug 'Yggdroot/indentLine' " Display the indention levels with thin vertical lines.
+Plug 'junegunn/vim-easy-align' " A Vim alignment plugin. # TODO estudar
+"Plug 'tpope/vim-surround' " Quoting/parenthesizing made simple. # TODO conferir se preciso ou se o outro plugin é melhor
 Plug 'SirVer/ultisnips' " The ultimate snippet solution for Vim.
 Plug 'honza/vim-snippets' " Snippets files for various programming languages.
 Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab.
@@ -79,13 +82,13 @@ endif
 " Must have: apt-get install build-essential cmake python-dev python3-dev
 " Nice to have: apt-get install golang nodejs npm
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --js-completer' }
-"
 Plug 'w0rp/ale' " Asynchronous Lint Engine.
 
 " For specific languages.
 " expand('%:p:h') means the directory where .vimrc is, as my .vimrc
 " is usually a symbolic link for my 'dotfiles' directory.
 Plug 'iamcco/markdown-preview.vim' " Real-time markdown preview plugin for vim.
+"Plug 'plasticboy/vim-markdown' " TODO estudar.
 "Plug 'ekalinin/Dockerfile.vim' " Vim syntax file & snippets for Docker's Dockerfile.
 if filereadable(expand('%:p:h') . '/plugins/php.vimrc')
   source %:p:h/plugins/php.vimrc
@@ -102,9 +105,6 @@ call plug#end()
 """""""""""""""""""""""""""""""
 " http://stackoverflow.com/questions/5845557/in-a-vimrc-is-set-nocompatible-completely-useless
 set nocompatible
-
-" Recarrega o vim automaticamente quando editando o vimrc
-autocmd! bufwritepost .vimrc source ~/.vimrc
 
 " Enable hidden buffers
 set hidden
@@ -183,6 +183,7 @@ set mousemodel=popup
 set t_Co=256
 set guioptions=egmrti
 set gfn=Hack\ 12
+set signcolumn=yes " Always show sign column.
 
 " If you prefer the scheme to match the original monokai background color.
 let g:molokai_original = 1
@@ -240,7 +241,7 @@ set showmode
 
 " Define um texto na barra de status
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 set statusline+=%{fugitive#statusline()}
 
@@ -249,15 +250,12 @@ set statusline+=%{fugitive#statusline()}
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
-" copia a indentação anterior na auto indentação
-set copyindent
+
 " Quando um bracket eh inserido, saltar rapidamente para o seu primeiro
 " correspondente. O salto só ocorre se o correspondente pode ser visto na
 " tela atual. Para definir por quanto tempo o salto ocorrera, use 'matchtime'
 set showmatch
-" Define a largura do texto, em numero de caracteres
-"set textwidth=79
-set colorcolumn=120 " Exibe uma marca na coluna especificada.
+set colorcolumn=121 " Exibe uma marca na coluna especificada. Ajuda a alinhar o texto.
 set cursorline " Destaca a linha onde o cursor está.
 
 " Searching {{{
@@ -287,7 +285,7 @@ set incsearch
 " insert 'softtabstop' amount of space characters.
 " Otherwise, the amount of spaces inserted is minimized
 " by using TAB characters.
-set expandtab
+"set expandtab
 "}}}
 
 
@@ -296,7 +294,16 @@ set expandtab
 "              Keys mapping              "
 "                                        "
 """"""""""""""""""""""""""""""""""""""""""
-nnoremap <F5> :filetype detect<CR>
+" The idea with this function is to be like a complete refresh of vim.
+if !exists('*MyReload')
+  function! MyReload()
+    echom "Reloading VIM..."
+    source ~/.vimrc " Reload vimrc
+    filetype detect " force file type detect
+    echom "VIM reloaded."
+  endfunction
+endif
+nnoremap <F5> :call MyReload()<CR>
 
 " Leader key
 "let mapleader=","
@@ -310,7 +317,7 @@ map S :w<cr>
 "Ao inves de usar : use ; que nao precisa do shift
 nnoremap ; :
 
-"" no one is really happy until you have this shortcuts
+" Avoid some common mistakes
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Qall! qall!
@@ -321,6 +328,22 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
+
+"Working with buffers
+" Lista os buffers com o FZF
+nnoremap <silent> <leader>b :Buffers<CR>
+" Executa fzf -m que exibe os arquivos no diretorio atual
+nnoremap <silent> <leader>e :FZF -m<CR>
+" Buffer nav
+noremap <leader>z :bp<CR>
+noremap <leader>q :bp<CR>
+noremap <leader>x :bn<CR>
+noremap <leader>w :bn<CR>
+" Close buffer
+noremap <leader>c :bd<CR>
+
+" TODO O que isto faz?
+"cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
 " ,p alterna o modo paste
 " parece que é melhor que pastetoggle
@@ -359,7 +382,6 @@ noremap <Leader>gd :Gvdiff<CR>
 noremap <Leader>gr :Gremove<CR>
 nnoremap <Leader>go :.Gbrowse<CR>
 
-
 " session management
 nnoremap <leader>so :OpenSession<Space>
 nnoremap <leader>ss :SaveSession<Space>
@@ -373,21 +395,6 @@ nnoremap <silent> <S-t> :tabnew<CR>
 
 " Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>
-
-" Opens an edit command with the path of the currently edited file filled in
-noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-
-" Opens a tab edit command with the path of the currently edited file filled
-noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
-
-" Buffer nav
-noremap <leader>z :bp<CR>
-noremap <leader>q :bp<CR>
-noremap <leader>x :bn<CR>
-noremap <leader>w :bn<CR>
-
-" Close buffer
-noremap <leader>c :bd<CR>
 
 " Clean search (highlight)
 nnoremap <silent> <leader><space> :noh<cr>
@@ -442,7 +449,7 @@ nnoremap <silent> <F3> :NERDTreeToggle<CR>
 " vim-airline
 " From: vim-bootstrap:
 let g:airline_theme = 'powerlineish'
-let g:airline#extensions#syntastic#enabled = 1
+"let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
@@ -485,16 +492,16 @@ endif
 
 " syntastic
 " From docs:
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-" From vim-bootstrap:
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_style_error_symbol = '✗'
-let g:syntastic_style_warning_symbol = '⚠'
-let g:syntastic_aggregate_errors = 1
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"" From vim-bootstrap:
+"let g:syntastic_error_symbol='✗'
+"let g:syntastic_warning_symbol='⚠'
+"let g:syntastic_style_error_symbol = '✗'
+"let g:syntastic_style_warning_symbol = '⚠'
+"let g:syntastic_aggregate_errors = 1
 
 " majutsushi/tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
@@ -543,10 +550,6 @@ autocmd QuickFixCmdPost *grep* cwindow
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
 let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
-nnoremap <silent> <leader>b :Buffers<CR>
-nnoremap <silent> <leader>e :FZF -m<CR>
-"O que isto faz?
-cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
 " The Silver Searcher
 " https://github.com/ggreer/the_silver_searcher
@@ -614,6 +617,22 @@ let g:ale_echo_msg_format = '[%linter%] [%severity%] %s' " the format of message
 "let g:ale_set_quickfix = 1 " Toggle the quickfix use.
 "let g:ale_open_list = 1 " Oppen quickfix when ALE detects errors/warnings.
 "let g:ale_keep_list_window_open = 1 " Keep the window open even after errors disappear.
+
+" junegunn/limelight.vim
+autocmd! User GoyoEnter Limelight
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+
+" airblade/vim-gitgutter
+let g:gitgutter_max_signs = 500  " 500 is the default value
+"let g:gitgutter_highlight_lines = 1 " To turn on line highlighting by default
+" If you experience a lag, you can trade speed for accuracy:
+"let g:gitgutter_realtime = 0
+"let g:gitgutter_eager = 0
 
 
 """""""""""""""""""""""""""""""

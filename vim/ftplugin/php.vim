@@ -5,10 +5,13 @@
 "                                        "
 """"""""""""""""""""""""""""""""""""""""""
 
-" For indentation without tabs
-" FIXME only work if there is 'expandtab' in .vimrc
-" Copied from vim80/ftdetect/python.vim
-setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=8
+" For smart indentation without tabs
+setlocal smartindent expandtab shiftwidth=4 softtabstop=4 tabstop=8
+
+setlocal textwidth=120 "	Maximum width of text that is being inserted
+setlocal colorcolumn=+1 " highlight column after 'textwidth'
+
+"set omnifunc=phpcomplete#CompletePHP
 
 """""""""""""""""""""""""""""""
 "                             "
