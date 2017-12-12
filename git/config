@@ -1,7 +1,7 @@
 ############################
-#                          #
-#    GIT configurations    #
-#                          #
+#                        #
+#  GIT configurations    #
+#                        #
 ############################
 
 [user]
@@ -24,7 +24,6 @@
 
 [diff]
 	# [0] [1] [2] [3]
-	#external = /home/tobias/outros/softwares/instalados/scripts/git_diff.sh
 	# meld | diffuse | kompare | kdiff3
 	# diffmerge | bcompare
 	tool = meld
@@ -37,9 +36,13 @@
 	textconv = exiftool
 
 [core]
+# Habilitar isso em sistemas nao case sensitive
+	#ignoreCase = true
 	editor = vim
-	autocrlf = input # valor 'true' causou erro no zsh: "command not found: ^M"
-	
+	#eol=lf
+	autocrlf = input
+	safecrlf = warn
+
 [merge]
 	# [5]
 	tool = meld
@@ -53,14 +56,14 @@
 
 [status]
 	submodulesummary = 1
-	
+
 [rebase]
 	autoStash = true
 
 [pull]
 	# https://stackoverflow.com/a/30209750/4668660
 	rebase = true
-	
+
 [push]
 	default = matching
 	# sempre envia as tags com anotacao referenciadas pelo branch que está sendo enviado
@@ -74,37 +77,34 @@
 	date = iso
 
 [alias]
-	# my- é meu prefixo para comandos. Utilizado para eu poder listar
-	# os meus aliases usando autocomplete no shell.
-	# alguns aliases nao tem o prefixo, para ser mais breve, mas sao
-	# redirecionados para o seu correspondendo com prefixo
-	
-	# comuns [8]
-	d = diff
+# General use
+	go = checkout
+	goTest = !git stash save --quiet "salvamento automatico durante git go" && git checkout "$1"
 	st = status
+	d = diff
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	type = cat-file -t
 	dump = cat-file -p
-	# [9]
-	my-last = log -1 HEAD
-
-	# genericos
-	my-go = checkout
-	go = checkout # nao funciona autocomplete se nao for um alias simples
-	my-goTest = !git stash save --quiet "salvamento automatico durante git go" && git checkout "$1"
-	my-undo-changes = reset --hard
-	undo-changes = !git my-undo-changes
-	my-unstage = reset
-	unstage = !git my-unstage
-	# #TODO terminar este comando
+	last = log -1 HEAD
+	fetch = fetch --all
+	pull = pull --all
+	stash-all = !git stash --include-untracked --save "Stash at $(date +%Y-%m-%d-%H:%M:%S)"
+	# https://stackoverflow.com/questions/10312521/how-to-fetch-all-git-branches
+	# https://coderwall.com/p/0ypmka/git-clone-all-remote-branches-locally
+	fetch-all = "! for branch in $(git branch -a | grep remotes | grep -v HEAD); do git branch --track ${branch#remotes/origin/} $branch; done"
+	clone-all = !git fetch-all
+	discard = reset --hard HEAD
+# TODO remover tambem arquivos modificados localmente e nao trackeados
+	discard-all = !git discard && git clean -f -d -i
+	unstage = reset
+	#TODO terminar este comando
 	#my-begin-agin = git reset --soft origin/dev
-
 	# quero apenas os arquivos para usar o software :)
 	# Fonte: git clone --help
-	my-download = clone --depth=1 --shallow-submodules --recurse-submodules
-	my-download-all-branches = !git download --no-single-branch
+	download = clone --depth=1 --shallow-submodules --recurse-submodules
+	download-all-branches = !git download --no-single-branch
 
-	my-cherry-pick = cherry-pick -x
+	cherry-pick = cherry-pick -x
 
 	# automacao do projeto [6]
 	my-changed-specs = !git diff --name-only master -- spec | egrep '.rb'
@@ -112,18 +112,18 @@
 	my-changed-files = !git diff --name-only master | cat
 
 	# analise de dados [6]
-	my-list-authors = !git log --format="%aN"
-	my-list-unique-authors = !git authors | sort -u
-	my-list-ranked-authors = !git authors | sort | uniq -c | sort -n
-	my-list-emails = !git log --format="%aE"
-	my-list-email-domains = !git log --format="%aE" | awk -F'@' '{print $2}'
-	my-list-unique-email-domains = !git email-domains | sort -u
-	my-list-ranked-email-domains = !git email-domains | sort | uniq -c | sort -n
-	my-log-one-week = !git diff --stat `git log --since='1 week' --format=%H | tail -1`
+	list-authors = !git log --format="%aN"
+	list-unique-authors = !git authors | sort -u
+	list-ranked-authors = !git authors | sort | uniq -c | sort -n
+	list-emails = !git log --format="%aE"
+	list-email-domains = !git log --format="%aE" | awk -F'@' '{print $2}'
+	list-unique-email-domains = !git email-domains | sort -u
+	list-ranked-email-domains = !git email-domains | sort | uniq -c | sort -n
+	log-one-week = !git diff --stat `git log --since='1 week' --format=%H | tail -1`
 	#
 	#diff-commit = show --color --pretty=format:%b
 
-	my-log-changes = !git log -p -m --first-parent -30
+	log-changes = !git log -p -m --first-parent -30
 	# [10]
 	showtool = "!showci () { rev=$(git rev-parse \"${*:-HEAD}\"); git difftool $rev~1 $rev; }; showci"
 
@@ -144,8 +144,7 @@
 	# > significa que tem no prod
 	# Baseado em: https://stackoverflow.com/a/7567953/4668660
 	# #TODO usar --no-merges ?
-	my-compare = !git my-log --left-right --graph --cherry-pick
-	compare = !git my-compare
+	compare = !git my-log --left-right --graph --cherry-pick
 
 
 [svn]
@@ -154,12 +153,26 @@
 
 [cola]
 	spellcheck = false
+	blameviewer = git gui blame
+
+[instaweb]
+browser = chromium
+
+[web]
+browser = chromium
+
+[browser "firefox"]
+#path = /opt/_apps/_gnu+linux/_internet/firefox/firefox
+#cmd = /opt/_apps/_gnu+linux/_internet/firefox/firefox --new-tab
+
+[fetch]
+	prune = true
 
 
 ############################
-#                          #
-#         Referências      #
-#                          #
+#                        #
+#       Referências      #
+#                        #
 ############################
 # [0] http://mycomputeradventures.blogspot.com.br/2012/08/git-external-diff-merge-tools_30.html
 # [1] http://technotales.wordpress.com/2009/05/17/git-diff-with-vimdiff/

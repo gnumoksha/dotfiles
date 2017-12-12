@@ -1,4 +1,11 @@
-# Key shortcuts for my vimrc
+## Vim
+q:
+q/
+
+git gutter
+You can jump between hunks with [c and ]c. You can preview, stage, and undo hunks with <leader>hp, <leader>hs, and <leader>hu respectively.
+
+## Key shortcuts for my vimrc
 
 Commands | Descriptions
 -------- | ------------
