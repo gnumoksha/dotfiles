@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+ https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml
+ https://stackoverflow.com/questions/16427207/php-codesniffer-rules-documentation
+-->
+<ruleset name="VetsPay_API">
+ <description>O padrão de escrita de código para a API do VetsPay.</description>
+
+ <file>app/</file>
+ <file>tests/</file>
+
+ <!-- Testes do Laravel/Lumen violam a PSR  -->
+ <exclude-pattern>tests/lumen/</exclude-pattern>
+
+ <arg name="basepath" value="."/>
+ <arg name="colors"/>
+  <arg value="spn"/>
+ <arg name="parallel" value="75" />
+
+ <ini name="memory_limit" value="64M"/>
+
+ <rule ref="PSR2"/>
+</ruleset>

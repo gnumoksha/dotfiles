@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ruleset name="Tobias's PHPMD rule set"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0
+                     http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="
+                     http://pmd.sf.net/ruleset_xml_schema.xsd">
+    <description>
+        My rule set.
+    </description>
+    <!--
+    Links uteis:
+    * Regras existentes https://phpmd.org/rules/index.html
+    * Como criar um arquivo de configuracao https://phpmd.org/documentation/creating-a-ruleset.html
+    -->
+
+    <!-- tamanho minimo de variavel = 3 -->
+
+    <rule ref="rulesets/cleancode.xml" />
+
+    <rule ref="rulesets/codesize.xml">
+        <exclude name="ExcessiveMethodLength" />
+        <exclude name="ExcessiveClassLength" />
+    </rule>
+    <rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
+        <properties>
+            <!-- 20 eh o valor padrao no NetBeans -->
+            <property name="minimum" value="30" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/ExcessiveClassLength">
+        <properties>
+            <!-- 200 eh o limite padrao do tamanho de classe no NetBeans.
+            Nao achei parametros para Interface (100 no NetBeans)
+            e Trait (200 no Netbeans) -->
+            <property name="minimum" value="200" />
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/controversial.xml" />
+    <rule ref="rulesets/design.xml" />
+    <rule ref="rulesets/naming.xml" />
+    <rule ref="rulesets/unusedcode.xml" />
+</ruleset>

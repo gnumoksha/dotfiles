@@ -38,3 +38,12 @@ let g:tagbar_phpctags_bin='~/.vim/bin/phpctags'
 " Indent 'case:' and 'default:' statements in switch() blocks:
 "let g:PHP_vintage_case_default_indent = 1
 
+" w0rp/ale
+"let g:ale_php_phpcs_executable="~/.config/composer/vendor/bin/phpcs"
+let g:ale_php_phpcs_standard='PSR2'
+"let g:ale_php_phpmd_executable="~/.config/composer/vendor/bin/phpmd"
+let g:ale_php_phpmd_ruleset='cleancode,codesize,controversial,design,naming,unusedcode'
+"let g:ale_php_phpstan_executable="~/.config/composer/vendor/bin/phpstan"
+"let g:ale_php_phpstan_configuration=/tmp/a
+"let g:ale_php_phan_executable="~/.config/composer/vendor/bin/phan"
+
