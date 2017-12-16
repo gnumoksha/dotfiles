@@ -39,7 +39,7 @@ Plug 'Shougo/vimshell.vim' " Powerful shell implemented by vim.
 Plug 'Shougo/vimproc.vim', { 'do': 'make' } " Interactive command execution in Vim.
 Plug 'ctrlpvim/ctrlp.vim' " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
 Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
-Plug 'junegunn/fzf', { 'dir': '/opt/_apps/_gnu+linux/_bin/fzf', 'do': './install --all' } " A command-line fuzzy finder.
+Plug 'junegunn/fzf', { 'dir': '/opt/apps/gnu+linux/bin/fzf', 'do': './install --all' } " A command-line fuzzy finder.
 Plug 'junegunn/fzf.vim' " Vim plugin for FZF: a command-line fuzzy finder. TODO estudar mais este plugin. Ele é muito bom!
 Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim .
 Plug 'junegunn/limelight.vim' " Hyperfocus-writing in VimHyperfocus-writing in Vim.
@@ -149,9 +149,15 @@ set browsedir=buffer
 set backup
 set backupcopy=yes
 set backupdir=$HOME/.vim/backups
+if !isdirectory(expand('~/.vim/backups'))
+  call mkdir(expand('~/.vim/backups'), "p")
+endif
 
 " Where store swap files.
 set directory=$HOME/.vim/swap//,.
+if !isdirectory(expand('~/.vim/swap'))
+  call mkdir(expand('~/.vim/swap'), "p")
+endif
 
 " Enable spell checking.
 " TODO enable spell checking only in a few file types
@@ -299,7 +305,7 @@ if !exists('*MyReload')
   function! MyReload()
     echom "Reloading VIM..."
     source ~/.vimrc " Reload vimrc
-    filetype detect " force file type detect
+    filetype detect " force file type detection
     echom "VIM reloaded."
   endfunction
 endif
@@ -311,8 +317,6 @@ nnoremap <F5> :call MyReload()<CR>
 " [ref 07]
 map <space> <leader>
 map <space><space> <leader><leader>
-
-map S :w<cr>
 
 "Ao inves de usar : use ; que nao precisa do shift
 nnoremap ; :
@@ -328,6 +332,12 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
+
+" Save current file
+map S :w<cr>
+
+" Execute current file
+nnoremap <leader>r :!"%:p"<CR>
 
 "Working with buffers
 " Lista os buffers com o FZF

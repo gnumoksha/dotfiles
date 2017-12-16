@@ -1,3 +1,4 @@
+# PUBKEY: DBA501177AA84500
 # http://gnumdk.github.io/lollypop-web/
 deb http://ppa.launchpad.net/gnumdk/lollypop/ubuntu zesty main
 deb-src http://ppa.launchpad.net/gnumdk/lollypop/ubuntu zesty main
