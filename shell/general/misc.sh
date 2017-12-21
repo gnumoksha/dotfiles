@@ -72,12 +72,9 @@ function definir_proxy () {
 }
 
 function show_cowsay_fortune () {
-	# Exibe uma frase dita por um 'treco' aleatorio
-	# No debian jessie/testing:
-	# apt-get install cowsay fortune-mod fortunes-br
-	# parece que nao encontra as mensagens se houver mais de um pacote instalado
-	# apt-get install cowsay fortunes-br fortunes-debian-hints
-	# apt-cache search fortunes para ver as outras opcoes
+	# Show fortune messages with a random cowsay character.
+	# apt install fortunes-mod fortunes fortune-anarchism fortunes-br fortunes-debian-hints
+	# fortunes-it fortunes-it-off fortunes-mario
 	# Nota: o código rodou de primeira \o/
 	# http://en.wikipedia.org/wiki/Fortune_%28Unix%29
 	# http://en.wikipedia.org/wiki/Cowsay

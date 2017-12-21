@@ -11,8 +11,8 @@ alias egrep='egrep --color=auto'
 
 # me from future: be careful and stay safe :)
 alias rm='rm --interactive --verbose'
-alias cp="cp --interactive"
-alias mv="mv --interactive"
+alias cp="cp --interactive --verbose"
+alias mv="mv --interactive --verbose"
 
 # Nice format :)
 alias dmesg="dmesg --color --ctime --decode"

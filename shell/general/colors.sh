@@ -4,8 +4,10 @@ export TERM=xterm-256color
 # http://www.cyberciti.biz/open-source/command-line-hacks/remark-command-regex-markup-examples/
 REMARK=$(which remark)
 if [[ ! -f $REMARK ]]; then
-	echo "Instale o remark para habilitar destaque de sintaxe"
 	echo "http://savannah.nongnu.org/download/regex-markup/"
+	echo "remark not found, installing it"
+	wget -c http://download.savannah.gnu.org/releases/regex-markup/regex-markup_0.10.0-1_amd64.deb -O /tmp/regex-markup.deb
+	sudo dpkg -i /tmp/regex-markup.deb
 else
 	ping_() { /bin/ping $@ | $REMARK /usr/share/regex-markup/ping; }
 	traceroute_() { /usr/sbin/traceroute $@ | $REMARK /usr/share/regex-markup/traceroute; }

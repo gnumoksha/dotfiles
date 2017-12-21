@@ -145,4 +145,6 @@ ln -fs "$SCRIPTPATH/others/fonts/awesome-terminal-fonts/config/10-symbols.conf" 
 # Instala e atualiza o cache de fontes
 ./others/fonts/powerline/install.sh
 
+./utils/install_nerd_fonts.sh
+
 #EOF
