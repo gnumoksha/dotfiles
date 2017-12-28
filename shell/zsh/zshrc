@@ -142,3 +142,5 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # https://github.com/tonylambiris/dotfiles/blob/master/dot.zshrc
 
 # vim: ft=zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
