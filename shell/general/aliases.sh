@@ -16,6 +16,8 @@ alias mv="mv --interactive"
 
 # Nice format :)
 alias dmesg="dmesg --color --ctime --decode"
+alias dmesg_useful="dmesg --level=notice,warn,err,crit,alert,emerg"
+alias dmesg_critical="dmesg --level=crit,alert,emerg"
 
 # Git in english
 # https://githowto.com/aliases
