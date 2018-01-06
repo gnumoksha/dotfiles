@@ -12,7 +12,7 @@ Commands | Descriptions
 <kbd>F2</kbd>  | Open tree navigate in actual opened file
 <kbd>F3</kbd>  | Open/Close tree navigate files
 <kbd>F4</kbd> | List all class and method, support for python, go, lua, ruby and php
-<kbd>F5</kbd> | YcmForceCompileAndDiagnostics
+<kbd>F5</kbd> | Refresh
 <kbd>F8</kbd> | Markdown preview
 <kbd>F9</kbd> | Markdown preview
 `:cd <path>` | Open path */path*
@@ -31,7 +31,7 @@ Commands | Descriptions
 `<leader>`<kbd>v</kbd> | Split vertical
 `<leader>`<kbd>h</kbd> | Split horizontal
 `<leader>`<kbd>f</kbd> | Search in the project
-`<leader>`<kbd>o</kbd> | Open github file/line (website), if used git in **github**
+`<leader>`<kbd>o</kbd> | Open file/line in github/gitlab
 `<leader>`<kbd>s</kbd><kbd>h</kbd> | Open shell.vim terminal inside Vim or NeoVim built-in terminal
 `<leader>`<kbd>g</kbd><kbd>a</kbd> | Execute *git add* on current file
 `<leader>`<kbd>g</kbd><kbd>c</kbd> | git commit (splits window to write commit message)

@@ -1,7 +1,7 @@
 ############################
-#                        #
-#  GIT configurations    #
-#                        #
+#                          #
+#    GIT configurations    #
+#                          #
 ############################
 
 [user]
@@ -40,7 +40,7 @@
 	#ignoreCase = true
 	editor = vim
 	#eol=lf
-	autocrlf = input
+	autocrlf = input # valor 'true' causou erro no zsh: "command not found: ^M"
 	safecrlf = warn
 
 [merge]
@@ -49,25 +49,37 @@
 	# deleta os arquivos de backup após o merge ser resolvido
 	keepBackup = false
 
-[merge "ours"]
-	# Merge strategy
-	# https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes#Merge-Strategies
-	driver = true
+# TODO is it necessary?
+;[merge "ours"]
+	;# Merge strategy
+	;# https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes#Merge-Strategies
+	;driver = true
 
 [status]
 	submodulesummary = 1
-
+	
 [rebase]
+	# Whether to show a diffstat of what changed upstream since the last rebase. False by default.
+	stat = true
+
+	# When set to true, automatically create a temporary stash entry before the operation begins, and apply it
+	# after the operation ends. This means that you can run rebase on a dirty worktree. However,
+	# use with care: the final stash application after a successful rebase might result in non-trivial conflicts.
+	# Defaults to false.
 	autoStash = true
 
 [pull]
 	# https://stackoverflow.com/a/30209750/4668660
 	rebase = true
-
+	
 [push]
-	default = matching
-	# sempre envia as tags com anotacao referenciadas pelo branch que está sendo enviado
-	# https://stackoverflow.com/a/3745250/4668660
+	# push the current branch to update a branch with the same name on the receiving end. Works in both
+	# central and non-central workflows.
+	default = current
+
+	# If set to true enable --follow-tags option by default, wich means push all the refs that would be pushed
+	# without this option, and also push annotated tags in refs/tags that are missing from the remote but are
+	# pointing at commit-ish that are reachable from the refs being pushed.
 	followTags = true
 
 [gui]
@@ -77,11 +89,12 @@
 	date = iso
 
 [alias]
-# General use
+	# General use
 	go = checkout
 	goTest = !git stash save --quiet "salvamento automatico durante git go" && git checkout "$1"
 	st = status
 	d = diff
+	st = status
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	type = cat-file -t
 	dump = cat-file -p
@@ -170,9 +183,9 @@ browser = chromium
 
 
 ############################
-#                        #
-#       Referências      #
-#                        #
+#                          #
+#         Referências      #
+#                          #
 ############################
 # [0] http://mycomputeradventures.blogspot.com.br/2012/08/git-external-diff-merge-tools_30.html
 # [1] http://technotales.wordpress.com/2009/05/17/git-diff-with-vimdiff/
