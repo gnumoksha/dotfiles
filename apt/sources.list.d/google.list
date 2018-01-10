@@ -1,4 +1,0 @@
-# Google Chrome
-# PUBKEY: 1397BC53640DB551
-deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
-
