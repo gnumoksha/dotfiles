@@ -35,6 +35,20 @@
 	# https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes
 	textconv = exiftool
 
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+
+[color "diff"]
+	meta = yellow
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+
 [core]
 # Habilitar isso em sistemas nao case sensitive
 	#ignoreCase = true
@@ -42,6 +56,7 @@
 	#eol=lf
 	autocrlf = input # valor 'true' causou erro no zsh: "command not found: ^M"
 	safecrlf = warn
+	pager = diff-so-fancy | less --tabs=4 -RFX
 
 [merge]
 	# [5]
@@ -57,7 +72,7 @@
 
 [status]
 	submodulesummary = 1
-	
+
 [rebase]
 	# Whether to show a diffstat of what changed upstream since the last rebase. False by default.
 	stat = true
@@ -71,7 +86,7 @@
 [pull]
 	# https://stackoverflow.com/a/30209750/4668660
 	rebase = true
-	
+
 [push]
 	# push the current branch to update a branch with the same name on the receiving end. Works in both
 	# central and non-central workflows.
@@ -93,15 +108,16 @@
 	go = checkout
 	goTest = !git stash save --quiet "salvamento automatico durante git go" && git checkout "$1"
 	st = status
-	d = diff
-	st = status
+	df = diff
+	sh = stash
+
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	type = cat-file -t
 	dump = cat-file -p
-	last = log -1 HEAD
 	fetch = fetch --all
 	pull = pull --all
-	stash-all = !git stash --include-untracked --save "Stash at $(date +%Y-%m-%d-%H:%M:%S)"
+	stash-all = !git stash save --include-untracked "Stash all at $(date +%Y-%m-%d_%H:%M:%S)"
+	stash-all-changed = stash --keep-index
 	# https://stackoverflow.com/questions/10312521/how-to-fetch-all-git-branches
 	# https://coderwall.com/p/0ypmka/git-clone-all-remote-branches-locally
 	fetch-all = "! for branch in $(git branch -a | grep remotes | grep -v HEAD); do git branch --track ${branch#remotes/origin/} $branch; done"
@@ -120,9 +136,9 @@
 	cherry-pick = cherry-pick -x
 
 	# automacao do projeto [6]
-	my-changed-specs = !git diff --name-only master -- spec | egrep '.rb'
-	my-run-changed-specs = !zeus rspec `git changed-specs`
-	my-changed-files = !git diff --name-only master | cat
+	changed-specs = !git diff --name-only master -- spec | egrep '.rb'
+	run-changed-specs = !zeus rspec `git changed-specs`
+	changed-files = !git diff --name-only master | cat
 
 	# analise de dados [6]
 	list-authors = !git log --format="%aN"
@@ -140,13 +156,8 @@
 	# [10]
 	showtool = "!showci () { rev=$(git rev-parse \"${*:-HEAD}\"); git difftool $rev~1 $rev; }; showci"
 
-	# automacao do projeto [6]
-	changed-specs = !git diff --name-only master -- spec | egrep '.rb'
-	run-changed-specs = !zeus rspec `git changed-specs`
-	changed-files = !git diff --name-only master | cat
-
 	# https://stackoverflow.com/questions/2016901/viewing-unpushed-git-commits
-	my-log-unpushed = log @{push}..
+	log-unpushed = log @{push}..
 
 	# Nao utilizo um format no gitconfig para poder continuar usando o git log no formato comum ou perto disso
 	# Baseado em https://stackoverflow.com/a/9463536/4668660
@@ -158,7 +169,6 @@
 	# Baseado em: https://stackoverflow.com/a/7567953/4668660
 	# #TODO usar --no-merges ?
 	compare = !git my-log --left-right --graph --cherry-pick
-
 
 [svn]
 	# [7]

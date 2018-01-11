@@ -14,6 +14,9 @@ export PATH="$PATH:/home/tobias/.local/bin"
 # For Golang
 export GOPATH=/usr/src/tobias/go
 
+export JAVA_HOME=/opt/apps/gnu+linux/java/jdk
+#export PHPSTORM_JDK=$JAVA_HOME
+
 ###################################
 #            FUNCTIONS            #
 ###################################
