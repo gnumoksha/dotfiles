@@ -1,0 +1,5 @@
+Package: *
+#Pin: release n=precise c=steam
+Pin: release c=steam
+Pin-Priority: 1000
+

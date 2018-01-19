@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH="/home/tobias/play/_side_projects/dotfiles/shell/zsh/oh-my-zsh"
+export ZSH="/home/tobias/play/side_projects/dotfiles/shell/zsh/oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -22,7 +22,7 @@ plugins=(colored-man-pages copybuffer copydir docker docker-compose git \
 
 source $ZSH/oh-my-zsh.sh
 
-source /home/tobias/play/_side_projects/dotfiles/shell/general/general.sh
+source /home/tobias/play/side_projects/dotfiles/shell/general/general.sh
 
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 

@@ -9,9 +9,6 @@
 	email = contato@tobias.ws
 	signingkey = E724F606EFFF66F7
 
-[github]
-	user = gnumoksha
-
 [color]
 	# [4]
 	diff = auto
@@ -60,8 +57,12 @@
 
 [merge]
 	# [5]
-	tool = meld
-	# deleta os arquivos de backup após o merge ser resolvido
+	tool = vimdiff
+	keepBackup = false
+	conflictstyle = diff3
+
+[mergetool]
+	;prompt = false
 	keepBackup = false
 
 # TODO is it necessary?
@@ -110,6 +111,9 @@
 	st = status
 	df = diff
 	sh = stash
+	co = commit
+	mt = mergetool
+	dt = difftool
 
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	type = cat-file -t
@@ -123,6 +127,7 @@
 	fetch-all = "! for branch in $(git branch -a | grep remotes | grep -v HEAD); do git branch --track ${branch#remotes/origin/} $branch; done"
 	clone-all = !git fetch-all
 	discard = reset --hard HEAD
+	undo-last-commit = reset HEAD~
 # TODO remover tambem arquivos modificados localmente e nao trackeados
 	discard-all = !git discard && git clean -f -d -i
 	unstage = reset
@@ -190,6 +195,18 @@ browser = chromium
 
 [fetch]
 	prune = true
+
+[github]
+	user = gnumoksha
+
+[credential "https://github.com"]
+	username = gnumoksha
+
+[credential "https://gitlab.com"]
+	username = gnumoksha
+
+[credential]
+	helper = cache --timeout=300
 
 
 ############################

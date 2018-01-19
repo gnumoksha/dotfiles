@@ -49,19 +49,19 @@
 
 # Fico sempre no Debian Testing
 deb http://deb.debian.org/debian/ testing main contrib non-free
-deb-src http://deb.debian.org/debian/ testing main contrib non-free
+#deb-src http://deb.debian.org/debian/ testing main contrib non-free
 
 # Conforme recomendado em https://wiki.debian.org/Status/Testing
 deb http://security.debian.org testing/updates main contrib non-free
-deb-src http://security.debian.org testing/updates main contrib non-free
+#deb-src http://security.debian.org testing/updates main contrib non-free
 
 # Debian unstable (Sid) para caso precise de versoes mais recentes dos softwares
 deb http://deb.debian.org/debian/ unstable main contrib non-free
-deb-src http://deb.debian.org/debian/ unstable main contrib non-free
+#deb-src http://deb.debian.org/debian/ unstable main contrib non-free
 
 # Stable
 deb http://deb.debian.org/debian/ stable main contrib non-free
-deb-src http://deb.debian.org/debian/ stable main contrib non-free
+#deb-src http://deb.debian.org/debian/ stable main contrib non-free
 
 
 # Debian oldstable(Jessie) Para usar PHP5
@@ -72,5 +72,7 @@ deb-src http://deb.debian.org/debian/ stable main contrib non-free
 
 #deb http://master.dl.sourceforge.net/project/d-apt/ d-apt main #APT repository for D
 
+# Referencias
+# man 5 apt_preferences
 
 #EOF

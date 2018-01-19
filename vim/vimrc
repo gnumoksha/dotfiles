@@ -53,6 +53,7 @@ Plug 'chriskempson/base16-vim' " Base16 for Vim.
 Plug 'mhinz/vim-janah' " A dark colorscheme for Vim.
 Plug 'nanotech/jellybeans.vim', { 'tag': 'v1.6' } " A colorful, dark color scheme for Vim.
 Plug 'ryanoasis/vim-devicons'  " Adds file type glyphs/icons to popular Vim plugins...
+Plug 'romainl/Apprentice'
 
 " Git
 Plug 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal.
@@ -197,6 +198,12 @@ let g:molokai_original = 1
 " color version as close as possible to the the default (dark) GUI version.
 "let g:rehash256 = 1
 colorscheme molokai
+if &diff
+    colorscheme apprentice
+endif
+
+" Matches the terminal colors
+set termguicolors
 
 " IndentLine
 let g:indentLine_enabled = 1
@@ -391,6 +398,11 @@ noremap <Leader>gb :Gblame<CR>
 noremap <Leader>gd :Gvdiff<CR>
 noremap <Leader>gr :Gremove<CR>
 nnoremap <Leader>go :.Gbrowse<CR>
+
+" Diff
+noremap <Leader>dgr :diffget RE<CR>
+noremap <Leader>dgb :diffget BA<CR>
+noremap <Leader>dgl :diffget LO<CR>
 
 " session management
 nnoremap <leader>so :OpenSession<Space>

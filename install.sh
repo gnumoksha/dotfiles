@@ -103,7 +103,11 @@ done
 
 echo "Configuring vim"
 [[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.vimrc 2>/dev/null
-ln -s "$SCRIPTPATH/vim/vimrc.dev" ~/.vimrc
+ln -s "$SCRIPTPATH/vim/vimrc" ~/.vimrc
+
+echo "Configuring Gvim"
+[[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.gvimrc 2>/dev/null
+ln -s "$SCRIPTPATH/vim/gvimrc" ~/.gvimrc
 
 echo "Configuring gedit"
 # /usr/share/gtksourceview-{2,3}.0/styles/
