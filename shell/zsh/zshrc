@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH="/home/tobias/play/_side_projects/dotfiles/shell/zsh/oh-my-zsh"
+export ZSH="/home/tobias/play/side_projects/dotfiles/shell/zsh/oh-my-zsh"
 
 # ZSH settings
 setopt append_history           # Do not overwrite history
@@ -60,7 +60,7 @@ POWERLEVEL9K_LOAD_NORMAL_VISUAL_IDENTIFIER_COLOR="green"
 # https://github.com/bhilburn/powerlevel9k/wiki/About-Fonts
 #source ~/.local/share/fonts/awesome-terminal-fonts_maps
 #
-source ~/play/_side_projects/dotfiles/shell/zsh/powerlevel9k/powerlevel9k.zsh-theme
+source ~/play/side_projects/dotfiles/shell/zsh/powerlevel9k/powerlevel9k.zsh-theme
 #
 # ---------- END THEME SETTINGS ----------
 
@@ -134,7 +134,7 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-source /home/tobias/play/_side_projects/dotfiles/shell/general/general.sh
+source /home/tobias/play/side_projects/dotfiles/shell/general/general.sh
 # apt install zsh-syntax-highlighting
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -145,5 +145,3 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # https://github.com/tonylambiris/dotfiles/blob/master/dot.zshrc
 
 # vim: ft=zsh
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
