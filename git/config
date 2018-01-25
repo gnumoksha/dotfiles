@@ -140,6 +140,9 @@
 
 	cherry-pick = cherry-pick -x
 
+	# Do a merge pre pull request. Source: github instrutions on pull request page.
+	merge-pre-pr = merge --no-ff
+
 	# automacao do projeto [6]
 	changed-specs = !git diff --name-only master -- spec | egrep '.rb'
 	run-changed-specs = !zeus rspec `git changed-specs`
