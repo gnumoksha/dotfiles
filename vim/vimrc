@@ -75,9 +75,6 @@ Plug 'honza/vim-snippets' " Snippets files for various programming languages.
 Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab.
 Plug 'ludovicchabant/vim-gutentags' " A Vim plugin that manages your tag files.
 Plug 'majutsushi/tagbar' " Displays tags in a window, ordered by scope.
-if !executable("ctags")
-  echoerr "Install exuberant-ctags in order to use tagbar plugin!"
-endif
 " A code-completion engine for Vim.
 " 2017-11-27 - Tobias - PHP support is insufficient.
 " Must have: apt-get install build-essential cmake python-dev python3-dev
@@ -198,18 +195,9 @@ let g:molokai_original = 1
 " color version as close as possible to the the default (dark) GUI version.
 "let g:rehash256 = 1
 colorscheme molokai
-if &diff
-    colorscheme apprentice
-endif
 
 " Matches the terminal colors
 set termguicolors
-
-" IndentLine
-let g:indentLine_enabled = 1
-let g:indentLine_concealcursor = 0
-let g:indentLine_char = '┆'
-let g:indentLine_faster = 1
 
 if $COLORTERM == 'gnome-terminal'
   set term=gnome-256color
@@ -300,6 +288,30 @@ set incsearch
 " by using TAB characters.
 "set expandtab
 "}}}
+
+" Configure vimdiff
+if &diff
+    colorscheme apprentice
+
+    set diffopt+=iwhite
+    set diffexpr=""
+endif
+
+" Ignore whitespace on diff
+" https://stackoverflow.com/a/4271247/4668660
+"set diffopt+=iwhite
+"set diffexpr=DiffW()
+"function DiffW()
+  "let opt = ""
+   "if &diffopt =~ "icase"
+     "let opt = opt . "-i "
+   "endif
+   "if &diffopt =~ "iwhite"
+     "let opt = opt . "-w " " swapped vim's -b with -w
+   "endif
+   "silent execute "!diff -a --binary " . opt .
+     "\ v:fname_in . " " . v:fname_new .  " > " . v:fname_out
+"endfunction
 
 
 """"""""""""""""""""""""""""""""""""""""""
@@ -453,7 +465,7 @@ imap <silent> <Home> <C-O><Home>
 "    Plugins configuration    "
 "                             "
 """""""""""""""""""""""""""""""
-" # TODO passar os mapeamentos para a area de mapeamentos?
+" # TODO key mappings of plugins go to here
 
 " NERDTree configuration
 let g:NERDTreeChDirMode=2
@@ -526,6 +538,10 @@ endif
 "let g:syntastic_aggregate_errors = 1
 
 " majutsushi/tagbar
+if !executable("ctags")
+" #TODO use https://github.com/universal-ctags/ctags
+  echoerr "Install exuberant-ctags in order to use tagbar plugin!"
+endif
 nmap <silent> <F4> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 
@@ -533,8 +549,11 @@ let g:tagbar_autofocus = 1
 let g:gutentags_cache_dir = '~/.vim/gutentags'
 let g:gutentags_ctags_exclude = ['*.css', '*.html', '*.js']
 
-" indentLine
+" Yggdroot/indentLine
+let g:indentLine_enabled = 1
+let g:indentLine_concealcursor = 0
 let g:indentLine_char = '⁞'
+let g:indentLine_faster = 1
 
 " SirVer/ultisnips
 "let g:UltiSnipsExpandTrigger="<tab>" " #TODO configurar uma tecla. Nao nao pode pois uso o youcompleteme
