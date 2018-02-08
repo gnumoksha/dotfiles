@@ -43,6 +43,7 @@ Plug 'junegunn/fzf', { 'dir': '/opt/apps/gnu+linux/bin/fzf', 'do': './install --
 Plug 'junegunn/fzf.vim' " Vim plugin for FZF: a command-line fuzzy finder. TODO estudar mais este plugin. Ele é muito bom!
 Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim .
 Plug 'junegunn/limelight.vim' " Hyperfocus-writing in VimHyperfocus-writing in Vim.
+Plug 'mbbill/undotree' " The ultimate undo history visualizer for VIM
 
 " Color schemes and icons
 Plug 'godlygeek/csapprox' " (old: vim-scripts/CSApprox) Make gvim-only colorschemes work transparently in terminal vim.
@@ -156,6 +157,10 @@ set directory=$HOME/.vim/swap//,.
 if !isdirectory(expand('~/.vim/swap'))
   call mkdir(expand('~/.vim/swap'), "p")
 endif
+
+" Persistent undo
+set undodir=$HOME/.vim/undodir/
+set undofile
 
 " Enable spell checking.
 " TODO enable spell checking only in a few file types
@@ -352,8 +357,10 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 
-" Save current file
-map S :w<cr>
+" Save current file [09]
+noremap <C-S> :update<CR>
+vnoremap <C-S> <C-C>:update<CR>
+inoremap <C-S> <C-O>:update<CR>
 
 " Execute current file
 nnoremap <leader>r :!"%:p"<CR>
@@ -668,6 +675,10 @@ let g:limelight_conceal_ctermfg = 240
 let g:limelight_conceal_guifg = 'DarkGray'
 let g:limelight_conceal_guifg = '#777777'
 
+" mbbill/undotree
+let g:undotree_WindowLayout = 2
+let g:undotree_SetFocusWhenToggle = 1
+
 " airblade/vim-gitgutter
 let g:gitgutter_max_signs = 500  " 500 is the default value
 "let g:gitgutter_highlight_lines = 1 " To turn on line highlighting by default
@@ -686,5 +697,6 @@ let g:gitgutter_max_signs = 500  " 500 is the default value
 " 06 http://vim.wikia.com/wiki/VimTip315
 " 07 https://www.reddit.com/r/vim/comments/1vdrxg/space_is_a_big_key_what_do_you_map_it_to/
 " 08 http://vim.wikia.com/wiki/Indenting_source_code
+" 09 http://vim.wikia.com/wiki/Map_Ctrl-S_to_save_current_or_new_files
 
 "EOF

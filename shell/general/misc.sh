@@ -17,6 +17,15 @@ export GOPATH=/usr/src/tobias/go
 export JAVA_HOME=/opt/apps/gnu+linux/java/jdk
 #export PHPSTORM_JDK=$JAVA_HOME
 
+
+###################################
+#            Terminal             #
+###################################
+# Disables Software Flow Control (XON/XOFF flow control)
+# i.e. "Ctrl s" and "Ctrl q" will be no special behavior.
+stty -ixon
+
+
 ###################################
 #            FUNCTIONS            #
 ###################################
