@@ -1,5 +1,3 @@
 ### THIS FILE IS AUTOMATICALLY CONFIGURED ###
 # You may comment out this entry, but any other modifications may be lost.
-# PUBKEY: C6ABDCF64DB9A0B2
 deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main
-

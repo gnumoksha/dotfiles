@@ -4,7 +4,7 @@
 # apt-get update && apt-get install x2go-keyring && apt-get update && apt-cache search x2go
 #
 # X2Go Repository (release builds)
-#deb http://packages.x2go.org/debian jessie main
+# deb http://packages.x2go.org/debian jessie main
 # X2Go Repository (sources of release builds)
-#deb-src http://packages.x2go.org/debian jessie main
+# deb-src http://packages.x2go.org/debian jessie main
 

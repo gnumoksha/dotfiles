@@ -1,6 +1,0 @@
-# PUBKEY: F24AEA9FB05498B7
-# dpkg --add-architecture i386 && apt-get update
-# apt-get install libc6:i386 libgl1:i386
-deb [arch=amd64,i386] http://repo.steampowered.com/steam/ precise steam
-deb-src [arch=amd64,i386] http://repo.steampowered.com/steam/ precise steam
-

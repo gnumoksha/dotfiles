@@ -1,5 +1,16 @@
-# Path to your oh-my-zsh installation.
-export ZSH="/home/tobias/play/side_projects/dotfiles/shell/zsh/oh-my-zsh"
+#################################
+#                               #
+#             zshrc             #
+#                               #
+#################################
+
+# Path to my dotfiles project.
+dotfiles="/home/tobias/play/side_projects/dotfiles"
+
+# Path to my oh-my-zsh installation.
+export ZSH="$dotfiles/shell/zsh/oh-my-zsh"
+
+export TERM="xterm-256color"
 
 # ZSH settings
 setopt append_history           # Do not overwrite history
@@ -118,7 +129,7 @@ source ~/play/side_projects/dotfiles/shell/zsh/powerlevel9k/powerlevel9k.zsh-the
 # Repository: https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins
 plugins=(colored-man-pages copybuffer copydir docker docker-compose git \
 		git-flow-avh git-extras gpg-agent httpie \
-		pass screen)
+		pass screen vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -134,9 +145,13 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-source /home/tobias/play/side_projects/dotfiles/shell/general/general.sh
-# apt install zsh-syntax-highlighting
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $dotfiles/shell/general/general.sh
+
+if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+	source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+else
+	echo "zsh syntax-highlighting is missing: apt install zsh-syntax-highlighting"
+fi
 
 # If fzf is installed, use it.
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

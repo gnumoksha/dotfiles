@@ -6,10 +6,10 @@
 # arc-theme vertex-theme
 # 21/06/17 desativei porque a chave GPG está com problemas e nao há versão para
 # Debian 9, este repositorio deve estar abandonado
-#deb http://download.opensuse.org/repositories/home:/Horst3180/Debian_8.0/ /
+# deb http://download.opensuse.org/repositories/home:/Horst3180/Debian_8.0/ /
 
 # https://github.com/tista500/Adapta
 # adapta-gtk-theme
-deb http://ppa.launchpad.net/tista/adapta/ubuntu zesty main
-deb-src http://ppa.launchpad.net/tista/adapta/ubuntu zesty main 
+deb http://ppa.launchpad.net/tista/adapta/ubuntu bionic main
+# deb-src http://ppa.launchpad.net/tista/adapta/ubuntu bionic main
 
