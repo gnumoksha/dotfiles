@@ -76,6 +76,9 @@ Plug 'honza/vim-snippets' " Snippets files for various programming languages.
 Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab.
 Plug 'ludovicchabant/vim-gutentags' " A Vim plugin that manages your tag files.
 Plug 'majutsushi/tagbar' " Displays tags in a window, ordered by scope.
+if !executable("ctags")
+  echoerr "Install exuberant-ctags in order to use tagbar plugin!"
+endif
 " A code-completion engine for Vim.
 " 2017-11-27 - Tobias - PHP support is insufficient.
 " Must have: apt-get install build-essential cmake python-dev python3-dev
@@ -89,9 +92,18 @@ Plug 'w0rp/ale' " Asynchronous Lint Engine.
 Plug 'iamcco/markdown-preview.vim' " Real-time markdown preview plugin for vim.
 "Plug 'plasticboy/vim-markdown' " TODO estudar.
 "Plug 'ekalinin/Dockerfile.vim' " Vim syntax file & snippets for Docker's Dockerfile.
-if filereadable(expand('%:p:h') . '/plugins/php.vimrc')
+"if filereadable(expand('%:p:h') . '/plugins/php.vimrc')
+if filereadable(expand('~/.vim/plugins/php.vimrc'))
   source %:p:h/plugins/php.vimrc
 endif
+" Isto nao esta funcionando, pois nao carrega as opcoes do vim-go
+"if filereadable(expand('~/.vim/plugins/go.vimrc'))
+  "source $HOME/.vim/plugins/go.vimrc
+"endif
+Plug 'fatih/vim-go'
+
+" Initialize plugin system
+call plug#end()
 
 " Initialize plugin system
 call plug#end()
@@ -138,7 +150,8 @@ set ttyfast
 set backspace=indent,eol,start
 
 " Força a exibição de caracteres não imprimíveis
-set listchars=tab:⇨\ ,eol:⏎,nbsp:☠,trail:•,extends:⟩,precedes:⟨
+"set listchars=tab:⇨\ ,eol:⏎,nbsp:☠,trail:•,extends:⟩,precedes:⟨
+set listchars=tab:⇨\ ,nbsp:☠,trail:•,extends:⟩,precedes:⟨
 set list
 
 " Make File-Open track directory of current file
@@ -147,9 +160,9 @@ set browsedir=buffer
 "Keep backups of files in case I mess up :)
 set backup
 set backupcopy=yes
-set backupdir=$HOME/.vim/backups
-if !isdirectory(expand('~/.vim/backups'))
-  call mkdir(expand('~/.vim/backups'), "p")
+set backupdir=$HOME/.vim/backup
+if !isdirectory(expand('~/.vim/backup'))
+  call mkdir(expand('~/.vim/backup'), "p")
 endif
 
 " Where store swap files.
@@ -200,6 +213,9 @@ let g:molokai_original = 1
 " color version as close as possible to the the default (dark) GUI version.
 "let g:rehash256 = 1
 colorscheme molokai
+if &diff
+    colorscheme apprentice
+endif
 
 " Matches the terminal colors
 set termguicolors
@@ -619,7 +635,7 @@ endif
 " iamcco/markdown-preview.vim {{{
 " path to the chrome or the command to open chrome(or other modern browsers)
 " if set, g:mkdp_browserfunc would be ignored
-let g:mkdp_path_to_chrome = "/opt/_apps/_gnu+linux/_internet/firefox/firefox"
+let g:mkdp_path_to_chrome = "/usr/bin/firefox"
 
 " callback vim function to open browser, the only param is the url to open
 let g:mkdp_browserfunc = 'MKDP_browserfunc_default'
@@ -660,7 +676,7 @@ map <silent> <leader>jd :CtrlPTag<cr><c-\>w
 "let g:ale_sign_column_always = 1 " keep the sign gutter open at all times
 let g:ale_echo_msg_error_str = 'E' " is the string used for error severity.
 let g:ale_echo_msg_warning_str = 'W' " is the string used for warning severity.
-let g:ale_echo_msg_format = '[%severity%] %s (%linter%)' " the format of message echoed by ALE.
+let g:ale_echo_msg_format = '[%linter%] [%severity%] %s' " the format of message echoed by ALE.
 "let g:ale_set_loclist = 0 " Toggle the loclist use.
 "let g:ale_set_quickfix = 1 " Toggle the quickfix use.
 "let g:ale_open_list = 1 " Oppen quickfix when ALE detects errors/warnings.

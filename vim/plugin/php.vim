@@ -20,4 +20,3 @@ Plug '2072/PHP-Indenting-for-VIm'
 "Plug 'vim-php/vim-composer'
 "Plug 'wdalmut/vim-phpunit.git'
 
-

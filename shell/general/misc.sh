@@ -5,14 +5,20 @@
 export PATH="$PATH:/sbin"
 export PATH="$PATH:/usr/games"
 # PHP composer
-export PATH="$PATH:/home/tobias/.config/composer/vendor/bin"
+export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 # Binarios extras sem instalador para debian
 export PATH="/opt/apps/gnu+linux/bin:$PATH"
 # Python
-export PATH="$PATH:/home/tobias/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 # For Golang
-export GOPATH=/usr/src/tobias/go
+# GOPATH environment variable specifies the location of your workspace.
+export GOPATH=$HOME/play/go/ws
+# Set the GOBIN path to generate a binary file when go install is run.
+export GOBIN=$GOPATH/bin
+# If go is not in /usr/local/go, specify where it is.
+export GOROOT=/usr/lib/go-1.9
+export PATH="$PATH:$GOROOT/bin:$GOBIN"
 
 export JAVA_HOME=/opt/apps/gnu+linux/java/jdk
 #export PHPSTORM_JDK=$JAVA_HOME
