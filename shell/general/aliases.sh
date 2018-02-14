@@ -10,9 +10,9 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # me from future: be careful and stay safe :)
-alias rm='rm --interactive --verbose'
-alias cp="cp --interactive --verbose"
-alias mv="mv --interactive --verbose"
+alias rm='rm --interactive'
+alias cp="cp --interactive"
+alias mv="mv --interactive"
 
 # Nice format :)
 alias dmesg="dmesg --color --ctime --decode"
