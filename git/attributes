@@ -17,6 +17,7 @@
 *.bat      text eol=crlf
 *.coffee   text
 *.css      text
+*.go       text diff=go
 *.htm      text
 *.html     text
 *.inc      text
@@ -27,10 +28,10 @@
 *.less     text
 *.od       text
 *.onlydata text
-*.php      text
+*.php      text diff=php
 *.pl       text
-*.py       text
-*.rb       text
+*.py       text diff=python
+*.rb       text diff=ruby
 *.sass     text
 *.scm      text
 *.scss     text

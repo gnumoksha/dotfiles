@@ -170,7 +170,10 @@
 
 	# Nao utilizo um format no gitconfig para poder continuar usando o git log no formato comum ou perto disso
 	# Baseado em https://stackoverflow.com/a/9463536/4668660
-	my-log = log --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(20,trunc)%aN %C(auto,reset)%s%C(auto,red)% gD% D'
+	log-one-line = log --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(20,trunc)%aN %C(auto,reset)%s%C(auto,red)% gD% D'
+	log-graph = log --decorate=short --source --cherry-mark --oneline --grap
+	# WIP
+	log-with-branch = log --pretty=format:'%H | %aN | %s' | git name-rev --stdin --name-only
 
 	# how can I see which commits are in homol but not in prod? git my-compare homol...prod
 	# < significa que tem no homol
@@ -181,6 +184,7 @@
 
 	# show Without Whitespace
 	show-ww = show --ignore-space-at-eol --ignore-space-change --ignore-all-space --ignore-blank-lines
+	show-with-branch = !git show $1 | git name-rev --stdin
 
 [svn]
 	# [7]
