@@ -29,32 +29,25 @@ endif
 call plug#begin('~/.vim/plugged')
 " General purpose
 Plug 'scrooloose/nerdtree' " A tree explorer plugin for vim.
-Plug 'jistr/vim-nerdtree-tabs' " TODO this plugin is not necessary https://github.com/scrooloose/nerdtree#faq
+Plug 'Xuyuanp/nerdtree-git-plugin' " A plugin of NERDTree showing git status.
+"Plug 'jistr/vim-nerdtree-tabs' " TODO this plugin is not necessary https://github.com/scrooloose/nerdtree#faq
 Plug 'mhinz/vim-startify' " The fancy start screen for Vim.
-Plug 'xolox/vim-misc' " Miscellaneous auto-load Vim scripts.
+Plug 'xolox/vim-misc' " Miscellaneous auto-load Vim scripts (for vim-session).
 Plug 'xolox/vim-session' " Extended session management for Vim (:mksession on steroids).
-Plug 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light as air.
-Plug 'vim-airline/vim-airline-themes' " A collection of themes for vim-airline.
+Plug 'Shougo/vimproc.vim', { 'do': 'make' } " Interactive command execution in Vim (for vimshell).
 Plug 'Shougo/vimshell.vim' " Powerful shell implemented by vim.
-Plug 'Shougo/vimproc.vim', { 'do': 'make' } " Interactive command execution in Vim.
 Plug 'ctrlpvim/ctrlp.vim' " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
-Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
 Plug 'junegunn/fzf', { 'dir': '/opt/apps/gnu+linux/bin/fzf', 'do': './install --all' } " A command-line fuzzy finder.
 Plug 'junegunn/fzf.vim' " Vim plugin for FZF: a command-line fuzzy finder. TODO estudar mais este plugin. Ele é muito bom!
+Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
+Plug 'mbbill/undotree' " The ultimate undo history visualizer for VIM.
+
+" Screen
+Plug 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light as air.
+Plug 'vim-airline/vim-airline-themes' " A collection of themes for vim-airline.
 Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim .
 Plug 'junegunn/limelight.vim' " Hyperfocus-writing in VimHyperfocus-writing in Vim.
-Plug 'mbbill/undotree' " The ultimate undo history visualizer for VIM
-
-" Color schemes and icons
-Plug 'godlygeek/csapprox' " (old: vim-scripts/CSApprox) Make gvim-only colorschemes work transparently in terminal vim.
-Plug 'tomasr/molokai' " Molokai color scheme for Vim.
-Plug 'junegunn/seoul256.vim' " Low-contrast Vim color scheme based on Seoul Colors.
-Plug 'joshdick/onedark.vim' " A dark Vim/Neovim color scheme inspired by Atom's One Dark syntax theme.
-Plug 'chriskempson/base16-vim' " Base16 for Vim.
-Plug 'mhinz/vim-janah' " A dark colorscheme for Vim.
-Plug 'nanotech/jellybeans.vim', { 'tag': 'v1.6' } " A colorful, dark color scheme for Vim.
-Plug 'ryanoasis/vim-devicons'  " Adds file type glyphs/icons to popular Vim plugins...
-Plug 'romainl/Apprentice'
+Plug 'ryanoasis/vim-devicons' " Adds file type glyphs/icons to popular Vim plugins...
 
 " Git
 Plug 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal.
@@ -62,7 +55,6 @@ Plug 'tpope/vim-rhubarb' " GitHub extension for fugitive.vim
 Plug 'shumphrey/fugitive-gitlab.vim' " An extension to fugitive.vim for gitlab support
 Plug 'gregsexton/gitv', {'on': ['Gitv']} " gitk for Vim.
 Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
-Plug 'Xuyuanp/nerdtree-git-plugin' " A plugin of NERDTree showing git status.
 
 " Helps mainly with software development
 "Plug 'vim-syntastic/syntastic' " Syntax checking hacks for vim. (conflicts with 'w0rp/ale')
@@ -102,8 +94,18 @@ endif
 "endif
 Plug 'fatih/vim-go'
 
-" Initialize plugin system
-call plug#end()
+" For fun
+Plug 'johngrib/vim-game-code-break'
+
+" Color schemes and icons
+Plug 'godlygeek/csapprox' " (old: vim-scripts/CSApprox) Make gvim-only colorschemes work transparently in terminal vim.
+Plug 'tomasr/molokai' " Molokai color scheme for Vim.
+Plug 'junegunn/seoul256.vim' " Low-contrast Vim color scheme based on Seoul Colors.
+Plug 'joshdick/onedark.vim' " A dark Vim/Neovim color scheme inspired by Atom's One Dark syntax theme.
+Plug 'chriskempson/base16-vim' " Base16 for Vim.
+Plug 'mhinz/vim-janah' " A dark colorscheme for Vim.
+Plug 'nanotech/jellybeans.vim', { 'tag': 'v1.6' } " A colorful, dark color scheme for Vim.
+Plug 'romainl/Apprentice' " A dark, low-contrast, Vim colorscheme.
 
 " Initialize plugin system
 call plug#end()
@@ -213,9 +215,6 @@ let g:molokai_original = 1
 " color version as close as possible to the the default (dark) GUI version.
 "let g:rehash256 = 1
 colorscheme molokai
-if &diff
-    colorscheme apprentice
-endif
 
 " Matches the terminal colors
 set termguicolors
@@ -419,31 +418,64 @@ vnoremap > >gv
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-" Split
-noremap <Leader>h :<C-u>split<CR>
-noremap <Leader>v :<C-u>vsplit<CR>
+" scrooloose/nerdtree
+nnoremap <silent> <F2> :NERDTreeFind<CR>
+nnoremap <silent> <F3> :NERDTreeToggle<CR>
+
+" majutsushi/tagbar
+nmap <silent> <C-F12> :TagbarToggle<CR>
+
+" mbbill/undotree
+nnoremap <F4> :UndotreeToggle<cr>
+
+" ctrlpvim/ctrlp.vim
+" #TODO needs comparison with fzf
+map <silent> <leader>jd :CtrlPTag<cr><c-\>w
+
+" junegunn/fzf.vim
+nnoremap <silent> <leader>fb :Buffers<CR>
+nnoremap <silent> <leader>fc :Commits<CR>
+nnoremap <silent> <leader>ff :FZF<CR>
+nnoremap <silent> <leader>fs :Snippets<CR>
+nnoremap <silent> <leader>ft :Tags<CR>
+nnoremap <silent> <leader>fw :Windows<CR>
 
 " Git
 noremap <Leader>ga :Gwrite<CR>
-noremap <Leader>gc :Gcommit<CR>
-noremap <Leader>gsh :Gpush<CR>
-noremap <Leader>gll :Gpull<CR>
-noremap <Leader>gs :Gstatus<CR>
-noremap <Leader>gb :Gblame<CR>
-noremap <Leader>gd :Gvdiff<CR>
-noremap <Leader>gr :Gremove<CR>
-nnoremap <Leader>go :.Gbrowse<CR>
+" Git COmmit
+noremap <Leader>gco :Gcommit<CR>
+"noremap <Leader>gsh :Gpush<CR>
+"noremap <Leader>gll :Gpull<CR>
+" Git STatus
+noremap <Leader>gst :Gstatus<CR>
+" Git BLame
+noremap <Leader>gbl :Gblame<CR>
+" Git DIff
+noremap <Leader>gdi :Gvdiff<CR>
+" Git REmove
+noremap <Leader>gre :Gremove<CR>
+" Git Open Browser
+nnoremap <Leader>gob :.Gbrowse<CR>
+" Git SearcH - powered by FZF
+noremap <Leader>gsh :Commit<CR>
 
 " Diff
 noremap <Leader>dgr :diffget RE<CR>
 noremap <Leader>dgb :diffget BA<CR>
 noremap <Leader>dgl :diffget LO<CR>
 
-" session management
+" Session management
 nnoremap <leader>so :OpenSession<Space>
 nnoremap <leader>ss :SaveSession<Space>
 nnoremap <leader>sd :DeleteSession<CR>
 nnoremap <leader>sc :CloseSession<CR>
+
+" Split
+noremap <Leader>sh :<C-u>split<CR>
+noremap <Leader>sv :<C-u>vsplit<CR>
+
+" Shougo/vimshell
+nnoremap <silent> <leader>sh :VimShellCreate<CR>
 
 " Tabs
 nnoremap <Tab> gt
@@ -490,7 +522,7 @@ imap <silent> <Home> <C-O><Home>
 """""""""""""""""""""""""""""""
 " # TODO key mappings of plugins go to here
 
-" NERDTree configuration
+" scrooloose/nerdtree
 let g:NERDTreeChDirMode=2
 let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
 let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
@@ -500,72 +532,118 @@ let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
 let g:nerdtree_tabs_open_on_gui_startup = 0 " Show vim-startify in a new gvim window without files
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
+
+" mhinz/vim-startify
+"let g:startify_list_order = ['sessions', 'files', 'dir', 'bookmarks', 'commands']
+let g:startify_list_order = [
+            \ ['   Sessions:'],
+            \ 'sessions',
+            \ ['   Most recently used files:'],
+            \ 'files',
+            \ ['   Most recently used files in the current directory:'],
+            \ 'dir',
+            \ ['   Bookmarks:'],
+            \ 'bookmarks',
+            \ ['   Commands:'],
+            \ 'commands',
+            \ ]
+
+let g:startify_files_number = 10
+let g:startify_change_to_dir = 1 " When opening a file or bookmark, change to its directory.
+let g:startify_change_to_vcs_root = 1 " When opening a file or bookmark, seek and change to the root directory of the VCS.
+let g:startify_fortune_use_unicode = 1 " Fortune header uses utf-8.
+let g:startify_session_number = 10 " The maximum number of sessions to display.
+let g:startify_session_sort = 1 " Sort sessions by modification time.
+let g:ascii = [
+      \ '  _____ _   _ _    _ ',
+      \ ' / ____| \ | | |  | |',
+      \ '| |  __|  \| | |  | |',
+      \ '| | |_ | . ` | |  | |',
+      \ '| |__| | |\  | |__| |',
+      \ ' \_____|_| \_|\____/',
+      \ '',
+      \]
+let g:startify_custom_header = 'map(g:ascii, "\"   \".v:val")'
+function! StartifyEntryFormat()
+    return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
+endfunction
+
+" xolox/vim-session
+let g:session_directory = "~/.vim/session" " Controls the location of your session scripts.
+let g:session_autoload = "no"
+let g:session_autosave = "prompt"
+let g:session_command_aliases = 1 " The names of the commands defined by the session plug-in start with the action they perform, followed by the string 'Session'.
+
+" Shougo/vimshell.vim
+let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+let g:vimshell_prompt =  '$ '
+
+" junegunn/fzf
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
+" The Silver Searcher
+" https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+  set grepprg=ag\ --nogroup\ --nocolor
+else
+    echoerr "Execute: sudo apt install silversearcher-ag"
+endif
+" ripgrep
+" https://github.com/BurntSushi/ripgrep
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  set grepprg=rg\ --vimgrep
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+endif
+
+" mbbill/undotree
+let g:undotree_WindowLayout = 2
+let g:undotree_SetFocusWhenToggle = 1 " If set, let undotree window get focus after being opened, otherwise focus will stay in current window.
 
 " vim-airline
-" From: vim-bootstrap:
-let g:airline_theme = 'powerlineish'
-"let g:airline#extensions#syntastic#enabled = 1
+let g:airline_powerline_fonts = 1
+" Nice themes: molokai, powerlineish
+let g:airline_theme='powerlineish'
+let g:airline#extensions#tabline#enabled = 1 " Automatically displays all buffers when there's only one tab open.
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#ale#enabled = 1 " enable support for w0rp/ale in vimairline
-"
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-if !exists('g:airline_powerline_fonts')
-  let g:airline#extensions#tabline#left_sep = ' '
-  let g:airline#extensions#tabline#left_alt_sep = '|'
-  let g:airline_left_sep          = '▶'
-  let g:airline_left_alt_sep      = '»'
-  let g:airline_right_sep         = '◀'
-  let g:airline_right_alt_sep     = '«'
-  let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
-  let g:airline#extensions#readonly#symbol   = '⊘'
-  let g:airline#extensions#linecolumn#prefix = '¶'
-  let g:airline#extensions#paste#symbol      = 'ρ'
-  let g:airline_symbols.linenr    = '␊'
-  let g:airline_symbols.branch    = '⎇'
-  let g:airline_symbols.paste     = 'ρ'
-  let g:airline_symbols.paste     = 'Þ'
-  let g:airline_symbols.paste     = '∥'
-  let g:airline_symbols.whitespace = 'Ξ'
-else
-  let g:airline#extensions#tabline#left_sep = ''
-  let g:airline#extensions#tabline#left_alt_sep = ''
 
-  " powerline symbols
-  let g:airline_left_sep = ''
-  let g:airline_left_alt_sep = ''
-  let g:airline_right_sep = ''
-  let g:airline_right_alt_sep = ''
-  let g:airline_symbols.branch = ''
-  let g:airline_symbols.readonly = ''
-  let g:airline_symbols.linenr = ''
-endif
+" junegunn/limelight.vim
+autocmd! User GoyoEnter Limelight
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
 
-" syntastic
-" From docs:
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-"" From vim-bootstrap:
-"let g:syntastic_error_symbol='✗'
-"let g:syntastic_warning_symbol='⚠'
-"let g:syntastic_style_error_symbol = '✗'
-"let g:syntastic_style_warning_symbol = '⚠'
-"let g:syntastic_aggregate_errors = 1
+" tpope/vim-fugitive
+" The following autocommand will cause the quickfix window to open after any grep invocation
+autocmd QuickFixCmdPost *grep* cwindow
+" fugitive-gitlab.vim
+"let g:fugitive_gitlab_domains = ['http://gitlab.com']
+" tpope/vim-rhubarb
+"let g:github_enterprise_urls = ['https://example.com']
+
+" airblade/vim-gitgutter
+let g:gitgutter_max_signs = 500  " 500 is the default value
+"let g:gitgutter_highlight_lines = 1 " To turn on line highlighting by default
+" If you experience a lag, you can trade speed for accuracy:
+"let g:gitgutter_realtime = 0
+"let g:gitgutter_eager = 0
 
 " majutsushi/tagbar
 if !executable("ctags")
 " #TODO use https://github.com/universal-ctags/ctags
   echoerr "Install exuberant-ctags in order to use tagbar plugin!"
 endif
-nmap <silent> <F4> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 
 " ludovicchabant/vim-gutentags
@@ -584,91 +662,9 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsEditSplit="vertical"
 
-" vimshell.vim
-let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-let g:vimshell_prompt =  '$ '
-" terminal emulation
-nnoremap <silent> <leader>sh :VimShellCreate<CR>
-
 " YouCompleteMe
 "nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 "let g:ycm_always_populate_location_list = 1
-
-" xolox/vim-session
-let g:session_directory = "~/.vim/session"
-let g:session_autoload = "no"
-let g:session_autosave = "no"
-let g:session_command_aliases = 1
-
-" tpope/vim-fugitive
-" The following autocommand will cause the quickfix window to open after any grep invocation
-autocmd QuickFixCmdPost *grep* cwindow
-
-" tpope/vim-rhubarb
-"let g:github_enterprise_urls = ['https://example.com']
-
-" fugitive-gitlab.vim
-"let g:fugitive_gitlab_domains = ['http://gitlab.com']
-
-" fzf.vim
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
-
-" The Silver Searcher
-" https://github.com/ggreer/the_silver_searcher
-if executable('ag')
-  let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
-  set grepprg=ag\ --nogroup\ --nocolor
-else
-    echoerr "Execute: sudo apt install silversearcher-ag"
-endif
-
-" ripgrep
-" https://github.com/BurntSushi/ripgrep
-if executable('rg')
-  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-  set grepprg=rg\ --vimgrep
-  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
-endif
-
-" iamcco/markdown-preview.vim {{{
-" path to the chrome or the command to open chrome(or other modern browsers)
-" if set, g:mkdp_browserfunc would be ignored
-let g:mkdp_path_to_chrome = "/usr/bin/firefox"
-
-" callback vim function to open browser, the only param is the url to open
-let g:mkdp_browserfunc = 'MKDP_browserfunc_default'
-
-" set to 1, the vim will open the preview window once enter the markdown
-" buffer
-let g:mkdp_auto_start = 0
-
-" set to 1, the vim will auto open preview window when you edit the
-" markdown file
-let g:mkdp_auto_open = 0
-
-" set to 1, the vim will auto close current preview window when change
-" from markdown buffer to another buffer
-let g:mkdp_auto_close = 1
-
-" set to 1, the vim will just refresh markdown when save the buffer or
-" leave from insert mode, default 0 is auto refresh markdown as you edit or
-" move the cursor
-let g:mkdp_refresh_slow = 0
-
-" set to 1, the MarkdownPreview command can be use for all files,
-" by default it just can be use in markdown file
-let g:mkdp_command_for_global = 0
-
-nmap <silent> <F8> <Plug>MarkdownPreview        " for normal mode
-imap <silent> <F8> <Plug>MarkdownPreview        " for insert mode
-nmap <silent> <F9> <Plug>StopMarkdownPreview    " for normal mode
-imap <silent> <F9> <Plug>StopMarkdownPreview    " for insert mode
-"}}}
-
-" ctrlpvim/ctrlp.vim
-map <silent> <leader>jd :CtrlPTag<cr><c-\>w
 
 " w0rp/ale
 "let g:ale_fix_on_save = 1 " fix files automatically on save.
@@ -682,25 +678,33 @@ let g:ale_echo_msg_format = '[%linter%] [%severity%] %s' " the format of message
 "let g:ale_open_list = 1 " Oppen quickfix when ALE detects errors/warnings.
 "let g:ale_keep_list_window_open = 1 " Keep the window open even after errors disappear.
 
-" junegunn/limelight.vim
-autocmd! User GoyoEnter Limelight
-" Color name (:help cterm-colors) or ANSI code
-let g:limelight_conceal_ctermfg = 'gray'
-let g:limelight_conceal_ctermfg = 240
-" Color name (:help gui-colors) or RGB color
-let g:limelight_conceal_guifg = 'DarkGray'
-let g:limelight_conceal_guifg = '#777777'
-
-" mbbill/undotree
-let g:undotree_WindowLayout = 2
-let g:undotree_SetFocusWhenToggle = 1
-
-" airblade/vim-gitgutter
-let g:gitgutter_max_signs = 500  " 500 is the default value
-"let g:gitgutter_highlight_lines = 1 " To turn on line highlighting by default
-" If you experience a lag, you can trade speed for accuracy:
-"let g:gitgutter_realtime = 0
-"let g:gitgutter_eager = 0
+" iamcco/markdown-preview.vim {{{
+" path to the chrome or the command to open chrome(or other modern browsers)
+" if set, g:mkdp_browserfunc would be ignored
+let g:mkdp_path_to_chrome = "/usr/bin/firefox"
+" callback vim function to open browser, the only param is the url to open
+let g:mkdp_browserfunc = 'MKDP_browserfunc_default'
+" set to 1, the vim will open the preview window once enter the markdown
+" buffer
+let g:mkdp_auto_start = 0
+" set to 1, the vim will auto open preview window when you edit the
+" markdown file
+let g:mkdp_auto_open = 0
+" set to 1, the vim will auto close current preview window when change
+" from markdown buffer to another buffer
+let g:mkdp_auto_close = 1
+" set to 1, the vim will just refresh markdown when save the buffer or
+" leave from insert mode, default 0 is auto refresh markdown as you edit or
+" move the cursor
+let g:mkdp_refresh_slow = 0
+" set to 1, the MarkdownPreview command can be use for all files,
+" by default it just can be use in markdown file
+let g:mkdp_command_for_global = 0
+nmap <silent> <F8> <Plug>MarkdownPreview        " for normal mode
+imap <silent> <F8> <Plug>MarkdownPreview        " for insert mode
+nmap <silent> <F9> <Plug>StopMarkdownPreview    " for normal mode
+imap <silent> <F9> <Plug>StopMarkdownPreview    " for insert mode
+"}}}
 
 
 """""""""""""""""""""""""""""""
