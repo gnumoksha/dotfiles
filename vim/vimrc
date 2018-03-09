@@ -30,7 +30,8 @@ call plug#begin('~/.vim/plugged')
 " General purpose
 Plug 'scrooloose/nerdtree' " A tree explorer plugin for vim.
 Plug 'Xuyuanp/nerdtree-git-plugin' " A plugin of NERDTree showing git status.
-"Plug 'jistr/vim-nerdtree-tabs' " TODO this plugin is not necessary https://github.com/scrooloose/nerdtree#faq
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " Extra syntax and highlight for nerdtree files.
+Plug 'jistr/vim-nerdtree-tabs' " TODO this plugin is not necessary https://github.com/scrooloose/nerdtree#faq
 Plug 'mhinz/vim-startify' " The fancy start screen for Vim.
 Plug 'xolox/vim-misc' " Miscellaneous auto-load Vim scripts (for vim-session).
 Plug 'xolox/vim-session' " Extended session management for Vim (:mksession on steroids).
@@ -532,6 +533,8 @@ let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
 let g:nerdtree_tabs_open_on_gui_startup = 0 " Show vim-startify in a new gvim window without files
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+" Disables listchars on NERDTree
+autocmd filetype nerdtree set listchars=
 
 " mhinz/vim-startify
 "let g:startify_list_order = ['sessions', 'files', 'dir', 'bookmarks', 'commands']
