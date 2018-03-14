@@ -27,4 +27,7 @@ alias my_to_clipboard="xclip -selection c"
 
 alias dd="dd status=progress"
 
+alias dk='docker'
+alias dkc='docker-compose'
+
 #EOF

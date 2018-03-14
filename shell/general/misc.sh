@@ -7,7 +7,7 @@ export PATH="$PATH:/usr/games"
 # PHP composer
 export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 # Binarios extras sem instalador para debian
-export PATH="/opt/apps/gnu+linux/bin:$PATH"
+export PATH="$MY_BIN_DIR:$PATH"
 # Python
 export PATH="$PATH:$HOME/.local/bin"
 

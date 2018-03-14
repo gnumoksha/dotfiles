@@ -6,6 +6,7 @@
 """"""""""""""""""""""""""""""""""""""""""
 "TODO how ignore debian vim home?
 "TODO remove unused code (from basic.vim)"
+"TODO check out msvim.vim
 
 if !executable("curl")
   echoerr "You do not have curl installed and you will need it :)"
@@ -38,7 +39,7 @@ Plug 'xolox/vim-session' " Extended session management for Vim (:mksession on st
 Plug 'Shougo/vimproc.vim', { 'do': 'make' } " Interactive command execution in Vim (for vimshell).
 Plug 'Shougo/vimshell.vim' " Powerful shell implemented by vim.
 Plug 'ctrlpvim/ctrlp.vim' " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
-Plug 'junegunn/fzf', { 'dir': '/opt/apps/gnu+linux/bin/fzf', 'do': './install --all' } " A command-line fuzzy finder.
+Plug 'junegunn/fzf', { 'dir': $MY_BIN_DIR . '/fzf', 'do': './install --all' } " A command-line fuzzy finder.
 Plug 'junegunn/fzf.vim' " Vim plugin for FZF: a command-line fuzzy finder. TODO estudar mais este plugin. Ele é muito bom!
 Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
 Plug 'mbbill/undotree' " The ultimate undo history visualizer for VIM.
