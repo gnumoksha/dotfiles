@@ -149,10 +149,6 @@ call plug#end()
 "source /home/tobias/play/side_projects/dotfiles/vim/tests/vim-lsp_asyncomplete/config.vim
 "source /home/tobias/play/side_projects/dotfiles/vim/tests/LanguageClient-neovim_nvim-completion-manager/config.vim
 
-if !has('nvim')
-	" https://github.com/carlisia/dotfiles/blob/master/nvim/.config/nvim/init.vim
-endif
-
 
 """""""""""""""""""""""""""""""
 "                             "
@@ -203,18 +199,21 @@ set list
 set browsedir=buffer
 
 "Keep backups of files in case I mess up :)
+let s:backupDir = s:vimStuffDir . "/backup"
+if !isdirectory(s:backupDir)
+  call mkdir(s:backupDir, "", 0700)
+endif
+let &backupdir=s:backupDir
 set backup
 set backupcopy=yes
-set backupdir=$HOME/.vim/backup
-if !isdirectory(expand('~/.vim/backup'))
-  call mkdir(expand('~/.vim/backup'), "p")
-endif
 
 " Where store swap files.
-set directory=$HOME/.vim/swap//,.
-if !isdirectory(expand('~/.vim/swap'))
-  call mkdir(expand('~/.vim/swap'), "p")
+let s:swapDir = s:vimStuffDir . "/swap"
+if !isdirectory(s:swapDir)
+  call mkdir(s:swpaDir, "", 0700)
 endif
+" /,. means: use default directory if an error occurs in swapDir
+let &directory = s:swapDir . "/,."
 
 " Persistent undo
 let s:undoDir = "/tmp/.undodir_" . $USER
@@ -424,7 +423,7 @@ noremap <C-S> :update<CR>
 vnoremap <C-S> <C-C>:update<CR>
 inoremap <C-S> <C-O>:update<CR>
 
-" Execute current file
+" Execute (run) current file
 nnoremap <leader>r :!"%:p"<CR>
 
 "Working with buffers
@@ -466,7 +465,6 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 
 " scrooloose/nerdtree
-nnoremap <silent> <F2> :NERDTreeFind<CR>
 nnoremap <silent> <F3> :NERDTreeToggle<CR>
 
 " majutsushi/tagbar
@@ -570,20 +568,33 @@ imap <silent> <Home> <C-O><Home>
 " # TODO key mappings of plugins go to here
 
 " scrooloose/nerdtree
-let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeShowBookmarks=1
-let g:nerdtree_tabs_focus_on_files=1
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 50
-let g:nerdtree_tabs_open_on_gui_startup = 0 " Show vim-startify in a new gvim window without files
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+"let g:NERDTreeChDirMode=2
+"let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+"let g:NERDTreeShowBookmarks=1
+"let g:nerdtree_tabs_focus_on_files=1
+"let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+"let g:NERDTreeWinSize = 50
+"let g:nerdtree_tabs_open_on_gui_startup = 0 " Show vim-startify in a new gvim window without files
+" natural sort order will be used
+let NERDTreeNaturalSort=1
+" the 'wildignore' setting is respected
+let NERDTreeRespectWildIgnore=1
+" single click will open directory nodes, while a double                                                            
+" click will still be required for file nodes.
+let NERDTreeMouseMode=2
+" If set to 1, the NERD tree window will close after opening a file.
+let NERDTreeQuitOnOpen=1
+" display hidden files by default.
+let NERDTreeShowHidden=1
+" This options disables the 'Bookmarks' label 'Press ? for help' text.
+let NERDTreeMinimalUI=1
+
 " Disables listchars on NERDTree
 autocmd filetype nerdtree set listchars=
+" Closes vim if the only window left open is a NERDTree.
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " mhinz/vim-startify
-"let g:startify_list_order = ['sessions', 'files', 'dir', 'bookmarks', 'commands']
 let g:startify_list_order = [
             \ ['   Sessions:'],
             \ 'sessions',
