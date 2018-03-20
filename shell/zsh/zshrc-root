@@ -22,7 +22,7 @@ plugins=(colored-man-pages copybuffer copydir docker docker-compose git \
 
 source $ZSH/oh-my-zsh.sh
 
-source /home/tobias/play/side_projects/dotfiles/shell/general/general.sh
+source /home/tobias/play/side_projects/dotfiles/shell/general/bootstrap.sh
 
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
