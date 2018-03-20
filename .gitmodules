@@ -22,3 +22,6 @@
 [submodule "shell/zsh/powerlevel9k"]
 	path = shell/zsh/powerlevel9k
 	url = https://github.com/bhilburn/powerlevel9k.git
+[submodule "others/fonts/awesome-terminal-fonts"]
+	path = others/fonts/awesome-terminal-fonts
+	url = https://github.com/gabrielelana/awesome-terminal-fonts.git
