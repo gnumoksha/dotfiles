@@ -97,7 +97,7 @@ call plug#begin(s:plugDir)
   "Plug 'tpope/vim-surround' " Quoting/parenthesizing made simple. # TODO conferir se preciso ou se o outro plugin é melhor
   Plug 'SirVer/ultisnips' " The ultimate snippet solution for Vim.
     Plug 'honza/vim-snippets' " Snippets files for various programming languages.
-  "Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab.
+  Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab.
   Plug 'ludovicchabant/vim-gutentags' " A Vim plugin that manages your tag files.
   Plug 'majutsushi/tagbar' " Displays tags in a window, ordered by scope.
   Plug 'tpope/vim-db'
@@ -106,6 +106,14 @@ call plug#begin(s:plugDir)
   " Must have: apt-get install build-essential cmake python-dev python3-dev
   " Nice to have: apt-get install golang nodejs npm
   "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --js-completer' }
+  " deoplete: Dark powered asynchronous completion framework for neovim/Vim8.
+  if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+  endif
   Plug 'iamcco/markdown-preview.vim' " Real-time markdown preview plugin for vim.
   "Plug 'plasticboy/vim-markdown' " TODO estudar.
   "Plug 'ekalinin/Dockerfile.vim' " Vim syntax file & snippets for Docker's Dockerfile.
@@ -332,7 +340,7 @@ endif
 " correspondente. O salto só ocorre se o correspondente pode ser visto na
 " tela atual. Para definir por quanto tempo o salto ocorrera, use 'matchtime'
 set showmatch
-set colorcolumn=121 " Exibe uma marca na coluna especificada. Ajuda a alinhar o texto.
+set colorcolumn=120
 set cursorline " Destaca a linha onde o cursor está.
 
 " Searching {{{
@@ -435,11 +443,6 @@ cnoreabbrev Qall qall
 " scrooloose/nerdtree
 nnoremap <silent> <F3> :NERDTreeToggle<CR>
 
-" Save current file [09]
-noremap <C-S> :update<CR>
-vnoremap <C-S> <C-C>:update<CR>
-inoremap <C-S> <C-O>:update<CR>
-
 " ,p alterna o modo paste
 " parece que é melhor que pastetoggle
 "nmap <leader>p :set paste!<BAR>set paste?<CR>
@@ -462,8 +465,17 @@ vnoremap > >gv
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
 " majutsushi/tagbar
 nmap <silent> <C-F12> :TagbarToggle<CR>
+
+" Save current file [09]
+noremap <C-S> :update<CR>
+vnoremap <C-S> <C-C>:update<CR>
+inoremap <C-S> <C-O>:update<CR>
 
 " mbbill/undotree
 nnoremap <F4> :UndotreeToggle<cr>
@@ -548,11 +560,6 @@ nnoremap <leader>. :lcd %:p:h<CR>
 
 " Clean search (highlight)
 nnoremap <silent> <leader><space> :noh<cr>
-
-
-" Move visual block
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
 
 " SmartHome
 " Pressing the Home key moves the cursor to the first nonblank character on
@@ -776,6 +783,9 @@ imap <silent> <F8> <Plug>MarkdownPreview        " for insert mode
 nmap <silent> <F9> <Plug>StopMarkdownPreview    " for normal mode
 imap <silent> <F9> <Plug>StopMarkdownPreview    " for insert mode
 "}}}
+
+" Shougo/deoplete.nvim
+let g:deoplete#enable_at_startup = 1
 
 
 """""""""""""""""""""""""""""""
