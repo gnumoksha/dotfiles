@@ -25,3 +25,12 @@
 [submodule "others/fonts/awesome-terminal-fonts"]
 	path = others/fonts/awesome-terminal-fonts
 	url = https://github.com/gabrielelana/awesome-terminal-fonts.git
+[submodule "gtk/themes/arc"]
+	path = gtk/themes/arc
+	url = https://github.com/horst3180/arc-theme
+[submodule "gtk/themes/icons/flat-remix"]
+	path = gtk/themes/icons/flat-remix
+	url = https://github.com/daniruiz/Flat-Remix.git
+[submodule "gtk/themes/flat-remix"]
+	path = gtk/themes/flat-remix
+	url = https://github.com/daniruiz/Flat-Remix-GNOME-theme.git
