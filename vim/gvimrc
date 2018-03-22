@@ -7,3 +7,9 @@ set lines=999 columns=140
 
 "autocmd GUIEnter * winpos 100 50
 
+" https://superuser.com/questions/10588/how-to-make-cut-copy-paste-in-gvim-on-ubuntu-work-with-ctrlx-ctrlc-ctrlv
+source $VIMRUNTIME/mswin.vim
+behave mswin
+" Use system's clipboard
+set clipboard=unnamed
+
