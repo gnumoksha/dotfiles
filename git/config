@@ -138,6 +138,9 @@
 	download = clone --depth=1 --shallow-submodules --recurse-submodules
 	download-all-branches = !git download --no-single-branch
 
+	# Example: git added-in docker-compose.yml
+	added-in = log --follow --diff-filter=A --find-renames --
+
 	cherry-pick = cherry-pick -x
 
 	# Do a merge pre pull request. Source: github instrutions on pull request page.
