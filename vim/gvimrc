@@ -1,6 +1,6 @@
 
 " The system menu file includes a "Buffers" menu and this disable it
-let no_buffers_menu=1
+let no_buffers_menu=0
 
 " Size of gVim window
 set lines=999 columns=140
@@ -13,3 +13,12 @@ behave mswin
 " Use system's clipboard
 set clipboard=unnamed
 
+" scrooloose/nerdtre
+" open a NERDTree automatically when vim starts up
+"autocmd vimenter * NERDTree
+" Click on an open window/buffer, and have that file highlighted in the NERDTree (ref01).
+"autocmd BufEnter * if &modifiable | NERDTreeFind | wincmd p | endif
+
+
+" References
+" ref01 https://superuser.com/a/474298/766943

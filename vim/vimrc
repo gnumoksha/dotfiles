@@ -38,7 +38,7 @@ let g:myBinDir = "/usr/local/bin"
 if !filereadable(s:plugFile)
   echo "Installing Vim-Plug..."
   echo ""
-  silent !\curl -fLo g:plugFile --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  execute ':!curl --fail --location --create-dirs --output ' . s:plugFile . ' https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
   autocmd VimEnter * PlugInstall
 endif
@@ -148,11 +148,12 @@ call plug#begin(s:plugDir)
   Plug 'godlygeek/csapprox' " (old: vim-scripts/CSApprox) Make gvim-only colorschemes work transparently in terminal vim.
   Plug 'tomasr/molokai' " Molokai color scheme for Vim.
   "Plug 'junegunn/seoul256.vim' " Low-contrast Vim color scheme based on Seoul Colors.
-  "Plug 'joshdick/onedark.vim' " A dark Vim/Neovim color scheme inspired by Atom's One Dark syntax theme.
+  Plug 'joshdick/onedark.vim' " A dark Vim/Neovim color scheme inspired by Atom's One Dark syntax theme.
   "Plug 'chriskempson/base16-vim' " Base16 for Vim.
   "Plug 'mhinz/vim-janah' " A dark colorscheme for Vim.
   "Plug 'nanotech/jellybeans.vim', { 'tag': 'v1.6' } " A colorful, dark color scheme for Vim.
-  "Plug 'romainl/Apprentice' " A dark, low-contrast, Vim colorscheme.
+  Plug 'romainl/Apprentice' " A dark, low-contrast, Vim colorscheme.
+  "Plug 'rakr/vim-one' " Adaptation of one-light and one-dark colorschemes for Vim.
 
   """""""""""""""""""
   " Misc
@@ -199,11 +200,12 @@ set autoread
 
 "" Encoding
 set encoding=utf-8
-"set fileencoding=utf-8
-set fileencodings=utf-8
-set bomb
-set binary
+set fileencoding=utf-8
+"set bomb
+"set binary
 set ttyfast
+" nao funciona no nvim
+"set ttymouse=xterm2
 
 "" Fix backspace indent
 set backspace=indent,eol,start
@@ -263,7 +265,6 @@ set undofile
 "                             "
 """""""""""""""""""""""""""""""
 syntax on
-set ruler  " shows cursor position
 set number " shows line number
 
 "set mouse=a
@@ -274,33 +275,19 @@ set gfn=Hack\ 12
 set signcolumn=yes " Always show sign column.
 
 " If you prefer the scheme to match the original monokai background color.
-let g:molokai_original = 1
+"let g:molokai_original = 1
 " Alternative scheme under development for color terminals which attempts to bring the 256
 " color version as close as possible to the the default (dark) GUI version.
 "let g:rehash256 = 1
-colorscheme molokai
+
+colorscheme onedark
 
 " Matches the terminal colors
 set termguicolors
 
-if $COLORTERM == 'gnome-terminal'
-  set term=gnome-256color
-else
-  if $TERM == 'xterm'
-    set term=xterm-256color
-  endif
-endif
-
-if &term =~ '256color'
-  set t_ut=
-endif
-
 "" Disable the blinking cursor.
-set gcr=a:blinkon0
+"set gcr=a:blinkon0
 set scrolloff=3
-
-"" Status bar
-set laststatus=2
 
 "" Use modeline overrides
 set modeline
@@ -313,23 +300,8 @@ set titlestring="%F%m %Y"
 " This is nice, but makes scrolling very slow
 "set title titlestring=...%{strpart(expand(\"%:p:h\"),stridx(expand(\"%:p:h\"),\"/\",strlen(expand(\"%:p:h\"))-12))}%=%n.\ \ %{expand(\"%:t:r\")}\ %m\ %Y\ \ \ \ %l\ of\ %L " [ref05]
 
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
-
-if exists("*fugitive#statusline")
-  set statusline+=%{fugitive#statusline()}
-endif
-
 " ? Exibe parte do comando na linha de status
 set showcmd
-
-" Exibe o modo atual
-set showmode
-
-" Define um texto na barra de status
-set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-set statusline+=%{fugitive#statusline()}
 
 " Faz com que o vim pule para a posição no arquivo onde se parou na última
 " fez que ele foi aberto
@@ -500,6 +472,9 @@ noremap <silent> <leader>bc :bd<CR>
 " abre o console de erro
 "map <leader>cc :botright cope<CR>
 
+" Set working directory
+nnoremap <leader>cd :lcd %:p:h<CR>
+
 " Diff Get Right
 noremap <Leader>dgr :diffget RE<CR>
 " Diff Get Base
@@ -541,6 +516,9 @@ noremap <Leader>gsh :Commit<CR>
 " #TODO needs comparison with fzf
 map <silent> <leader>jd :CtrlPTag<cr><c-\>w
 
+" Clean search highlight
+nnoremap <silent> <leader>n :noh<cr>
+
 " Execute (run) current file
 nnoremap <leader>r :!"%:p"<CR>
 
@@ -551,7 +529,7 @@ nnoremap <leader>sd :DeleteSession<CR>
 nnoremap <leader>sc :CloseSession<CR>
 
 " Split
-noremap <Leader>sh :<C-u>split<CR>
+noremap <Leader>sp :<C-u>split<CR>
 noremap <Leader>sv :<C-u>vsplit<CR>
 
 " Shougo/vimshell
@@ -561,12 +539,6 @@ nnoremap <silent> <leader>sl :VimShellCreate<CR>
 nnoremap <Tab> gt
 nnoremap <S-Tab> gT
 nnoremap <silent> <S-t> :tabnew<CR>
-
-" Set working directory
-nnoremap <leader>. :lcd %:p:h<CR>
-
-" Clean search (highlight)
-nnoremap <silent> <leader><space> :noh<cr>
 
 " SmartHome
 " Pressing the Home key moves the cursor to the first nonblank character on
@@ -593,12 +565,6 @@ imap <silent> <Home> <C-O><Home>
 " # TODO key mappings of plugins go to here
 
 " scrooloose/nerdtree
-"let g:NERDTreeChDirMode=2
-"let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-"let g:NERDTreeShowBookmarks=1
-"let g:nerdtree_tabs_focus_on_files=1
-"let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-"let g:NERDTreeWinSize = 50
 "let g:nerdtree_tabs_open_on_gui_startup = 0 " Show vim-startify in a new gvim window without files
 " natural sort order will be used
 let NERDTreeNaturalSort=1
@@ -624,15 +590,13 @@ let g:startify_list_order = [
             \ 'sessions',
             \ ['   Most recently used files:'],
             \ 'files',
-            \ ['   Most recently used files in the current directory:'],
-            \ 'dir',
             \ ['   Bookmarks:'],
             \ 'bookmarks',
             \ ['   Commands:'],
             \ 'commands',
             \ ]
 
-let g:startify_files_number = 10
+let g:startify_files_number = 30
 let g:startify_change_to_dir = 1 " When opening a file or bookmark, change to its directory.
 let g:startify_change_to_vcs_root = 1 " When opening a file or bookmark, seek and change to the root directory of the VCS.
 let g:startify_fortune_use_unicode = 1 " Fortune header uses utf-8.
@@ -791,7 +755,8 @@ let g:mkdp_command_for_global = 0
 "}}}
 
 " Shougo/deoplete.nvim
-let g:deoplete#enable_at_startup = 1
+" Enables automatic completation.
+"let g:deoplete#enable_at_startup = 1
 
 
 """""""""""""""""""""""""""""""

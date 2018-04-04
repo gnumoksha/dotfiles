@@ -1,0 +1,4 @@
+# PUBKEY: 2F7F0DA5FD5B64B9
+# wget -q http://download.opensuse.org/repositories/home:/strycore/Debian_9.0/Release.key -O- | sudo apt-key add -
+deb http://download.opensuse.org/repositories/home:/strycore/Debian_9.0/ ./
+
