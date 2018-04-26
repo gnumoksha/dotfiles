@@ -83,7 +83,7 @@ echo "Configuring BASH"
 BASH_GENERAL="source \"$SCRIPTPATH/shell/bash/general.sh\""
 [[ ! $(grep -i "$BASH_GENERAL" ~/.bashrc 2>/dev/null) ]] && echo "$BASH_GENERAL" >> ~/.bashrc
 #
-SHELL_GENERAL="source \"$SCRIPTPATH/shell/general/general.sh\""
+SHELL_GENERAL="source \"$SCRIPTPATH/shell/common/bootstrap.sh\""
 [[ ! $(grep -i "$SHELL_GENERAL" ~/.bashrc 2>/dev/null) ]] && echo "$SHELL_GENERAL" >> ~/.bashrc
 #
 [[ $DELETAR_ANTIGOS -eq 1 ]] && rm -f ~/.bash_profile ~/.dir_colors 2>/dev/null
@@ -150,5 +150,7 @@ ln -fs "$SCRIPTPATH/others/fonts/awesome-terminal-fonts/config/10-symbols.conf" 
 ./others/fonts/powerline/install.sh
 
 ./utils/install_nerd_fonts.sh
+
+wget https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -O /usr/local/bin/diff-so-fancy
 
 #EOF
