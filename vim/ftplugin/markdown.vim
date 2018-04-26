@@ -1,4 +1,5 @@
 
+colorscheme molokai
 
 " majutsushi/tagbar
 " Source: https://github.com/majutsushi/tagbar/wiki#markdown
