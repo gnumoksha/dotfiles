@@ -125,9 +125,11 @@
 	st = status
 	df = diff
 	sh = stash
-	co = commit
+	com = commit
 	mt = mergetool
 	dt = difftool
+
+	branch-clean = !git branch | grep -P 'feature/|hotfix/' | xargs git branch -D
 
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	type = cat-file -t
