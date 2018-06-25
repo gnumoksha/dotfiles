@@ -1,30 +1,4 @@
 ###################################
-#               PATH              #
-###################################
-# Para o debian
-export PATH="$PATH:/sbin"
-export PATH="$PATH:/usr/games"
-# PHP composer
-export PATH="$PATH:$HOME/.config/composer/vendor/bin"
-# Binarios extras sem instalador para debian
-export PATH="$MY_BIN_DIR:$PATH"
-# Python
-export PATH="$PATH:$HOME/.local/bin"
-
-# For Golang
-# GOPATH environment variable specifies the location of your workspace.
-export GOPATH=$HOME/play/go/ws
-# Set the GOBIN path to generate a binary file when go install is run.
-export GOBIN=$GOPATH/bin
-# If go is not in /usr/local/go, specify where it is.
-export GOROOT=/usr/lib/go-1.9
-export PATH="$PATH:$GOROOT/bin:$GOBIN"
-
-export JAVA_HOME=/opt/apps/gnu+linux/java/jdk
-#export PHPSTORM_JDK=$JAVA_HOME
-
-
-###################################
 #            Terminal             #
 ###################################
 # Disables Software Flow Control (XON/XOFF flow control)
@@ -36,12 +10,30 @@ stty -ixon
 #            FUNCTIONS            #
 ###################################
 
-# Examples: my_get_password, my_get_password 10 
-function my_get_password() {
-	pwgen --capitalize --num-passwords=1 --numerals --secure --symbols $@
+# Examples: get_password, get_password 10
+# See https://www.makeuseof.com/tag/5-ways-generate-secure-passwords-linux/
+# https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/
+function passgen() {
+	pw_length=$1
+	num_pw=$2
+	[ -z "$pw_length" ] && pw_length=20
+	[ -z "$num_pw" ] && num_pw=1
+
+	[ -f "$(which pwgen)" ] && pwgen --capitalize --numerals --symbols --secure --ambiguous $pw_length $num_pw
+	[ -f "$(which pwgen)" ] && pwgen --capitalize --symbols --secure --ambiguous $pw_length $num_pw
+	[ -f "$(which openssl)" ] && openssl rand -base64 $pw_length | head -c $pw_length; echo
+	[ -f "$(which makepasswd)" ] && makepasswd --chars=$pw_length --count=$num_pw
+	[ -f "$(which date)" ] && date +%s | sha256sum | base64 | head -c $pw_length; echo
+	[ -f "/bin/dd" ] && dd if=/dev/urandom bs=1 count=$pw_length 2>/dev/null | base64 -w 0 | rev | cut -b 2- | rev | head -c $pw_length; echo
+	< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c ${1:-$pw_length}; echo;
+	tr -cd '[:alnum:]' < /dev/urandom | fold -w $pw_length | head -n 1
+	# left-hand
+	</dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c $pw_length; echo ""
+	[ -f "$(which diceware)" ] && diceware
+	[ -f "$(which xkcdpass)" ] && xkcdpass
 }
 
-function my_public_ip () {
+function public_ip () {
 	wget -qO- ifconfig.co ||
 	wget -qO- ifconfig.me ||
 	wget -qO- icanhazip.com ||
@@ -49,7 +41,7 @@ function my_public_ip () {
 }
 
 # http://stackoverflow.com/questions/1058047/wait-for-any-process-to-finish
-function my_wait_pid() {
+function wait_pid() {
 	for pid in "$@"; do
 		while kill -0 "$pid"; do
 			sleep 0.5
@@ -65,27 +57,6 @@ function psgrep () {
 	}
 }
 
-function iniciar_funcoesZZ () {
-	# Instalacao das Funcoes ZZ (www.funcoeszz.net)
-	export ZZOFF=""  # desligue funcoes indesejadas
-	export ZZPATH="~/outros/softwares/gnu+linux/funcoeszz/funcoeszz"  # script
-	export ZZDIR="~/outros/softwares/gnu+linux/funcoeszz/zz"
-	source "$ZZPATH"
-}
-
-function definir_proxy () {
-	if [[ -z $1 ]]; then
-		echo "Uso: definir_proxy servidor porta usuario senha"
-		return 1
-	fi
-	P_SERVIDOR=$1
-	P_PORTA=$2
-	P_USUARIO=$3
-	P_SENHA=$4
-	export http_proxy=http://${P_SERVIDOR}:${P_PORTA}
-	export https_proxy=https://${P_SERVIDOR}:${P_PORTA}
-}
-
 function show_cowsay_fortune () {
 	# Show fortune messages with a random cowsay character.
 	# apt install fortunes-mod fortunes fortune-anarchism fortunes-br fortunes-debian-hints
@@ -93,6 +64,15 @@ function show_cowsay_fortune () {
 	# Nota: o código rodou de primeira \o/
 	# http://en.wikipedia.org/wiki/Fortune_%28Unix%29
 	# http://en.wikipedia.org/wiki/Cowsay
+
+	# Para que o fortune apareça apenas uma vez por dia
+	procura=$(find /tmp -maxdepth 1 -mtime -1 -iname "*custom_fortune" -type f 2>/dev/null)
+	if [[ ! -z $procura ]]; then
+		return 0
+	else
+		mktemp --suffix=custom_fortune  2>&1 > /dev/null
+	fi
+
 	[[ -n $TMUX ]] && return 0
 	[[ $(whoami) == "root" ]] && return 0
 	programaFortune=$(which fortune)

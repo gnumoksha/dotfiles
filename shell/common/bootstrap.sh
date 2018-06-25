@@ -5,6 +5,7 @@ else
 fi
 
 #source $current_dir/utils.sh
+source $current_dir/path.sh
 source $current_dir/vars.sh
 source $current_dir/aliases.sh
 source $current_dir/aws.sh
