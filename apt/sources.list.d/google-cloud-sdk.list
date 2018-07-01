@@ -1,0 +1,3 @@
+# https://cloud.google.com/sdk/docs/#deb
+deb https://packages.cloud.google.com/apt cloud-sdk-buster main
+
