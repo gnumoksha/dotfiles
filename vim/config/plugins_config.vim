@@ -27,6 +27,8 @@ let NERDTreeMinimalUI=1
 autocmd filetype nerdtree set listchars=
 " Closes vim if the only window left open is a NERDTree.
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Keys mapping
+nnoremap <silent> <F3> :NERDTreeToggle<CR>
 "}}}
 
 " mhinz/vim-startify {{{
@@ -67,6 +69,17 @@ let g:session_directory = "~/.vim/session" " Controls the location of your sessi
 let g:session_autoload = "no"
 let g:session_autosave = "yes"
 let g:session_command_aliases = 1 " The names of the commands defined by the session plug-in start with the action they perform, followed by the string 'Session'.
+" Keys mapping
+nnoremap <leader>so :OpenSession<Space>
+nnoremap <leader>ss :SaveSession<Space>
+nnoremap <leader>sd :DeleteSession<CR>
+nnoremap <leader>sc :CloseSession<CR>
+"}}}
+
+" ctrlpvim/ctrlp.vim {{{
+" Key mappings
+" #TODO compare with fzf
+map <silent> <leader>jd :CtrlPTag<cr><c-\>w
 "}}}
 
 " junegunn/fzf {{{
@@ -88,11 +101,26 @@ if executable('rg')
   set grepprg=rg\ --vimgrep
   command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 endif
+" Keys mapping
+" Show files in current directory
+nnoremap <silent> <leader>e :FZF -m<CR>
+nnoremap <silent> <leader>fb :Buffers<CR>
+nnoremap <silent> <leader>fc :Commits<CR>
+nnoremap <silent> <leader>ff :FZF<CR>
+nnoremap <silent> <leader>fh :History<CR>
+nnoremap <silent> <leader>fs :Snippets<CR>
+nnoremap <silent> <leader>ft :Tags<CR>
+nnoremap <silent> <leader>fw :Windows<CR>
+" Git SearcH
+noremap <Leader>gsh :Commit<CR>
+
 "}}}
 
 " mbbill/undotree {{{
 let g:undotree_WindowLayout = 2
 let g:undotree_SetFocusWhenToggle = 1 " If set, let undotree window get focus after being opened, otherwise focus will stay in current window.
+" Keys mapping
+nnoremap <F4> :UndotreeToggle<cr>
 "}}}
 "}}}
 
@@ -135,6 +163,22 @@ autocmd QuickFixCmdPost *grep* cwindow
 "let g:fugitive_gitlab_domains = ['http://gitlab.com']
 " tpope/vim-rhubarb
 "let g:github_enterprise_urls = ['https://example.com']
+" Keys mapping
+noremap <Leader>ga :Gwrite<CR>
+" Git COmmit
+noremap <Leader>gco :Gcommit<CR>
+"noremap <Leader>gsh :Gpush<CR>
+"noremap <Leader>gll :Gpull<CR>
+" Git STatus
+noremap <Leader>gst :Gstatus<CR>
+" Git BLame
+noremap <Leader>gbl :Gblame<CR>
+" Git DIff
+noremap <Leader>gdi :Gvdiff<CR>
+" Git REmove
+noremap <Leader>gre :Gremove<CR>
+" Git Open Browser
+nnoremap <Leader>gob :.Gbrowse<CR>
 "}}}
 
 " airblade/vim-gitgutter {{{
@@ -201,6 +245,8 @@ let g:gutentags_ctags_exclude = ['*.css', '*.html', '*.js']
 
 " majutsushi/tagbar {{{
 let g:tagbar_autofocus = 1
+" Keys mapping
+nmap <silent> <C-F12> :TagbarToggle<CR>
 "}}}
 
 " YouCompleteMe {{{
@@ -240,6 +286,11 @@ let g:mkdp_refresh_slow = 0
 " set to 1, the MarkdownPreview command can be use for all files,
 " by default it just can be use in markdown file
 let g:mkdp_command_for_global = 0
+" Keys mapping
+nmap <silent> <F8> <Plug>MarkdownPreview        " for normal mode
+imap <silent> <F8> <Plug>MarkdownPreview        " for insert mode
+nmap <silent> <F9> <Plug>StopMarkdownPreview    " for normal mode
+imap <silent> <F9> <Plug>StopMarkdownPreview    " for insert mode
 "}}}
 
 " plasticboy/vim-markdown {{{

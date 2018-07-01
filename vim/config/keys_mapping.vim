@@ -1,9 +1,11 @@
 
 """""""""""""""""""""""""""""""
 "                             "
-"        Keys mapping         "
+" Keys mapping for built-in   "
+" vim features                "
 "                             "
 """""""""""""""""""""""""""""""
+" Keys mapping for plugins is on plugins_config.vim file.
 "{{{
 " The idea with this function is to be like a complete refresh of vim.
 if !exists('*MyReload')
@@ -52,18 +54,6 @@ vnoremap K :m '<-2<CR>gv=gv
 vnoremap < <gv
 vnoremap > >gv
 
-" scrooloose/nerdtree
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
-
-" mbbill/undotree
-nnoremap <F4> :UndotreeToggle<cr>
-
-" MarkdownPreview
-nmap <silent> <F8> <Plug>MarkdownPreview        " for normal mode
-imap <silent> <F8> <Plug>MarkdownPreview        " for insert mode
-nmap <silent> <F9> <Plug>StopMarkdownPreview    " for normal mode
-imap <silent> <F9> <Plug>StopMarkdownPreview    " for insert mode
-
 " ,p alterna o modo paste
 " parece que é melhor que pastetoggle
 "nmap <leader>p :set paste!<BAR>set paste?<CR>
@@ -73,9 +63,6 @@ noremap XX "+x<CR>
 
 " cd. muda para o diretorio do arquivo atual
 "cmap cd. lcd %:p:h
-
-" majutsushi/tagbar
-nmap <silent> <C-F12> :TagbarToggle<CR>
 
 " Save current file [09]
 noremap <C-S> :update<CR>
@@ -108,59 +95,15 @@ noremap <Leader>dgb :diffget BA<CR>
 " Diff Get Left
 noremap <Leader>dgl :diffget LO<CR>
 
-" Executa fzf -m que exibe os arquivos no diretorio atual
-nnoremap <silent> <leader>e :FZF -m<CR>
-
-" junegunn/fzf.vim
-nnoremap <silent> <leader>fb :Buffers<CR>
-nnoremap <silent> <leader>fc :Commits<CR>
-nnoremap <silent> <leader>ff :FZF<CR>
-nnoremap <silent> <leader>fh :History<CR>
-nnoremap <silent> <leader>fs :Snippets<CR>
-nnoremap <silent> <leader>ft :Tags<CR>
-nnoremap <silent> <leader>fw :Windows<CR>
-
-" Git
-noremap <Leader>ga :Gwrite<CR>
-" Git COmmit
-noremap <Leader>gco :Gcommit<CR>
-"noremap <Leader>gsh :Gpush<CR>
-"noremap <Leader>gll :Gpull<CR>
-" Git STatus
-noremap <Leader>gst :Gstatus<CR>
-" Git BLame
-noremap <Leader>gbl :Gblame<CR>
-" Git DIff
-noremap <Leader>gdi :Gvdiff<CR>
-" Git REmove
-noremap <Leader>gre :Gremove<CR>
-" Git Open Browser
-nnoremap <Leader>gob :.Gbrowse<CR>
-" Git SearcH - powered by FZF
-noremap <Leader>gsh :Commit<CR>
-
-" ctrlpvim/ctrlp.vim
-" #TODO needs comparison with fzf
-map <silent> <leader>jd :CtrlPTag<cr><c-\>w
-
 " Clean search highlight
 nnoremap <silent> <leader>n :noh<cr>
 
 " Execute (run) current file
 nnoremap <leader>r :!"%:p"<CR>
 
-" Session management
-nnoremap <leader>so :OpenSession<Space>
-nnoremap <leader>ss :SaveSession<Space>
-nnoremap <leader>sd :DeleteSession<CR>
-nnoremap <leader>sc :CloseSession<CR>
-
 " Split
 noremap <Leader>sp :<C-u>split<CR>
 noremap <Leader>sv :<C-u>vsplit<CR>
-
-" Shougo/vimshell
-nnoremap <silent> <leader>sl :VimShellCreate<CR>
 
 " Tabs
 nnoremap <Tab> gt
@@ -183,4 +126,11 @@ endfunction
 noremap <expr> <silent> <Home> SmartHome()
 imap <silent> <Home> <C-O><Home>
 "}}}
+
+"""""""""""""""""""""""""""""""
+"                             "
+"        Main References      "
+"                             "
+"""""""""""""""""""""""""""""""
+" 09 http://vim.wikia.com/wiki/Map_Ctrl-S_to_save_current_or_new_files
 
