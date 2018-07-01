@@ -31,4 +31,6 @@ alias dd="dd status=progress"
 alias dck='docker'
 alias dcompose='docker-compose'
 
+alias g="git"
+
 #EOF
