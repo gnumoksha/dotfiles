@@ -17,8 +17,8 @@ call plug#begin(g:plugDir)
   " General purpose
   """""""""""""""""""
   "{{{
-  Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } " A tree explorer plugin for vim.
-    Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' } " A plugin of NERDTree showing git status.
+  Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'} " A tree explorer plugin for vim.
+    Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'} " A plugin of NERDTree showing git status.
   " Plug 'jistr/vim-nerdtree-tabs' " TODO this plugin is not necessary https://github.com/scrooloose/nerdtree#faq
   Plug 'mhinz/vim-startify' " The fancy start screen for Vim.
   Plug 'xolox/vim-misc' " Miscellaneous auto-load Vim scripts (for vim-session).
@@ -27,13 +27,14 @@ call plug#begin(g:plugDir)
 "    Plug 'Shougo/vimshell.vim' " Powerful shell implemented by vim.
   " CtrlPMixed seems nice
   Plug 'ctrlpvim/ctrlp.vim' " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
-  Plug 'junegunn/fzf', { 'dir': g:myBinDir . '/fzf', 'do': './install --all' } " A command-line fuzzy finder.
+  Plug 'junegunn/fzf', {'dir': g:myBinDir . '/fzf', 'do': './install --all'} " A command-line fuzzy finder.
     Plug 'junegunn/fzf.vim' " Vim plugin for FZF: a command-line fuzzy finder. TODO estudar mais este plugin. Ele é muito bom!
   Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
   Plug 'tpope/vim-sleuth' " Automatically adjusts 'shiftwidth' and 'expandtab' heuristically.
   Plug 'mbbill/undotree' " The ultimate undo history visualizer for VIM.
-  Plug 'https://git.zx2c4.com/password-store', { 'rtp': 'contrib/vim/noplaintext.vim' } " Prevent various Vim features from keeping the contents of passwordstore.org.
-  Plug 'xolox/vim-notes' " Easy note taking in Vim.
+  Plug 'https://git.zx2c4.com/password-store', {'rtp': 'contrib/vim/noplaintext.vim'} " Prevent various Vim features from keeping the contents of passwordstore.org.
+  Plug 'xolox/vim-notes', {'on': 'Note'} " Easy note taking in Vim.
+  "Plug 'junegunn/vim-journal' " a syntax plugin for plain-text notes
   "Plug 'chrisbra/Recover.vim' " A Plugin to show a diff, whenever recovering a buffer.
   "}}}
 
@@ -78,7 +79,7 @@ call plug#begin(g:plugDir)
   Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab.
   Plug 'ludovicchabant/vim-gutentags', {'for': g:myLangs} " A Vim plugin that manages your tag files.
   Plug 'majutsushi/tagbar', {'for': g:myLangs} " Displays tags in a window, ordered by scope.
-  Plug 'tpope/vim-db'
+  Plug 'tpope/vim-dadbod', {'on': 'DB'} " dadbod.vim: Modern database interface for Vim
   " A code-completion engine for Vim.
   " 2017-11-27 - Tobias - PHP support is insufficient.
   " Must have: apt-get install build-essential cmake python-dev python3-dev
@@ -97,6 +98,7 @@ call plug#begin(g:plugDir)
   Plug 'andymass/vim-matchup', {'for': g:myLangs} " Navigate and highlight matching words. Modern matchit and matchparen replacement.
   "Plug 'jaxbot/semantic-highlight.vim' " Where every variable is a different color.
   Plug 'janko-m/vim-test', {'for': g:myLangs} " Run your tests at the speed of thought.
+  "Plug 'tpope/vim-dispatch' " Asynchronous build and test dispatcher
   "Plug 'terryma/vim-multiple-cursors' " True Sublime Text style multiple selections for Vim.
 
   " PHP {{{

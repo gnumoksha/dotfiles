@@ -130,8 +130,8 @@ nnoremap <F4> :UndotreeToggle<cr>
 "{{{
 " vim-airline {{{
 let g:airline_powerline_fonts = 1
-" Nice themes: molokai, powerlineish
-let g:airline_theme='powerlineish'
+" Nice themes: molokai, powerlineish, tomorrow, base16, angr
+let g:airline_theme='tomorrow'
 let g:airline#extensions#tabline#enabled = 1 " Automatically displays all buffers when there's only one tab open.
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -272,7 +272,7 @@ let g:mkdp_path_to_chrome = "/usr/bin/firefox"
 let g:mkdp_browserfunc = 'MKDP_browserfunc_default'
 " set to 1, the vim will open the preview window once enter the markdown
 " buffer
-let g:mkdp_auto_start = 1
+let g:mkdp_auto_start = 0
 " set to 1, the vim will auto open preview window when you edit the
 " markdown file
 let g:mkdp_auto_open = 0
