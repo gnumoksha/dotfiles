@@ -32,7 +32,7 @@ augroup END
 let g:tagbar_phpctags_bin='~/.vim/bin/phpctags'
 
 " Don't use the PHP syntax folding.
-"let g:DisableAutoPHPFolding = 1
+let g:DisableAutoPHPFolding = 1
 " Include the '$' as part of identifiers.
 "let php_var_selector_is_identifier = 1
 " Indent 'case:' and 'default:' statements in switch() blocks:

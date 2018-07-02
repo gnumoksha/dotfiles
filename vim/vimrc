@@ -29,6 +29,9 @@ let g:plugDir = g:vimStuffDir . "/plugged"
 " Vim plug does not accept script vars
 let g:myBinDir = "/usr/local/bin"
 
+" This var is used to load plugins only for these programming languages.
+let g:myLangs = ['go', 'html', 'javascript', 'perl', 'php', 'python', 'sh']
+
 runtime config/plugins_load.vim
 
 runtime config/plugins_config.vim
@@ -49,5 +52,4 @@ runtime config/keys_mapping.vim
 " 06 http://vim.wikia.com/wiki/VimTip315
 " 07 https://www.reddit.com/r/vim/comments/1vdrxg/space_is_a_big_key_what_do_you_map_it_to/
 " 08 http://vim.wikia.com/wiki/Indenting_source_code
-" 09 http://vim.wikia.com/wiki/Map_Ctrl-S_to_save_current_or_new_files
 
