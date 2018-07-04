@@ -129,9 +129,14 @@ nnoremap <F4> :UndotreeToggle<cr>
 """""""""""""""""""
 "{{{
 " vim-airline {{{
+function! s:randnum(max) abort
+  return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:]) % a:max
+endfunction
 let g:airline_powerline_fonts = 1
 " Nice themes: molokai, powerlineish, tomorrow, base16, angr
-let g:airline_theme='tomorrow'
+let s:airline_themes = ['molokai', 'powerlineish', 'tomorrow', 'base16', 'angr']
+let g:airline_theme = 'tomorrow'
+"let g:airline_theme = s:airline_themes[s:randnum(5)]
 let g:airline#extensions#tabline#enabled = 1 " Automatically displays all buffers when there's only one tab open.
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'

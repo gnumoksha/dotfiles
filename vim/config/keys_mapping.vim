@@ -80,7 +80,7 @@ noremap <silent> <leader>bp :bp<CR>
 " Buffer Next
 noremap <silent> <leader>bn :bn<CR>
 " Buffer Close
-noremap <silent> <leader>bc :bd<CR>
+noremap <silent> <leader>bc :bd!<CR>
 
 " abre o console de erro
 "map <leader>cc :botright cope<CR>
@@ -108,7 +108,9 @@ noremap <Leader>sv :<C-u>vsplit<CR>
 " Tabs
 nnoremap <Tab> gt
 nnoremap <S-Tab> gT
-nnoremap <silent> <S-t> :tabnew<CR>
+nnoremap <S-t> :tabnew<CR>
+nnoremap <C-t> :tabnew<CR>
+nnoremap <C-w> :bdelete<CR>
 
 " SmartHome
 " Pressing the Home key moves the cursor to the first nonblank character on

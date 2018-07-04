@@ -65,13 +65,14 @@ endif
 " /,. means: use default directory if an error occurs in swapDir
 let &directory = s:swapDir . "/,."
 
-" Persistent undo
+" Persists undo while computer is on
 let s:undoDir = "/tmp/.undodir_" . $USER
 if !isdirectory(s:undoDir)
   call mkdir(s:undoDir, "", 0700)
 endif
 let &undodir=s:undoDir
 set undofile
+set undolevels=10000
 
 set viminfo='100,n$HOME/.vim/viminfo
 
