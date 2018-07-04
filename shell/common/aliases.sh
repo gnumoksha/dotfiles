@@ -33,4 +33,7 @@ alias dcompose='docker-compose'
 
 alias g="git"
 
+# show only hardware interfaces
+alias ifconfig='ls /sys/class/net | egrep -v "^(lo[0-9]?|sit[0-9]|ce[0-9]?|docker[0-9]?|br[-a-z0-9]{13})$" | xargs --max-args=1 /sbin/ifconfig'
+
 #EOF
