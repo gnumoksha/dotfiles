@@ -27,10 +27,11 @@ endif
 
 let g:plugDir = g:vimStuffDir . "/plugged"
 " Vim plug does not accept script vars
-let g:myBinDir = "/usr/local/bin"
+"let g:myBinDir = "/usr/local/bin"
+let g:zplugHome = "/usr/local/opt/zplug/home"
 
 " This var is used to load plugins only for these programming languages.
-let g:myLangs = ['go', 'html', 'javascript', 'perl', 'php', 'python', 'sh']
+let g:myLangs = ['go', 'html', 'javascript', 'perl', 'php', 'python', 'sh', 'vim']
 
 runtime config/plugins_load.vim
 

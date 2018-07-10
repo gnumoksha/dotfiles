@@ -27,8 +27,8 @@ call plug#begin(g:plugDir)
 "    Plug 'Shougo/vimshell.vim' " Powerful shell implemented by vim.
   " CtrlPMixed seems nice
   Plug 'ctrlpvim/ctrlp.vim' " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
-  Plug 'junegunn/fzf', {'dir': g:myBinDir . '/fzf', 'do': './install --all'} " A command-line fuzzy finder.
-    Plug 'junegunn/fzf.vim' " Vim plugin for FZF: a command-line fuzzy finder. TODO estudar mais este plugin. Ele é muito bom!
+  " A command-line fuzzy finder.
+  Plug g:zplugHome . '/repos/junegunn/fzf/' | Plug 'junegunn/fzf.vim'
   Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
   Plug 'tpope/vim-sleuth' " Automatically adjusts 'shiftwidth' and 'expandtab' heuristically.
   Plug 'mbbill/undotree' " The ultimate undo history visualizer for VIM.
@@ -36,6 +36,8 @@ call plug#begin(g:plugDir)
   Plug 'xolox/vim-notes', {'on': 'Note'} " Easy note taking in Vim.
   "Plug 'junegunn/vim-journal' " a syntax plugin for plain-text notes
   "Plug 'chrisbra/Recover.vim' " A Plugin to show a diff, whenever recovering a buffer.
+  Plug 'tpope/vim-characterize' " Unicode character metadataUnicode character metadata.
+  "Plug 'kana/vim-smartinput'
   "}}}
 
   """""""""""""""""""
@@ -100,6 +102,7 @@ call plug#begin(g:plugDir)
   Plug 'janko-m/vim-test', {'for': g:myLangs} " Run your tests at the speed of thought.
   "Plug 'tpope/vim-dispatch' " Asynchronous build and test dispatcher
   "Plug 'terryma/vim-multiple-cursors' " True Sublime Text style multiple selections for Vim.
+  Plug 'ap/vim-css-color', {'for': 'css'} " Preview colours in source code while editing
 
   " PHP {{{
   " StanAngeloff/php.vim is loaded by vim-polyglot.

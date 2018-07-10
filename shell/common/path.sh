@@ -20,6 +20,9 @@ export GOBIN=$GOPATH/bin
 export GOROOT=/usr/lib/go-1.9
 export PATH="$PATH:$GOROOT/bin:$GOBIN"
 
+# For rust-lang
+export PATH="$PATH:$HOME/play/rust/cargo/bin"
+
 export JAVA_HOME=/opt/apps/gnu+linux/java/jdk
 #export PHPSTORM_JDK=$JAVA_HOME
 
