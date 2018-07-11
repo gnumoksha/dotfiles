@@ -156,4 +156,12 @@ EOF
 show_cowsay_fortune
 show_calendar
 
+function fromtimestamp () {
+	TZ="UTC" date -d @$1
+}
+function totimestamp() {
+	# nao consegui usar $@
+	TZ="UTC" date --date="$1 $2"  +%s
+}
+
 #EOF
