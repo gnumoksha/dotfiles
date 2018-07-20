@@ -38,6 +38,8 @@ call plug#begin(g:plugDir)
   "Plug 'chrisbra/Recover.vim' " A Plugin to show a diff, whenever recovering a buffer.
   Plug 'tpope/vim-characterize' " Unicode character metadataUnicode character metadata.
   "Plug 'kana/vim-smartinput'
+  Plug 'dzeban/vim-log-syntax'
+  "Plug 'andreshazard/vim-logreview'
   "}}}
 
   """""""""""""""""""
