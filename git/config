@@ -117,23 +117,17 @@
 	date = iso
 
 [alias]
-	# General use
-	l = !git log-changes
-	go = checkout
 	ck = checkout
-	goTest = !git stash save --quiet "salvamento automatico durante git go" && git checkout "$1"
 	st = status
 	df = diff
-	sh = stash
-	com = commit
+	# do not use -m in order to test if the commit message is improved
+	c = commit
+	p = push
 	mt = mergetool
 	dt = difftool
 
 	branch-clean = !git branch | grep -P 'feature/|hotfix/' | xargs git branch -D
 
-	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-	type = cat-file -t
-	dump = cat-file -p
 	fetch = fetch --all
 	pull = pull --all
 	stash-all = !git stash save --include-untracked "Stash all at $(date +%Y-%m-%d_%H:%M:%S)"
@@ -144,7 +138,7 @@
 	clone-all = !git fetch-all
 	discard = reset --hard HEAD
 	undo-last-commit = reset HEAD~
-# TODO remover tambem arquivos modificados localmente e nao trackeados
+	# TODO remover tambem arquivos modificados localmente e nao trackeados
 	discard-all = !git discard && git clean -f -d -i
 	unstage = reset
 	#TODO terminar este comando
@@ -160,20 +154,11 @@
 	cherry-pick = cherry-pick -x
 
 	# Do a merge pre pull request. Source: github instrutions on pull request page.
-	# E example: git go my-branch && git merge-pre-pr dev
+	# E example: git ck my-branch && git merge-pre-pr dev
 	merge-pre-pr = merge --no-ff
 
-	# automacao do projeto [6]
-	changed-specs = !git diff --name-only master -- spec | egrep '.rb'
-	run-changed-specs = !zeus rspec `git changed-specs`
-	changed-files = !git diff --name-only master | cat
-
-	# analise de dados [6]
-	log-one-week = !git diff --stat `git log --since='1 week' --format=%H | tail -1`
-	#
 	#diff-commit = show --color --pretty=format:%b
 
-	log-changes = !git log -p -m --first-parent -30
 	# [10]
 	showtool = "!showci () { rev=$(git rev-parse \"${*:-HEAD}\"); git difftool $rev~1 $rev; }; showci"
 
@@ -203,22 +188,17 @@
 	rmdir = true
 
 [cola]
-	spellcheck = false
+	spellcheck = true
 	blameviewer = git gui blame
 
 [instaweb]
-browser = chromium
+	browser = firefox
 
 [web]
-browser = chromium
-
-[browser "firefox"]
-#path = /opt/_apps/_gnu+linux/_internet/firefox/firefox
-#cmd = /opt/_apps/_gnu+linux/_internet/firefox/firefox --new-tab
+	browser = firefox
 
 [fetch]
 	prune = true
-
 
 
 ############################

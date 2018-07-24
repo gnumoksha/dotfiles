@@ -238,9 +238,16 @@ let g:indentLine_faster = 1
 
 " SirVer/ultisnips {{{
 "let g:UltiSnipsExpandTrigger="<tab>" " #TODO configurar uma tecla. Nao nao pode pois uso o youcompleteme
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-let g:UltiSnipsEditSplit="vertical"
+"let g:UltiSnipsJumpForwardTrigger="<tab>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+"let g:UltiSnipsEditSplit="vertical"
+"}}}
+
+" ervandew/supertab {{{
+"let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabCrMapping = 1
+let g:SuperTabClosePreviewOnPopupClose = 1
 "}}}
 
 " ludovicchabant/vim-gutentags {{{
@@ -261,7 +268,10 @@ nmap <silent> <C-F12> :TagbarToggle<CR>
 
 " Shougo/deoplete.nvim {{{
 " Enables automatic completation.
-"let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#jedi#show_docstring = 1
+"let g:python_host_prog = '/tmp/neovim_env/bin/python'
+"let g:python3_host_prog = '/tmp/neovin_env/bin/python3'
 "}}}
 
 

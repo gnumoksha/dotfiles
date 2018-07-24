@@ -4,6 +4,11 @@
 #                               #
 #################################
 
+#start=`date +%s.%N`
+
+# coloquei aqui por usa um alias para ls que nao funciona
+[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
+
 # Path to my dotfiles project.
 dotfiles="$HOME/play/side_projects/dotfiles"
 
@@ -28,6 +33,16 @@ setopt prompt_subst             # Make sure prompt is able to be generated prope
 #source "$dotfiles/shell/zsh/powerlevel9k/powerlevel9k.zsh-theme"
 
 source "$ZSH/oh-my-zsh.sh"
+
+#ZSH_THEME=alanpeabody
+#ZSH_THEME=daveverwer
+#ZSH_THEME=dieter
+#SH_THEME=gentoo
+#ZSH_THEME=gianu
+#ZSH_THEME=maran
+#ZSH_THEME=miloshadzic
+#root ZSH_THEME=risto
+#ideia bacana ZSH_THEME=wezm
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -220,5 +235,19 @@ function enable_nvm {
 
 # See:
 # https://github.com/tonylambiris/dotfiles/blob/master/dot.zshrc
+
+
+# see https://github.com/wfxr/forgit#custom-options
+alias git-add="ga"
+alias git-log="glo"
+alias git-diff="gd"
+alias git-checkout="gcf"
+alias git-clean="gclan"
+alias git-ignore="git"
+
+
+#end=`date +%s.%N`
+#runtime=$((end-start))
+#echo "Runtime $runtime."
 
 # vim: ft=zsh
