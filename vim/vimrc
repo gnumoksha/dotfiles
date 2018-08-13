@@ -18,7 +18,7 @@ if !executable("ctags")
 endif
 
 if has('nvim')
-  let g:vimStuffDir = $HOME . "/.local/share/nvim"
+  let g:vimStuffDir = $HOME . "/.config/nvim"
   let g:plugFile = $HOME . "/.local/share/nvim/site/autoload/plug.vim"
 else
   let g:vimStuffDir = $HOME . "/.vim"

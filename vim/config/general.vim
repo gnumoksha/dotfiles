@@ -60,7 +60,7 @@ set backupcopy=yes
 " Where store swap files.
 let s:swapDir = g:vimStuffDir . "/swap"
 if !isdirectory(s:swapDir)
-  call mkdir(s:swpaDir, "", 0700)
+  call mkdir(s:swapDir, "", 0700)
 endif
 " /,. means: use default directory if an error occurs in swapDir
 let &directory = s:swapDir . "/,."
@@ -74,21 +74,27 @@ let &undodir=s:undoDir
 set undofile
 set undolevels=10000
 
-set viminfo='100,n$HOME/.vim/viminfo
+if has('nvim')
+  set viminfo='100,n$HOME/.config/nvim/viminfo
+else
+  set viminfo='100,n$HOME/.vim/viminfo
+endif
+
+"set completeopt=menu,longest
 
 " Enable spell checking.
 " TODO enable spell checking only in a few file types
-"if !filereadable(expand('~/.vim/spell/en.utf-8.sug'))
-  "echo "Downloading spell files..."
-  "echo ""
-  "silent !\curl -fLo ~/.vim/spell/en.utf-8.sug --create-dirs http://ftp.vim.org/vim/runtime/spell/en.utf-8.sug
-  "silent !\curl -fLo ~/.vim/spell/en.utf-8.spl --create-dirs http://ftp.vim.org/vim/runtime/spell/en.utf-8.spl
+if !filereadable(expand('~/.vim/spell/en.utf-8.sug'))
+  echo "Downloading spell files..."
+  echo ""
+  silent !\curl -fLo ~/.vim/spell/en.utf-8.sug --create-dirs http://ftp.vim.org/vim/runtime/spell/en.utf-8.sug
+  silent !\curl -fLo ~/.vim/spell/en.utf-8.spl --create-dirs http://ftp.vim.org/vim/runtime/spell/en.utf-8.spl
 
-  "silent !\curl -fLo ~/.vim/spell/pt.utf-8.sug --create-dirs http://ftp.vim.org/vim/runtime/spell/pt.utf-8.sug
-  "silent !\curl -fLo ~/.vim/spell/pt.utf-8.spl --create-dirs http://ftp.vim.org/vim/runtime/spell/pt.utf-8.spl
-"endif
+  silent !\curl -fLo ~/.vim/spell/pt.utf-8.sug --create-dirs http://ftp.vim.org/vim/runtime/spell/pt.utf-8.sug
+  silent !\curl -fLo ~/.vim/spell/pt.utf-8.spl --create-dirs http://ftp.vim.org/vim/runtime/spell/pt.utf-8.spl
+endif
 "set spell
-"set spellfile=$HOME/.vim/spell/en.utf-8.add,$HOME/.vim/spell/pt.utf-8.add
-"set spelllang=en,pt
+set spellfile=$HOME/.vim/spell/en.utf-8.add,$HOME/.vim/spell/pt.utf-8.add
+set spelllang=en,pt
 "}}}
 
