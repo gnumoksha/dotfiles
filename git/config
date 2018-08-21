@@ -72,6 +72,8 @@
 	tool = vimdiff
 	keepBackup = false
 	conflictstyle = diff3
+	ff = yes
+	commit = no
 
 [mergetool]
 	;prompt = false
@@ -153,10 +155,6 @@
 
 	cherry-pick = cherry-pick -x
 
-	# Do a merge pre pull request. Source: github instrutions on pull request page.
-	# E example: git ck my-branch && git merge-pre-pr dev
-	merge-pre-pr = merge --no-ff
-
 	#diff-commit = show --color --pretty=format:%b
 
 	# [10]
@@ -177,7 +175,7 @@
 	# > significa que tem no prod
 	# Baseado em: https://stackoverflow.com/a/7567953/4668660
 	# #TODO usar --no-merges ?
-	compare = !git my-log --left-right --graph --cherry-pick
+	compare = !git hist --left-right --graph --cherry-pick
 
 	# show Without Whitespace
 	show-ww = show --ignore-space-at-eol --ignore-space-change --ignore-all-space --ignore-blank-lines
