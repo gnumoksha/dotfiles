@@ -119,19 +119,22 @@
 	date = iso
 
 [alias]
-	ck = checkout
-	st = status
-	df = diff
+	b = branch
 	# do not use -m in order to test if the commit message is improved
 	c = commit
-	p = push
-	mt = mergetool
+	ck = checkout
+	cpick = cherry-pick -x
+	df = diff
 	dt = difftool
+	f = fetch --all
+	mt = mergetool
+	p = push
+	ps = push
+	pl = pull --all
+	st = status
 
 	branch-clean = !git branch | grep -P 'feature/|hotfix/' | xargs git branch -D
 
-	fetch = fetch --all
-	pull = pull --all
 	stash-all = !git stash save --include-untracked "Stash all at $(date +%Y-%m-%d_%H:%M:%S)"
 	stash-all-changed = stash --keep-index
 	# https://stackoverflow.com/questions/10312521/how-to-fetch-all-git-branches
@@ -153,8 +156,6 @@
 	# Example: git added-in docker-compose.yml
 	added-in = log --follow --diff-filter=A --find-renames --
 
-	cherry-pick = cherry-pick -x
-
 	#diff-commit = show --color --pretty=format:%b
 
 	# [10]
@@ -170,9 +171,9 @@
 	# WIP
 	log-with-branch = log --pretty=format:'%H | %aN | %s' | git name-rev --stdin --name-only
 
-	# how can I see which commits are in homol but not in prod? git my-compare homol...prod
+	# how can I see which commits are in homol but not in master? git compare homol...master
 	# < significa que tem no homol
-	# > significa que tem no prod
+	# > significa que tem no master
 	# Baseado em: https://stackoverflow.com/a/7567953/4668660
 	# #TODO usar --no-merges ?
 	compare = !git hist --left-right --graph --cherry-pick
