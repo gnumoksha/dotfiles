@@ -40,7 +40,18 @@ set ttyfast
 "" Fix backspace indent
 set backspace=indent,eol,start
 
-" Força a exibição de caracteres não imprimíveis
+" http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
+" https://github.com/ncm2/ncm2#install
+" suppress the annoying 'match x of y', 'The only match' and 'Pattern not found' messages
+set shortmess+=c
+set completeopt=noinsert,longest,menuone
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Remap code completion to Ctrl+Space {{{2
+inoremap <Nul> <C-x><C-o>
+inoremap <Nul> <C-n>
+" 2}}}
+
+" Show non printable characters
 "set listchars=tab:⇨\ ,eol:⏎,nbsp:☠,trail:•,extends:⟩,precedes:⟨
 set listchars=tab:⇨\ ,nbsp:☠,trail:•,extends:⟩,precedes:⟨
 set list
@@ -79,8 +90,6 @@ if has('nvim')
 else
   set viminfo='100,n$HOME/.vim/viminfo
 endif
-
-"set completeopt=menu,longest
 
 " Enable spell checking.
 " TODO enable spell checking only in a few file types

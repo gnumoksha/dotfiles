@@ -80,7 +80,7 @@ call plug#begin(g:plugDir)
   "Plug 'tpope/vim-surround' " Quoting/parenthesizing made simple. # TODO conferir se preciso ou se o outro plugin é melhor
   Plug 'SirVer/ultisnips', {'for': g:myLangs} " The ultimate snippet solution for Vim.
     Plug 'honza/vim-snippets', {'for': g:myLangs} " Snippets files for various programming languages.
-  Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab.
+  "Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab.
   Plug 'ludovicchabant/vim-gutentags', {'for': g:myLangs} " A Vim plugin that manages your tag files.
   Plug 'majutsushi/tagbar', {'for': g:myLangs} " Displays tags in a window, ordered by scope.
   Plug 'tpope/vim-dadbod', {'on': 'DB'} " dadbod.vim: Modern database interface for Vim

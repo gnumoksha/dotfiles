@@ -211,7 +211,7 @@ let g:ale_echo_msg_warning_str = 'W' " is the string used for warning severity.
 let g:ale_echo_msg_format = '[%linter%] [%severity%] %s' " the format of message echoed by ALE.
 let g:ale_set_loclist = 0 " Toggle the loclist use.
 let g:ale_set_quickfix = 1 " Toggle the quickfix use.
-let g:ale_open_list = 1 " Oppen quickfix when ALE detects errors/warnings.
+let g:ale_open_list = 0 " Oppen quickfix when ALE detects errors/warnings.
 "let g:ale_keep_list_window_open = 1 " Keep the window open even after errors disappear.
 " Put this in vimrc or a plugin file of your own.
 " After this is configured, :ALEFix will try and fix your JS code with ESLint.
@@ -269,6 +269,11 @@ nmap <silent> <C-F12> :TagbarToggle<CR>
 " Shougo/deoplete.nvim {{{
 " Enables automatic completation.
 let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option({
+    \ 'complete_method': "omnifunc",
+    \ 'max_list': 30,
+    \ 'num_processes': -1
+    \ })
 let g:deoplete#sources#jedi#show_docstring = 1
 "let g:python_host_prog = '/tmp/neovim_env/bin/python'
 "let g:python3_host_prog = '/tmp/neovin_env/bin/python3'
