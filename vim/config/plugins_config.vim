@@ -314,7 +314,7 @@ imap <silent> <F9> <Plug>StopMarkdownPreview    " for insert mode
 "}}}
 
 " plasticboy/vim-markdown {{{
-"let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_folding_disabled = 1
 "let g:vim_markdown_folding_style_pythonic = 1
 let g:vim_markdown_folding_level = 2
 set conceallevel=2
