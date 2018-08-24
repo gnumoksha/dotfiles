@@ -1,0 +1,3 @@
+# PUBKEY: 68CCF87596E97291
+deb http://ppa.launchpad.net/lazygit-team/release/ubuntu cosmic main
+# deb-src http://ppa.launchpad.net/lazygit-team/release/ubuntu cosmic main
