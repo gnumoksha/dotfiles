@@ -101,7 +101,7 @@ ZPLUG_INSTALLED='/usr/local/opt/zplug/installed'
 ZPLUG_HOME='/usr/local/opt/zplug/home'
 ZPLUG_BIN='/usr/local/bin'
 source $ZPLUG_INSTALLED/init.zsh
-#zplug "plugins/colored-man-pages", from:oh-my-zsh
+zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/copybuffer", from:oh-my-zsh
 zplug "plugins/copydir", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
@@ -122,7 +122,7 @@ zplug "so-fancy/diff-so-fancy", from:github, as:command, rename-to:diff-so-fancy
 zplug "supercrabtree/k"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug 'wfxr/forgit', defer:1
-zplug "zlsun/solarized-man"
+#zplug "zlsun/solarized-man"
 zplug "pindexis/marker", from:github, as:command, rename-to:marker, hook-build:"./install.py"
 
 # Themes and dircolors {{{

@@ -38,4 +38,6 @@ alias ifconfig='ls /sys/class/net | egrep -v "^(lo[0-9]?|sit[0-9]|ce[0-9]?|docke
 
 alias follow="less -S +F"
 
+alias greperrors="grep -i 'warning\|error\|alert\|critical' *.log"
+
 #EOF

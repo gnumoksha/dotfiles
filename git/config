@@ -119,12 +119,13 @@
 	date = iso
 
 [alias]
-	b = branch
+	ad = add -p
+	br = branch
 	# do not use -m in order to test if the commit message is improved
-	c = commit
+	co = commit --interactive --verbose --status
 	ck = checkout
 	cpick = cherry-pick -x
-	df = diff
+	df = diff HEAD
 	dt = difftool
 	f = fetch --all
 	mt = mergetool
