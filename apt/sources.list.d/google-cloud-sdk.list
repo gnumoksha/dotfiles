@@ -1,3 +1,4 @@
+# PUBKEY: 6A030B21BA07F4FB
 # https://cloud.google.com/sdk/docs/#deb
 deb https://packages.cloud.google.com/apt cloud-sdk-buster main
 

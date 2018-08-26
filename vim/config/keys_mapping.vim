@@ -65,9 +65,9 @@ noremap XX "+x<CR>
 "cmap cd. lcd %:p:h
 
 " Save current file [09]
-noremap <C-S> :wq<CR>
-vnoremap <C-S> <C-C>:wq<CR>
-inoremap <C-S> <C-O>:wq<CR>
+noremap <C-S> :w<CR>
+vnoremap <C-S> <C-C>:w<CR>
+inoremap <C-S> <C-O>:w<CR>
 
 " Switching windows
 noremap <C-j> <C-w>j

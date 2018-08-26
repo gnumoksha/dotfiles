@@ -153,6 +153,16 @@ fi
 
 zplug load
 
+#BULLETTRAIN_PROMPT_ORDER=(
+  #git
+  #context
+  #dir
+  #time
+#)
+BULLETTRAIN_STATUS_EXIT_SHOW=true
+BULLETTRAIN_DIR_FG=black
+BULLETTRAIN_GIT_COLORIZE_DIRTY=true
+
 export MARKER_HOME="$ZPLUG_HOME/repos/pindexis/marker"
 export MARKER_DATA_HOME="$MARKER_HOME/.data"
 source ${MARKER_HOME}/bin/marker.sh
