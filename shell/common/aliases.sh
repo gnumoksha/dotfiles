@@ -24,8 +24,6 @@ alias dmesg_critical="dmesg --level=crit,alert,emerg"
 # https://githowto.com/aliases
 #alias git='LANG=en_US.UTF-8 git'
 
-alias to_clipboard="xclip -selection c"
-
 alias dd="dd status=progress"
 
 alias dck='docker'
