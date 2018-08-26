@@ -17,40 +17,50 @@ call plug#begin(g:plugDir)
   " General purpose
   """""""""""""""""""
   "{{{
-  Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'} " A tree explorer plugin for vim.
-    Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'} " A plugin of NERDTree showing git status.
-  " Plug 'jistr/vim-nerdtree-tabs' " TODO this plugin is not necessary https://github.com/scrooloose/nerdtree#faq
+  " A tree explorer plugin for vim.
+  Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'} | Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
+  " Plug 'jistr/vim-nerdtree-tabs' " https://github.com/scrooloose/nerdtree#faq
   Plug 'mhinz/vim-startify' " The fancy start screen for Vim.
-  Plug 'xolox/vim-misc' " Miscellaneous auto-load Vim scripts (for vim-session).
-    Plug 'xolox/vim-session' " Extended session management for Vim (:mksession on steroids).
+  " Extended session management for Vim (:mksession on steroids).
+  Plug 'xolox/vim-misc' | Plug 'xolox/vim-session'
 "  Plug 'Shougo/vimproc.vim', { 'do': 'make' } " Interactive command execution in Vim (for vimshell).
 "    Plug 'Shougo/vimshell.vim' " Powerful shell implemented by vim.
   " CtrlPMixed seems nice
-  Plug 'ctrlpvim/ctrlp.vim' " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
+  "Plug 'ctrlpvim/ctrlp.vim' " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
   " A command-line fuzzy finder.
   Plug g:zplugHome . '/repos/junegunn/fzf/' | Plug 'junegunn/fzf.vim'
   Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
-  Plug 'tpope/vim-sleuth' " Automatically adjusts 'shiftwidth' and 'expandtab' heuristically.
-  Plug 'mbbill/undotree' " The ultimate undo history visualizer for VIM.
-  Plug 'https://git.zx2c4.com/password-store', {'rtp': 'contrib/vim/noplaintext.vim'} " Prevent various Vim features from keeping the contents of passwordstore.org.
-  Plug 'xolox/vim-notes', {'on': 'Note'} " Easy note taking in Vim.
-  "Plug 'junegunn/vim-journal' " a syntax plugin for plain-text notes
-  "Plug 'chrisbra/Recover.vim' " A Plugin to show a diff, whenever recovering a buffer.
-  Plug 'tpope/vim-characterize' " Unicode character metadataUnicode character metadata.
+  " Automatically adjusts 'shiftwidth' and 'expandtab' heuristically.
+  Plug 'tpope/vim-sleuth'
+  " The ultimate undo history visualizer for VIM.
+  Plug 'mbbill/undotree'
+  " Prevent various Vim features from keeping the contents of passwordstore.org.
+  Plug 'https://git.zx2c4.com/password-store', {'rtp': 'contrib/vim/noplaintext.vim'}
+  " Easy note taking in Vim.
+  Plug 'xolox/vim-notes', {'on': 'Note'}
+  " A syntax plugin for plain-text notes
+  "Plug 'junegunn/vim-journal'
+  " A Plugin to show a diff, whenever recovering a buffer.
+  "Plug 'chrisbra/Recover.vim'
+   " Unicode character metadataUnicode character metadata.
+  Plug 'tpope/vim-characterize'
   "Plug 'kana/vim-smartinput'
   Plug 'dzeban/vim-log-syntax'
   "Plug 'andreshazard/vim-logreview'
+  " Vim plugin that provides additional text objects
+  Plug 'wellle/targets.vim'
   "}}}
 
   """""""""""""""""""
   " Screen
   """""""""""""""""""
   "{{{
-  Plug 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light as air.
-    Plug 'vim-airline/vim-airline-themes' " A collection of themes for vim-airline.
-  Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim .
-    Plug 'junegunn/limelight.vim' " Hyperfocus-writing in VimHyperfocus-writing in Vim.
-  Plug 'ryanoasis/vim-devicons' " Adds file type glyphs/icons to popular Vim plugins.
+  " lean & mean status/tabline for vim that's light as air.
+  Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
+  " Distraction-free writing in Vim .
+  Plug 'junegunn/goyo.vim' | Plug 'junegunn/limelight.vim'
+  " Adds file type glyphs/icons to popular Vim plugins.
+  Plug 'ryanoasis/vim-devicons'
   "}}}
 
   """""""""""""""""""
@@ -90,18 +100,18 @@ call plug#begin(g:plugDir)
   " Nice to have: apt-get install golang nodejs npm
   "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --js-completer' }
   " deoplete: Dark powered asynchronous completion framework for neovim/Vim8.
-  Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
-  Plug 'Shougo/neco-syntax'
-  Plug 'zchee/deoplete-jedi', {'for': 'python'}
-  Plug 'zchee/deoplete-zsh', {'for': 'zsh'}
-  Plug 'Shougo/neco-vim', {'for': 'vim'}
-  if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  else
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-  endif
+  "Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
+  "Plug 'Shougo/neco-syntax'
+  "Plug 'zchee/deoplete-jedi', {'for': 'python'}
+  "Plug 'zchee/deoplete-zsh', {'for': 'zsh'}
+  "Plug 'Shougo/neco-vim', {'for': 'vim'}
+  "if has('nvim')
+    "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  "else
+    "Plug 'Shougo/deoplete.nvim'
+    "Plug 'roxma/nvim-yarp'
+    "Plug 'roxma/vim-hug-neovim-rpc'
+  "endif
 
   "Plug 'ekalinin/Dockerfile.vim' " Vim syntax file & snippets for Docker's Dockerfile.
   Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair.
