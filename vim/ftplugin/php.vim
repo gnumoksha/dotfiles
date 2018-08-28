@@ -5,6 +5,8 @@
 "                                        "
 """"""""""""""""""""""""""""""""""""""""""
 
+set spell
+
 " For smart indentation without tabs
 setlocal smartindent expandtab shiftwidth=4 softtabstop=4 tabstop=8
 

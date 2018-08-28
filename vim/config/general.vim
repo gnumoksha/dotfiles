@@ -44,12 +44,28 @@ set backspace=indent,eol,start
 " https://github.com/ncm2/ncm2#install
 " suppress the annoying 'match x of y', 'The only match' and 'Pattern not found' messages
 set shortmess+=c
-set completeopt=noinsert,longest,menuone
+"set completeopt=noinsert,longest,menuone
+set completeopt=menu,menuone,preview,noinsert,noselect
+" Enter select first option
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Remap code completion to Ctrl+Space {{{2
+" Remap code completion to Ctrl+Space {{{
 inoremap <Nul> <C-x><C-o>
 inoremap <Nul> <C-n>
-" 2}}}
+"}}}
+" Autocomplete with TAB {{{
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"}}}
+" Workflow: ao difigitar ir exibindo as sugestoes mas sem
+" selecionar. Ao precisar enter ou control+space completar
+" com a primeira sugestao. Backspace apos isso deleta esse autocomplete.
+" Talvez digitar control+space para chamar o autocomplete ja ajude, ai
+" depois uso control+pace para selecionar.
+"Read some more on :help popupmenu-keys or :help ins-completion
+
+set concealcursor=nc
+" Show confirmation when exiting an unsaved buffer.
+set confirm
 
 " Show non printable characters
 "set listchars=tab:⇨\ ,eol:⏎,nbsp:☠,trail:•,extends:⟩,precedes:⟨
@@ -92,7 +108,6 @@ else
 endif
 
 " Enable spell checking.
-" TODO enable spell checking only in a few file types
 if !filereadable(expand('~/.vim/spell/en.utf-8.sug'))
   echo "Downloading spell files..."
   echo ""
@@ -106,4 +121,7 @@ endif
 set spellfile=$HOME/.vim/spell/en.utf-8.add,$HOME/.vim/spell/pt.utf-8.add
 set spelllang=en,pt
 "}}}
+
+" For spell checking
+set mousemodel=popup_setpos
 

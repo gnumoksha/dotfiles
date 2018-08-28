@@ -101,17 +101,18 @@ call plug#begin(g:plugDir)
   "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --js-completer' }
   " deoplete: Dark powered asynchronous completion framework for neovim/Vim8.
   "Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
-  "Plug 'Shougo/neco-syntax'
-  "Plug 'zchee/deoplete-jedi', {'for': 'python'}
-  "Plug 'zchee/deoplete-zsh', {'for': 'zsh'}
-  "Plug 'Shougo/neco-vim', {'for': 'vim'}
-  "if has('nvim')
-    "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  "else
-    "Plug 'Shougo/deoplete.nvim'
-    "Plug 'roxma/nvim-yarp'
-    "Plug 'roxma/vim-hug-neovim-rpc'
-  "endif
+  Plug 'Shougo/neco-syntax'
+  Plug 'zchee/deoplete-jedi', {'for': 'python'}
+  Plug 'zchee/deoplete-zsh', {'for': 'zsh'}
+  Plug 'Shougo/neco-vim', {'for': 'vim'}
+  Plug 'deathlyfrantic/deoplete-spell'
+  if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+  endif
 
   "Plug 'ekalinin/Dockerfile.vim' " Vim syntax file & snippets for Docker's Dockerfile.
   Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair.
