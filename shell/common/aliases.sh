@@ -34,8 +34,10 @@ alias g="git"
 # show only hardware interfaces
 alias ifconfig='ls /sys/class/net | egrep -v "^(lo[0-9]?|sit[0-9]|ce[0-9]?|docker[0-9]?|br[-a-z0-9]{13})$" | xargs --max-args=1 /sbin/ifconfig'
 
-alias follow="less -S +F"
+alias follow='multitail -p l '
+alias follow2="less -S +F"
+alias follow_monolog='multitail -p l -cS squid '
 
-alias greperrors="grep -i 'warning\|error\|alert\|critical' *.log"
+alias greperrors="grep -i 'warning\|error\|alert\|critical'"
 
 #EOF

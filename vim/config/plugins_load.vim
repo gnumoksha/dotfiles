@@ -49,6 +49,8 @@ call plug#begin(g:plugDir)
   "Plug 'andreshazard/vim-logreview'
   " Vim plugin that provides additional text objects
   Plug 'wellle/targets.vim'
+  " A Vim cheat sheet that makes sense, inside Vim!
+  Plug 'lifepillar/vim-cheat40'
   "}}}
 
   """""""""""""""""""
@@ -93,12 +95,14 @@ call plug#begin(g:plugDir)
   "Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab.
   Plug 'ludovicchabant/vim-gutentags', {'for': g:myLangs} " A Vim plugin that manages your tag files.
   Plug 'majutsushi/tagbar', {'for': g:myLangs} " Displays tags in a window, ordered by scope.
-  Plug 'tpope/vim-dadbod', {'on': 'DB'} " dadbod.vim: Modern database interface for Vim
+  "Plug 'tpope/vim-dadbod', {'on': 'DB'} " dadbod.vim: Modern database interface for Vim
+
   " A code-completion engine for Vim.
   " 2017-11-27 - Tobias - PHP support is insufficient.
   " Must have: apt-get install build-essential cmake python-dev python3-dev
   " Nice to have: apt-get install golang nodejs npm
   "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --js-completer' }
+
   " deoplete: Dark powered asynchronous completion framework for neovim/Vim8.
   "Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
   Plug 'Shougo/neco-syntax'
@@ -114,6 +118,8 @@ call plug#begin(g:plugDir)
     Plug 'roxma/vim-hug-neovim-rpc'
   endif
 
+  Plug 'lifepillar/vim-mucomplete'
+
   "Plug 'ekalinin/Dockerfile.vim' " Vim syntax file & snippets for Docker's Dockerfile.
   Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair.
   Plug 'andymass/vim-matchup', {'for': g:myLangs} " Navigate and highlight matching words. Modern matchit and matchparen replacement.
@@ -126,7 +132,8 @@ call plug#begin(g:plugDir)
   " PHP {{{
   " StanAngeloff/php.vim is loaded by vim-polyglot.
   "Plug 'shawncplus/phpcomplete.vim' " Improved PHP omnicompletion
-  Plug 'lvht/phpcd.vim', {'for': 'php'} " A Intelligent/Smart PHP Complete Daemon Plugin for Vim/NeoVim
+  " configure install
+  "Plug 'lvht/phpcd.vim', {'for': 'php'} " A Intelligent/Smart PHP Complete Daemon Plugin for Vim/NeoVim
   Plug 'arnaud-lb/vim-php-namespace', {'for': 'php'} " types "use" statements for you
   "Plug 'vim-php/vim-php-refactoring'
   Plug 'vim-php/tagbar-phpctags.vim', {'for': 'php'}

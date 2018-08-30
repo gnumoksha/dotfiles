@@ -53,8 +53,8 @@ inoremap <Nul> <C-x><C-o>
 inoremap <Nul> <C-n>
 "}}}
 " Autocomplete with TAB {{{
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "}}}
 " Workflow: ao difigitar ir exibindo as sugestoes mas sem
 " selecionar. Ao precisar enter ou control+space completar

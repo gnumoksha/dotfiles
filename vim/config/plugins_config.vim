@@ -268,17 +268,20 @@ nmap <silent> <C-F12> :TagbarToggle<CR>
 
 " Shougo/deoplete.nvim {{{
 " Enables automatic completation.
-let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option({
-    \ 'complete_method': "omnifunc",
-    \ 'max_list': 30,
-    \ 'num_processes': -1
-    \ })
-let g:deoplete#sources#jedi#show_docstring = 1
+"let g:deoplete#enable_at_startup = 1
+"call deoplete#custom#option({
+    "\ 'complete_method': "omnifunc",
+    "\ 'max_list': 30,
+    "\ 'num_processes': -1
+    "\ })
+"let g:deoplete#sources#jedi#show_docstring = 1
 "let g:python_host_prog = '/tmp/neovim_env/bin/python'
 "let g:python3_host_prog = '/tmp/neovin_env/bin/python3'
 "}}}
 
+" lifepillar/vim-mucomplete {{{
+let g:mucomplete#enable_auto_at_startup = 1
+"}}}
 
 """"""""""""""""""
 " Misc
