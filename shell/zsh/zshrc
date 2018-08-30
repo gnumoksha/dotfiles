@@ -4,20 +4,12 @@
 #                               #
 #################################
 
-# Profiling
-zmodload zsh/zprof
-start=`date +%s.%N`
-
-# coloquei aqui por usa um alias para ls que nao funciona
-[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
-
 # Path to my dotfiles project.
 export DOTFILES="/home/tobias/play/side_projects/dotfiles"
 
-# Path to my oh-my-zsh installation.
-export ZSH="$DOTFILES/shell/zsh/oh-my-zsh"
-
-export TERM="xterm-256color"
+# Profiling
+zmodload zsh/zprof
+start=`date +%s.%N`
 
 # ZSH settings {{{
 setopt append_history           # Do not overwrite history
@@ -31,12 +23,6 @@ setopt hist_reduce_blanks       # Remove superfluous blanks.
 setopt hist_save_no_dups        # Omit older commands in favor of newer ones.
 setopt prompt_subst             # Make sure prompt is able to be generated properly.
 #}}}
-
-#source "$DOTFILES/shell/zsh/theme_settings.zsh"
-#source "$DOTFILES/shell/zsh/powerlevel9k/powerlevel9k.zsh-theme"
-
-source "$ZSH/oh-my-zsh.sh"
-
 
 # oh-my-zsh settings {{{
 # Do not use case-sensitive completion.
@@ -68,27 +54,29 @@ HIST_STAMPS="mm/dd/yyyy"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 #}}}
 
-# Plugins {{{
+# Plugins and themes {{{
+# Path, installation and initialization for my oh-my-zsh.
+export ZSH="/usr/local/opt/oh-my-zsh"
+if [ ! -e "$ZSH" ]; then
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+fi
+source "$ZSH/oh-my-zsh.sh"
 #
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-#
-# 2017-10-20 - Tobias - I checked the repository and those are the useful plugins:
-#
+# Path, installation and initialization for zplug
+ZPLUG_INSTALLED='/usr/local/opt/zplug/installed'
+ZPLUG_HOME='/usr/local/opt/zplug/home'
+ZPLUG_BIN='/usr/local/bin'
+if [ ! -e "$ZPLUG_INSTALLED/init.zsh" ]; then
+	curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+fi
+source $ZPLUG_INSTALLED/init.zsh
+# 2017-10-20 - Tobias - I've checked the repository and those are the useful plugins:
 # colored-man-pages composer copybuffer copydir docker docker-compose
 # git git-flow-avh git-extras
 # gpg-agent history-substring-search httpie nmap npm pass pip
 # redis-cli rsync screen shrink-path ssh-agent systemadmin tmux
 # vi-mode virtualenv
-#
 # Repository: https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins
-#
-ZPLUG_INSTALLED='/usr/local/opt/zplug/installed'
-ZPLUG_HOME='/usr/local/opt/zplug/home'
-ZPLUG_BIN='/usr/local/bin'
-source $ZPLUG_INSTALLED/init.zsh
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/copybuffer", from:oh-my-zsh
@@ -121,12 +109,25 @@ zplug "mafredri/zsh-async", from:github
 #zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 #zplug "el1t/statusline"
 #zplug 'simnalamburt/shellder', as:theme
+#zplug "bhilburn/powerlevel9k", as:theme
 zplug "caiogondim/bullet-train.zsh", use:bullet-train.zsh-theme, defer:3 # defer until other plugins like oh-my-zsh is loaded
 #zplug "joel-porquet/zsh-dircolors-solarized"
 #zplug "arcticicestudio/nord-gnome-terminal", from:github, hook-build:"./src/nord.sh"
 #zplug "arcticicestudio/nord-dircolors", from:github, hook-build:"mv ~/.dir_colors{,.bkp} &&  ./install.sh"
 zplug "peterhellberg/dircolors-jellybeans", from:github, hook-build:"mv ~/.dir_colors{,.bkp} &&  cp dircolors.jellybeans ~/.dir_colors"
-#}}}
+#ZSH_THEME=alanpeabody
+#ZSH_THEME=daveverwer
+#ZSH_THEME=dieter
+#SH_THEME=gentoo
+#ZSH_THEME=gianu
+#ZSH_THEME=maran
+#ZSH_THEME=miloshadzic
+#root ZSH_THEME=risto
+#ideia bacana ZSH_THEME=wezm
+#ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+#source "$DOTFILES/shell/zsh/powerlevel9k_settings.zsh"
+source "$DOTFILES/shell/zsh/bullettrain_settings.zsh"
+#
 # Install plugins if there are plugins that have not been installed
 # Note: This increases startup time.
 # See https://github.com/zplug/zplug/issues/368
@@ -139,25 +140,14 @@ zplug "peterhellberg/dircolors-jellybeans", from:github, hook-build:"mv ~/.dir_c
 zplug load
 #}}}
 
-BULLETTRAIN_STATUS_EXIT_SHOW=true
-BULLETTRAIN_DIR_FG=black
-BULLETTRAIN_GIT_COLORIZE_DIRTY=true
-
-#ZSH_THEME=alanpeabody
-#ZSH_THEME=daveverwer
-#ZSH_THEME=dieter
-#SH_THEME=gentoo
-#ZSH_THEME=gianu
-#ZSH_THEME=maran
-#ZSH_THEME=miloshadzic
-#root ZSH_THEME=risto
-#ideia bacana ZSH_THEME=wezm
-
 #export MARKER_HOME="$ZPLUG_HOME/repos/pindexis/marker"
 #export MARKER_DATA_HOME="$MARKER_HOME/.data"
 #source ${MARKER_HOME}/bin/marker.sh
 
-#source "$DOTFILES/shell/common/bootstrap.sh"
+# coloquei aqui por usa um alias para ls que nao funciona
+[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
+
+source "$DOTFILES/shell/common/bootstrap.sh"
 
 # NVM is too slow
 # https://github.com/creationix/nvm/issues/539#issuecomment-245791291
