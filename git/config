@@ -7,7 +7,7 @@
 [user]
 	name = Tobias Sette
 	email = contato@tobias.ws
-	signingkey = E724F606EFFF66F7
+	signingkey = 0D49C52AFF126441A01261CFE1427DEC65E4C965
 
 [github]
 	user = gnumoksha
@@ -30,6 +30,11 @@
 	branch = auto
 	status = auto
 	ui = true
+
+# or by repository with:
+# git config commit.gpgsign true
+[commit]
+	gpgsign = true
 
 [diff]
 	# [0] [1] [2] [3]
