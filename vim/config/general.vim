@@ -67,6 +67,9 @@ set concealcursor=nc
 " Show confirmation when exiting an unsaved buffer.
 set confirm
 
+" For airblade/vim-gitgutter
+set updatetime=100
+
 " Show non printable characters
 "set listchars=tab:⇨\ ,eol:⏎,nbsp:☠,trail:•,extends:⟩,precedes:⟨
 set listchars=tab:⇨\ ,nbsp:☠,trail:•,extends:⟩,precedes:⟨

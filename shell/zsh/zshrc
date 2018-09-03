@@ -60,12 +60,14 @@ export ZSH="/usr/local/opt/oh-my-zsh"
 if [ ! -e "$ZSH" ]; then
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
-source "$ZSH/oh-my-zsh.sh"
+source "$ZSH/oh-my-zsh.sh" # do not load oh-my-zsh because I will load only plugins I want.
 #
 # Path, installation and initialization for zplug
 ZPLUG_INSTALLED='/usr/local/opt/zplug/installed'
 ZPLUG_HOME='/usr/local/opt/zplug/home'
 ZPLUG_BIN='/usr/local/bin'
+ZPLUG_USE_CACHE=true
+ZPLUG_CACHE_DIR=$HOME/.cache/zplug
 if [ ! -e "$ZPLUG_INSTALLED/init.zsh" ]; then
 	curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 fi
@@ -88,6 +90,7 @@ zplug "plugins/git-flow-avh", from:oh-my-zsh
 zplug "plugins/gpg-agent", from:oh-my-zsh
 zplug "plugins/httpie", from:oh-my-zsh
 zplug "plugins/pass", from:oh-my-zsh
+#zplug "plugins/compleat", from:oh-my-zsh
 #zplug "sharkdp/fd", from:gh-r, as:command, rename-to:fd, use:"x86_64-unknown-linux-gnu.tar.gz"
 #zplug "junegunn/fzf-bin", from:gh-r, as:command, rename-to:fzf, use:"*linux_amd64*"
 zplug "junegunn/fzf", from:github, as:command, rename-to:fzf, hook-build:"./install --all"
@@ -126,6 +129,7 @@ zplug "peterhellberg/dircolors-jellybeans", from:github, hook-build:"mv ~/.dir_c
 #ideia bacana ZSH_THEME=wezm
 #ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 #source "$DOTFILES/shell/zsh/powerlevel9k_settings.zsh"
+ZSH_THEME="" # Disable ohmyzsh themes
 source "$DOTFILES/shell/zsh/bullettrain_settings.zsh"
 #
 # Install plugins if there are plugins that have not been installed
