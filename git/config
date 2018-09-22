@@ -4,6 +4,9 @@
 #                          #
 ############################
 
+# git config --global branch.autoSetupMerge always
+
+
 [user]
 	name = Tobias Sette
 	email = contato@tobias.ws
@@ -106,6 +109,7 @@
 [pull]
 	# https://stackoverflow.com/a/30209750/4668660
 	rebase = true
+	default = current
 
 [push]
 	# push the current branch to update a branch with the same name on the receiving end. Works in both
@@ -127,8 +131,9 @@
 	ad = add -p
 	br = branch
 	# do not use -m in order to test if the commit message is improved
-	co = commit --interactive --verbose --status
+	co = commit --verbose --status
 	ck = checkout
+	#ck = checkout --track
 	cpick = cherry-pick -x
 	df = diff HEAD
 	dt = difftool
@@ -225,3 +230,5 @@
 # [10] http://stackoverflow.com/questions/17558221/how-can-i-view-the-output-of-git-show-in-a-diff-viewer-like-meld-kdiff3-etc
 
 #EOF
+;[branch]
+	;autoSetupMerge = always
