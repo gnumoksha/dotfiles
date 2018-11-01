@@ -28,6 +28,8 @@ alias dd="dd status=progress"
 
 alias dck='docker'
 alias dcompose='docker-compose'
+# I do not want to remove volumes automatically
+alias docker-clean="docker container prune -f && docker image prune -a -f"
 
 alias g="git"
 
@@ -39,5 +41,6 @@ alias follow2="less -S +F"
 alias follow_monolog='multitail -p l -cS squid '
 
 alias greperrors="grep -i 'warning\|error\|alert\|critical'"
+
 
 #EOF
