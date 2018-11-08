@@ -1,8 +1,8 @@
-# Which shell do user is running?
+# Which shell is user running?
 if [ -n "$ZSH_VERSION" ]; then
 	my_shell_type='zsh'
 elif [ -n "$BASH_VERSION" ]; then
-	my_shell_type='zsh'
+	my_shell_type='bash'
 else
 	my_shell_type='unknow'
 fi
