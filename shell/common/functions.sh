@@ -156,4 +156,15 @@ function totimestamp() {
 	TZ="UTC" date --date="$1 $2"  +%s
 }
 
+# https://unix.stackexchange.com/questions/202891/how-to-know-whether-wayland-or-x11-is-being-used
+function isX11OrWayland() {
+	echo $XDG_SESSION_TYPE ||
+	loginctl show-session `loginctl|grep tobias|awk '{print $1}'` -p Type
+}
+
+# Only load this in interactive shells, not from a script or from scp.
+function sourceIfInteractive() {
+	[[ $- = *i* ]] && source $1
+}
+
 #EOF
