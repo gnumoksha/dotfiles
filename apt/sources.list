@@ -47,6 +47,10 @@
 # Ver de onde o pacote está vindo
 # apt-cache policy docker
 
+#apt-get install enlightenment/unstable
+# the above seems to not work
+#apt-get -t unstable install enlightenment
+
 # Fico sempre no Debian Testing
 deb http://deb.debian.org/debian/ testing main contrib non-free
 # deb-src http://deb.debian.org/debian/ testing main contrib non-free
