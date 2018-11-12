@@ -9,6 +9,8 @@ export DOTFILES="$HOME/.dotfiles"
 ZPLUG_INSTALLED='/usr/local/opt/zplug/installed'
 ZPLUG_HOME='/usr/local/opt/zplug/home'
 ZPLUG_BIN='/usr/local/bin'
+ZPLUG_USE_CACHE=true
+ZPLUG_CACHE_DIR=$HOME/.cache/zplug
 
 # Profiling
 #zmodload zsh/zprof
@@ -68,27 +70,26 @@ setopt prompt_subst             # Make sure prompt is able to be generated prope
 #zle
 #}}}
 
-# Plugins {{{
-ZPLUG_USE_CACHE=true
-ZPLUG_CACHE_DIR=$HOME/.cache/zplug
-if [ ! -e "$ZPLUG_INSTALLED/init.zsh" ]; then
-	curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+# Only load plugins in interactive shells, not from a script or from scp.
+if [[ $- = *i* ]]; then
+	if [ ! -e "$ZPLUG_INSTALLED/init.zsh" ]; then
+		curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+	fi
+
+	source "$ZPLUG_INSTALLED/init.zsh"
+	# I was unable to use zplug source
+	source "$DOTFILES/home/shell/zsh/plugins/config.zsh"
+	source "$DOTFILES/home/shell/zsh/themes/config.zsh"
+
+	# I was unable to use zplug source
+	source "$DOTFILES/home/shell/common/bootstrap.sh"
+	source "$DOTFILES/home/shell/tmux/utils.sh"
+
+	zplug load
 fi
-# Only load zplug in interactive shells, not from a script or from scp
-[[ $- = *i* ]] && source $ZPLUG_INSTALLED/init.zsh
-
-source "$DOTFILES/home/shell/zsh/plugins/config.zsh"
-source "$DOTFILES/home/shell/zsh/themes/config.zsh"
-
-zplug "$DOTFILES/home/shell/common/bootstrap.sh", from:local
-zplug "$DOTFILES/home/shell/tmux/utils.sh", from:local
-
-zplug load
-#}}}
 
 # coloquei aqui por usa um alias para ls que nao funciona
-[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
-
+#[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
 
 # see https://github.com/wfxr/forgit#custom-options
 alias git-add="ga"
@@ -103,7 +104,6 @@ alias git-ignore="git"
 #alias less=$PAGER
 #alias zless=$PAGER
 
-
 finishedAt=`date +%s.%N`
 loadTime=$((finishedAt-startedAt))
 if [[ $loadTime -gt 1 ]]; then
@@ -114,11 +114,10 @@ fi
 # See:
 # https://github.com/tonylambiris/dotfiles/blob/master/dot.zshrc
 
-# vim: ft=zsh
-
 # Prompt
 #http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
 
 # http://grml.org/zsh/zsh-lovers.html
 # http://www.bash2zsh.com/zsh_refcard/refcard.pdf
 
+# vim: ft=zsh

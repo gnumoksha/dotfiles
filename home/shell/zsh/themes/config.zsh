@@ -7,10 +7,6 @@
 # For a list of themes, type prompt -l.
 # To preview a theme, type prompt -p name.
 
-zplug "modules/git", from:prezto
-zplug "modules/prompt", from:prezto
-#zplug "themes/paradox", from:prezto, as:theme
-zstyle ':prezto:module:prompt' theme 'sorin'
 #zplug "themes/risto", from:oh-my-zsh, as:theme
 #zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
 #zplug "bhilburn/powerlevel9k", as:theme
@@ -28,9 +24,10 @@ zstyle ':prezto:module:prompt' theme 'sorin'
 #zplug 'simnalamburt/shellder', as:theme
 #zplug "joel-porquet/zsh-dircolors-solarized"
 #zplug "arcticicestudio/nord-gnome-terminal", from:github, hook-build:"./src/nord.sh"
-#zplug "arcticicestudio/nord-dircolors", from:github, hook-build:"mv ~/.dir_colors{,.bkp} &&  ./install.sh"
-#zplug "peterhellberg/dircolors-jellybeans", from:github, hook-build:"mv ~/.dir_colors{,.bkp} &&  cp dircolors.jellybeans ~/.dir_colors"
-zplug "trapd00r/LS_COLORS", from:github, hook-build:"mv ~/.dir_colors{,.bkp} && cp LS_COLORS ~/.dir_colors"
+zplug "peterhellberg/dircolors-jellybeans", from:github, hook-build:"cp --force dircolors.jellybeans $HOME/.dircolors"
+#zplug "arcticicestudio/nord-dircolors", from:github, hook-build:"./install.sh"
+#zplug "KKPMW/dircolors-moonshine", from:github, hook-build:"cp --force dircolors.moonshine $HOME/.dircolors"
+#zplug "trapd00r/LS_COLORS", from:github, hook-build:"cp --link --force LS_COLORS ~/.dir_colors"
 #zplug "themes/alanpeabody", from:oh-my-zsh, as:theme
 #zplug "themes/daveverwer", from:oh-my-zsh, as:theme
 #zplug "themes/dieter", from:oh-my-zsh, as:theme
@@ -41,4 +38,23 @@ zplug "trapd00r/LS_COLORS", from:github, hook-build:"mv ~/.dir_colors{,.bkp} && 
 #source "$DOTFILES/shell/zsh/powerlevel9k_settings.zsh"
 # Only this in interactive shells, not from a script or from scp
 #[[ $- = *i* ]] && source "$DOTFILES/shell/zsh/agkozak-settings.zsh"
+
+#
+# Prezto prompt
+#
+
+# Set the prompt theme to load.
+# Setting it to 'random' loads a random theme.
+# Auto set to 'off' on dumb terminals.
+# Nice prompts: paradox, sorin, skwp, bart, giddie, damoekri, kylewest.
+zstyle ':prezto:module:prompt' theme 'sorin'
+
+# Set the working directory prompt display length.
+# By default, it is set to 'short'. Set it to 'long' (without '~' expansion)
+# for longer or 'full' (with '~' expansion) for even longer prompt display.
+# zstyle ':prezto:module:prompt' pwd-length 'short'
+
+# Set the prompt to display the return code along with an indicator for non-zero
+# return codes. This is not supported by all prompts.
+# zstyle ':prezto:module:prompt' show-return-val 'yes'
 

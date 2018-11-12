@@ -5,6 +5,7 @@
 # i.e. "Ctrl s" and "Ctrl q" will be no special behavior.
 stty -ixon
 
+# For Tilix.
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
   if [ ! -e /etc/profile.d/vte.sh ]; then
     echo "You need to symlink vte.sh. Type sudo password:"

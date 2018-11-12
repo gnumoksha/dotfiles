@@ -15,7 +15,7 @@
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 # From oh-my-zsh
-zplug "lib/completion", from:oh-my-zsh
+#zplug "lib/completion", from:oh-my-zsh
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/copybuffer", from:oh-my-zsh
 zplug "plugins/copydir", from:oh-my-zsh
@@ -24,22 +24,25 @@ zplug "plugins/docker-compose", from:oh-my-zsh
 zplug "plugins/git-fast", from:oh-my-zsh
 zplug "plugins/git-flow-avh", from:oh-my-zsh
 zplug "plugins/gpg-agent", from:oh-my-zsh
-zplug "plugins/httpie", from:oh-my-zsh
+#zplug "plugins/httpie", from:oh-my-zsh
 zplug "plugins/pass", from:oh-my-zsh
 #zplug "plugins/compleat", from:oh-my-zsh
 
 # From prezto
+zplug "modules/editor", from:prezto
 zplug "modules/git", from:prezto
 zplug "modules/prompt", from:prezto
 
 # From zsh-users
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "zsh-users/zsh-completions"
 
 # From multiple sources
 zplug "reorx/httpstat", from:github, as:command, use:'httpstat.py', rename-to:'httpstat'
 #zplug "sharkdp/fd", from:gh-r, as:command, rename-to:fd, use:"x86_64-unknown-linux-gnu.tar.gz"
 #zplug "junegunn/fzf-bin", from:gh-r, as:command, rename-to:fzf, use:"*linux_amd64*"
 zplug "junegunn/fzf", from:github, as:command, rename-to:fzf, hook-build:"./install --all"
+zplug "junegunn/fzf", from:github, as:plugin, use:"shell/*.zsh"
 zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq
 zplug "github/hub", from:gh-r, as:command, rename-to:hub
 zplug "so-fancy/diff-so-fancy", from:github, as:command, rename-to:diff-so-fancy
