@@ -119,16 +119,23 @@ zplug "plugins/git-flow-avh", from:oh-my-zsh
 zplug "plugins/gpg-agent", from:oh-my-zsh
 zplug "plugins/httpie", from:oh-my-zsh
 zplug "plugins/pass", from:oh-my-zsh
+zplug "reorx/httpstat", from:github, as:command, use:'httpstat.py', rename-to:'httpstat'
 #zplug "plugins/compleat", from:oh-my-zsh
 #zplug "sharkdp/fd", from:gh-r, as:command, rename-to:fd, use:"x86_64-unknown-linux-gnu.tar.gz"
 #zplug "junegunn/fzf-bin", from:gh-r, as:command, rename-to:fzf, use:"*linux_amd64*"
 zplug "junegunn/fzf", from:github, as:command, rename-to:fzf, hook-build:"./install --all"
 zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq
+zplug "github/hub", from:gh-r, as:command, rename-to:hub
 zplug "so-fancy/diff-so-fancy", from:github, as:command, rename-to:diff-so-fancy
 zplug "supercrabtree/k"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug 'wfxr/forgit', defer:1
+zplug "mafredri/zsh-async", from:github
 # Themes and dircolors {{{
+zplug "modules/git", from:prezto
+zplug "modules/prompt", from:prezto
+#zplug "themes/paradox", from:prezto, as:theme
+zstyle ':prezto:module:prompt' theme 'sorin'
 #zplug "themes/risto", from:oh-my-zsh, as:theme
 #zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
 #zplug "bhilburn/powerlevel9k", as:theme
@@ -137,10 +144,9 @@ zplug 'wfxr/forgit', defer:1
 #zplug "themes/gianu", from:oh-my-zsh, as:theme
 #zplug "zlsun/solarized-man"
 #zplug "halfo/lambda-mod-zsh-theme", as:theme
-zplug "agkozak/agkozak-zsh-prompt"
+#zplug "agkozak/agkozak-zsh-prompt"
 #zplug "zakaziko99/agnosterzak-ohmyzsh-theme", as:theme
 #zplug "eendroroy/alien-minimal"
-zplug "mafredri/zsh-async", from:github
 #zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 #zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 #zplug "el1t/statusline"
@@ -148,7 +154,8 @@ zplug "mafredri/zsh-async", from:github
 #zplug "joel-porquet/zsh-dircolors-solarized"
 #zplug "arcticicestudio/nord-gnome-terminal", from:github, hook-build:"./src/nord.sh"
 #zplug "arcticicestudio/nord-dircolors", from:github, hook-build:"mv ~/.dir_colors{,.bkp} &&  ./install.sh"
-zplug "peterhellberg/dircolors-jellybeans", from:github, hook-build:"mv ~/.dir_colors{,.bkp} &&  cp dircolors.jellybeans ~/.dir_colors"
+#zplug "peterhellberg/dircolors-jellybeans", from:github, hook-build:"mv ~/.dir_colors{,.bkp} &&  cp dircolors.jellybeans ~/.dir_colors"
+zplug "trapd00r/LS_COLORS", from:github, hook-build:"mv ~/.dir_colors{,.bkp} && cp LS_COLORS ~/.dir_colors"
 #zplug "themes/alanpeabody", from:oh-my-zsh, as:theme
 #zplug "themes/daveverwer", from:oh-my-zsh, as:theme
 #zplug "themes/dieter", from:oh-my-zsh, as:theme
@@ -203,5 +210,8 @@ fi
 # https://github.com/tonylambiris/dotfiles/blob/master/dot.zshrc
 
 # vim: ft=zsh
+
+# Prompt
+#http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
