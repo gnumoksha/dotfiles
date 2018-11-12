@@ -4,7 +4,11 @@
 #                               #
 #################################
 # Path to my dotfiles project.
-export DOTFILES="/home/tobias/play/side_projects/dotfiles"
+export DOTFILES="$HOME/.dotfiles"
+
+ZPLUG_INSTALLED='/usr/local/opt/zplug/installed'
+ZPLUG_HOME='/usr/local/opt/zplug/home'
+ZPLUG_BIN='/usr/local/bin'
 
 # Profiling
 #zmodload zsh/zprof
@@ -64,35 +68,7 @@ setopt prompt_subst             # Make sure prompt is able to be generated prope
 #zle
 #}}}
 
-# oh-my-zsh settings {{{
-# How often to auto-update (in days).
-export UPDATE_ZSH_DAYS=7
-# Display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
-# Do not use case-sensitive completion.
-CASE_SENSITIVE="false"
-# Use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-HYPHEN_INSENSITIVE="true"
-# Enable auto-update checks.
-DISABLE_AUTO_UPDATE="false"
-# Disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-#}}}
-
-# Plugins and themes {{{
-# Path, installation and initialization for my oh-my-zsh.
-export ZSH="/usr/local/opt/oh-my-zsh"
-if [ ! -e "$ZSH" ]; then
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-fi
-
-# Path, installation and initialization for zplug
-ZPLUG_INSTALLED='/usr/local/opt/zplug/installed'
-ZPLUG_HOME='/usr/local/opt/zplug/home'
-ZPLUG_BIN='/usr/local/bin'
+# Plugins {{{
 ZPLUG_USE_CACHE=true
 ZPLUG_CACHE_DIR=$HOME/.cache/zplug
 if [ ! -e "$ZPLUG_INSTALLED/init.zsh" ]; then
@@ -100,89 +76,19 @@ if [ ! -e "$ZPLUG_INSTALLED/init.zsh" ]; then
 fi
 # Only load zplug in interactive shells, not from a script or from scp
 [[ $- = *i* ]] && source $ZPLUG_INSTALLED/init.zsh
-# 2017-10-20 - Tobias - I've checked the repository and those are the useful plugins:
-# colored-man-pages composer copybuffer copydir docker docker-compose
-# git git-flow-avh git-extras
-# gpg-agent history-substring-search httpie nmap npm pass pip
-# redis-cli rsync screen shrink-path ssh-agent systemadmin tmux
-# vi-mode virtualenv
-# Repository: https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-zplug "lib/completion", from:oh-my-zsh
-zplug "plugins/colored-man-pages", from:oh-my-zsh
-zplug "plugins/copybuffer", from:oh-my-zsh
-zplug "plugins/copydir", from:oh-my-zsh
-zplug "plugins/docker", from:oh-my-zsh
-zplug "plugins/docker-compose", from:oh-my-zsh
-zplug "plugins/git-fast", from:oh-my-zsh
-zplug "plugins/git-flow-avh", from:oh-my-zsh
-zplug "plugins/gpg-agent", from:oh-my-zsh
-zplug "plugins/httpie", from:oh-my-zsh
-zplug "plugins/pass", from:oh-my-zsh
-zplug "reorx/httpstat", from:github, as:command, use:'httpstat.py', rename-to:'httpstat'
-#zplug "plugins/compleat", from:oh-my-zsh
-#zplug "sharkdp/fd", from:gh-r, as:command, rename-to:fd, use:"x86_64-unknown-linux-gnu.tar.gz"
-#zplug "junegunn/fzf-bin", from:gh-r, as:command, rename-to:fzf, use:"*linux_amd64*"
-zplug "junegunn/fzf", from:github, as:command, rename-to:fzf, hook-build:"./install --all"
-zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq
-zplug "github/hub", from:gh-r, as:command, rename-to:hub
-zplug "so-fancy/diff-so-fancy", from:github, as:command, rename-to:diff-so-fancy
-zplug "supercrabtree/k"
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug 'wfxr/forgit', defer:1
-zplug "mafredri/zsh-async", from:github
-# Themes and dircolors {{{
-zplug "modules/git", from:prezto
-zplug "modules/prompt", from:prezto
-#zplug "themes/paradox", from:prezto, as:theme
-zstyle ':prezto:module:prompt' theme 'sorin'
-#zplug "themes/risto", from:oh-my-zsh, as:theme
-#zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
-#zplug "bhilburn/powerlevel9k", as:theme
-#zplug "caiogondim/bullet-train.zsh", use:bullet-train.zsh-theme, defer:3 # defer until other plugins like oh-my-zsh is loaded
-#zplug "themes/gentoo", from:oh-my-zsh, as:theme
-#zplug "themes/gianu", from:oh-my-zsh, as:theme
-#zplug "zlsun/solarized-man"
-#zplug "halfo/lambda-mod-zsh-theme", as:theme
-#zplug "agkozak/agkozak-zsh-prompt"
-#zplug "zakaziko99/agnosterzak-ohmyzsh-theme", as:theme
-#zplug "eendroroy/alien-minimal"
-#zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
-#zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
-#zplug "el1t/statusline"
-#zplug 'simnalamburt/shellder', as:theme
-#zplug "joel-porquet/zsh-dircolors-solarized"
-#zplug "arcticicestudio/nord-gnome-terminal", from:github, hook-build:"./src/nord.sh"
-#zplug "arcticicestudio/nord-dircolors", from:github, hook-build:"mv ~/.dir_colors{,.bkp} &&  ./install.sh"
-#zplug "peterhellberg/dircolors-jellybeans", from:github, hook-build:"mv ~/.dir_colors{,.bkp} &&  cp dircolors.jellybeans ~/.dir_colors"
-zplug "trapd00r/LS_COLORS", from:github, hook-build:"mv ~/.dir_colors{,.bkp} && cp LS_COLORS ~/.dir_colors"
-#zplug "themes/alanpeabody", from:oh-my-zsh, as:theme
-#zplug "themes/daveverwer", from:oh-my-zsh, as:theme
-#zplug "themes/dieter", from:oh-my-zsh, as:theme
-#zplug "themes/maran", from:oh-my-zsh, as:theme
-#zplug "themes/miloshadzic", from:oh-my-zsh, as:theme
-## nice ideia
-#zplug "themes/wezm", from:oh-my-zsh, as:theme
-#source "$DOTFILES/shell/zsh/powerlevel9k_settings.zsh"
-# Only this in interactive shells, not from a script or from scp
-[[ $- = *i* ]] && source "$DOTFILES/shell/zsh/agkozak-settings.zsh"
-#
-# Install plugins if there are plugins that have not been installed
-# Note: This increases startup time.
-# See https://github.com/zplug/zplug/issues/368
-#if ! zplug check --verbose; then
-	#printf "Install missing plugins? [y/N]: "
-	#if read; then
-		#echo; zplug install
-	#fi
-#fi
+
+source "$DOTFILES/home/shell/zsh/plugins/config.zsh"
+source "$DOTFILES/home/shell/zsh/themes/config.zsh"
+
+zplug "$DOTFILES/home/shell/common/bootstrap.sh", from:local
+zplug "$DOTFILES/home/shell/tmux/utils.sh", from:local
+
 zplug load
 #}}}
 
 # coloquei aqui por usa um alias para ls que nao funciona
 [[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
 
-source "$DOTFILES/shell/common/bootstrap.sh"
 
 # see https://github.com/wfxr/forgit#custom-options
 alias git-add="ga"
@@ -197,7 +103,6 @@ alias git-ignore="git"
 #alias less=$PAGER
 #alias zless=$PAGER
 
-source $DOTFILES/shell/tmux/utils.sh
 
 finishedAt=`date +%s.%N`
 loadTime=$((finishedAt-startedAt))
@@ -214,4 +119,6 @@ fi
 # Prompt
 #http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# http://grml.org/zsh/zsh-lovers.html
+# http://www.bash2zsh.com/zsh_refcard/refcard.pdf
+
