@@ -3,6 +3,11 @@
 ###################################
 export TERM="xterm-256color"
 
+# https://specifications.freedesktop.org/basedir-spec/basedir-spec-0.6.html
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+
 # For Debian
 export PATH="$PATH:/sbin"
 export PATH="$PATH:/usr/games"

@@ -3,22 +3,22 @@
 #             zshrc             #
 #                               #
 #################################
-# Path to my dotfiles project.
-export DOTFILES="$HOME/.dotfiles"
-
-ZPLUG_INSTALLED='/usr/local/opt/zplug/installed'
-ZPLUG_HOME='/usr/local/opt/zplug/home'
-ZPLUG_BIN='/usr/local/bin'
-ZPLUG_USE_CACHE=true
-ZPLUG_CACHE_DIR=$HOME/.cache/zplug
 
 # Profiling
 #zmodload zsh/zprof
 startedAt=$(date +%s.%N)
 
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=${HOME}/.config}
+source "$XDG_CONFIG_HOME/shell/common/bootstrap.sh"
+ZPLUG_INSTALLED='/usr/local/opt/zplug/installed'
+ZPLUG_HOME='/usr/local/opt/zplug/home'
+ZPLUG_BIN='/usr/local/bin'
+ZPLUG_USE_CACHE=true
+ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
+
 # ZSH settings {{{
 ## History file configuration
-HISTFILE="$HOME/.zsh_history"
+HISTFILE="$ZDOTDIR/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=10000
 
@@ -78,12 +78,11 @@ if [[ $- = *i* ]]; then
 
 	source "$ZPLUG_INSTALLED/init.zsh"
 	# I was unable to use zplug source
-	source "$DOTFILES/home/shell/zsh/plugins/config.zsh"
-	source "$DOTFILES/home/shell/zsh/themes/config.zsh"
+	source "$ZDOTDIR/plugins/config.zsh"
+	source "$ZDOTDIR/themes/config.zsh"
 
 	# I was unable to use zplug source
-	source "$DOTFILES/home/shell/common/bootstrap.sh"
-	source "$DOTFILES/home/shell/tmux/utils.sh"
+	source "$XDG_CONFIG_HOME/tmux/utils.sh"
 
 	zplug load
 fi

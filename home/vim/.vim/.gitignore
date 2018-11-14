@@ -1,0 +1,12 @@
+/autoload/
+/backup/
+/bin/
+/plugged/
+/session/
+/spell/
+/swap/
+/viminfo*
+/tags
+/.netrwhist
+!.gitkeep
+
