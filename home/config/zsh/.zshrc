@@ -119,4 +119,7 @@ fi
 # http://grml.org/zsh/zsh-lovers.html
 # http://www.bash2zsh.com/zsh_refcard/refcard.pdf
 
+export TERM="xterm-256color"
+
+
 # vim: ft=zsh

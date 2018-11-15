@@ -32,7 +32,8 @@ colorscheme onedark
 "colorscheme gruvbox
 
 " Matches the terminal colors
-set termguicolors
+" Do not set this https://github.com/tmux/tmux/issues/699
+"set termguicolors
 
 "" Disable the blinking cursor.
 "set gcr=a:blinkon0

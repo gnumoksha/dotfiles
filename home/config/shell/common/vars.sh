@@ -1,7 +1,6 @@
 ###################################
 #               PATH              #
 ###################################
-export TERM="xterm-256color"
 
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-0.6.html
 export XDG_CONFIG_HOME="$HOME/.config"

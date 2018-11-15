@@ -1,5 +1,5 @@
-# Terminal with colors
-export TERM=xterm-256color
+
+#export TERM="xterm-256color"
 
 # http://www.cyberciti.biz/open-source/command-line-hacks/remark-command-regex-markup-examples/
 REMARK=$(which remark)
@@ -16,7 +16,7 @@ fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-	test -r ~/.dir_colors && eval "$(dircolors -b ~/.dir_colors)" || eval "$(dircolors -b)"
+	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
 #EOF
