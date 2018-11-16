@@ -1,6 +1,4 @@
 
-#export TERM="xterm-256color"
-
 # http://www.cyberciti.biz/open-source/command-line-hacks/remark-command-regex-markup-examples/
 REMARK=$(which remark)
 if [[ ! -f $REMARK ]]; then
@@ -13,6 +11,9 @@ else
 	traceroute_() { /usr/sbin/traceroute $@ | $REMARK /usr/share/regex-markup/traceroute; }
 	diff_() { /usr/bin/diff $@ | $REMARK /usr/share/regex-markup/diff; }
 fi
+
+# coloquei aqui por usa um alias para ls que nao funciona
+#[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then

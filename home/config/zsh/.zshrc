@@ -8,14 +8,6 @@
 #zmodload zsh/zprof
 startedAt=$(date +%s.%N)
 
-export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=${HOME}/.config}
-source "$XDG_CONFIG_HOME/shell/common/bootstrap.sh"
-ZPLUG_INSTALLED='/usr/local/opt/zplug/installed'
-ZPLUG_HOME='/usr/local/opt/zplug/home'
-ZPLUG_BIN='/usr/local/bin'
-ZPLUG_USE_CACHE=true
-ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
-
 # ZSH settings {{{
 ## History file configuration
 HISTFILE="$ZDOTDIR/.zsh_history"
@@ -83,25 +75,10 @@ if [[ $- = *i* ]]; then
 
 	# I was unable to use zplug source
 	source "$XDG_CONFIG_HOME/tmux/utils.sh"
+	source "$XDG_CONFIG_HOME/shell/common/bootstrap.sh"
 
 	zplug load
 fi
-
-# coloquei aqui por usa um alias para ls que nao funciona
-#[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
-
-# see https://github.com/wfxr/forgit#custom-options
-alias git-add="ga"
-alias git-log="glo"
-alias git-diff="gd"
-alias git-checkout="gcf"
-alias git-clean="gclan"
-alias git-ignore="git"
-
-# https://github.com/rkitover/vimpager
-#export PAGER=/opt/apps/vimpager/vimpager
-#alias less=$PAGER
-#alias zless=$PAGER
 
 finishedAt=`date +%s.%N`
 loadTime=$((finishedAt-startedAt))
@@ -119,7 +96,6 @@ fi
 # http://grml.org/zsh/zsh-lovers.html
 # http://www.bash2zsh.com/zsh_refcard/refcard.pdf
 
-export TERM="xterm-256color"
-
-
 # vim: ft=zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

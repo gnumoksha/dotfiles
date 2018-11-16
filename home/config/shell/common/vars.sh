@@ -3,13 +3,12 @@
 ###################################
 
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-0.6.html
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=${HOME}/.config}
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:=${HOME}/.cache}
+export XDG_DATA_HOME=${XDG_DATA_HOME:=${HOME}/.local/share}
 
 # For Debian
 export PATH="$PATH:/sbin"
-export PATH="$PATH:/usr/games"
 # PHP composer
 export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 export MY_BIN_DIR="/usr/local/bin"
@@ -29,9 +28,8 @@ export PATH="$PATH:$GOROOT/bin:$GOBIN"
 
 # For rust-lang
 export CARGO_HOME="$HOME/.config/cargo"
-#export PATH="$PATH:$HOME/play/rust/cargo/bin"
 
-export JAVA_HOME=/opt/apps/gnu+linux/java/jdk
+#export JAVA_HOME=/opt/apps/gnu+linux/java/jdk
 #export PHPSTORM_JDK=$JAVA_HOME
 
 # Preferred editor for local and remote sessions
@@ -41,5 +39,11 @@ else
   export EDITOR='nvim'
 fi
 
-export PAGER=most
+#export PAGER=most
+# https://github.com/rkitover/vimpager
+#export PAGER=/opt/apps/vimpager/vimpager
+#alias less=$PAGER
+#alias zless=$PAGER
+export PAGER=less
+export LESS='-g -i -M -R -S -w -z-4'
 

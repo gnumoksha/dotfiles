@@ -162,9 +162,4 @@ function isX11OrWayland() {
 	loginctl show-session `loginctl|grep tobias|awk '{print $1}'` -p Type
 }
 
-# Only load this in interactive shells, not from a script or from scp.
-function sourceIfInteractive() {
-	[[ $- = *i* ]] && source $1
-}
-
 #EOF
