@@ -6,7 +6,6 @@
 
 # git config --global branch.autoSetupMerge always
 
-
 [user]
 	name = Tobias Sette
 	email = contato@tobias.ws
@@ -23,6 +22,19 @@
 
 [credential]
 	helper = cache --timeout=300
+
+[core]
+	# Habilitar isso em sistemas nao case sensitive
+	#ignoreCase = true
+	editor = vim
+	# true - converts LF endings into CRLF when you check out code. [11]
+	# input - tell Git to convert CRLF to LF on commit but not the other way around.
+	# false - if you are doing only a windows project with windows people.
+	# this can be set by repository with .gitattributes file.
+	autocrlf = input
+	# "warn", in which case Git will only warn about an irreversible conversion but continue the operation.
+	safecrlf = warn
+	pager = diff-so-fancy | less --tabs=4 -RFX
 
 [color]
 	# [4]
@@ -66,15 +78,6 @@
 	new = green bold
 	whitespace = red reverse
 
-[core]
-	# Habilitar isso em sistemas nao case sensitive
-	#ignoreCase = true
-	editor = vim
-	#eol=lf
-	autocrlf = input # valor 'true' causou erro no zsh: "command not found: ^M"
-	safecrlf = warn
-	pager = diff-so-fancy | less --tabs=4 -RFX
-
 [merge]
 	# [5]
 	tool = vimdiff
@@ -86,12 +89,6 @@
 [mergetool]
 	;prompt = false
 	keepBackup = false
-
-# TODO is it necessary?
-;[merge "ours"]
-	;# Merge strategy
-	;# https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes#Merge-Strategies
-	;driver = true
 
 [status]
 	submodulesummary = 1
@@ -228,6 +225,7 @@
 # [8] https://githowto.com/aliases
 # [9] https://git-scm.com/book/tr/v2/Git-Basics-Git-Aliases
 # [10] http://stackoverflow.com/questions/17558221/how-can-i-view-the-output-of-git-show-in-a-diff-viewer-like-meld-kdiff3-etc
+# [11] https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_formatting_and_whitespace
 
 #EOF
 ;[branch]
