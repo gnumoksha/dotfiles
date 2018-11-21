@@ -22,7 +22,7 @@ call plug#begin(g:plugDir)
   " Plug 'jistr/vim-nerdtree-tabs' " https://github.com/scrooloose/nerdtree#faq
   Plug 'mhinz/vim-startify' " The fancy start screen for Vim.
   " Extended session management for Vim (:mksession on steroids).
-  Plug 'xolox/vim-misc' | Plug 'xolox/vim-session'
+  "Plug 'xolox/vim-misc' | Plug 'xolox/vim-session'
 "  Plug 'Shougo/vimproc.vim', { 'do': 'make' } " Interactive command execution in Vim (for vimshell).
 "    Plug 'Shougo/vimshell.vim' " Powerful shell implemented by vim.
   " CtrlPMixed seems nice
@@ -137,16 +137,16 @@ call plug#begin(g:plugDir)
   "Plug 'shawncplus/phpcomplete.vim' " Improved PHP omnicompletion
   " configure install
   "Plug 'lvht/phpcd.vim', {'for': 'php'} " A Intelligent/Smart PHP Complete Daemon Plugin for Vim/NeoVim
-  Plug 'arnaud-lb/vim-php-namespace', {'for': 'php'} " types "use" statements for you
+  "Plug 'arnaud-lb/vim-php-namespace', {'for': 'php'} " types "use" statements for you
   "Plug 'vim-php/vim-php-refactoring'
-  Plug 'vim-php/tagbar-phpctags.vim', {'for': 'php'}
-  let phpctags_exists=expand('~/.vim/bin/phpctags')
-  if !filereadable(phpctags_exists)
-    echo "Installing phpctags..."
-    echo ""
-    silent !\curl -fLo ~/.vim/bin/phpctags --create-dirs http://vim-php.com/phpctags/install/phpctags.phar
-  endif
-  Plug 'rayburgemeestre/phpfolding.vim', {'for': 'php'}
+  "Plug 'vim-php/tagbar-phpctags.vim', {'for': 'php'}
+  "let phpctags_exists=expand('~/.vim/bin/phpctags')
+  "if !filereadable(phpctags_exists)
+    "echo "Installing phpctags..."
+    "echo ""
+    "silent !\curl -fLo ~/.vim/bin/phpctags --create-dirs http://vim-php.com/phpctags/install/phpctags.phar
+  "endif
+  "Plug 'rayburgemeestre/phpfolding.vim', {'for': 'php'}
   "Plug '2072/PHP-Indenting-for-VIm', {'for': 'php'} // very problematic
   "Plug 'vim-php/vim-composer'
   "Plug 'wdalmut/vim-phpunit.git'
@@ -154,7 +154,7 @@ call plug#begin(g:plugDir)
 
   " Golang {{{
   " fatih/vim-go is loaded by vim-polyglot but I want the original package =)
-  Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
+  "Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
   "}}}
   "}}}
 

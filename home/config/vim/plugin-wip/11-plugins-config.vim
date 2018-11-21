@@ -47,6 +47,7 @@ let g:startify_files_number = 30
 let g:startify_change_to_dir = 1 " When opening a file or bookmark, change to its directory.
 let g:startify_change_to_vcs_root = 1 " When opening a file or bookmark, seek and change to the root directory of the VCS.
 let g:startify_fortune_use_unicode = 1 " Fortune header uses utf-8.
+let g:startify_session_dir = g:vimConfigDir . "/session" 
 let g:startify_session_number = 10 " The maximum number of sessions to display.
 let g:startify_session_sort = 1 " Sort sessions by modification time.
 let g:ascii = [
@@ -62,18 +63,18 @@ let g:startify_custom_header = 'map(g:ascii, "\"   \".v:val")'
 function! StartifyEntryFormat()
     return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
 endfunction
+" Keys mapping
+nnoremap <leader>so :SOpen<Space>
+nnoremap <leader>ss :SSave<Space>
+nnoremap <leader>sd :SDelete<CR>
+nnoremap <leader>sc :SClose<CR>
 "}}}
 
 " xolox/vim-session {{{
-"let g:session_directory = g:vimStuffDir . "/session" " Controls the location of your session scripts.
+"let g:session_directory = g:vimConfigDir . "/session" " Controls the location of your session scripts.
 let g:session_autoload = "no"
 let g:session_autosave = "yes"
 let g:session_command_aliases = 1 " The names of the commands defined by the session plug-in start with the action they perform, followed by the string 'Session'.
-" Keys mapping
-nnoremap <leader>so :OpenSession<Space>
-nnoremap <leader>ss :SaveSession<Space>
-nnoremap <leader>sd :DeleteSession<CR>
-nnoremap <leader>sc :CloseSession<CR>
 "}}}
 
 " ctrlpvim/ctrlp.vim {{{
