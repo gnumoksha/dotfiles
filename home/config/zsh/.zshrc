@@ -4,6 +4,8 @@
 #                               #
 #################################
 
+source "$XDG_CONFIG_HOME/tmux/utils.sh"
+
 # Profiling
 #zmodload zsh/zprof
 startedAt=$(date +%s.%N)
@@ -74,7 +76,6 @@ if [[ $- = *i* ]]; then
 	source "$ZDOTDIR/themes/config.zsh"
 
 	# I was unable to use zplug source
-	source "$XDG_CONFIG_HOME/tmux/utils.sh"
 	source "$XDG_CONFIG_HOME/shell/common/bootstrap.sh"
 
 	zplug load
@@ -97,5 +98,3 @@ fi
 # http://www.bash2zsh.com/zsh_refcard/refcard.pdf
 
 # vim: ft=zsh
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

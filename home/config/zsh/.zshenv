@@ -15,7 +15,7 @@
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=${HOME}/.config}
 export ZDOTDIR=${ZDOTDIR:=${XDG_CONFIG_HOME}/zsh}
 
-source "$XDG_CONFIG_HOME/shell/common/vars.sh"
+source "$XDG_CONFIG_HOME/shell/common/env.sh"
 
 ZPLUG_INSTALLED='/usr/local/opt/zplug/installed'
 ZPLUG_HOME='/usr/local/opt/zplug/home'
