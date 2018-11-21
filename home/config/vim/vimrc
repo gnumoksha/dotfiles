@@ -17,6 +17,8 @@ if !executable("ctags")
   echoerr "Install exuberant-ctags in order to use tagbar plugin!"
 endif
 
+let g:vimCacheDir = $XDG_CACHE_HOME . "/vim"
+set runtimepath=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
 if has('nvim')
   let g:vimStuffDir = $HOME . "/.config/nvim"
   let g:plugFile = $HOME . "/.local/share/nvim/site/autoload/plug.vim"
@@ -25,7 +27,7 @@ else
   let g:plugFile = $HOME . "/.vim/autoload/plug.vim"
 endif
 
-let g:plugDir = g:vimStuffDir . "/plugged"
+let g:plugDir = g:vimCacheDir . "/plugged"
 " Vim plug does not accept script vars
 "let g:myBinDir = "/usr/local/bin"
 let g:zplugHome = "/usr/local/opt/zplug/home"

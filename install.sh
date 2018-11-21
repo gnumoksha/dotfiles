@@ -6,7 +6,6 @@ STOW_IN_HOME=(
 'home/ctags'
 'home/legacy_to_xdg'
 'home/ssh'
-'home/vim'
 )
 
 for item in "${STOW_IN_HOME[@]}"; do

@@ -79,7 +79,7 @@ set list
 set browsedir=buffer
 
 "Keep backups of files in case I mess up :)
-let s:backupDir = g:vimStuffDir . "/backup"
+let s:backupDir = g:vimCacheDir . "/backup"
 if !isdirectory(s:backupDir)
   call mkdir(s:backupDir, "", 0700)
 endif
@@ -88,7 +88,7 @@ set backup
 set backupcopy=yes
 
 " Where store swap files.
-let s:swapDir = g:vimStuffDir . "/swap"
+let s:swapDir = g:vimCacheDir . "/swap"
 if !isdirectory(s:swapDir)
   call mkdir(s:swapDir, "", 0700)
 endif
@@ -96,7 +96,8 @@ endif
 let &directory = s:swapDir . "/,."
 
 " Persists undo while computer is on
-let s:undoDir = "/tmp/.undodir_" . $USER
+"let s:undoDir = "/tmp/.undodir_" . $USER
+let s:undoDir = g:vimCacheDir . "/undo"
 if !isdirectory(s:undoDir)
   call mkdir(s:undoDir, "", 0700)
 endif
@@ -104,25 +105,21 @@ let &undodir=s:undoDir
 set undofile
 set undolevels=10000
 
-if has('nvim')
-  set viminfo='100,n$HOME/.config/nvim/viminfo
-else
-  set viminfo='100,n$HOME/.vim/viminfo
-endif
+set viminfo+='1000,n$XDG_CACHE_HOME/vim/viminfo
 
 " Enable spell checking.
-if !filereadable(expand('~/.vim/spell/en.utf-8.sug'))
-  echo "Downloading spell files..."
-  echo ""
-  silent !\curl -fLo ~/.vim/spell/en.utf-8.sug --create-dirs http://ftp.vim.org/vim/runtime/spell/en.utf-8.sug
-  silent !\curl -fLo ~/.vim/spell/en.utf-8.spl --create-dirs http://ftp.vim.org/vim/runtime/spell/en.utf-8.spl
+"if !filereadable(expand('~/.vim/spell/en.utf-8.sug'))
+  "echo "Downloading spell files..."
+  "echo ""
+  "silent !\curl -fLo ~/.vim/spell/en.utf-8.sug --create-dirs http://ftp.vim.org/vim/runtime/spell/en.utf-8.sug
+  "silent !\curl -fLo ~/.vim/spell/en.utf-8.spl --create-dirs http://ftp.vim.org/vim/runtime/spell/en.utf-8.spl
 
-  silent !\curl -fLo ~/.vim/spell/pt.utf-8.sug --create-dirs http://ftp.vim.org/vim/runtime/spell/pt.utf-8.sug
-  silent !\curl -fLo ~/.vim/spell/pt.utf-8.spl --create-dirs http://ftp.vim.org/vim/runtime/spell/pt.utf-8.spl
-endif
-"set spell
-set spellfile=$HOME/.vim/spell/en.utf-8.add,$HOME/.vim/spell/pt.utf-8.add
-set spelllang=en,pt
+  "silent !\curl -fLo ~/.vim/spell/pt.utf-8.sug --create-dirs http://ftp.vim.org/vim/runtime/spell/pt.utf-8.sug
+  "silent !\curl -fLo ~/.vim/spell/pt.utf-8.spl --create-dirs http://ftp.vim.org/vim/runtime/spell/pt.utf-8.spl
+"endif
+""set spell
+"set spellfile=$HOME/.vim/spell/en.utf-8.add,$HOME/.vim/spell/pt.utf-8.add
+"set spelllang=en,pt
 "}}}
 
 " For spell checking
