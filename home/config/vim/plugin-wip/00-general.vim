@@ -107,6 +107,12 @@ set undolevels=10000
 
 set viminfo+='1000,n$XDG_CACHE_HOME/vim/viminfo
 
+" Session
+" If you don't want help windows to be restored:
+set sessionoptions-=help
+" Don't save hidden and unloaded buffers in sessions.
+set sessionoptions-=buffers
+
 " Enable spell checking.
 "if !filereadable(expand('~/.vim/spell/en.utf-8.sug'))
   "echo "Downloading spell files..."

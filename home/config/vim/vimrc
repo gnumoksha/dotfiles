@@ -25,10 +25,6 @@ let g:zplugHome = "/usr/local/opt/zplug/home"
 let g:myLangs = ['go', 'html', 'javascript', 'perl', 'php', 'python', 'sh', 'vim']
 
 let g:startify_session_dir = g:vimConfigDir . "/session"
-" If you don't want help windows to be restored:
-set sessionoptions-=help
-" Don't save hidden and unloaded buffers in sessions.
-set sessionoptions-=buffers
 
 runtime plugin-wip/00-general.vim
 
