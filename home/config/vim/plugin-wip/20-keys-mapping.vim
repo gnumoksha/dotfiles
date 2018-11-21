@@ -69,6 +69,11 @@ noremap <C-S> :w<CR>
 vnoremap <C-S> <C-C>:w<CR>
 inoremap <C-S> <C-O>:w<CR>
 
+" Quit vim with C-Q
+noremap <C-Q> :qa<CR>
+vnoremap <C-Q> <C-C>:qa<CR>
+inoremap <C-Q> <C-O>:qa<CR>
+
 " Switching windows
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
@@ -89,6 +94,8 @@ noremap <silent> <leader>bc :bd!<CR>
 nnoremap <leader>cd :lcd %:p:h<CR>
 
 " Diff Get Right
+" #TODO Seria bom usar apenas o `do` e `dp`. se for git repo, usar diffget, se nao,
+" usar normal. o diffget nao parece ser de plugin.
 noremap <Leader>dgr :diffget RE<CR>
 " Diff Get Base
 noremap <Leader>dgb :diffget BA<CR>

@@ -65,6 +65,12 @@ set showmatch
 set colorcolumn=120
 set cursorline " Destaca a linha onde o cursor está.
 
+" airline already shows the current vim mode.
+set noshowmode
+"set cmdheight=1
+"set laststatus=0
+
+
 " Igora case sensitive durante as buscas
 set ignorecase
 " Ignora a opcao 'ignorecase' se o texto a ser buscado contem caracteres
@@ -78,7 +84,7 @@ set incsearch
 
 " Default indent with tabs. [ref 08]
 " Changes the width of the TAB character.
-"set tabstop=4
+set tabstop=4
 " Affects what happens when you press >>, << or ==. It also affects how
 " automatic indentation works.
 "set shiftwidth=4

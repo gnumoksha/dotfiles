@@ -51,6 +51,8 @@ call plug#begin(g:plugDir)
   Plug 'wellle/targets.vim'
   " A Vim cheat sheet that makes sense, inside Vim!
   Plug 'lifepillar/vim-cheat40'
+  "Plug 'rhysd/vim-grammarous'
+  Plug 'edkolev/tmuxline.vim'
   "}}}
 
   """""""""""""""""""
@@ -145,7 +147,7 @@ call plug#begin(g:plugDir)
     silent !\curl -fLo ~/.vim/bin/phpctags --create-dirs http://vim-php.com/phpctags/install/phpctags.phar
   endif
   Plug 'rayburgemeestre/phpfolding.vim', {'for': 'php'}
-  Plug '2072/PHP-Indenting-for-VIm', {'for': 'php'}
+  "Plug '2072/PHP-Indenting-for-VIm', {'for': 'php'} // very problematic
   "Plug 'vim-php/vim-composer'
   "Plug 'wdalmut/vim-phpunit.git'
   "}}}

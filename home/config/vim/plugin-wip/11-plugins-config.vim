@@ -65,7 +65,7 @@ endfunction
 "}}}
 
 " xolox/vim-session {{{
-let g:session_directory = g:vimStuffDir . "/session" " Controls the location of your session scripts.
+"let g:session_directory = g:vimStuffDir . "/session" " Controls the location of your session scripts.
 let g:session_autoload = "no"
 let g:session_autosave = "yes"
 let g:session_command_aliases = 1 " The names of the commands defined by the session plug-in start with the action they perform, followed by the string 'Session'.
