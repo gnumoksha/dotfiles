@@ -64,22 +64,19 @@ setopt prompt_subst             # Make sure prompt is able to be generated prope
 #zle
 #}}}
 
-# Only load plugins in interactive shells, not from a script or from scp.
-if [[ $- = *i* ]]; then
-	if [ ! -e "$ZPLUG_INSTALLED/init.zsh" ]; then
-		curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-	fi
-
-	source "$ZPLUG_INSTALLED/init.zsh"
-	# I was unable to use zplug source
-	source "$ZDOTDIR/plugins/config.zsh"
-	source "$ZDOTDIR/themes/config.zsh"
-
-	# I was unable to use zplug source
-	source "$XDG_CONFIG_HOME/shell/common/bootstrap.sh"
-
-	zplug load
+if [ ! -e "$ZPLUG_INSTALLED/init.zsh" ]; then
+	curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 fi
+
+source "$ZPLUG_INSTALLED/init.zsh"
+# I was unable to use zplug source
+source "$ZDOTDIR/plugins/config.zsh"
+source "$ZDOTDIR/themes/config.zsh"
+
+# I was unable to use zplug source
+source "$XDG_CONFIG_HOME/shell/common/bootstrap.sh"
+
+zplug load
 
 finishedAt=`date +%s.%N`
 loadTime=$((finishedAt-startedAt))
