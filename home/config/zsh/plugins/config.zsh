@@ -15,7 +15,7 @@
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 # From oh-my-zsh
-#zplug "lib/completion", from:oh-my-zsh
+zplug "lib/completion", from:oh-my-zsh
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/copybuffer", from:oh-my-zsh
 zplug "plugins/copydir", from:oh-my-zsh
@@ -35,7 +35,7 @@ zplug "modules/prompt", from:prezto
 
 # From zsh-users
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-completions"
+#zplug "zsh-users/zsh-completions"
 
 # From multiple sources
 zplug "reorx/httpstat", from:github, as:command, use:'httpstat.py', rename-to:'httpstat'
