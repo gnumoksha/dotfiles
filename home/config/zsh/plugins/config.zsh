@@ -44,10 +44,12 @@ zplug "reorx/httpstat", from:github, as:command, use:'httpstat.py', rename-to:'h
 zplug "junegunn/fzf", from:github, as:command, rename-to:fzf, hook-build:"./install --all"
 zplug "junegunn/fzf", from:github, as:plugin, use:"shell/*.zsh"
 zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq
-zplug "github/hub", from:gh-r, as:command, rename-to:hub
+#zplug "supercrabtree/k" " I did not use.
+zplug 'tj/git-extras', as:plugin, hook-build:"make install"
 zplug "so-fancy/diff-so-fancy", from:github, as:command, rename-to:diff-so-fancy
-#zplug "supercrabtree/k"
 zplug 'wfxr/forgit', defer:1
+zplug "paulirish/git-open", as:plugin
+zplug "github/hub", from:gh-r, as:command, rename-to:hub
 #zplug "mafredri/zsh-async", from:github
 
 # Install plugins if there are plugins that have not been installed
