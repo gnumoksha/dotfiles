@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 STOW="$(which stow) --verbose=0"
 # path relative to the CURRENT DIR.
@@ -20,7 +20,7 @@ for item in "${STOW_IN_HOME[@]}"; do
 	pushd "$item_directory" > /dev/null 2>&1
 	$STOW --target="$HOME" "$item_basename"
 	popd > /dev/null 2>&1
-	echo ""
+	echo
 done
 
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=${HOME}/.config}
@@ -30,4 +30,23 @@ pushd home/ > /dev/null 2>&1
 $STOW --target="$XDG_CONFIG_HOME/" config/
 popd > /dev/null 2>&1
 
+function doBigChanges {
+	echo "Doing big changes..."
+
+	pushd big-changes/home > /dev/null 2>&1
+	$STOW --target="$XDG_CONFIG_HOME/" config/
+	popd > /dev/null 2>&1
+
+	echo
+}
+
+echo "Do you want to do the big changes?"
+select big_changes in "Yes" "No"; do
+	if [[ $big_changes == 'Yes' ]]; then
+		doBigChanges
+	fi
+	break
+done
+
 echo "Finished."
+
