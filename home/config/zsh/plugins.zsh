@@ -42,7 +42,8 @@ zplug "reorx/httpstat", from:github, as:command, use:'httpstat.py', rename-to:'h
 #zplug "sharkdp/fd", from:gh-r, as:command, rename-to:fd, use:"x86_64-unknown-linux-gnu.tar.gz"
 #zplug "junegunn/fzf-bin", from:gh-r, as:command, rename-to:fzf, use:"*linux_amd64*"
 zplug "junegunn/fzf", from:github, as:command, rename-to:fzf, hook-build:"./install --all"
-zplug "junegunn/fzf", from:github, as:plugin, use:"shell/*.zsh"
+# This load only works on the first shell opened just after the installation.
+#zplug "junegunn/fzf", from:github, as:plugin, use:"shell/*.zsh"
 zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq
 #zplug "supercrabtree/k" " I did not use.
 zplug 'tj/git-extras', as:plugin, hook-build:"make install"

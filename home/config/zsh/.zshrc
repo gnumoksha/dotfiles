@@ -69,17 +69,18 @@ if [ ! -e "$ZPLUG_HOME/init.zsh" ]; then
 		mkdir -p "$ZPLUG_HOME"
 	fi
 	curl --silent --show-error --location --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-	sleep 2s # in order to wait something that will make zplug available.
+	# in order to wait something that will make zplug available.
+	sleep 3s
 fi
 
 source "$ZPLUG_HOME/init.zsh"
 # I was unable to use zplug source
 source "$ZDOTDIR/themes/config.zsh"
 
-# I was unable to use zplug source
-source "$XDG_CONFIG_HOME/shell/common/bootstrap.sh"
-
 zplug load
+
+# This is here to guarantee that plugins will not override the behavior.
+source "$XDG_CONFIG_HOME/shell/common/bootstrap.sh"
 
 finishedAt=`date +%s.%N`
 loadTime=$((finishedAt-startedAt))
