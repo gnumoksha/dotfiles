@@ -64,13 +64,16 @@ setopt prompt_subst             # Make sure prompt is able to be generated prope
 #zle
 #}}}
 
-if [ ! -e "$ZPLUG_INSTALLED/init.zsh" ]; then
-	curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+if [ ! -e "$ZPLUG_HOME/init.zsh" ]; then
+	if [ ! -d "$ZPLUG_HOME" ]; then
+		mkdir -p "$ZPLUG_HOME"
+	fi
+	curl --silent --show-error --location --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+	sleep 2s # in order to wait something that will make zplug available.
 fi
 
-source "$ZPLUG_INSTALLED/init.zsh"
+source "$ZPLUG_HOME/init.zsh"
 # I was unable to use zplug source
-source "$ZDOTDIR/plugins/config.zsh"
 source "$ZDOTDIR/themes/config.zsh"
 
 # I was unable to use zplug source

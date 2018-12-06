@@ -12,13 +12,16 @@
 #
 # Global Order: zshenv, zprofile, zshrc, zlogin
 
+# Minimal required variables.
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=${HOME}/.config}
-export ZDOTDIR=${ZDOTDIR:=${XDG_CONFIG_HOME}/zsh}
 
+# Common variables.
 source "$XDG_CONFIG_HOME/shell/common/env.sh"
 
-ZPLUG_INSTALLED='/usr/local/opt/zplug/installed'
-ZPLUG_HOME='/usr/local/opt/zplug/home'
+# ZSH-related variables.
+export ZDOTDIR=${ZDOTDIR:=${XDG_CONFIG_HOME}/zsh}
+ZPLUG_HOME="$XDG_DATA_HOME/zplug"
+ZPLUG_LOADFILE="$XDG_CONFIG_HOME/zsh/plugins.zsh"
 ZPLUG_BIN='/usr/local/bin'
 ZPLUG_USE_CACHE=true
 ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
