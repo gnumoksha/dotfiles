@@ -8,6 +8,7 @@ source "$XDG_CONFIG_HOME/tmux/utils.sh"
 
 # Profiling
 #zmodload zsh/zprof
+#/usr/bin/time zsh -i -c exit
 startedAt=$(date +%s.%N)
 
 # ZSH settings {{{
@@ -64,6 +65,7 @@ setopt prompt_subst             # Make sure prompt is able to be generated prope
 #zle
 #}}}
 
+# ZPLUG
 if [ ! -e "$ZPLUG_HOME/init.zsh" ]; then
 	if [ ! -d "$ZPLUG_HOME" ]; then
 		mkdir -p "$ZPLUG_HOME"
@@ -71,6 +73,7 @@ if [ ! -e "$ZPLUG_HOME/init.zsh" ]; then
 	curl --silent --show-error --location --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 	# in order to wait something that will make zplug available.
 	sleep 3s
+	ZPLUG_WAS_JUST_INSTALLED=true
 fi
 
 source "$ZPLUG_HOME/init.zsh"
@@ -79,7 +82,9 @@ source "$ZDOTDIR/themes/config.zsh"
 
 zplug load
 
-# This is here to guarantee that plugins will not override the behavior.
+# This will load my custom shell-agnostic settings.
+# Is here to guarantee that zplug plugins will not override
+# the behavior defined by this script.
 source "$XDG_CONFIG_HOME/shell/common/bootstrap.sh"
 
 finishedAt=`date +%s.%N`
@@ -87,7 +92,6 @@ loadTime=$((finishedAt-startedAt))
 if [[ $loadTime -gt 1 ]]; then
 	echo "zsh was loaded in $loadTime seconds."
 fi
-#/usr/bin/time zsh -i -c exit
 
 # See:
 # https://github.com/tonylambiris/dotfiles/blob/master/dot.zshrc

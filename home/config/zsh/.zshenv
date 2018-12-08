@@ -1,4 +1,4 @@
-# $ZDOTDIR/.zshenv: user .zshenv file for zsh(1).
+# $HOME/.zshenv: user .zshenv file for zsh(1).
 #
 # This file is sourced on all invocations of the shell.
 # If the -f flag is present or if the NO_RCS option is
