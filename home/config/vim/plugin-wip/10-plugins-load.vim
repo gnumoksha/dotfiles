@@ -52,7 +52,7 @@ call plug#begin(g:plugDir)
   " A Vim cheat sheet that makes sense, inside Vim!
   Plug 'lifepillar/vim-cheat40'
   "Plug 'rhysd/vim-grammarous'
-  Plug 'edkolev/tmuxline.vim'
+  "Plug 'edkolev/tmuxline.vim'
   "}}}
 
   """""""""""""""""""

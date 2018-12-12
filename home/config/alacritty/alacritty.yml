@@ -136,23 +136,48 @@ draw_bold_text_with_bright_colors: true
 #https://github.com/jwilm/alacritty/wiki/Color-schemes#pencil
 # https://github.com/jwilm/alacritty/wiki/Color-schemes#snazzy
 
-# Color (Monokai Dark)
 colors:
+  # Color (Monokai Dark - blue/cyan modified)
+  ## Default colors
+  #primary:
+    #background: '0x272822'
+    #foreground: '0xF8F8F2'
+
+  ## Cursor colors
+  ## These will only be used when the `custom_cursor_colors` field is set to `true`.
+  #cursor:
+    #text: '0x000000'
+    #cursor: '0xffffff'
+
+  ## Normal colors
+  #normal:
+   #black:   '0x272822'
+   #red:     '0xF92672'
+   #green:   '0xA6E22E'
+   #yellow:  '0xF4BF75'
+   #blue:    '0xF8F8F2'
+   #magenta: '0xAE81FF'
+   #cyan:    '0x08a4a7'
+   #white:   '0xF8F8F2'
+
+  ## Bright colors
+  #bright:
+   #black:   '0x75715E'
+   #red:     '0xF92672'
+   #green:   '0xA6E22E'
+   #yellow:  '0xF4BF75'
+   #blue:    '0x66D9EF'
+   #magenta: '0xAE81FF'
+   #cyan:    '0xA1EFE4'
+   #white:   '0xF9F8F5'
+
+  # Color Terminal sexy (https://terminal.sexy/)
   # Default colors
   primary:
-    background: '0x272822'
-    foreground: '0xF8F8F2'
-
-    # Bright and dim foreground colors
-    #
-    # The dimmed foreground color is calculated automatically if it is not present.
-    # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
-    # is `false`, the normal foreground color will be used.
-    #dim_foreground: '0x9a9a9a'
-    #bright_foreground: '0xffffff'
+    background: '0x1d1f21'
+    foreground: '0xc5c8c6'
 
   # Cursor colors
-  #
   # These will only be used when the `custom_cursor_colors` field is set to `true`.
   cursor:
     text: '0x000000'
@@ -160,28 +185,27 @@ colors:
 
   # Normal colors
   normal:
-   black:   '0x272822'
-   red:     '0xF92672'
-   green:   '0xA6E22E'
-   yellow:  '0xF4BF75'
-   blue:    '0x66D9EF'
-   magenta: '0xAE81FF'
-   cyan:    '0xA1EFE4'
-   white:   '0xF8F8F2'
+   black:   '0x282a2e'
+   red:     '0xa54242'
+   green:   '0x8c9440'
+   yellow:  '0xde935f'
+   blue:    '0x5f819d'
+   magenta: '0x85678f'
+   cyan:    '0x5e8d87'
+   white:   '0x707880'
 
   # Bright colors
   bright:
-   black:   '0x75715E'
-   red:     '0xF92672'
-   green:   '0xA6E22E'
-   yellow:  '0xF4BF75'
-   blue:    '0x66D9EF'
-   magenta: '0xAE81FF'
-   cyan:    '0xA1EFE4'
-   white:   '0xF9F8F5'
+   black:   '0x373b41'
+   red:     '0xcc6666'
+   green:   '0xb5bd68'
+   yellow:  '0xf0c674'
+   blue:    '0x81a2be'
+   magenta: '0xb294bb'
+   cyan:    '0x8abeb7'
+   white:   '0xc5c8c6'
 
   # Dim colors
-  #
   # If the dim colors are not set, they will be calculated automatically based
   # on the `normal` colors.
   #dim:
