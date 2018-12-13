@@ -6,10 +6,14 @@ elif [[ -n "$BASH_VERSION" && -f ~/.fzf.bash ]]; then
 fi
 
 # Setting fd as the default source for fzf
-export FZF_DEFAULT_COMMAND='fd --type f'
+if [ $(command -v fd) ]; then
+  FZF_DEFAULT_COMMAND='fd --type f'
+else
+   FZF_DEFAULT_COMMAND='find --type f'
+fi
+export FZF_DEFAULT_COMMAND
 # To apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-#
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --inline-info'
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
@@ -56,4 +60,20 @@ cdf() {
    local dir
    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
+
+# inspired by https://gist.github.com/f440/9992963
+fzf-pass-widget() {
+	show_pass_files() {
+		local password_store="$HOME/.password-store"
+		cd "$password_store" > /dev/null
+		find . -type f ! -name .gpg-id | sed -e 's/\.\/\(.*\).gpg$/\1/'
+	}
+	local FILE=$(show_pass_files | fzf)
+	[ -n "$FILE" ] && pass -c $FILE
+
+	zle reset-prompt
+}
+
+zle     -N   fzf-pass-widget
+bindkey '^P' fzf-pass-widget
 
