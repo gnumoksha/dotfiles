@@ -7,7 +7,7 @@
 if !filereadable(g:plugFile)
   echo "Installing Vim-Plug..."
   echo ""
-  execute ':!curl --fail --location --create-dirs --output ' . s:plugFile . ' https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  execute ':!curl --fail --location --create-dirs --output ' . g:plugFile . ' https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
   autocmd VimEnter * PlugInstall
 endif
