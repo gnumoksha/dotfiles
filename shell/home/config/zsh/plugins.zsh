@@ -16,14 +16,17 @@ zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 # From oh-my-zsh
 zplug "lib/completion", from:oh-my-zsh
+# Gnome already launch ssh-agent.
+#zplug "plugins/ssh-agent", from:oh-my-zsh
+#zplug "plugins/gpg-agent", from:oh-my-zsh
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/copybuffer", from:oh-my-zsh
 zplug "plugins/copydir", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
 zplug "plugins/docker-compose", from:oh-my-zsh
-zplug "plugins/git-fast", from:oh-my-zsh
+# I will use prezto because I need its git related functions on prompt
+#zplug "plugins/git-fast", from:oh-my-zsh
 zplug "plugins/git-flow-avh", from:oh-my-zsh
-zplug "plugins/gpg-agent", from:oh-my-zsh
 #zplug "plugins/httpie", from:oh-my-zsh
 zplug "plugins/pass", from:oh-my-zsh
 #zplug "plugins/compleat", from:oh-my-zsh
