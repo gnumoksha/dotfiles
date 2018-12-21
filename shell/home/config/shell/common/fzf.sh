@@ -63,17 +63,30 @@ cdf() {
 
 # inspired by https://gist.github.com/f440/9992963
 fzf-pass-widget() {
+	CMD=$1
 	show_pass_files() {
 		local password_store="$HOME/.password-store"
 		cd "$password_store" > /dev/null
 		find . -type f ! -name .gpg-id | sed -e 's/\.\/\(.*\).gpg$/\1/'
 	}
 	local FILE=$(show_pass_files | fzf)
-	[ -n "$FILE" ] && pass -c $FILE
+	[ -n "$FILE" ] && pass $CMD $FILE
 
 	zle reset-prompt
 }
 
-zle     -N   fzf-pass-widget
-bindkey '^P' fzf-pass-widget
+fzf-pass-copy-widget() {
+	fzf-pass-widget "-c"
+}
+
+fzf-pass-show-widget() {
+	fzf-pass-widget "show"
+}
+
+if [ -n "$ZSH_VERSION" ]; then
+  zle     -N   fzf-pass-copy-widget
+  bindkey '^P' fzf-pass-copy-widget
+  zle     -N    fzf-pass-show-widget
+  bindkey '\ep' fzf-pass-show-widget
+fi
 
