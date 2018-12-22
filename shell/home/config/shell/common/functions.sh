@@ -162,4 +162,9 @@ function isX11OrWayland() {
 	loginctl show-session `loginctl|grep tobias|awk '{print $1}'` -p Type
 }
 
+# https://unix.stackexchange.com/a/86030/273739
+function mans {
+       man $1 | less -p "^ +$2"
+}
+
 #EOF
