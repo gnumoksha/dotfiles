@@ -64,7 +64,7 @@ zstyle ':prezto:module:prompt' show-return-val 'yes'
 
 # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
 
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root)
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern root)
 
 # Declare the variable
 typeset -A ZSH_HIGHLIGHT_STYLES
