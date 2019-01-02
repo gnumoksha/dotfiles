@@ -40,13 +40,13 @@ export LESS='-g -i -M -R -S -w -z-4'
 #
 # For Golang
 # GOPATH environment variable specifies the location of your workspace.
-export GOPATH=$HOME/play/go/ws
+export GOPATH="$XDG_DATA_HOME/golang/ws"
 # Set the GOBIN path to generate a binary file when go install is run.
-export GOBIN=$GOPATH/bin
+export GOBIN="$GOPATH/bin"
 # If go is not in /usr/local/go, specify where it is.
 export GOROOT=/usr/lib/go-1.9
 # For rust-lang
-export CARGO_HOME="$HOME/.config/cargo"
+export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
 # TODO apt uses /usr/lib/cargo/bin
 
 #
@@ -86,13 +86,7 @@ alias dmesg_critical="dmesg --level=crit,alert,emerg"
 # https://githowto.com/aliases
 #alias git='LANG=en_US.UTF-8 git'
 alias dd="dd status=progress"
-alias dck='docker'
-alias dcompose='docker-compose'
-# I do not want to remove volumes automatically
-alias docker-clean="docker container prune -f && docker image prune -a -f"
 alias g="git"
-# show only hardware interfaces
-alias ifconfig='ls /sys/class/net | egrep -v "^(lo[0-9]?|sit[0-9]|ce[0-9]?|docker[0-9]?|br[-a-z0-9]{13})$" | xargs --max-args=1 /sbin/ifconfig'
 alias follow='multitail -p l '
 alias follow2="less -S +F"
 alias follow_monolog='multitail -p l -cS squid '
