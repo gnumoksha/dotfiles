@@ -1,4 +1,10 @@
+#
+# Global gitignore.
+####################
+
+#
 # GNU/Linux stuff
+#
 # source: https://github.com/github/gitignore/blob/master/Global/Linux.gitignore
 *~
 # temporary files which can be created if a process still has a handle open of a deleted file
@@ -10,7 +16,9 @@
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
 
+#
 # macOS stuff
+#
 # Grabbed from https://github.com/github/gitignore/blob/master/Global/macOS.gitignore
 # General
 .DS_Store
@@ -19,7 +27,9 @@
 # Thumbnails
 ._*
 
+#
 # Microsoft Windows stuff
+#
 # Source: https://github.com/github/gitignore/blob/master/Global/Windows.gitignore
 # Windows thumbnail cache files
 Thumbs.db
@@ -39,10 +49,65 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+#
 # VIM Swap files
+#
 # Grabbed from https://github.com/github/gitignore/blob/master/Global/Vim.gitignore
+# Swap
 [._]*.s[a-v][a-z]
 [._]*.sw[a-p]
-[._]s[a-v][a-z]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
 [._]sw[a-p]
+
+# Session
+Session.vim
+
+# Temporary
+.netrwhist
+*~
+# Auto-generated tag files
+tags
+# Persistent undo
+[._]*.un~
+
+#
+# Python
+#
+# Adapted from https://github.com/github/gitignore/blob/master/Python.gitignore
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+#
+# NetBeans
+#
+# Adapted from https://github.com/github/gitignore/blob/master/Global/NetBeans.gitignore
+**/nbproject/private/
+**/nbproject/Makefile-*.mk
+**/nbproject/Package-*.bash
+
+#
+# LibreOffice
+#
+# Grabbed from https://github.com/github/gitignore/blob/master/Global/LibreOffice.gitignore
+# LibreOffice locks
+.~lock.*#
 
