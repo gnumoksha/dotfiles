@@ -5,6 +5,7 @@
 ############################
 
 # git config --global branch.autoSetupMerge always
+# export GIT_{AUTHOR,COMMITTER}_DATE="2018-05-05 12:13:14"
 
 [user]
 	name = Tobias Sette
@@ -141,6 +142,7 @@
 	pl = pull --all
 	st = status
 
+	branch-status = branch -avv
 	branch-clean = !git branch | grep -P 'feature/|hotfix/' | xargs git branch -D
 
 	stash-all = !git stash save --include-untracked "Stash all at $(date +%Y-%m-%d_%H:%M:%S)"
@@ -206,7 +208,7 @@
 	browser = firefox
 
 [fetch]
-	prune = true
+	prune = true # false if remote name?
 
 
 ############################
@@ -230,3 +232,5 @@
 #EOF
 ;[branch]
 	;autoSetupMerge = always
+[tar "tar.xz"]
+	command = xz -c

@@ -83,10 +83,26 @@ fzf-pass-show-widget() {
 	fzf-pass-widget "show"
 }
 
+# TODO is it possible just pass the arg on zle?
+fzf-pass-edit-widget() {
+	fzf-pass-widget "edit"
+}
+
+#  colocar no KDB:
+# showkey -a
+#bindkey -s '^Xm' "My mistress\' eyes are nothing like the sun."
+
 if [ -n "$ZSH_VERSION" ]; then
-  zle     -N   fzf-pass-copy-widget
-  bindkey '^P' fzf-pass-copy-widget
+  zle     -N    fzf-pass-copy-widget
+  bindkey '^Pc' fzf-pass-copy-widget
+  zle     -N    fzf-pass-edit-widget
+  bindkey '^Pe' fzf-pass-edit-widget
   zle     -N    fzf-pass-show-widget
-  bindkey '\ep' fzf-pass-show-widget
+  bindkey '^Ps' fzf-pass-show-widget
+
 fi
+
+#TODO for bash
+# TODO fzf has modifiers? Send c/e/s to fzf.
+#TODO copy login too (as second register?)
 

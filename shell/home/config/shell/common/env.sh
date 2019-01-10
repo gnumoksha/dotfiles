@@ -25,7 +25,7 @@ export VIMINIT=":source $XDG_CONFIG_HOME/vim/vimrc"
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='nvim'
+  export EDITOR='vim'
 fi
 #export PAGER=most
 # https://github.com/rkitover/vimpager
@@ -60,6 +60,8 @@ PATH="$PATH:$HOME/.local/bin"
 PATH="$PATH:$GOROOT/bin:$GOBIN"
 [ -d /usr/lib/cargo/bin ] && PATH="$PATH:/usr/lib/cargo/bin"
 export PATH
+# root stuff
+PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
 
 #
 # Aliases
