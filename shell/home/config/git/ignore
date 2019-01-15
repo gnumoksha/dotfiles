@@ -84,8 +84,9 @@ __pycache__/
 .ipynb_checkpoints
 
 # IPython
-profile_default/
-ipython_config.py
+# I've add this files to my dotfiles
+#profile_default/
+#ipython_config.py
 
 # Environments
 .env

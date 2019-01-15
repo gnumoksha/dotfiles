@@ -1,0 +1,32 @@
+{
+  "load_extensions": {
+    "code_prettify/code_prettify": true,
+    "scroll_down/main": true,
+    "snippets/main": false,
+    "codefolding/main": true,
+    "comment-uncomment/main": false,
+    "table_beautifier/main": true,
+    "hinterland/hinterland": true,
+    "python-markdown/main": false,
+    "spellchecker/main": true,
+    "code_prettify/autopep8": true,
+    "keyboard_shortcut_editor/main": false,
+    "hide_input/main": true,
+    "hide_input_all/main": true,
+    "autosavetime/main": true,
+    "notify/notify": true,
+    "splitcell/splitcell": true
+  },
+  "comment_uncomment_keybinding": "ctrl-/",
+  "kse_show_rebinds": false,
+  "MarkdownCell": {
+    "cm_config": {
+      "lineWrapping": false
+    }
+  },
+  "CodeCell": {
+    "cm_config": {
+      "lineWrapping": true
+    }
+  },
+}
