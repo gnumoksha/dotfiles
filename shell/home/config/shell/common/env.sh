@@ -2,6 +2,8 @@
 # Shell Environment
 ####################
 
+export DOTFILES="$HOME/.dotfiles"
+
 #
 # Terminal settings
 #
