@@ -12,6 +12,9 @@ else
 	diff_() { /usr/bin/diff $@ | $REMARK /usr/share/regex-markup/diff; }
 fi
 
+if [[ ! -z "$ZSH_VERSION" && -e /etc/grc.zsh ]]; then source /etc/grc.zsh; fi
+if [[ ! -z "$BASH_VERSION" && -e /etc/grc.bashrc ]]; then source /etc/grc.bashrc; fi
+
 # coloquei aqui por usa um alias para ls que nao funciona
 #[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
 

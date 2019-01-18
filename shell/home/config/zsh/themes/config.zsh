@@ -39,6 +39,9 @@ zplug "peterhellberg/dircolors-jellybeans", from:github, hook-build:"cp --force 
 # Only this in interactive shells, not from a script or from scp
 #[[ $- = *i* ]] && source "$DOTFILES/shell/zsh/agkozak-settings.zsh"
 
+# Do not use alias from prezto git module.
+zstyle ':prezto:module:git:alias' skip 'yes'
+
 #
 # Prezto prompt
 #
