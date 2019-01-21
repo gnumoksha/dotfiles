@@ -85,7 +85,7 @@ zplug load
 # This will load my custom shell-agnostic settings.
 # Is here to guarantee that zplug plugins will not override
 # the behavior defined by this script.
-source "$XDG_CONFIG_HOME/shell/common/bootstrap.sh"
+source "$XDG_CONFIG_HOME/shell/bootstrap.sh"
 
 finishedAt=`date +%s.%N`
 loadTime=$((finishedAt-startedAt))
