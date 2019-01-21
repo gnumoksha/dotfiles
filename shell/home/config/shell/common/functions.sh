@@ -167,4 +167,8 @@ function mans {
        man $1 | less -p "^ +$2"
 }
 
+# cd and ls
+function cdls() { cd "$@" && ls; }
+alias cs='cdls'
+
 #EOF
