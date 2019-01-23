@@ -1,26 +1,51 @@
+#
+# Add colors to the shell
+##########################
 
+#
+# Remark
+#
 # http://www.cyberciti.biz/open-source/command-line-hacks/remark-command-regex-markup-examples/
-REMARK=$(which remark)
-if [[ ! -f $REMARK ]]; then
-	echo "http://savannah.nongnu.org/download/regex-markup/"
-	echo "remark not found, installing it"
-	wget -c http://download.savannah.gnu.org/releases/regex-markup/regex-markup_0.10.0-1_amd64.deb -O /tmp/regex-markup.deb
-	sudo dpkg -i /tmp/regex-markup.deb
-else
-	ping_() { /bin/ping $@ | $REMARK /usr/share/regex-markup/ping; }
-	traceroute_() { /usr/sbin/traceroute $@ | $REMARK /usr/share/regex-markup/traceroute; }
-	diff_() { /usr/bin/diff $@ | $REMARK /usr/share/regex-markup/diff; }
+# http://savannah.nongnu.org/download/regex-markup/
+# wget -c http://download.savannah.gnu.org/releases/regex-markup/regex-markup_0.10.0-1_amd64.deb -O /tmp/regex-markup.deb
+if [ $(command -v remark) ]; then
+    # Do alias the command because remark adds some delay to ping
+    ping_() { /bin/ping $@ | remark /usr/share/regex-markup/ping; }
+    traceroute_() { /usr/sbin/traceroute $@ | remark /usr/share/regex-markup/traceroute; }
+    diff_() { /usr/bin/diff $@ | remark /usr/share/regex-markup/diff; }
 fi
 
-if [[ ! -z "$ZSH_VERSION" && -e /etc/grc.zsh ]]; then source /etc/grc.zsh; fi
-if [[ ! -z "$BASH_VERSION" && -e /etc/grc.bashrc ]]; then source /etc/grc.bashrc; fi
+#
+# GRC
+#
+# Important: GRC musc be sourced before the custom ls alias below
+# because the custom ls will be overide others ls aliases.
+if [[ ! -z "$ZSH_VERSION" && -e /etc/grc.zsh ]];
+    then source /etc/grc.zsh
+elif [[ ! -z "$BASH_VERSION" && -e /etc/grc.bashrc ]];
+    then source /etc/grc.bashrc
+fi
 
-# coloquei aqui por usa um alias para ls que nao funciona
-#[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
-
+#
+# dircolos
+#
 # enable color support of ls and also add handy aliases
+# source: $HOME/.bashrc found on debian
 if [ -x /usr/bin/dircolors ]; then
-	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+    alias ip='ip --color'
+    # ls: directory '_name' must come before 'name'
+    # https://stackoverflow.com/a/18451819
+    alias ls='LANG=C.UTF-8 ls --color=auto'
 fi
+
+# colored GCC warnings and errors. Source: bashrc
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 #EOF

@@ -1,6 +1,45 @@
-###################################
-#            FUNCTIONS            #
-###################################
+#
+# Define shell aliases
+#######################
+
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
+
+#
+# Add some colors
+#
+# Note: color-related aliases are defined in colors.sh
+
+# Be careful and stay safe :)
+alias rm='rm --interactive'
+alias cp="cp --interactive"
+alias mv="mv --interactive"
+# Nice format :)
+alias dmesg="dmesg --color --ctime --decode"
+alias dmesg_useful="dmesg --level=notice,warn,err,crit,alert,emerg"
+alias dmesg_critical="dmesg --level=crit,alert,emerg"
+# Git in english
+# https://githowto.com/aliases
+#alias git='LANG=en_US.UTF-8 git'
+alias dd="dd status=progress"
+alias g="git"
+alias follow='multitail -p l '
+alias follow2="less -S +F"
+alias follow_monolog='multitail -p l -cS squid '
+alias greperrors="grep -i 'warning\|error\|alert\|critical'"
+# see https://github.com/wfxr/forgit#custom-options
+alias git-add="ga"
+alias git-log="glo"
+alias git-diff="gd"
+alias git-checkout="gcf"
+alias git-clean="gclan"
+alias git-ignore="git"
+
+
+#
+# Define shell functions
+#########################
 
 # Examples: get_password, get_password 10
 # See https://www.makeuseof.com/tag/5-ways-generate-secure-passwords-linux/
@@ -146,7 +185,6 @@ EOF
 }
 
 show_cowsay_fortune
-show_calendar
 
 function fromtimestamp () {
 	TZ="UTC" date -d @$1
