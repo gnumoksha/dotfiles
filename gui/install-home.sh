@@ -28,7 +28,7 @@ addNautilusTemplates ()
 	popd > /dev/null 2>&1
 }
 
-echo "Do you want to config GUI-related stuff under your HOME directory?"
+echo "Do you want to configure GUI-related stuff under your HOME directory?"
 select big_changes in "Yes" "No"; do
 	if [[ $big_changes == 'Yes' ]]; then
 		doBigChanges
@@ -37,7 +37,7 @@ select big_changes in "Yes" "No"; do
 	break
 done
 
-echo "Do you want to add template files for Nautilus (A.K.A Files)?"
+echo "Do you want to add template files for Gnome Files (A.K.A Nautilus)?"
 select template_files in "Yes" "No"; do
 	if [[ $template_files == 'Yes' ]]; then
 		addNautilusTemplates

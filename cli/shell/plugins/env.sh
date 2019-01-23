@@ -3,7 +3,8 @@
 # environment variables
 #########################
 
-export DOTFILES="$HOME/.dotfiles"
+export DOTFILES=${DOTFILES:=${HOME}/.dotfiles}
+export DOTFILES_SHELL_PLUGINS=${DOTFILES_SHELL_PLUGINS:=${DOTFILES}/cli/shell/plugins}
 
 #
 # Terminal settings
@@ -15,10 +16,10 @@ stty -ixon
 #
 # XDG
 #
-# https://specifications.freedesktop.org/basedir-spec/basedir-spec-0.6.html
-export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=${HOME}/.config}
-export XDG_CACHE_HOME=${XDG_CACHE_HOME:=${HOME}/.cache}
-export XDG_DATA_HOME=${XDG_DATA_HOME:=${HOME}/.local/share}
+# https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=${HOME}/.config} # user-specific configuration files
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:=${HOME}/.cache} # user-specific non-essential (cached) data
+export XDG_DATA_HOME=${XDG_DATA_HOME:=${HOME}/.local/share} # user-specific data files
 export VIMINIT=":source $XDG_CONFIG_HOME/vim/vimrc"
 
 #
