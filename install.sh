@@ -1,10 +1,22 @@
 #!/usr/bin/env bash
 
-STOW="$(which stow) --verbose=0"
+export STOW="$(which stow) --verbose=0"
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=${HOME}/.config}
 
-source shell/install.sh
-source gui/install.sh
+scripts=(
+'cli/install-home.sh'
+'gui/install-home.sh'
+)
 
+for script in "${scripts[@]}"; do
+	./"$script"
+	ret=$?
+	
+	if [[ $ret -ne 0 ]]; then
+		exit $ret
+	fi
+done
+
+unset STOW
 echo "Finished."
 
