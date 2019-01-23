@@ -1,10 +1,12 @@
 #
 # Define shell aliases
+# and some functions
 #######################
 
-alias ll='ls -l'
-alias la='ls -A'
-alias l='ls -CF'
+alias l='ls --escape --classify --group-directories-first --no-group --human-readable'
+alias ll='l -l'
+alias la='l -l --almost-all' # --almost-all because I never want ./ and ../
+alias ls_full='ll -l --author --context'
 
 #
 # Add some colors
