@@ -10,8 +10,7 @@ fi
 if [ ! -z "$BASH_SOURCE" ]; then FILE="${BASH_SOURCE[0]}"; else FILE="$0"; fi
 CURRENT_DIR=$(exec 2>/dev/null;cd -- $(dirname "$FILE"); unset PWD; /usr/bin/pwd || /bin/pwd || pwd)
 
-doBigChanges ()
-{
+doBigChanges () {
 	echo "Configuring GUI stuff under $HOME"
 
 	pushd "$CURRENT_DIR/home" > /dev/null 2>&1
@@ -19,11 +18,10 @@ doBigChanges ()
 	popd > /dev/null 2>&1
 }
 
-addNautilusTemplates ()
-{
+addNautilusTemplates () {
 	echo "Adding template files for Nautilus"
 
-	pushd "$CURRENT_DIR" > /dev/null 2>&1
+	pushd "$CURRENT_DIR/home" > /dev/null 2>&1
 	$STOW --target=$(xdg-user-dir TEMPLATES) nautilus-file-templates/
 	popd > /dev/null 2>&1
 }

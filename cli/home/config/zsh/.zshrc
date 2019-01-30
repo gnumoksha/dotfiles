@@ -85,6 +85,7 @@ zplug load
 # This will load my custom shell-agnostic settings.
 # Is here to guarantee that zplug plugins will not override
 # the behavior defined by this script.
+# zplug "$DOTFILES_SHELL_PLUGINS/", from:local
 source "$DOTFILES_SHELL_PLUGINS/bootstrap.sh"
 
 finishedAt=`date +%s.%N`

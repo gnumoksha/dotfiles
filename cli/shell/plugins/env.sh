@@ -5,6 +5,9 @@
 
 export DOTFILES=${DOTFILES:=${HOME}/.dotfiles}
 export DOTFILES_SHELL_PLUGINS=${DOTFILES_SHELL_PLUGINS:=${DOTFILES}/cli/shell/plugins}
+hash -d DOTFILES="$DOTFILES"
+#shopt -s cdable_vars
+#setopt cdablevars
 
 #
 # Terminal settings
