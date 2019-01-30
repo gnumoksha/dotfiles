@@ -151,10 +151,9 @@
 	# https://coderwall.com/p/0ypmka/git-clone-all-remote-branches-locally
 	fetch-all = "! for branch in $(git branch -a | grep remotes | grep -v HEAD); do git branch --track ${branch#remotes/origin/} $branch; done"
 	clone-all = !git fetch-all
-	discard = reset --hard HEAD
+	undo-changes = reset --hard HEAD
 	undo-last-commit = reset HEAD~
-	# TODO remover tambem arquivos modificados localmente e nao trackeados
-	discard-all = !git discard && git clean -f -d -i
+	undo-all-changes = !git undo-changes && git clean -f -d -i
 	unstage = reset
 	#TODO terminar este comando
 	#my-begin-agin = git reset --soft origin/dev
@@ -182,12 +181,14 @@
 	# WIP
 	log-with-branch = log --pretty=format:'%H | %aN | %s' | git name-rev --stdin --name-only
 
+	log-my-commits = !git log --author=\"$(git config user.name)\"
+
 	# how can I see which commits are in homol but not in master? git compare homol...master
 	# < significa que tem no homol
 	# > significa que tem no master
 	# Baseado em: https://stackoverflow.com/a/7567953/4668660
 	# #TODO usar --no-merges ?
-	compare = !git hist --left-right --graph --cherry-pick
+	compare = !git log-one-line --left-right --graph --cherry-pick
 
 	# show Without Whitespace
 	show-ww = show --ignore-space-at-eol --ignore-space-change --ignore-all-space --ignore-blank-lines
@@ -234,3 +235,4 @@
 	;autoSetupMerge = always
 [tar "tar.xz"]
 	command = xz -c
+
