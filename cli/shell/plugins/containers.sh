@@ -2,12 +2,13 @@
 # Stuff related to
 # GNU/Linux containers
 #######################
+# depends on: aliases_functions.sh
 
 #
 # Snapcraft
 #
 # Do not show snap directories
-alias df='df -x squashfs'
+alias_append df '-x squashfs'
 
 #
 # Docker

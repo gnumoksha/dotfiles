@@ -43,6 +43,20 @@ alias git-ignore="git"
 # Define shell functions
 #########################
 
+# Get the value for the specified alias.
+# Usage: get_alias ls
+# https://unix.stackexchange.com/a/463391/273739
+alias_get() {
+  eval "set -- $(alias -- "$1")"
+  eval 'printf "%s\n" "${'"$#"'#*=}"'
+}
+
+# Append something to an existent alias.
+# Usage alias_append "some-alias" "foo bar"
+alias_append() {
+	alias $1="$(alias_get $1) $2"
+}
+
 # Examples: get_password, get_password 10
 # See https://www.makeuseof.com/tag/5-ways-generate-secure-passwords-linux/
 # https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/
