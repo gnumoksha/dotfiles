@@ -1,0 +1,10 @@
+
+export DOTFILES=${DOTFILES:=${HOME}/.dotfiles}
+source "$DOTFILES/cli/shell/plugins/env.sh"
+source "$DOTFILES_SHELL_PLUGINS/bootstrap.sh"
+
+# Change to store history on XDG directory https://wiki.archlinux.org/index.php/XDG_Base_Directory
+[[ -d "$XDG_DATA_HOME/bash"  ]] || mkdir "$XDG_DATA_HOME/bash"
+export HISTFILE="$XDG_DATA_HOME"/bash/history
+
+

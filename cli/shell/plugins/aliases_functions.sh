@@ -45,16 +45,34 @@ alias git-ignore="git"
 
 # Get the value for the specified alias.
 # Usage: get_alias ls
-# https://unix.stackexchange.com/a/463391/273739
+# Based on: https://unix.stackexchange.com/a/463391/273739
+# The voted answer does not work if no alias is defined.
 alias_get() {
-  eval "set -- $(alias -- "$1")"
-  eval 'printf "%s\n" "${'"$#"'#*=}"'
+  local value
+  if [[ ! -z "$ZSH_VERSION" ]]; then
+    value="${aliases[$1]}"
+  else
+    value="${BASH_ALIASES[$1]}"
+  fi
+
+  if [[ ! -z "$value" ]]; then
+    echo "$value"
+  else
+    echo -n
+  fi
 }
 
 # Append something to an existent alias.
 # Usage alias_append "some-alias" "foo bar"
 alias_append() {
-	alias $1="$(alias_get $1) $2"
+  local value
+
+  value="$(alias_get $1)"
+  if [[ -z "$value" ]]; then
+    value="$1"
+  fi
+
+  alias $1="$value $2"
 }
 
 # Examples: get_password, get_password 10

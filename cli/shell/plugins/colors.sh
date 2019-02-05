@@ -18,12 +18,10 @@ fi
 #
 # GRC
 #
-# Important: GRC musc be sourced before the custom ls alias below
-# because the custom ls will be overide others ls aliases.
-if [[ ! -z "$ZSH_VERSION" && -e /etc/grc.zsh ]];
-    then source /etc/grc.zsh
-elif [[ ! -z "$BASH_VERSION" && -e /etc/grc.bashrc ]];
-    then source /etc/grc.bashrc
+if [[ ! -z "$ZSH_VERSION" && -e /etc/grc.zsh ]]; then
+    source /etc/grc.zsh
+elif [[ ! -z "$BASH_VERSION" && -e /etc/grc.bashrc ]]; then
+    source /etc/grc.bashrc
 fi
 
 #
