@@ -105,7 +105,11 @@ let &undodir=s:undoDir
 set undofile
 set undolevels=10000
 
-set viminfo+='1000,n$XDG_CACHE_HOME/vim/viminfo
+if has('nvim')
+  set viminfo+='1000,n$XDG_CACHE_HOME/nvim/viminfo
+else
+  set viminfo+='1000,n$XDG_CACHE_HOME/vim/viminfo
+endif
 
 " Session
 " If you don't want help windows to be restored:

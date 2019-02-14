@@ -4,38 +4,26 @@
 "          development purposes          "
 "                                        "
 """"""""""""""""""""""""""""""""""""""""""
-"TODO how ignore debian vim home?
-"TODO remove unused code (from basic.vim)"
-
 let g:vimConfigDir = $XDG_CONFIG_HOME . "/vim"
 let g:vimCacheDir = $XDG_CACHE_HOME . "/vim"
-set runtimepath+=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
-
-if has('nvim')
-  let g:plugFile = $HOME . "/.local/share/nvim/site/autoload/plug.vim"
-else
-  let g:plugFile = g:vimConfigDir . "/autoload/plug.vim"
-endif
-
+let g:plugFile = g:vimConfigDir . "/autoload/plug.vim"
 let g:plugDir = g:vimCacheDir . "/plugged"
 " Vim plug does not accept script vars
 "let g:myBinDir = "/usr/local/bin"
 let g:zplugHome = $XDG_DATA_HOME . "/zplug"
-
 " This var is used to load plugins only for those programming languages.
 let g:myLangs = ['go', 'html', 'javascript', 'perl', 'php', 'python', 'sh', 'vim']
-
 let g:startify_session_dir = g:vimConfigDir . "/session"
 
-runtime plugin-wip/00-general.vim
+set runtimepath+=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
+runtime config.d/00-general.vim
+runtime config.d/10-plugins-load.vim
+runtime config.d/11-plugins-config.vim
+runtime config.d/20-keys-mapping.vim
+runtime config.d/21-screen.vim
 
-runtime plugin-wip/10-plugins-load.vim
-
-runtime plugin-wip/11-plugins-config.vim
-
-runtime plugin-wip/20-keys-mapping.vim
-
-runtime plugin-wip/21-screen.vim
+"TODO how ignore debian vim home?
+"TODO remove unused code (from basic.vim)"
 
 """""""""""""""""""""""""""""""
 "                             "

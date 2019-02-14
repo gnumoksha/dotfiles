@@ -23,7 +23,6 @@ stty -ixon
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=${HOME}/.config} # user-specific configuration files
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:=${HOME}/.cache} # user-specific non-essential (cached) data
 export XDG_DATA_HOME=${XDG_DATA_HOME:=${HOME}/.local/share} # user-specific data files
-export VIMINIT=":source $XDG_CONFIG_HOME/vim/vimrc"
 
 #
 # System-related variables

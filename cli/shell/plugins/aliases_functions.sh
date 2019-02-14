@@ -239,6 +239,16 @@ function mans {
        man $1 | less -p "^ +$2"
 }
 
+#[ $(command -v pinfo)  ] && alias man='pinfo'
+[ $(command -v nvim) ] && export MANPAGER='nvim +Man!'
+
+# I will use alias because NeoVim respects VIMINIT but
+# also XDG.
+#export VIMINIT=":source $XDG_CONFIG_HOME/vim/vimrc"
+alias vim='vim -u $XDG_CONFIG_HOME/vim/vimrc'
+
+cdback () { for i in `seq 0 $1`; do cd ../; done }
+
 # cd and ls
 function cdls() { cd "$@" && ls; }
 alias cs='cdls'
