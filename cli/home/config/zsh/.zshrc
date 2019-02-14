@@ -91,7 +91,7 @@ source "$DOTFILES_SHELL_PLUGINS/bootstrap.sh"
 finishedAt=`date +%s.%N`
 loadTime=$((finishedAt-startedAt))
 if [[ $loadTime -gt 1 ]]; then
-	echo "zsh was loaded in $loadTime seconds."
+	echo "[warning] zsh was loaded in $loadTime seconds."
 fi
 
 # See:
