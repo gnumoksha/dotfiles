@@ -21,8 +21,6 @@ call plug#begin(g:plugDir)
   Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'} | Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
   " Plug 'jistr/vim-nerdtree-tabs' " https://github.com/scrooloose/nerdtree#faq
   Plug 'mhinz/vim-startify' " The fancy start screen for Vim.
-  " Extended session management for Vim (:mksession on steroids).
-  "Plug 'xolox/vim-misc' | Plug 'xolox/vim-session'
 "  Plug 'Shougo/vimproc.vim', { 'do': 'make' } " Interactive command execution in Vim (for vimshell).
 "    Plug 'Shougo/vimshell.vim' " Powerful shell implemented by vim.
   " CtrlPMixed seems nice

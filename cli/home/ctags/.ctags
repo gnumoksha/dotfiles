@@ -9,3 +9,11 @@
 --langmap=ansible:.yml
 --regex-ansible=/^\s*- name:(.*)/\1/t,task/
 
+--langdef=WSDL
+--langmap=WSDL:.wsdl
+--regex-WSDL=/^.*xmlns:([a-z]+)=/\1/n,namespace/
+--regex-WSDL=/^\s*<.*:message.*name="([A-Za-z0-9_-]+)"/\1/m,message/
+--regex-WSDL=/^\s*<.*:portType.*name="([A-Za-z0-9_-]+)"/\1/p,portType/
+--regex-WSDL=/^\s*<.*:operation.*name="([A-Za-z0-9_-]+)"/\1/o,operation/
+--regex-WSDL=/^\s*<.*:binding.*name="([A-Za-z0-9_-]+)"/\1/b,binding/
+--regex-WSDL=/^\s*<.*:service.*name="([A-Za-z0-9_-]+)"/\1/s,service/

@@ -80,13 +80,6 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
 
-" Buffer Prev
-noremap <silent> <leader>bp :bp<CR>
-" Buffer Next
-noremap <silent> <leader>bn :bn<CR>
-" Buffer Close
-noremap <silent> <leader>bc :bd!<CR>
-
 " abre o console de erro
 "map <leader>cc :botright cope<CR>
 
@@ -113,11 +106,11 @@ noremap <Leader>sp :<C-u>split<CR>
 noremap <Leader>sv :<C-u>vsplit<CR>
 
 " Tabs
-nnoremap <Tab> gt
-nnoremap <S-Tab> gT
-nnoremap <S-t> :tabnew<CR>
-nnoremap <C-t> :tabnew<CR>
-nnoremap <C-w> :bdelete<CR>
+nnoremap <silent> <Tab> gt
+nnoremap <silent> <S-Tab> gT
+nnoremap <silent> <C-t> :tabnew<CR>
+nnoremap <silent> <A-t> :tabnew<CR>
+nnoremap <silent> <A-w> :close<CR> " Ctrl + w c
 
 " SmartHome
 " Pressing the Home key moves the cursor to the first nonblank character on

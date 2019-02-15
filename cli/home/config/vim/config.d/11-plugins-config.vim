@@ -47,19 +47,20 @@ let g:startify_files_number = 30
 let g:startify_change_to_dir = 1 " When opening a file or bookmark, change to its directory.
 let g:startify_change_to_vcs_root = 1 " When opening a file or bookmark, seek and change to the root directory of the VCS.
 let g:startify_fortune_use_unicode = 1 " Fortune header uses utf-8.
-let g:startify_session_dir = g:vimConfigDir . "/session" 
+let g:startify_session_dir = g:vimConfigDir . "/session"
 let g:startify_session_number = 10 " The maximum number of sessions to display.
 let g:startify_session_sort = 1 " Sort sessions by modification time.
-let g:ascii = [
-      \ '  _____ _   _ _    _ ',
-      \ ' / ____| \ | | |  | |',
-      \ '| |  __|  \| | |  | |',
-      \ '| | |_ | . ` | |  | |',
-      \ '| |__| | |\  | |__| |',
-      \ ' \_____|_| \_|\____/',
-      \ '',
-      \]
-let g:startify_custom_header = 'map(g:ascii, "\"   \".v:val")'
+"let g:ascii = [
+      "\ '  _____ _   _ _    _ ',
+      "\ ' / ____| \ | | |  | |',
+      "\ '| |  __|  \| | |  | |',
+      "\ '| | |_ | . ` | |  | |',
+      "\ '| |__| | |\  | |__| |',
+      "\ ' \_____|_| \_|\____/',
+      "\ '',
+      "\]
+"let g:startify_custom_header = 'map(g:ascii, "\"   \".v:val")'
+let g:startify_custom_header = ''
 function! StartifyEntryFormat()
     return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
 endfunction
@@ -68,13 +69,6 @@ nnoremap <leader>so :SOpen<Space>
 nnoremap <leader>ss :SSave<Space>
 nnoremap <leader>sd :SDelete<CR>
 nnoremap <leader>sc :SClose<CR>
-"}}}
-
-" xolox/vim-session {{{
-"let g:session_directory = g:vimConfigDir . "/session" " Controls the location of your session scripts.
-let g:session_autoload = "no"
-let g:session_autosave = "yes"
-let g:session_command_aliases = 1 " The names of the commands defined by the session plug-in start with the action they perform, followed by the string 'Session'.
 "}}}
 
 " ctrlpvim/ctrlp.vim {{{
@@ -144,6 +138,8 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#languageclient#enabled = 1
 let g:airline_skip_empty_sections = 1
 "}}}
 
@@ -259,7 +255,26 @@ let g:gutentags_ctags_exclude = ['*.css', '*.html', '*.js']
 " majutsushi/tagbar {{{
 let g:tagbar_autofocus = 1
 " Keys mapping
-nmap <silent> <C-F12> :TagbarToggle<CR>
+nmap <F12> :TagbarToggle<CR>
+let g:tagbar_type_xml = {
+    \ 'ctagstype' : 'WSDL',
+    \ 'kinds'     : [
+        \ 'n:namespaces',
+        \ 'm:messages',
+        \ 'p:portType',
+        \ 'o:operations',
+        \ 'b:bindings',
+        \ 's:service'
+    \ ]
+\ }
+let g:tagbar_type_css = {
+\ 'ctagstype' : 'Css',
+    \ 'kinds'     : [
+        \ 'c:classes',
+        \ 's:selectors',
+        \ 'i:identities'
+    \ ]
+\ }
 "}}}
 
 " YouCompleteMe {{{

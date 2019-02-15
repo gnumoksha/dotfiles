@@ -8,13 +8,14 @@ export DOTFILES_SHELL_PLUGINS=${DOTFILES_SHELL_PLUGINS:=${DOTFILES}/cli/shell/pl
 hash -d DOTFILES="$DOTFILES"
 #shopt -s cdable_vars
 #setopt cdablevars
+export VIMINIT=":source $XDG_CONFIG_HOME/vim/vimrc"
 
 #
 # Terminal settings
 #
 # Disables Software Flow Control (XON/XOFF flow control)
 # i.e. "Ctrl s" and "Ctrl q" will have no special behavior.
-stty -ixon
+[[ $- == *i*  ]] && stty -ixon
 
 #
 # XDG
