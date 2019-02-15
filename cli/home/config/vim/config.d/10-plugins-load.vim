@@ -95,7 +95,7 @@ call plug#begin(g:plugDir)
     Plug 'honza/vim-snippets', {'for': g:myLangs} " Snippets files for various programming languages.
   "Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab.
   Plug 'ludovicchabant/vim-gutentags', {'for': g:myLangs} " A Vim plugin that manages your tag files.
-  Plug 'majutsushi/tagbar', {'for': g:myLangs} " Displays tags in a window, ordered by scope.
+  Plug 'majutsushi/tagbar' " Displays tags in a window, ordered by scope.
   "Plug 'tpope/vim-dadbod', {'on': 'DB'} " dadbod.vim: Modern database interface for Vim
 
   " A code-completion engine for Vim.
@@ -103,9 +103,13 @@ call plug#begin(g:plugDir)
   " Must have: apt-get install build-essential cmake python-dev python3-dev
   " Nice to have: apt-get install golang nodejs npm
   "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --js-completer' }
+Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
+  Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
   " deoplete: Dark powered asynchronous completion framework for neovim/Vim8.
-  "Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
   Plug 'Shougo/neco-syntax'
   Plug 'zchee/deoplete-jedi', {'for': 'python'}
   Plug 'zchee/deoplete-zsh', {'for': 'zsh'}
@@ -122,7 +126,7 @@ call plug#begin(g:plugDir)
   Plug 'lifepillar/vim-mucomplete'
 
   "Plug 'ekalinin/Dockerfile.vim' " Vim syntax file & snippets for Docker's Dockerfile.
-  Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair.
+  "Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair.
   Plug 'andymass/vim-matchup', {'for': g:myLangs} " Navigate and highlight matching words. Modern matchit and matchparen replacement.
   "Plug 'jaxbot/semantic-highlight.vim' " Where every variable is a different color.
   Plug 'janko-m/vim-test', {'for': g:myLangs} " Run your tests at the speed of thought.
@@ -175,7 +179,7 @@ call plug#begin(g:plugDir)
   " Misc
   """""""""""""""""""
   "{{{
-  Plug 'johngrib/vim-game-code-break'
+  "Plug 'johngrib/vim-game-code-break'
   Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'} " Real-time markdown preview plugin for vim.
   Plug 'godlygeek/tabular', {'for': 'markdown'}
   Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
