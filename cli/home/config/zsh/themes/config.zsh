@@ -24,7 +24,7 @@
 #zplug 'simnalamburt/shellder', as:theme
 #zplug "joel-porquet/zsh-dircolors-solarized"
 #zplug "arcticicestudio/nord-gnome-terminal", from:github, hook-build:"./src/nord.sh"
-zplug "peterhellberg/dircolors-jellybeans", from:github, hook-build:"cp --force dircolors.jellybeans $HOME/.dircolors"
+#zplug "peterhellberg/dircolors-jellybeans", from:github, hook-build:"cp --force dircolors.jellybeans $HOME/.dircolors"
 #zplug "arcticicestudio/nord-dircolors", from:github, hook-build:"./install.sh"
 #zplug "KKPMW/dircolors-moonshine", from:github, hook-build:"cp --force dircolors.moonshine $HOME/.dircolors"
 #zplug "trapd00r/LS_COLORS", from:github, hook-build:"cp --link --force LS_COLORS ~/.dir_colors"

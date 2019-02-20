@@ -124,9 +124,9 @@ nnoremap <F4> :UndotreeToggle<cr>
 """""""""""""""""""
 "{{{
 " vim-airline {{{
-function! s:randnum(max) abort
-  return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:]) % a:max
-endfunction
+"function! s:randnum(max) abort
+  "return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:]) % a:max
+"endfunction
 let g:airline_powerline_fonts = 1
 " Nice themes: molokai, powerlineish, tomorrow, base16, angr
 let s:airline_themes = ['molokai', 'powerlineish', 'tomorrow', 'base16', 'angr']

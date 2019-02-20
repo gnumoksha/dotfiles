@@ -19,5 +19,9 @@ for script in "${scripts[@]}"; do
 done
 
 unset STOW
+
+mkdir -p "$XDG_CACHE_HOME"/vim/{undo,swap,backup} 2>/dev/null
+mkdir -p "$XDG_CACHE_HOME"/nvim/{undo,swap,backup} 2>/dev/null
+
 echo "Finished."
 

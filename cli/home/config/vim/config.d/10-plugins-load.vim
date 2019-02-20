@@ -75,6 +75,7 @@ call plug#begin(g:plugDir)
   Plug 'gregsexton/gitv', {'on': ['Gitv']} " gitk for Vim.
   Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
   Plug 'junegunn/gv.vim', {'on': ['GV']} " A git commit browser in Vim.
+  Plug 'jreybert/vimagit'
   "}}}
 
   """""""""""""""""""

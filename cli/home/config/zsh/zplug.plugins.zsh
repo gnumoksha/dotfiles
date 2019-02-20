@@ -55,6 +55,9 @@ zplug 'wfxr/forgit', defer:1
 zplug "paulirish/git-open", as:plugin
 zplug "github/hub", from:gh-r, as:command, rename-to:hub
 #zplug "mafredri/zsh-async", from:github
+#zplug "sharkdp/bat", from:gh-r, as:command, rename-to:cat
+#https://github.com/lunaryorn/mdcat/releases
+#https://gitlab.com/pepa65/tldr-bash-client
 
 # Install plugins if there are plugins that have not been installed.
 # Note: This increases startup time.

@@ -65,27 +65,32 @@ setopt prompt_subst             # Make sure prompt is able to be generated prope
 #zle
 #}}}
 
-# ZPLUG
-if [ ! -e "$ZPLUG_HOME/init.zsh" ]; then
-	if [ ! -d "$ZPLUG_HOME" ]; then
-		mkdir -p "$ZPLUG_HOME"
-	fi
-	curl --silent --show-error --location --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-	# in order to wait something that will make zplug available.
-	sleep 3s
-	ZPLUG_WAS_JUST_INSTALLED=true
-fi
+#
+# Plugins
+#
+#if [ ! -e "$ZPLUG_HOME/init.zsh" ]; then
+	#if [ ! -d "$ZPLUG_HOME" ]; then
+		#mkdir -p "$ZPLUG_HOME"
+	#fi
+	#curl --silent --show-error --location --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+	## in order to wait something that will make zplug available.
+	#sleep 3s
+	#ZPLUG_WAS_JUST_INSTALLED=true
+#fi
+#source "$ZPLUG_HOME/init.zsh"
+#zplug load
 
-source "$ZPLUG_HOME/init.zsh"
-# I was unable to use zplug source
+# PoC with zgen.
+source "${HOME}/.zgen/zgen.zsh"
+if ! zgen saved; then
+	source $XDG_CONFIG_HOME/zsh/zgen.plugins.sh
+fi
 source "$ZDOTDIR/themes/config.zsh"
 
-zplug load
-
 # This will load my custom shell-agnostic settings.
-# Is here to guarantee that zplug plugins will not override
+# Is here to guarantee that some plugin will not override
 # the behavior defined by this script.
-# zplug "$DOTFILES_SHELL_PLUGINS/", from:local
+# zplug "$DOTFILES_SHELL_PLUGINS/", from:local # did not work
 source "$DOTFILES_SHELL_PLUGINS/bootstrap.sh"
 
 finishedAt=`date +%s.%N`
@@ -104,3 +109,5 @@ fi
 # http://www.bash2zsh.com/zsh_refcard/refcard.pdf
 
 # vim: ft=zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

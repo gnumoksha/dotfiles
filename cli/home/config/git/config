@@ -193,7 +193,10 @@
 	# show Without Whitespace
 	show-ww = show --ignore-space-at-eol --ignore-space-change --ignore-all-space --ignore-blank-lines
 	show-with-branch = !git show $1 | git name-rev --stdin
-
+	backup-uncommited-files = !git ls-files --modified --others --exclude-standard -z | xargs -0 tar rvf backup.tar
+	# Usage git commit at "2018-02-20 08:50:00
+	abc = !echo "$1"
+	commit-at = !export GIT_{AUTHOR,COMMITTER}_DATE="2018-05-05 12:13:14" && git co
 [svn]
 	# [7]
 	rmdir = true
@@ -210,7 +213,12 @@
 
 [fetch]
 	prune = true # false if remote name?
+	;pruneTags = true
 
+;[branch]
+	;autoSetupMerge = always
+[tar "tar.xz"]
+	command = xz -c
 
 ############################
 #                          #
@@ -231,8 +239,3 @@
 # [11] https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_formatting_and_whitespace
 
 #EOF
-;[branch]
-	;autoSetupMerge = always
-[tar "tar.xz"]
-	command = xz -c
-

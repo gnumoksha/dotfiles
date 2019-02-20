@@ -83,8 +83,17 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
 
-" abre o console de erro
-"map <leader>cc :botright cope<CR>
+" https://github.com/amix/vimrc#spell-checking
+map <leader>ss :setlocal spell!<cr>
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>s? z=
+"
+map <leader>es :botright cope<cr>
+"map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
+map <leader>en :cn<cr>
+map <leader>ep :cp<cr>
 
 " Set working directory
 nnoremap <leader>cd :lcd %:p:h<CR>
