@@ -1,8 +1,10 @@
-#################################
-#                               #
-#             zshrc             #
-#                               #
-#################################
+# $ZDOTDIR/.zshrc: user-wide .zshrc file for zsh(1).
+#
+# This file is sourced only for interactive shells. It
+# should contain commands to set up aliases, functions,
+# options, key bindings, etc.
+#
+# Global Order: zshenv, zprofile, zshrc, zlogin
 
 source "$XDG_CONFIG_HOME/tmux/utils.sh"
 
@@ -85,6 +87,7 @@ source "${HOME}/.zgen/zgen.zsh"
 if ! zgen saved; then
 	source $XDG_CONFIG_HOME/zsh/zgen.plugins.sh
 fi
+HISTFILE="$ZDOTDIR/.zsh_history" # I think zgen override this variable.
 source "$ZDOTDIR/themes/config.zsh"
 
 # This will load my custom shell-agnostic settings.
@@ -109,5 +112,3 @@ fi
 # http://www.bash2zsh.com/zsh_refcard/refcard.pdf
 
 # vim: ft=zsh
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

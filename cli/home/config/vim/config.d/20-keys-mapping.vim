@@ -84,7 +84,7 @@ noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
 
 " https://github.com/amix/vimrc#spell-checking
-map <leader>ss :setlocal spell!<cr>
+map <leader>sc :setlocal spell!<cr>
 map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
