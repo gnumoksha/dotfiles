@@ -1,12 +1,25 @@
+# The following APT preferences file will cause APT to assign a high priority to package versions from the testing distribution, a lower priority to package versions from the unstable distribution, and a prohibitively low priority to package versions from other Debian distributions.
+
 Package: *
 Pin: release a=testing
-Pin-Priority: 999
+Pin-Priority: 900
 
 Package: *
 Pin: release a=unstable
-Pin-Priority: 200
+Pin-Priority: 800
 
 Package: *
-Pin: release a=stable
-Pin-Priority: -1
+Pin: release o=Debian
+Pin-Priority: -10
 
+# With a suitable sources.list(5) file and the above preferences file, any of the following commands will cause APT to upgrade to the latest testing version(s).
+#apt-get install package-name
+#apt-get upgrade
+#apt-get dist-upgrade
+
+# The following command will cause APT to upgrade the specified package to the latest version from the unstable distribution. Thereafter, apt-get upgrade will upgrade the package to the most recent testing version if that is more recent than the installed version, otherwise, to the most recent unstable version if that is more recent than the installed version.
+# apt-get install package/unstable
+
+# References
+# man 5 apt_preferences
+# vim: ft=debsources
