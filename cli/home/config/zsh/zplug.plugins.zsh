@@ -32,6 +32,7 @@ zplug "plugins/pass", from:oh-my-zsh
 #zplug "plugins/compleat", from:oh-my-zsh
 
 # From prezto
+source $ZPLUG_REPOS/sorin-ionescu/prezto/init.zsh # ZPLUG-PREZTO-BUG
 zplug "modules/editor", from:prezto
 zplug "modules/git", from:prezto
 zplug "modules/prompt", from:prezto
@@ -60,9 +61,10 @@ zplug "github/hub", from:gh-r, as:command, rename-to:hub
 #https://gitlab.com/pepa65/tldr-bash-client
 
 # Install plugins if there are plugins that have not been installed.
-# Note: This increases startup time.
+# This increases startup time so I will only do it
+# if zsh was just installed.
 # See https://github.com/zplug/zplug/issues/368
-if [ "$ZPLUG_WAS_JUST_INSTALLED" = true ]; then
+if [[ "$ZPLUG_WAS_JUST_INSTALLED" == true ]]; then
 	if ! zplug check --verbose; then
 		printf "Install missing plugins? [y/N]: "
 		if read; then

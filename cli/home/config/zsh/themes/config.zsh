@@ -42,15 +42,16 @@
 # Do not use alias from prezto git module.
 zstyle ':prezto:module:git:alias' skip 'yes'
 
+
 #
 # Prezto prompt
 #
-
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
 # Nice prompts: paradox, sorin, skwp, bart, giddie, damoekri, kylewest.
 zstyle ':prezto:module:prompt' theme 'sorin'
+prompt sorin # ZPLUG-PREZTO-BUG
 
 # Set the working directory prompt display length.
 # By default, it is set to 'short'. Set it to 'long' (without '~' expansion)

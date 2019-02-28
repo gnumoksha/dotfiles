@@ -42,7 +42,7 @@ cnoreabbrev Q q
 cnoreabbrev Qall qall
 
 " Press i to enter insert mode, and ii to exit.
-imap ii <Esc>
+"imap ii <Esc>
 
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
