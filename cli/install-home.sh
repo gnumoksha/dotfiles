@@ -11,9 +11,10 @@ if [ ! -z "$BASH_SOURCE" ]; then FILE="${BASH_SOURCE[0]}"; else FILE="$0"; fi
 CURRENT_DIR=$(exec 2>/dev/null;cd -- $(dirname "$FILE"); unset PWD; /usr/bin/pwd || /bin/pwd || pwd)
 
 STOW_IN_HOME=(
+"$CURRENT_DIR/home/bash" # http://savannah.gnu.org/support/?108134
 "$CURRENT_DIR/home/ctags"
 "$CURRENT_DIR/home/legacy_to_xdg"
-"$CURRENT_DIR/home/ssh"
+"$CURRENT_DIR/home/ssh" # https://bugzilla.mindrot.org/show_bug.cgi?id=2050
 )
 
 for item in "${STOW_IN_HOME[@]}"; do

@@ -23,6 +23,11 @@ source "$XDG_CONFIG_HOME/tmux/utils.sh"
 #
 # If you need to uninstall zplug, do:
 # rm -Rf $ZPLUG_HOME $ZPLUG_CACHE_DIR $ZPLUG_BIN
+ZPLUG_HOME="$XDG_DATA_HOME/zplug"
+ZPLUG_LOADFILE="$XDG_CONFIG_HOME/zsh/zplug.plugins.zsh"
+ZPLUG_BIN='/usr/local/bin/zplug'
+ZPLUG_USE_CACHE=true
+ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
 if [[ ! -e "$ZPLUG_HOME/init.zsh" ]]; then
 	echo "Installing zplug..."
 	if [[ ! -d "$ZPLUG_HOME" ]]; then

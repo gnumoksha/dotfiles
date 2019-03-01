@@ -65,7 +65,7 @@ cdf() {
 fzf-pass-widget() {
 	CMD=$1
 	show_pass_files() {
-		local password_store="$HOME/.password-store"
+		local password_store=${PASSWORD_STORE_DIR-~/.password-store}
 		cd "$password_store" > /dev/null
 		find . -type f ! -name .gpg-id | sed -e 's/\.\/\(.*\).gpg$/\1/'
 	}

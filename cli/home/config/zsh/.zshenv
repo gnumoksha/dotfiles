@@ -15,15 +15,7 @@
 # Minimal required variables.
 #export XDG_DATA_HOME=${XDG_DATA_HOME:=${HOME}/.local/share}
 export DOTFILES=${DOTFILES:=${HOME}/.dotfiles}
-
-# Common variables.
 source "$DOTFILES/cli/shell/plugins/env.sh"
 
-# ZSH-related variables.
 export ZDOTDIR=${ZDOTDIR:=${XDG_CONFIG_HOME}/zsh}
-ZPLUG_HOME="$XDG_DATA_HOME/zplug"
-ZPLUG_LOADFILE="$XDG_CONFIG_HOME/zsh/zplug.plugins.zsh"
-ZPLUG_BIN='/usr/local/bin/zplug'
-ZPLUG_USE_CACHE=true
-ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
 

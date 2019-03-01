@@ -2,6 +2,17 @@
 # Add colors to the shell
 ##########################
 
+DOTFILES_USE_COLORS=${DOTFILES_USE_COLORS:-}
+
+case "$TERM" in
+    xterm-color|*-256color) [[ -z "${DOTFILES_USE_COLORS}" ]] && DOTFILES_USE_COLORS=true;;
+esac
+
+if [[ "${DOTFILES_USE_COLORS}" != 'true' ]]; then
+	echo "Colors are disabled."
+	return 1
+fi
+
 #
 # Remark
 #
@@ -25,7 +36,7 @@ elif [[ ! -z "$BASH_VERSION" && -e /etc/grc.bashrc ]]; then
 fi
 
 #
-# dircolos
+# dircolors
 #
 # enable color support of ls and also add handy aliases
 # source: $HOME/.bashrc found on debian
@@ -43,5 +54,7 @@ fi
 
 # colored GCC warnings and errors. Source: Debian's $HOME/.bashrc
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+export DOTFILES_USE_COLORS
 
 #EOF
