@@ -19,6 +19,9 @@ export XDG_DATA_HOME=${XDG_DATA_HOME:=${HOME}/.local/share}
 export DOTFILES=${DOTFILES:=${XDG_DATA_HOME}/dotfiles}
 source "$DOTFILES/cli/shell/plugins/env.sh"
 
+# Load my custom shell-agnostic stuff.
+source "$DOTFILES_SHELL_PLUGINS/bootstrap.sh"
+
 #
 # History
 #
@@ -58,7 +61,7 @@ else
 		["white"]="\[\033[01;37m\]"
 		["yellow"]="\[\033[01;33m\]"
 		["light_green"]="\[\033[01;32m\]"
-		["light_blue"]="\[\033[01;34m\]"		
+		["light_blue"]="\[\033[01;34m\]"
 		["light_purple"]="\[\033[01;35m\]"
 		["yellow_red"]="\[\033[01;33;41m\]"
 		["underline"]="\[\033[00;4m\]"
@@ -92,8 +95,5 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-# Load my custom shell-agnostic stuff.
-source "$DOTFILES_SHELL_PLUGINS/bootstrap.sh"
 
 #EOF
