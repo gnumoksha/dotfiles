@@ -13,8 +13,8 @@
 # Global Order: zshenv, zprofile, zshrc, zlogin
 
 # Minimal required variables.
-#export XDG_DATA_HOME=${XDG_DATA_HOME:=${HOME}/.local/share}
-export DOTFILES=${DOTFILES:=${HOME}/.dotfiles}
+export XDG_DATA_HOME=${XDG_DATA_HOME:=${HOME}/.local/share}
+export DOTFILES=${DOTFILES:=${XDG_DATA_HOME}/dotfiles}
 source "$DOTFILES/cli/shell/plugins/env.sh"
 
 export ZDOTDIR=${ZDOTDIR:=${XDG_CONFIG_HOME}/zsh}

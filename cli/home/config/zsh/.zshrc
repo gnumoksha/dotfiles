@@ -53,7 +53,7 @@ zplug load
 
 # Screen-related stuff.
 source "$ZDOTDIR/themes/config.zsh"
-# Load my custom shell-agnostic settings.
+# Load my custom shell-agnostic stuff.
 source "$DOTFILES_SHELL_PLUGINS/bootstrap.sh"
 
 #

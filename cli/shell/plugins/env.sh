@@ -3,21 +3,6 @@
 # environment variables
 #########################
 
-export DOTFILES=${DOTFILES:=${HOME}/.dotfiles}
-export DOTFILES_SHELL_PLUGINS=${DOTFILES_SHELL_PLUGINS:=${DOTFILES}/cli/shell/plugins}
-hash -d DOTFILES="$DOTFILES"
-#shopt -s cdable_vars
-#setopt cdablevars
-export VIMINIT=":source $XDG_CONFIG_HOME/vim/vimrc"
-export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
-
-#
-# Terminal settings
-#
-# Disables Software Flow Control (XON/XOFF flow control)
-# i.e. "Ctrl s" and "Ctrl q" will have no special behavior.
-[[ $- == *i*  ]] && stty -ixon
-
 #
 # XDG
 #
@@ -25,6 +10,18 @@ export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=${HOME}/.config} # user-specific configuration files
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:=${HOME}/.cache} # user-specific non-essential (cached) data
 export XDG_DATA_HOME=${XDG_DATA_HOME:=${HOME}/.local/share} # user-specific data files
+
+#
+# Miscellaneous
+#
+export DOTFILES=${DOTFILES:=${XDG_DATA_HOME}/dotfiles}
+export DOTFILES_SHELL_PLUGINS=${DOTFILES_SHELL_PLUGINS:=${DOTFILES}/cli/shell/plugins}
+export VIMINIT=":source $XDG_CONFIG_HOME/vim/vimrc"
+export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
+# Create a shortcut to the dotfiles
+hash -d DOTFILES="$DOTFILES"
+#shopt -s cdable_vars
+#setopt cdablevars
 
 #
 # System-related variables
@@ -80,6 +77,12 @@ PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
 # finally export the path
 export PATH
 
+#
+# Terminal settings
+#
+# Disables Software Flow Control (XON/XOFF flow control)
+# i.e. "Ctrl s" and "Ctrl q" will have no special behavior.
+[[ $- == *i*  ]] && stty -ixon
 
 #
 # For Tilix.
