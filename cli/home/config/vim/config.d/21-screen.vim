@@ -13,22 +13,15 @@ set mousefocus
 set nomousehide
 set mousemodel=popup_setpos
 set t_Co=256
-set guioptions=egmrti
-set gfn=Hack\ 12
 set signcolumn=yes " Always show sign column.
-
-"autocmd FileType markdown colorscheme molokai
-"autocmd FileType markdown :AirlineRefresh
-" ggdG
-" gg=G
 
 " If you prefer the scheme to match the original monokai background color.
 "let g:molokai_original = 1
 " Alternative scheme under development for color terminals which attempts to bring the 256
 " color version as close as possible to the the default (dark) GUI version.
 "let g:rehash256 = 1
-
-colorscheme onedark
+colorscheme molokai
+"colorscheme onedark
 "colorscheme gruvbox
 
 " Matches the terminal colors
@@ -62,7 +55,8 @@ endif
 " correspondente. O salto só ocorre se o correspondente pode ser visto na
 " tela atual. Para definir por quanto tempo o salto ocorrera, use 'matchtime'
 set showmatch
-set colorcolumn=120
+set textwidth=80
+set colorcolumn=+1
 set cursorline " Destaca a linha onde o cursor está.
 
 " airline already shows the current vim mode.

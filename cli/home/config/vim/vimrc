@@ -28,6 +28,11 @@ runtime config.d/10-plugins-load.vim
 runtime config.d/11-plugins-config.vim
 runtime config.d/20-keys-mapping.vim
 runtime config.d/21-screen.vim
+if has('gui_running')
+  " I do not want to store configuration in $HOME (i.e. ~/.gvimrc)
+  " and ~/.config/gvim/gvimrc does not work.
+  runtime gvimrc
+endif
 
 "TODO how ignore debian vim home?
 "TODO remove unused code (from basic.vim)"

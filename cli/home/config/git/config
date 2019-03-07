@@ -9,7 +9,7 @@
 
 [user]
 	name = Tobias Sette
-	email = contato@tobias.ws
+	email = me@tobias.ws
 	signingkey = 0D49C52AFF126441A01261CFE1427DEC65E4C965
 
 [github]
@@ -51,6 +51,7 @@
 # git config commit.gpgsign true
 [commit]
 	gpgsign = true
+	template = ~/.config/git/templates/commit.txt
 
 [diff]
 	# [0] [1] [2] [3]

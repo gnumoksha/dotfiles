@@ -1,0 +1,48 @@
+
+# <type>[optional scope]: <if applied, this commit will>
+
+# [optional body]
+# Explain what and why vs. how.
+
+# [optional footer]
+# The footer MUST only contain BREAKING CHANGE, external links, issue
+# references, and other meta-information.
+
+# --- COMMIT END ---
+
+# Example 01 <<< EOF
+# With scope, description, breaking change in body and link in footer.
+# feat(config): allow provided config object to extend other configs
+
+# BREAKING CHANGE: `extends` key in config file is now used for extending other
+# config files
+
+# fixes issue #12
+#EOF
+
+# Type can be
+#    feat     (new feature)
+#    fix      (bug fix)
+#    BREAKING CHANGE (correlating with MAJOR in semantic versioning))
+#    refactor (refactoring production code)
+#    improvement (improve a current implementation without adding a new feature
+#                 or fixing a bug)
+#    style    (formatting, missing semi colons, etc; no code change)
+#    docs     (changes to documentation)
+#    test     (adding or refactoring tests; no production code change)
+#    chore    (updating grunt tasks etc; no production code change)
+#    perf
+
+# Seven rules
+#    1. Separate subject from body with a blank line
+#    2. Limit the subject line to 50 characters
+#    3.. Capitalize the subject line
+#    4. Do not end the subject line with a period
+#    5. Use the imperative mood in the subject line
+#    6. Wrap the body at 72 characters
+#    7. Use the body to explain what and why vs. how
+
+# References:
+# [0] https://gist.github.com/adeekshith/cd4c95a064977cdc6c50
+# [1] https://www.conventionalcommits.org
+# [2] https://chris.beams.io/posts/git-commit/

@@ -17,7 +17,7 @@ if !exists('*MyReload')
   endfunction
 endif
 "nnoremap <F5> :call MyReload()<CR>
-nnoremap <F5> :so ~/.vimrc<CR>
+nnoremap <F5> :so ~/.config/vim/vimrc<CR>
 
 " Leader key
 "let mapleader=","
