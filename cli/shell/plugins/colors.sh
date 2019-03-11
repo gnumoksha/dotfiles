@@ -38,10 +38,27 @@ fi
 #
 # dircolors
 #
+# https://github.com/trapd00r/LS_COLORS
+# https://github.com/seebi/dircolors-solarized
+# https://github.com/peterhellberg/dircolors-jellybeans
+# https://github.com/arcticicestudio/nord-dircolors
+# https://github.com/KKPMW/dircolors-moonshine
+# https://github.com/karlding/dirchromatic
+# https://github.com/ivoarch/dircolors-zenburn
+# https://geoff.greer.fm/lscolors/
+# cp --link --force LS_COLORS ~/.dircolors
+#
 # enable color support of ls and also add handy aliases
-# source: $HOME/.bashrc found on debian
+# reference: $HOME/.bashrc found on debian
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    if [ $(command -v vivid) ]; then
+       # https://github.com/sharkdp/vivid
+       export LS_COLORS="$(vivid generate molokai)"
+    elif [ -r ~/.dircolors ]; then
+       eval "$(dircolors --bourne-shell ~/.dircolors)"
+    else
+       eval "$(dircolors --bourne-shell)"
+    fi
     alias ls='ls --color=auto'
     alias dir='dir --color=auto'
     alias vdir='vdir --color=auto'

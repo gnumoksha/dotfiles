@@ -16,12 +16,11 @@ STARTED_AT=$(date +%s.%N)
 #
 # My custom scripts
 #
-# Tmux
+# May start tmux.
 source "$XDG_CONFIG_HOME/tmux/utils.sh"
 # Settings related to the terminal prompt and ls colors.
-source "$ZDOTDIR/colors.zsh"
-# Load my custom shell-agnostic stuff.
-source "$DOTFILES_SHELL_PLUGINS/bootstrap.sh"
+# Contains prezto settings that need to be defined before prezto is loaded.
+source "$ZDOTDIR/theme.zsh"
 
 #
 # Plugins
@@ -77,6 +76,12 @@ setopt cdablevars
 #pushdminus
 #shinstdin
 #zle
+
+#
+# Load my custom bourne shell plugins.
+# It is here to ensure plugins will not override my configurations.
+#
+source "$DOTFILES_SHELL_PLUGINS/bootstrap.sh"
 
 LOAD_TIME=$(( $(date +%s.%N) - STARTED_AT ))
 if [[ $LOAD_TIME -gt 1 ]]; then
