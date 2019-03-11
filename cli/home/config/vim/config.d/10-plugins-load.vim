@@ -97,6 +97,7 @@ call plug#begin(g:plugDir)
   "Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab.
   Plug 'ludovicchabant/vim-gutentags', {'for': g:myLangs} " A Vim plugin that manages your tag files.
   Plug 'majutsushi/tagbar' " Displays tags in a window, ordered by scope.
+  Plug 'lvht/tagbar-markdown' " vim-tagbar extension for markdown.
   "Plug 'tpope/vim-dadbod', {'on': 'DB'} " dadbod.vim: Modern database interface for Vim
 
   " A code-completion engine for Vim.
@@ -104,7 +105,11 @@ call plug#begin(g:plugDir)
   " Must have: apt-get install build-essential cmake python-dev python3-dev
   " Nice to have: apt-get install golang nodejs npm
   "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --js-completer' }
-Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
+
+  " The PHP plugin is problematic.
+  "Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
+
+  " Language Server Protocol (LSP) support for vim and neovim.
   Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
@@ -124,13 +129,18 @@ Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer ru
     Plug 'roxma/vim-hug-neovim-rpc'
   endif
 
-  Plug 'lifepillar/vim-mucomplete'
+  " Minimalist autocompletion plugin for Vim.
+  "Plug 'lifepillar/vim-mucomplete'
+
+  " Intellisense engine for vim8 & neovim, full language server protocol
+  " support as VSCode.
+  "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
   "Plug 'ekalinin/Dockerfile.vim' " Vim syntax file & snippets for Docker's Dockerfile.
   "Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair.
   Plug 'andymass/vim-matchup', {'for': g:myLangs} " Navigate and highlight matching words. Modern matchit and matchparen replacement.
   "Plug 'jaxbot/semantic-highlight.vim' " Where every variable is a different color.
-  Plug 'janko-m/vim-test', {'for': g:myLangs} " Run your tests at the speed of thought.
+  "Plug 'janko-m/vim-test', {'for': g:myLangs} " Run your tests at the speed of thought.
   "Plug 'tpope/vim-dispatch' " Asynchronous build and test dispatcher
   "Plug 'terryma/vim-multiple-cursors' " True Sublime Text style multiple selections for Vim.
   Plug 'ap/vim-css-color', {'for': 'css'} " Preview colours in source code while editing
@@ -181,9 +191,8 @@ Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer ru
   """""""""""""""""""
   "{{{
   "Plug 'johngrib/vim-game-code-break'
-  Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'} " Real-time markdown preview plugin for vim.
-  Plug 'godlygeek/tabular', {'for': 'markdown'}
-  Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }} " markdown preview plugin for (neo)vim
+  Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
   "Plug 'tpope/vim-markdown'
   "Plug 'gabrielelana/vim-markdown'
   " Tests
@@ -192,6 +201,12 @@ Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer ru
   "}}}
   " Initialize plugin system
 call plug#end()
+
+" tpope/vim-markdown
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
+let g:markdown_minlines = 100
+
 
 "source /home/tobias/play/side_projects/dotfiles/vim/tests/vim-lsp_asyncomplete/config.vim
 "source /home/tobias/play/side_projects/dotfiles/vim/tests/LanguageClient-neovim_nvim-completion-manager/config.vim
