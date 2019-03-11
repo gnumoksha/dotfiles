@@ -44,6 +44,7 @@ window:
   decorations: none
 
   # When true, alacritty starts maximized.
+  # There is a bug when this value is true.
   start_maximized: false
 
 scrolling:
@@ -140,39 +141,31 @@ draw_bold_text_with_bright_colors: true
 #
 # Colors
 #
+# Molokai dark
 colors:
-  # Scheme: Terminal sexy (https://terminal.sexy/)
   primary:
-    background: '0x1d1f21'
-    foreground: '0xc5c8c6'
-
-  cursor:
-    text: '0x000000'
-    cursor: '0xffffff'
-
+    background: '0x1B1D1E'
+    foreground: '0xF8F8F2'
+  # Normal colors
   normal:
-   black:   '0x282a2e'
-   red:     '0xa54242'
-   green:   '0x8c9440'
-   yellow:  '0xde935f'
-   blue:    '0x5f819d'
-   magenta: '0x85678f'
-   cyan:    '0x5e8d87'
-   white:   '0x707880'
-
+    black:   '0x333333'
+    red:     '0xC4265E'
+    green:   '0x86B42B'
+    yellow:  '0xB3B42B'
+    blue:    '0x6A7EC8'
+    magenta: '0x8C6BC8'
+    cyan:    '0x56ADBC'
+    white:   '0xE3E3DD'
+  # Bright colors
   bright:
-   black:   '0x373b41'
-   red:     '0xcc6666'
-   green:   '0xb5bd68'
-   yellow:  '0xf0c674'
-   blue:    '0x81a2be'
-   magenta: '0xb294bb'
-   cyan:    '0x8abeb7'
-   white:   '0xc5c8c6'
-
-  # Other nice color schemes:
-  # https://github.com/jwilm/alacritty/wiki/Color-schemes#pencil
-  # https://github.com/jwilm/alacritty/wiki/Color-schemes#snazzy
+    black:   '0x666666'
+    red:     '0xF92672'
+    green:   '0xA6E22E'
+    yellow:  '0xE2E22E'
+    blue:    '0x819AFF'
+    magenta: '0xAE81FF'
+    cyan:    '0x66D9EF'
+    white:   '0xF8F8F2'
 
   # Indexed Colors
   #
