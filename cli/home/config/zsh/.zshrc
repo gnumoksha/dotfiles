@@ -14,89 +14,59 @@
 STARTED_AT=$(date +%s.%N)
 
 #
+# My custom scripts
+#
 # Tmux
-#
 source "$XDG_CONFIG_HOME/tmux/utils.sh"
-
-#
-# Zplug
-#
-# If you need to uninstall zplug, do:
-# rm -Rf $ZPLUG_HOME $ZPLUG_CACHE_DIR $ZPLUG_BIN
-ZPLUG_HOME="$XDG_DATA_HOME/zplug"
-ZPLUG_LOADFILE="$XDG_CONFIG_HOME/zsh/zplug.plugins.zsh"
-ZPLUG_BIN='/usr/local/bin/zplug'
-ZPLUG_USE_CACHE=true
-ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
-if [[ ! -e "$ZPLUG_HOME/init.zsh" ]]; then
-	echo "Installing zplug..."
-	if [[ ! -d "$ZPLUG_HOME" ]]; then
-		mkdir -p "$ZPLUG_HOME"
-	fi
-	curl --silent --show-error --location --proto-redir -all,https \
-		https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-	# in order to wait something that will make zplug available.
-	sleep 3s
-	ZPLUG_WAS_JUST_INSTALLED=true
-fi
-source "$ZPLUG_HOME/init.zsh"
-zplug load
-
-#
-# Zgen
-#
-# PoC with zgen.
-#source "${HOME}/.zgen/zgen.zsh"
-#if ! zgen saved; then
-	#source $XDG_CONFIG_HOME/zsh/zgen.plugins.sh
-#fi
-
-# Screen-related stuff.
-source "$ZDOTDIR/themes/config.zsh"
+# Settings related to the terminal prompt and ls colors.
+source "$ZDOTDIR/colors.zsh"
 # Load my custom shell-agnostic stuff.
 source "$DOTFILES_SHELL_PLUGINS/bootstrap.sh"
 
 #
+# Plugins
+#
+# 2017-10-20 - Tobias - I've checked on-my-zsh and those are the useful plugins:
+# colored-man-pages composer copybuffer copydir docker docker-compose
+# git git-flow-avh git-extras
+# gpg-agent history-substring-search httpie nmap npm pass pip
+# redis-cli rsync screen shrink-path ssh-agent systemadmin tmux
+# vi-mode virtualenv
+# Repository: https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins
+#
+# Plugins with zplug
+#source $XDG_CONFIG_HOME/zsh/zplug.zsh
+#
+# Plugins with zgen
+source $XDG_CONFIG_HOME/zsh/zgen.zsh
+
+#
 # ZSH settings
 #
-# History file configuration
+# History settings
 HISTFILE="$ZDOTDIR/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=10000
-# History command configuration
 setopt extended_history       # record timestamp of command in HISTFILE
 setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
 setopt hist_ignore_dups       # ignore duplicated commands history list
 setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt inc_append_history     # add commands to HISTFILE in order of execution
-setopt share_history          # share command history data
-#setopt append_history           # Do not overwrite history
-#setopt extended_history         # Also record time and duration of commands.
-#setopt share_history            # Share history between multiple shells
-#setopt hist_expire_dups_first   # Clear duplicates when trimming internal hist.
-setopt hist_find_no_dups        # Do not display duplicates during searches.
-#setopt hist_ignore_dups         # Ignore consecutive duplicates.
-#setopt hist_ignore_all_dups     # Remember only one unique copy of the command.
-setopt hist_reduce_blanks       # Remove superfluous blanks.
-#setopt hist_save_no_dups        # Omit older commands in favor of newer ones.
-setopt prompt_subst             # Make sure prompt is able to be generated properly.
-# from oh-my-zsh
+setopt share_history          # Share history between multiple shells
+setopt append_history         # Do not overwrite history
+setopt hist_find_no_dups      # Do not display duplicates during searches.
+setopt hist_reduce_blanks     # Remove superfluous blanks.
+#setopt hist_ignore_all_dups # Remember only one unique copy of the command.
+# Other settings
+setopt prompt_subst           # Make sure prompt is able to be generated properly.
+setopt no_clobber             # use >! or >>! or >| or >>|
+setopt autocd                 # Allow changing directories without `cd`
+setopt cdablevars
 #alwaystoend
-#autocd
 #autopushd
 #completeinword
-#extendedhistory
 #noflowcontrol
-#histexpiredupsfirst
-#histfindnodups
-#histignorealldups
-#histignoredups
-#histignorespace
-#histreduceblanks
-#histsavenodups
-#histverify
-#incappendhistory
 #interactive
 #interactivecomments
 #login
@@ -105,7 +75,6 @@ setopt prompt_subst             # Make sure prompt is able to be generated prope
 #promptsubst
 #pushdignoredups
 #pushdminus
-#sharehistory
 #shinstdin
 #zle
 
@@ -114,14 +83,5 @@ if [[ $LOAD_TIME -gt 1 ]]; then
 	>&2 echo "[warning] startup time was $LOAD_TIME seconds."
 fi
 unset STARTED_AT LOAD_TIME
-
-# See:
-# https://github.com/tonylambiris/dotfiles/blob/master/dot.zshrc
-
-# Prompt
-#http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
-
-# http://grml.org/zsh/zsh-lovers.html
-# http://www.bash2zsh.com/zsh_refcard/refcard.pdf
 
 # vim: ft=zsh

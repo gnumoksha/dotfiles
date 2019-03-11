@@ -20,8 +20,6 @@ export VIMINIT=":source $XDG_CONFIG_HOME/vim/vimrc"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
 # Create a shortcut to the dotfiles
 hash -d DOTFILES="$DOTFILES"
-#shopt -s cdable_vars
-#setopt cdablevars
 
 #
 # System-related variables
