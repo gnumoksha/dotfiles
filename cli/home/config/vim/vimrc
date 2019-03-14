@@ -1,9 +1,7 @@
-""""""""""""""""""""""""""""""""""""""""""
-"                                        "
-"       VIM configuration file for       "
-"          development purposes          "
-"                                        "
-""""""""""""""""""""""""""""""""""""""""""
+"
+" VIM configuration file
+" for development purposes
+"
 
 if has('nvim')
   let g:vimConfigDir = $XDG_CONFIG_HOME . "/nvim"
@@ -14,37 +12,599 @@ else
   let g:vimCacheDir = $XDG_CACHE_HOME . "/vim"
   let g:plugFile = g:vimConfigDir . "/autoload/plug.vim"
 endif
+
 let g:plugDir = g:vimCacheDir . "/plugged"
-" Vim plug does not accept script vars
-"let g:myBinDir = "/usr/local/bin"
 let g:zplugHome = $XDG_DATA_HOME . "/zplug"
 " This var is used to load plugins only for those programming languages.
 let g:myLangs = ['go', 'html', 'javascript', 'perl', 'php', 'python', 'sh', 'vim']
 let g:startify_session_dir = g:vimConfigDir . "/session"
 
 set runtimepath+=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
-runtime config.d/00-general.vim
-runtime config.d/10-plugins-load.vim
-runtime config.d/11-plugins-config.vim
-runtime config.d/20-keys-mapping.vim
-runtime config.d/21-screen.vim
+
 if has('gui_running')
   " I do not want to store configuration in $HOME (i.e. ~/.gvimrc)
-  " and ~/.config/gvim/gvimrc does not work.
+  " and ~/.config/gvim/gvimrc does not work, so I load gvimrc file
+  " under runtimepath.
   runtime gvimrc
 endif
 
-"TODO how ignore debian vim home?
-"TODO remove unused code (from basic.vim)"
 
 """""""""""""""""""""""""""""""
 "                             "
-"        Main References      "
+"         Load plugins        "
 "                             "
 """""""""""""""""""""""""""""""
-" 04 https://github.com/avelino/vim-bootstrap/blob/master/vim_template/vimrc
-" 05 https://coderwall.com/p/lznfyw/better-title-string-for-vim
-" 06 http://vim.wikia.com/wiki/VimTip315
-" 07 https://www.reddit.com/r/vim/comments/1vdrxg/space_is_a_big_key_what_do_you_map_it_to/
-" 08 http://vim.wikia.com/wiki/Indenting_source_code
+"{{{
+if !filereadable(g:plugFile)
+  silent execute ':!curl --output ' . g:plugFile . ' --fail --location --create-dirs'
+    \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin(g:plugDir)
+  """""""""""""""""""
+  " General purpose
+  """""""""""""""""""
+  "{{{
+  " A tree explorer plugin for vim.
+  Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'} | Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
+  " Plug 'jistr/vim-nerdtree-tabs' " https://github.com/scrooloose/nerdtree#faq
+  Plug 'mhinz/vim-startify' " The fancy start screen for Vim.
+"  Plug 'Shougo/vimproc.vim', { 'do': 'make' } " Interactive command execution in Vim (for vimshell).
+"    Plug 'Shougo/vimshell.vim' " Powerful shell implemented by vim.
+  " CtrlPMixed seems nice
+  "Plug 'ctrlpvim/ctrlp.vim' " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
+  " A command-line fuzzy finder.
+  Plug g:zplugHome . '/repos/junegunn/fzf/' | Plug 'junegunn/fzf.vim'
+  Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
+  " Automatically adjusts 'shiftwidth' and 'expandtab' heuristically.
+  Plug 'tpope/vim-sleuth'
+  " The ultimate undo history visualizer for VIM.
+  Plug 'mbbill/undotree'
+  " Prevent various Vim features from keeping the contents of passwordstore.org.
+  Plug 'https://git.zx2c4.com/password-store', {'rtp': 'contrib/vim/noplaintext.vim'}
+  " Easy note taking in Vim.
+  Plug 'xolox/vim-notes', {'on': 'Note'}
+  " A syntax plugin for plain-text notes
+  "Plug 'junegunn/vim-journal'
+  " A Plugin to show a diff, whenever recovering a buffer.
+  "Plug 'chrisbra/Recover.vim'
+   " Unicode character metadataUnicode character metadata.
+  Plug 'tpope/vim-characterize'
+  "Plug 'kana/vim-smartinput'
+  Plug 'dzeban/vim-log-syntax'
+  "Plug 'andreshazard/vim-logreview'
+  " Vim plugin that provides additional text objects
+  Plug 'wellle/targets.vim'
+  " A Vim cheat sheet that makes sense, inside Vim!
+  Plug 'lifepillar/vim-cheat40'
+  "Plug 'rhysd/vim-grammarous'
+  "Plug 'edkolev/tmuxline.vim'
+  "}}}
+
+  """""""""""""""""""
+  " Screen
+  """""""""""""""""""
+  "{{{
+  " lean & mean status/tabline for vim that's light as air.
+  Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
+  " Distraction-free writing in Vim .
+  Plug 'junegunn/goyo.vim' | Plug 'junegunn/limelight.vim'
+  " Adds file type glyphs/icons to popular Vim plugins.
+  Plug 'ryanoasis/vim-devicons'
+  "}}}
+
+  """""""""""""""""""
+  " Git
+  """""""""""""""""""
+  "{{{
+  Plug 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal.
+    "Plug 'tpope/vim-rhubarb' " GitHub extension for fugitive.vim
+    "Plug 'shumphrey/fugitive-gitlab.vim' " An extension to fugitive.vim for gitlab support
+  Plug 'gregsexton/gitv', {'on': ['Gitv']} " gitk for Vim.
+  Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
+  Plug 'junegunn/gv.vim', {'on': ['GV']} " A git commit browser in Vim.
+  Plug 'jreybert/vimagit'
+  "}}}
+
+  """""""""""""""""""
+  " Software
+  " development
+  """""""""""""""""""
+  "{{{
+  "Plug 'vim-syntastic/syntastic' " Syntax checking hacks for vim. (conflicts with 'w0rp/ale')
+  " Highlights trailing whitespace in red and provides :FixWhitespace to fix it. ('w0rp/ale' does the same)
+  "Plug 'bronson/vim-trailing-whitespace'
+  Plug 'w0rp/ale' " Asynchronous Lint Engine.
+  Plug 'ntpeters/vim-better-whitespace', {'for': g:myLangs}
+  Plug 'scrooloose/nerdcommenter' " Vim plugin for intensely orgasmic commenting.
+  Plug 'Yggdroot/indentLine' " Display the indention levels with thin vertical lines.
+  Plug 'junegunn/vim-easy-align' " A Vim alignment plugin. # TODO estudar
+  "Plug 'tpope/vim-surround' " Quoting/parenthesizing made simple. # TODO conferir se preciso ou se o outro plugin é melhor
+  Plug 'SirVer/ultisnips', {'for': g:myLangs} " The ultimate snippet solution for Vim.
+    Plug 'honza/vim-snippets', {'for': g:myLangs} " Snippets files for various programming languages.
+  "Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab.
+  Plug 'ludovicchabant/vim-gutentags', {'for': g:myLangs} " A Vim plugin that manages your tag files.
+  Plug 'majutsushi/tagbar' " Displays tags in a window, ordered by scope.
+  Plug 'lvht/tagbar-markdown' " vim-tagbar extension for markdown.
+  "Plug 'tpope/vim-dadbod', {'on': 'DB'} " dadbod.vim: Modern database interface for Vim
+
+  " A code-completion engine for Vim.
+  " 2017-11-27 - Tobias - PHP support is insufficient.
+  " Must have: apt-get install build-essential cmake python-dev python3-dev
+  " Nice to have: apt-get install golang nodejs npm
+  "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --js-completer' }
+
+  " The PHP plugin is problematic.
+  "Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
+
+  " Language Server Protocol (LSP) support for vim and neovim.
+  Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+  " deoplete: Dark powered asynchronous completion framework for neovim/Vim8.
+  Plug 'Shougo/neco-syntax'
+  Plug 'zchee/deoplete-jedi', {'for': 'python'}
+  Plug 'zchee/deoplete-zsh', {'for': 'zsh'}
+  Plug 'Shougo/neco-vim', {'for': 'vim'}
+  Plug 'deathlyfrantic/deoplete-spell'
+  if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+  endif
+
+  " Minimalist autocompletion plugin for Vim.
+  "Plug 'lifepillar/vim-mucomplete'
+
+  " Intellisense engine for vim8 & neovim, full language server protocol
+  " support as VSCode.
+  "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+
+  "Plug 'ekalinin/Dockerfile.vim' " Vim syntax file & snippets for Docker's Dockerfile.
+  "Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair.
+  Plug 'andymass/vim-matchup', {'for': g:myLangs} " Navigate and highlight matching words. Modern matchit and matchparen replacement.
+  "Plug 'jaxbot/semantic-highlight.vim' " Where every variable is a different color.
+  "Plug 'janko-m/vim-test', {'for': g:myLangs} " Run your tests at the speed of thought.
+  "Plug 'tpope/vim-dispatch' " Asynchronous build and test dispatcher
+  "Plug 'terryma/vim-multiple-cursors' " True Sublime Text style multiple selections for Vim.
+  "Plug 'ap/vim-css-color', {'for': 'css'} " Preview colours in source code while editing
+
+  " PHP {{{
+  " StanAngeloff/php.vim is loaded by vim-polyglot.
+  "Plug 'shawncplus/phpcomplete.vim' " Improved PHP omnicompletion
+  " configure install
+  "Plug 'lvht/phpcd.vim', {'for': 'php'} " A Intelligent/Smart PHP Complete Daemon Plugin for Vim/NeoVim
+  "Plug 'arnaud-lb/vim-php-namespace', {'for': 'php'} " types "use" statements for you
+  "Plug 'vim-php/vim-php-refactoring'
+  "Plug 'vim-php/tagbar-phpctags.vim', {'for': 'php'}
+  "let phpctags_exists=expand('~/.vim/bin/phpctags')
+  "if !filereadable(phpctags_exists)
+    "echo "Installing phpctags..."
+    "echo ""
+    "silent !\curl -fLo ~/.vim/bin/phpctags --create-dirs http://vim-php.com/phpctags/install/phpctags.phar
+  "endif
+  "Plug 'rayburgemeestre/phpfolding.vim', {'for': 'php'}
+  "Plug '2072/PHP-Indenting-for-VIm', {'for': 'php'} // very problematic
+  "Plug 'vim-php/vim-composer'
+  "Plug 'wdalmut/vim-phpunit.git'
+  "}}}
+
+  " Golang {{{
+  " fatih/vim-go is loaded by vim-polyglot but I want the original package =)
+  "Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
+  "}}}
+  "}}}
+
+  """""""""""""""""""
+  " Color schemes
+  " and icons
+  """""""""""""""""""
+  "Plug 'godlygeek/csapprox' " (old: vim-scripts/CSApprox) Make gvim-only colorschemes work transparently in terminal vim.
+  Plug 'tomasr/molokai' " Molokai color scheme for Vim.
+  "Plug 'junegunn/seoul256.vim' " Low-contrast Vim color scheme based on Seoul Colors.
+  Plug 'joshdick/onedark.vim' " A dark Vim/Neovim color scheme inspired by Atom's One Dark syntax theme.
+  "Plug 'chriskempson/base16-vim' " Base16 for Vim.
+  "Plug 'mhinz/vim-janah' " A dark colorscheme for Vim.
+  "Plug 'nanotech/jellybeans.vim', { 'tag': 'v1.6' } " A colorful, dark color scheme for Vim.
+  Plug 'romainl/Apprentice' " A dark, low-contrast, Vim colorscheme.
+  "Plug 'rakr/vim-one' " Adaptation of one-light and one-dark colorschemes for Vim.
+  Plug 'morhetz/gruvbox' " Retro groove color scheme for Vim.
+
+  """""""""""""""""""
+  " Misc
+  """""""""""""""""""
+  "{{{
+  "Plug 'johngrib/vim-game-code-break'
+  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }} " markdown preview plugin for (neo)vim
+  Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
+  "Plug 'tpope/vim-markdown'
+  "Plug 'gabrielelana/vim-markdown'
+  " Tests
+  "source /home/tobias/play/side_projects/dotfiles/vim/tests/vim-lsp_asyncomplete/plug.vim
+  "source /home/tobias/play/side_projects/dotfiles/vim/tests/LanguageClient-neovim_nvim-completion-manager/plug.vim
+  "}}}
+  " Initialize plugin system
+call plug#end()
+
+" tpope/vim-markdown
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
+let g:markdown_minlines = 100
+
+
+"source /home/tobias/play/side_projects/dotfiles/vim/tests/vim-lsp_asyncomplete/config.vim
+"source /home/tobias/play/side_projects/dotfiles/vim/tests/LanguageClient-neovim_nvim-completion-manager/config.vim
+"autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+"let g:markdown_fenced_languages = ['html', 'php', 'python', 'bash=sh']
+
+"}}}
+
+
+"""""""""""""""""""""""""""""""
+"                             "
+"    Plugins configuration    "
+"                             "
+"""""""""""""""""""""""""""""""
+
+"""""""""""""""""""
+" General purpose
+"""""""""""""""""""
+"{{{
+" scrooloose/nerdtree {{{
+"let g:nerdtree_tabs_open_on_gui_startup = 0 " Show vim-startify in a new gvim window without files
+" natural sort order will be used
+let NERDTreeNaturalSort=1
+" the 'wildignore' setting is respected
+let NERDTreeRespectWildIgnore=1
+" single click will open directory nodes, while a double
+" click will still be required for file nodes.
+let NERDTreeMouseMode=2
+" If set to 1, the NERD tree window will close after opening a file.
+let NERDTreeQuitOnOpen=1
+" display hidden files by default.
+let NERDTreeShowHidden=1
+" This options disables the 'Bookmarks' label 'Press ? for help' text.
+let NERDTreeMinimalUI=1
+" Disables listchars on NERDTree
+autocmd filetype nerdtree set listchars=
+" Closes vim if the only window left open is a NERDTree.
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Keys mapping
+nnoremap <silent> <F3> :NERDTreeToggle<CR>
+"}}}
+
+" mhinz/vim-startify {{{
+let g:startify_list_order = [
+            \ ['   Sessions:'],
+            \ 'sessions',
+            \ ['   Most recently used files:'],
+            \ 'files',
+            \ ['   Bookmarks:'],
+            \ 'bookmarks',
+            \ ['   Commands:'],
+            \ 'commands',
+            \ ]
+
+let g:startify_files_number = 30
+let g:startify_change_to_dir = 1 " When opening a file or bookmark, change to its directory.
+let g:startify_change_to_vcs_root = 1 " When opening a file or bookmark, seek and change to the root directory of the VCS.
+let g:startify_fortune_use_unicode = 1 " Fortune header uses utf-8.
+let g:startify_session_dir = g:vimConfigDir . "/session"
+let g:startify_session_number = 10 " The maximum number of sessions to display.
+let g:startify_session_sort = 1 " Sort sessions by modification time.
+"let g:ascii = [
+      "\ '  _____ _   _ _    _ ',
+      "\ ' / ____| \ | | |  | |',
+      "\ '| |  __|  \| | |  | |',
+      "\ '| | |_ | . ` | |  | |',
+      "\ '| |__| | |\  | |__| |',
+      "\ ' \_____|_| \_|\____/',
+      "\ '',
+      "\]
+"let g:startify_custom_header = 'map(g:ascii, "\"   \".v:val")'
+let g:startify_custom_header = ''
+function! StartifyEntryFormat()
+    return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
+endfunction
+" Keys mapping
+nnoremap <leader>so :SOpen<Space>
+nnoremap <leader>ss :SSave<Space>
+nnoremap <leader>sd :SDelete<CR>
+nnoremap <leader>sc :SClose<CR>
+"}}}
+
+" ctrlpvim/ctrlp.vim {{{
+" Key mappings
+" #TODO compare with fzf
+map <silent> <leader>jd :CtrlPTag<cr><c-\>w
+"}}}
+
+" junegunn/fzf {{{
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
+" The Silver Searcher
+" https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+  set grepprg=ag\ --nogroup\ --nocolor
+"else
+    "echoerr "Execute: sudo apt install silversearcher-ag"
+endif
+" ripgrep
+" https://github.com/BurntSushi/ripgrep
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  set grepprg=rg\ --vimgrep
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+endif
+" Keys mapping
+" Show files in current directory
+nnoremap <silent> <leader>e :FZF -m<CR>
+nnoremap <silent> <leader>fb :Buffers<CR>
+nnoremap <silent> <leader>fc :Commits<CR>
+nnoremap <silent> <leader>ff :FZF<CR>
+nnoremap <silent> <leader>fh :History<CR>
+nnoremap <silent> <leader>fs :Snippets<CR>
+nnoremap <silent> <leader>ft :Tags<CR>
+nnoremap <silent> <leader>fw :Windows<CR>
+" Git SearcH
+noremap <Leader>gsh :Commit<CR>
+
+"}}}
+
+" mbbill/undotree {{{
+let g:undotree_WindowLayout = 2
+let g:undotree_SetFocusWhenToggle = 1 " If set, let undotree window get focus after being opened, otherwise focus will stay in current window.
+" Keys mapping
+nnoremap <F4> :UndotreeToggle<cr>
+"}}}
+"}}}
+
+"""""""""""""""""""
+" Screen
+"""""""""""""""""""
+"{{{
+" vim-airline {{{
+"function! s:randnum(max) abort
+  "return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:]) % a:max
+"endfunction
+let g:airline_powerline_fonts = 1
+" Nice themes: molokai, powerlineish, tomorrow, base16, angr
+let s:airline_themes = ['molokai', 'powerlineish', 'tomorrow', 'base16', 'angr']
+let g:airline_theme = 'tomorrow'
+"let g:airline_theme = s:airline_themes[s:randnum(5)]
+let g:airline#extensions#tabline#enabled = 1 " Automatically displays all buffers when there's only one tab open.
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#languageclient#enabled = 1
+let g:airline_skip_empty_sections = 1
+"}}}
+
+" junegunn/limelight.vim {{{
+autocmd! User GoyoEnter Limelight
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+"}}}
+"}}}
+
+"""""""""""""""""""
+" Git
+"""""""""""""""""""
+"{{{
+" tpope/vim-fugitive {{{
+" The following autocommand will cause the quickfix window to open after any grep invocation
+autocmd QuickFixCmdPost *grep* cwindow
+" fugitive-gitlab.vim
+"let g:fugitive_gitlab_domains = ['http://gitlab.com']
+" tpope/vim-rhubarb
+"let g:github_enterprise_urls = ['https://example.com']
+" Keys mapping
+noremap <Leader>ga :Gwrite<CR>
+" Git COmmit
+noremap <Leader>gco :Gcommit<CR>
+"noremap <Leader>gsh :Gpush<CR>
+"noremap <Leader>gll :Gpull<CR>
+" Git STatus
+noremap <Leader>gst :Gstatus<CR>
+" Git BLame
+noremap <Leader>gbl :Gblame<CR>
+" Git DIff
+noremap <Leader>gdi :Gvdiff<CR>
+" Git REmove
+noremap <Leader>gre :Gremove<CR>
+" Git Open Browser
+nnoremap <Leader>gob :.Gbrowse<CR>
+"}}}
+
+" airblade/vim-gitgutter {{{
+let g:gitgutter_max_signs = 500  " 500 is the default value
+"let g:gitgutter_highlight_lines = 1 " To turn on line highlighting by default
+" If you experience a lag, you can trade speed for accuracy:
+"let g:gitgutter_realtime = 0
+"let g:gitgutter_eager = 0
+"}}}
+"}}}
+
+"""""""""""""""""""
+" Software
+" development
+"""""""""""""""""""
+"{{{
+" w0rp/ale {{{
+"let g:ale_fix_on_save = 1 " fix files automatically on save.
+"let g:ale_completion_enabled = 1 " By now only TypeScript is supported.
+"let g:ale_sign_column_always = 1 " keep the sign gutter open at all times
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+let g:ale_echo_msg_error_str = 'E' " is the string used for error severity.
+let g:ale_echo_msg_warning_str = 'W' " is the string used for warning severity.
+let g:ale_echo_msg_format = '[%linter%] [%severity%] %s' " the format of message echoed by ALE.
+let g:ale_set_loclist = 0 " Toggle the loclist use.
+let g:ale_set_quickfix = 1 " Toggle the quickfix use.
+let g:ale_open_list = 0 " Oppen quickfix when ALE detects errors/warnings.
+"let g:ale_keep_list_window_open = 1 " Keep the window open even after errors disappear.
+" Put this in vimrc or a plugin file of your own.
+" After this is configured, :ALEFix will try and fix your JS code with ESLint.
+let g:ale_fixers = {
+\   'php': ['phpcbf'],
+\}
+" Set this setting in vimrc if you want to fix files automatically on save.
+" This is off by default.
+let g:ale_fix_on_save = 1
+let g:airline#extensions#ale#enabled = 1 " enable support for w0rp/ale in vimairline
+"}}}
+
+" scrooloose/nerdcommenter {{{
+imap <C-/> <plug>NERDCommenterInsert
+imap <C-f> <plug>NERDCommenterToggle
+"}}}
+
+" Yggdroot/indentLine {{{
+let g:indentLine_enabled = 1
+let g:indentLine_concealcursor = 0
+let g:indentLine_char = '⁞'
+let g:indentLine_faster = 1
+"}}}
+
+" SirVer/ultisnips {{{
+"let g:UltiSnipsExpandTrigger="<tab>" " #TODO configurar uma tecla. Nao nao pode pois uso o youcompleteme
+"let g:UltiSnipsJumpForwardTrigger="<tab>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+"let g:UltiSnipsEditSplit="vertical"
+"}}}
+
+" ervandew/supertab {{{
+"let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabCrMapping = 1
+let g:SuperTabClosePreviewOnPopupClose = 1
+"}}}
+
+" ludovicchabant/vim-gutentags {{{
+let g:gutentags_cache_dir = '~/.vim/gutentags'
+let g:gutentags_ctags_exclude = ['*.css', '*.html', '*.js']
+"}}}
+
+" majutsushi/tagbar {{{
+let g:tagbar_autofocus = 1
+" Keys mapping
+nmap <F12> :TagbarToggle<CR>
+let g:tagbar_type_xml = {
+    \ 'ctagstype' : 'WSDL',
+    \ 'kinds'     : [
+        \ 'n:namespaces',
+        \ 'm:messages',
+        \ 'p:portType',
+        \ 'o:operations',
+        \ 'b:bindings',
+        \ 's:service'
+    \ ]
+\ }
+let g:tagbar_type_css = {
+\ 'ctagstype' : 'Css',
+    \ 'kinds'     : [
+        \ 'c:classes',
+        \ 's:selectors',
+        \ 'i:identities'
+    \ ]
+\ }
+"}}}
+
+" YouCompleteMe {{{
+"nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
+"let g:ycm_always_populate_location_list = 1
+"}}}
+
+" autozimu/LanguageClient-neovim {{{
+" composer global require felixfbecker/language-server
+"
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ }
+"\ 'php': ['php', '~/.config/composer/vendor/felixfbecker/language-server/bin/php-language-server.php'],
+"nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+"nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+"nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+"nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+"}}}
+
+" Shougo/deoplete.nvim {{{
+" Enables automatic completation.
+let g:deoplete#enable_at_startup = 1
+"call deoplete#custom#option({
+    "\ 'complete_method': "omnifunc",
+    "\ 'max_list': 30,
+    "\ 'num_processes': -1
+    "\ })
+"let g:deoplete#sources#jedi#show_docstring = 1
+"let g:python_host_prog = '/tmp/neovim_env/bin/python'
+"let g:python3_host_prog = '/tmp/neovin_env/bin/python3'
+"}}}
+
+" lifepillar/vim-mucomplete {{{
+let g:mucomplete#enable_auto_at_startup = 1
+"}}}
+
+""""""""""""""""""
+" Misc
+"""""""""""""""""""
+"{{{
+" iamcco/markdown-preview.vim {{{
+" path to the chrome or the command to open chrome(or other modern browsers)
+" if set, g:mkdp_browserfunc would be ignored
+let g:mkdp_path_to_chrome = "/usr/bin/firefox"
+" callback vim function to open browser, the only param is the url to open
+let g:mkdp_browserfunc = 'MKDP_browserfunc_default'
+" set to 1, the vim will open the preview window once enter the markdown
+" buffer
+let g:mkdp_auto_start = 0
+" set to 1, the vim will auto open preview window when you edit the
+" markdown file
+let g:mkdp_auto_open = 0
+" set to 1, the vim will auto close current preview window when change
+" from markdown buffer to another buffer
+let g:mkdp_auto_close = 1
+" set to 1, the vim will just refresh markdown when save the buffer or
+" leave from insert mode, default 0 is auto refresh markdown as you edit or
+" move the cursor
+let g:mkdp_refresh_slow = 0
+" set to 1, the MarkdownPreview command can be use for all files,
+" by default it just can be use in markdown file
+let g:mkdp_command_for_global = 0
+" Keys mapping
+nmap <silent> <F8> <Plug>MarkdownPreview        " for normal mode
+imap <silent> <F8> <Plug>MarkdownPreview        " for insert mode
+nmap <silent> <F9> <Plug>StopMarkdownPreview    " for normal mode
+imap <silent> <F9> <Plug>StopMarkdownPreview    " for insert mode
+"}}}
+
+" plasticboy/vim-markdown {{{
+let g:vim_markdown_folding_disabled = 1
+"let g:vim_markdown_folding_style_pythonic = 1
+let g:vim_markdown_folding_level = 2
+set conceallevel=2
+let g:vim_markdown_fenced_languages = ['c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini', 'csharp=cs', 'php']
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_json_frontmatter = 1
+"}}}
+"}}}
 

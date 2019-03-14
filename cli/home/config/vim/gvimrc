@@ -1,9 +1,7 @@
-""""""""""""""""""""""""""""""""""""""""""
-"                                        "
-"      GVIM configuration file for       "
-"          development purposes          "
-"                                        "
-""""""""""""""""""""""""""""""""""""""""""
+"
+" GVIM configuration file for
+" development purposes
+"
 
 " :set guifont=* will bring up the Font chooser.
 set guifont=Hack\ Nerd\ Font\ Regular\ 12

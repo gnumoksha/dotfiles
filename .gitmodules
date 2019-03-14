@@ -1,27 +1,6 @@
-[submodule "others/gnome-terminal-colors"]
-	path = others/gnome-terminal-colors
-	url = https://github.com/gnumoksha/gnome-terminal-colors.git
-[submodule "others/tomorrow-theme"]
-	path = others/tomorrow-theme
-	url = https://github.com/chriskempson/tomorrow-theme.git
-[submodule "others/base16-xfce4-terminal"]
-	path = others/base16-xfce4-terminal
-	url = https://github.com/chriskempson/base16-xfce4-terminal.git
-[submodule "others/konsole-tomorrow-theme"]
-	path = others/konsole-tomorrow-theme
-	url = https://github.com/dram/konsole-tomorrow-theme.git
 [submodule "others/fonts/powerline"]
 	path = others/fonts/powerline
 	url = https://github.com/powerline/fonts.git
 [submodule "others/fonts/awesome-terminal-fonts"]
 	path = others/fonts/awesome-terminal-fonts
 	url = https://github.com/gabrielelana/awesome-terminal-fonts.git
-[submodule "gtk/themes/arc"]
-	path = gtk/themes/arc
-	url = https://github.com/horst3180/arc-theme
-[submodule "gtk/themes/icons/flat-remix"]
-	path = gtk/themes/icons/flat-remix
-	url = https://github.com/daniruiz/Flat-Remix.git
-[submodule "gtk/themes/flat-remix"]
-	path = gtk/themes/flat-remix
-	url = https://github.com/daniruiz/Flat-Remix-GNOME-theme.git

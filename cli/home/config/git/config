@@ -10,7 +10,7 @@
 [user]
 	name = Tobias Sette
 	email = me@tobias.ws
-	signingkey = 0D49C52AFF126441A01261CFE1427DEC65E4C965
+	signingkey = 0xE724F606EFFF66F7
 
 [github]
 	user = gnumoksha

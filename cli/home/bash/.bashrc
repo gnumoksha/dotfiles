@@ -14,11 +14,6 @@ case $- in
       *) return;;
 esac
 
-# Minimal required variables.
-export XDG_DATA_HOME=${XDG_DATA_HOME:=${HOME}/.local/share}
-export DOTFILES=${DOTFILES:=${XDG_DATA_HOME}/dotfiles}
-source "$DOTFILES/cli/shell/plugins/env.sh"
-
 # Load my custom shell-agnostic stuff.
 source "$DOTFILES_SHELL_PLUGINS/bootstrap.sh"
 
