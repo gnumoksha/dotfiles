@@ -1,6 +1,0 @@
-[submodule "others/fonts/powerline"]
-	path = others/fonts/powerline
-	url = https://github.com/powerline/fonts.git
-[submodule "others/fonts/awesome-terminal-fonts"]
-	path = others/fonts/awesome-terminal-fonts
-	url = https://github.com/gabrielelana/awesome-terminal-fonts.git
