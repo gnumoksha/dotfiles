@@ -38,6 +38,12 @@ alias git-checkout="gcf"
 alias git-clean="gclan"
 alias git-ignore="git"
 
+# Copy to clipbox (Xorg)
+alias cpx='xclip -sel clip'
+# Copy the current path to the clipboard.
+cpd() {
+  print -n $PWD | cpx
+}
 
 #
 # Define shell functions

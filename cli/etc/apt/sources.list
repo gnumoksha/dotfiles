@@ -21,6 +21,9 @@ deb http://deb.debian.org/debian/ unstable main contrib non-free
 deb http://deb.debian.org/debian/ stable main contrib non-free
 #deb-src http://deb.debian.org/debian/ stable main contrib non-free
 
+# Work-in-progress ports to other architectures.
+#deb http://ftp.ports.debian.org/debian-ports/ sid main
+
 # O pacote distro-info-data armazena informacoes das versoes das distros em:
 # /usr/share/distro-info/{debian,ubuntu}.csv
 

@@ -14,6 +14,19 @@ case $- in
       *) return;;
 esac
 
+# Falling back just in case systemd variables were not read.
+# Useful for the root user.
+if [[ -z "$XDG_CONFIG_HOME" || -z "$DOTFILES" ]]; then
+  XDG_CONFIG_HOME="$HOME/.config"
+
+  # if the file exists, load and export all variables within it.
+  if [[ -e ${XDG_CONFIG_HOME}/environment.d/envvars.conf ]]; then
+    set -a
+    . ${XDG_CONFIG_HOME}/environment.d/envvars.conf
+    set +a
+  fi
+fi
+
 # Load my custom shell-agnostic stuff.
 source "$DOTFILES_SHELL_PLUGINS/bootstrap.sh"
 

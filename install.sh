@@ -16,12 +16,11 @@ for script in "${scripts[@]}"; do
 	if [[ $ret -ne 0 ]]; then
 		exit $ret
 	fi
+
+	echo
 done
 
 unset STOW
-
-mkdir -p "$XDG_CACHE_HOME"/vim/{undo,swap,backup} 2>/dev/null
-mkdir -p "$XDG_CACHE_HOME"/nvim/{undo,swap,backup} 2>/dev/null
 
 echo "Finished."
 

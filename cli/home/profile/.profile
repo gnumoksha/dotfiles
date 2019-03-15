@@ -1,8 +1,22 @@
 #
-# User-specific configuration
+# User-specific configuration loaded whith the user session.
+#
+# Please, note that if this script fails the GDM will not load the session.
 #
 # https://www.debian.org/doc/manuals/debian-reference/ch07.en.html#_starting_the_x_window_system
 # https://en.wikipedia.org/wiki/Unix_shell#Configuration_files
+
+# Falling back just in case systemd variables were not read.
+if [[ -z "$XDG_CONFIG_HOME" || -z "$DOTFILES" ]]; then
+  XDG_CONFIG_HOME="$HOME/.config"
+
+  # if the file exists, load and export all variables within it.
+  if [[ -e ${XDG_CONFIG_HOME}/environment.d/envvars.conf ]]; then
+    set -a
+    . ${XDG_CONFIG_HOME}/environment.d/envvars.conf
+    set +a
+  fi
+fi
 
 # Create a shortcut to my dotfiles.
 hash -d DOTFILES="$DOTFILES"
@@ -13,13 +27,13 @@ hash -d DOTFILES="$DOTFILES"
 #   demanding tasks, such as editing email (e.g., vi, vim, emacs etc).
 # BROWSER contains the path to the web browser.
 if [ -n "$DISPLAY" ]; then
-    export EDITOR=vim
-    export VISUAL=gvim
-    export BROWSER=firefox
+  export EDITOR=vim
+  export VISUAL=gvim
+  export BROWSER=firefox
 else
-    export EDITOR=vim
-    export VISUAL=vim
-    export BROWSER=links
+  export EDITOR=vim
+  export VISUAL=vim
+  export BROWSER=links
 fi
 
 #
@@ -52,5 +66,16 @@ export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
 
 # finally export the path
 export PATH
+
+
+if [[ $(id -u) == 0 ]]; then
+  # From Debian's /root/.profile
+  if [ "$BASH" ]; then
+    if [ -f ~/.bashrc ]; then
+      . ~/.bashrc
+    fi
+  fi
+  mesg n || true
+fi
 
 #EOF

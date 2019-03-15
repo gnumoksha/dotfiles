@@ -2,6 +2,11 @@
 # This script is responsible to install
 # all GUI-related stuff.
 
+if [[ $(id -u) == 0 ]]; then
+	echo "Note: do not offering GUI changes for the root user."
+	exit 0
+fi
+
 if [[ -z "$STOW" ]]; then
 	echo "You need to set STOW variable"
 	exit 1
@@ -22,7 +27,12 @@ addNautilusTemplates () {
 	echo "Adding template files for Nautilus"
 
 	pushd "$CURRENT_DIR/home" > /dev/null 2>&1
-	$STOW --target=$(xdg-user-dir TEMPLATES) nautilus-file-templates/
+	destination=$(xdg-user-dir TEMPLATES)
+	if [[ -z "${destination}" ]]; then
+		echo "Unable to get XDG user dir for templates"
+		exit 1
+	fi
+	$STOW --target=${destination} nautilus-file-templates/
 	popd > /dev/null 2>&1
 }
 
@@ -30,17 +40,9 @@ echo "Do you want to configure GUI-related stuff under your HOME directory?"
 select big_changes in "Yes" "No"; do
 	if [[ $big_changes == 'Yes' ]]; then
 		doBigChanges
-	fi
-	echo
-	break
-done
 
-echo "Do you want to add template files for Gnome Files (A.K.A Nautilus)?"
-select template_files in "Yes" "No"; do
-	if [[ $template_files == 'Yes' ]]; then
 		addNautilusTemplates
 	fi
-	echo
 	break
 done
 

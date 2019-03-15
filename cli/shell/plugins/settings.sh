@@ -1,12 +1,14 @@
-###################################
-#        Terminal settings        #
-###################################
-# Disables Software Flow Control (XON/XOFF flow control)
-# i.e. "Ctrl s" and "Ctrl q" will be no special behavior.
-#[[ $- == *i*  ]] ???
-stty -ixon
 
+#
+# Terminal settings
+#
+# Disables Software Flow Control (XON/XOFF flow control)
+# i.e. "Ctrl s" and "Ctrl q" will have no special behavior.
+[[ $- == *i*  ]] && stty -ixon
+
+#
 # For Tilix.
+#
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
   if [ ! -e /etc/profile.d/vte.sh ]; then
     echo "You need to symlink vte.sh. Type sudo password:"
@@ -14,4 +16,5 @@ if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
   fi
   source /etc/profile.d/vte.sh
 fi
+
 

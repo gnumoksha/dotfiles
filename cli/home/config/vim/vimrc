@@ -224,24 +224,9 @@ call plug#begin(g:plugDir)
   Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
   "Plug 'tpope/vim-markdown'
   "Plug 'gabrielelana/vim-markdown'
-  " Tests
-  "source /home/tobias/play/side_projects/dotfiles/vim/tests/vim-lsp_asyncomplete/plug.vim
-  "source /home/tobias/play/side_projects/dotfiles/vim/tests/LanguageClient-neovim_nvim-completion-manager/plug.vim
   "}}}
   " Initialize plugin system
 call plug#end()
-
-" tpope/vim-markdown
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
-let g:markdown_minlines = 100
-
-
-"source /home/tobias/play/side_projects/dotfiles/vim/tests/vim-lsp_asyncomplete/config.vim
-"source /home/tobias/play/side_projects/dotfiles/vim/tests/LanguageClient-neovim_nvim-completion-manager/config.vim
-"autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-"let g:markdown_fenced_languages = ['html', 'php', 'python', 'bash=sh']
-
 "}}}
 
 
@@ -600,11 +585,19 @@ imap <silent> <F9> <Plug>StopMarkdownPreview    " for insert mode
 let g:vim_markdown_folding_disabled = 1
 "let g:vim_markdown_folding_style_pythonic = 1
 let g:vim_markdown_folding_level = 2
-set conceallevel=2
+let g:vim_markdown_conceal = 0 " disabled
 let g:vim_markdown_fenced_languages = ['c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini', 'csharp=cs', 'php']
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_toml_frontmatter = 1
 let g:vim_markdown_json_frontmatter = 1
+"}}}
+
+" tpope/vim-markdown {{{
+" this works but at the moment I'm using plasticboy plugin because it is
+" already configured.
+"autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+"let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
+"let g:markdown_minlines = 100
 "}}}
 "}}}
 
