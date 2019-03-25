@@ -13,7 +13,7 @@ set -g window-status-separator ""
 set -g set-titles on
 set -g set-titles-string "#W [#I:#P]"
 # Window with activity status
-set -g window-status-activity-bg red # fg and bg are flipped here due to a
+set -g window-status-activity-bg red    # fg and bg are flipped here due to a
 set -g window-status-activity-fg white  # bug in tmux
 #set inactive/active window styles
 #set -g window-style 'fg=colour247,bg=colour236'
@@ -39,7 +39,7 @@ set -g status-left "#S #[fg=yellow]#I #[fg=magenta]#P"
 # Right side of status bar
 #
 set -g status-right-bg default
-set -g status-right-fg white
+set -g status-right-fg magenta
 set -g status-right-length 40
 #set -g status-right "#H #[fg=white]« #[fg=yellow]%H:%M:%S #[fg=green]%d-%b-%y"
 WEATHER='#(curl -s wttr.in/\?format\=2&period=60)' # format 1-5. 2 and 4 are the best
