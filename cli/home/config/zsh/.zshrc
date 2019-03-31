@@ -35,7 +35,7 @@ source "$ZDOTDIR/theme.zsh"
 #source $XDG_CONFIG_HOME/zsh/zgen.zsh
 
 # Plugins with oh-my-zsh
-source $XDG_CONFIG_HOME/zsh/oh-my-zsh.zsh
+source $XDG_CONFIG_HOME/zsh/oh-my-zsh/oh-my-zsh.zsh
 
 
 #|

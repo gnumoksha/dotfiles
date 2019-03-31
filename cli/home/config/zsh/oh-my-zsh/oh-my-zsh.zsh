@@ -14,9 +14,9 @@ fi
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #
-# Nice themes: risto, gentoo, gianu, alanpeabody, daveverwer,
+# Nice simple themes: risto, gentoo, gianu, alanpeabody, daveverwer,
 # dieter, maran, miloshadzic, wezm
-ZSH_THEME="robbyrussell"
+ZSH_THEME="gnumoksha"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -63,7 +63,7 @@ COMPLETION_WAITING_DOTS="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_CUSTOM="${0:a:h}/custom"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
