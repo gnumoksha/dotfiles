@@ -2,7 +2,7 @@
 #| Oh My Zsh configuration file
 #|
 
-export ZSH="${XDG_DATA_HOME}/oh-my-zsh"
+export ZSH="${XDG_CACHE_HOME}/zsh/oh-my-zsh"
 
 if [[ ! -e "${ZSH}/oh-my-zsh.sh" ]]; then
 	echo "Installing oh-my-zsh..."

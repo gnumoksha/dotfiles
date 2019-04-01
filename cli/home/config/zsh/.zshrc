@@ -53,6 +53,14 @@ SAVEHIST=10000
 #|
 source "$DOTFILES_SHELL_PLUGINS/bootstrap.sh"
 
+ZSH_SYNTAX_HIGHLIGHTING="${XDG_CACHE_HOME}/zsh/zsh-syntax-highlighting"
+if [[ ! -e "${ZSH_SYNTAX_HIGHLIGHTING}/zsh-syntax-highlighting.zsh" ]]; then
+	echo "Installing zsh-syntax-highlighting"
+	git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_SYNTAX_HIGHLIGHTING}"
+fi
+# Must be sourced at the end of the .zshrc
+source "${ZSH_SYNTAX_HIGHLIGHTING}/zsh-syntax-highlighting.zsh"
+
 LOAD_TIME=$(( $(date +%s.%N) - STARTED_AT ))
 if [[ $LOAD_TIME -gt 1 ]]; then
     >&2 echo "[warning] startup time was $LOAD_TIME seconds."
