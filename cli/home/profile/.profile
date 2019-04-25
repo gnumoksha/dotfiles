@@ -36,6 +36,9 @@ else
   export BROWSER=links
 fi
 
+# Debian root binaries
+PATH="$PATH:/sbin"
+
 #
 # Golang
 #
@@ -50,8 +53,9 @@ PATH="$PATH:$GOROOT/bin:$GOBIN"
 #
 # PHP
 #
-# Composer
-PATH="$PATH:$HOME/.config/composer/vendor/bin"
+export COMPOSER_HOME="$XDG_CONFIG_HOME/composer" # this is the default.
+export COMPOSER_CACHE_DIR="$XDG_CACHE_HOME/composer" # this is the default.
+PATH="$PATH:$COMPOSER_HOME/vendor/bin"
 
 #
 # Python
@@ -61,8 +65,10 @@ PATH="$PATH:$HOME/.local/bin"
 #
 # Rust-lang
 #
-export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
-[ -d /usr/lib/cargo/bin ] && PATH="$PATH:/usr/lib/cargo/bin"
+# https://doc.rust-lang.org/cargo/reference/environment-variables.html
+export CARGO_HOME="$XDG_DATA_HOME/cargo" # contains cache e config
+PATH="$PATH:$CARGO_HOME/bin"
+[ -d /usr/lib/cargo/bin ] && PATH="$PATH:/usr/lib/cargo/bin" # used by apt
 
 # finally export the path
 export PATH

@@ -60,6 +60,33 @@ if [[ ! -e "${ZSH_SYNTAX_HIGHLIGHTING}/zsh-syntax-highlighting.zsh" ]]; then
 fi
 # Must be sourced at the end of the .zshrc
 source "${ZSH_SYNTAX_HIGHLIGHTING}/zsh-syntax-highlighting.zsh"
+unset ZSH_SYNTAX_HIGHLIGHTING
+
+if [[ ! -e "/usr/local/bin/git-extras" ]]; then
+    echo "Installing git-extras"
+    curl -sSL http://git.io/git-extras-setup | sudo bash /dev/stdin
+fi
+
+if [[ ! -e "${ZSH_CUSTOM}/themes/powerlevel10k/prompt_powerlevel10k_setup" ]]; then
+    echo "Installing powerlevel 10k"
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM}/themes/powerlevel10k"
+fi
+
+POWERLESS="${XDG_CACHE_HOME}/zsh/powerless"
+if [[ ! -e "${POWERLESS}/powerless.zsh" ]]; then
+	echo "Installing powerless theme"
+	git clone --depth=1 https://github.com/martinrotter/powerless.git "${POWERLESS}"
+fi
+#source "${POWERLESS}/powerless.zsh" false
+#source "${POWERLESS}/utilities.zsh" true
+#unset POWERLESS
+
+#fpath=( "$XDG_CACHE_HOME/zsh/functions" $fpath )
+#if [[ ! -e "${XDG_CACHE_HOME}/zsh/functions/docker-custom.zsh" ]]; then
+	#echo "Installing docker-completions"
+	#curl https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker -o "${XDG_CACHE_HOME}/zsh/functions/docker-custom.zsh"
+	#curl https://raw.githubusercontent.com/docker/compose/master/contrib/completion/zsh/_docker-compose -o $XDG_CACHE_HOME/zsh/functions/docker-compose.zsh
+#fi
 
 LOAD_TIME=$(( $(date +%s.%N) - STARTED_AT ))
 if [[ $LOAD_TIME -gt 1 ]]; then

@@ -1,6 +1,8 @@
 #
 # Add colors to the shell
-##########################
+#
+
+# https://wiki.archlinux.org/index.php/Color_output_in_console
 
 DOTFILES_USE_COLORS=${DOTFILES_USE_COLORS:-}
 
@@ -51,7 +53,7 @@ fi
 # enable color support of ls and also add handy aliases
 # reference: $HOME/.bashrc found on debian
 if [ -x /usr/bin/dircolors ]; then
-    if [ $(command -v vivid) ]; then
+    if [ $(command -v snazzy) ]; then
        # https://github.com/sharkdp/vivid
        export LS_COLORS="$(vivid generate molokai)"
     elif [ -r ~/.dircolors ]; then

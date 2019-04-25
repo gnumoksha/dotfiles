@@ -14,7 +14,7 @@ STOW_IN_HOME=(
 "$CURRENT_DIR/home/profile"
 "$CURRENT_DIR/home/bash" # http://savannah.gnu.org/support/?108134
 "$CURRENT_DIR/home/ctags"
-"$CURRENT_DIR/home/legacy_to_xdg"
+"$CURRENT_DIR/home/zshenv"
 "$CURRENT_DIR/home/ssh" # https://bugzilla.mindrot.org/show_bug.cgi?id=2050
 "$CURRENT_DIR/home/grc"
 "$CURRENT_DIR/home/xorg"

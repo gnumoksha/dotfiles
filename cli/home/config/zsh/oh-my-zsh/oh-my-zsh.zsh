@@ -14,9 +14,16 @@ fi
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #
+# https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# checked 2018-04-02
 # Nice simple themes: risto, gentoo, gianu, alanpeabody, daveverwer,
 # dieter, maran, miloshadzic, wezm
+# avit (slow), candy
 ZSH_THEME="gnumoksha"
+# https://github.com/robobenklein/zinc
+# https://github.com/chauncey-garrett/zsh-prompt-garrett (can be customized?)
+#ZSH_THEME=powerlevel10k/powerlevel10k
+#ZSH_THEME=""
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -78,7 +85,7 @@ ZSH_CUSTOM="${0:a:h}/custom"
 # redis-cli rsync screen shrink-path ssh-agent systemadmin tmux
 # vi-mode virtualenv
 # Repository: https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins
-plugins=(git-flow-avh)
+plugins=(docker docker-compose git-flow-avh)
 
 source "${ZSH}/oh-my-zsh.sh"
 
