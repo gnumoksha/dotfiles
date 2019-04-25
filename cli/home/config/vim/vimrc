@@ -4,22 +4,35 @@
 "
 
 if has('nvim')
-  let g:vimConfigDir = $XDG_CONFIG_HOME . "/nvim"
-  let g:vimCacheDir = $XDG_CACHE_HOME . "/nvim"
-  let g:plugFile = $XDG_DATA_HOME . "/nvim/site/autoload/plug.vim"
+  let g:VIM_CONFIG_HOME = $XDG_CONFIG_HOME . "/nvim"
+  let g:VIM_CACHE_HOME  = $XDG_CACHE_HOME . "/nvim"
+  let g:VIM_DATA_HOME   = $XDG_DATA_HOME . "/nvim"
+  let g:VIM_PLUG_FILE   = $XDG_DATA_HOME . "/nvim/site/autoload/plug.vim"
 else
-  let g:vimConfigDir = $XDG_CONFIG_HOME . "/vim"
-  let g:vimCacheDir = $XDG_CACHE_HOME . "/vim"
-  let g:plugFile = g:vimConfigDir . "/autoload/plug.vim"
+  let g:VIM_CONFIG_HOME = $XDG_CONFIG_HOME . "/vim"
+  let g:VIM_CACHE_HOME  = $XDG_CACHE_HOME . "/vim"
+  let g:VIM_DATA_HOME   = $XDG_DATA_HOME . "/vim"
+  let g:VIM_PLUG_FILE   = g:VIM_CONFIG_HOME . "/autoload/plug.vim"
 endif
 
-let g:plugDir = g:vimCacheDir . "/plugged"
-let g:zplugHome = $XDG_DATA_HOME . "/zplug"
-" This var is used to load plugins only for those programming languages.
-let g:myLangs = ['go', 'html', 'javascript', 'perl', 'php', 'python', 'sh', 'vim']
-let g:startify_session_dir = g:vimConfigDir . "/session"
+if !isdirectory(g:VIM_CACHE_HOME)
+  call mkdir(g:VIM_CACHE_HOME, "", 0700)
+endif
+if !isdirectory(g:VIM_DATA_HOME)
+  call mkdir(g:VIM_DATA_HOME, "", 0700)
+endif
 
+let g:VIM_PLUG_HOME = g:VIM_CACHE_HOME . "/plugged"
+"let g:startify_session_dir = g:VIM_CONFIG_HOME . "/session"
+" This var is used to load plugins only for those programming languages.
+let g:MY_PROGRAMMING_LANGUAGES = ['go', 'html', 'javascript', 'perl', 'php', 'python', 'sh', 'vim']
+
+" TODO add g:VIM_CACHE_HOME to runtimepath and move vim plug to it
+" see /usr/share/vim/vim81/debian.vim
 set runtimepath+=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
+"let &runtimepath += g:VIM_PLUG_HOME
+"exe 'set runtimepath+=' . expand(g:VIM_PLUG_HOME)
+"let g:VIM_PLUG_FILE = g:VIM_PLUG_HOME . "/autoload/plug.vim"
 
 if has('gui_running')
   " I do not want to store configuration in $HOME (i.e. ~/.gvimrc)
@@ -29,19 +42,17 @@ if has('gui_running')
 endif
 
 
-"""""""""""""""""""""""""""""""
-"                             "
-"         Load plugins        "
-"                             "
-"""""""""""""""""""""""""""""""
+"|
+"| Load plugins
+"|
 "{{{
-if !filereadable(g:plugFile)
-  silent execute ':!curl --output ' . g:plugFile . ' --fail --location --create-dirs'
+if !filereadable(g:VIM_PLUG_FILE)
+  silent execute ':!curl --output ' . g:VIM_PLUG_FILE . ' --fail --location --create-dirs'
     \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin(g:plugDir)
+call plug#begin(g:VIM_PLUG_HOME)
   """""""""""""""""""
   " General purpose
   """""""""""""""""""
@@ -54,11 +65,11 @@ call plug#begin(g:plugDir)
 "    Plug 'Shougo/vimshell.vim' " Powerful shell implemented by vim.
   " CtrlPMixed seems nice
   "Plug 'ctrlpvim/ctrlp.vim' " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
-  " A command-line fuzzy finder.
-  Plug g:zplugHome . '/repos/junegunn/fzf/' | Plug 'junegunn/fzf.vim'
+  Plug 'junegunn/fzf.vim' " A command-line fuzzy finder.
   Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
   " Automatically adjusts 'shiftwidth' and 'expandtab' heuristically.
   Plug 'tpope/vim-sleuth'
+  Plug 'tpope/vim-eunuch'
   " The ultimate undo history visualizer for VIM.
   Plug 'mbbill/undotree'
   " Prevent various Vim features from keeping the contents of passwordstore.org.
@@ -116,15 +127,15 @@ call plug#begin(g:plugDir)
   " Highlights trailing whitespace in red and provides :FixWhitespace to fix it. ('w0rp/ale' does the same)
   "Plug 'bronson/vim-trailing-whitespace'
   Plug 'w0rp/ale' " Asynchronous Lint Engine.
-  Plug 'ntpeters/vim-better-whitespace', {'for': g:myLangs}
+  Plug 'ntpeters/vim-better-whitespace', {'for': g:MY_PROGRAMMING_LANGUAGES}
   Plug 'scrooloose/nerdcommenter' " Vim plugin for intensely orgasmic commenting.
   Plug 'Yggdroot/indentLine' " Display the indention levels with thin vertical lines.
   Plug 'junegunn/vim-easy-align' " A Vim alignment plugin. # TODO estudar
   "Plug 'tpope/vim-surround' " Quoting/parenthesizing made simple. # TODO conferir se preciso ou se o outro plugin é melhor
-  Plug 'SirVer/ultisnips', {'for': g:myLangs} " The ultimate snippet solution for Vim.
-    Plug 'honza/vim-snippets', {'for': g:myLangs} " Snippets files for various programming languages.
+  Plug 'SirVer/ultisnips', {'for': g:MY_PROGRAMMING_LANGUAGES} " The ultimate snippet solution for Vim.
+    Plug 'honza/vim-snippets', {'for': g:MY_PROGRAMMING_LANGUAGES} " Snippets files for various programming languages.
   "Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab.
-  Plug 'ludovicchabant/vim-gutentags', {'for': g:myLangs} " A Vim plugin that manages your tag files.
+  Plug 'ludovicchabant/vim-gutentags', {'for': g:MY_PROGRAMMING_LANGUAGES} " A Vim plugin that manages your tag files.
   Plug 'majutsushi/tagbar' " Displays tags in a window, ordered by scope.
   Plug 'lvht/tagbar-markdown' " vim-tagbar extension for markdown.
   "Plug 'tpope/vim-dadbod', {'on': 'DB'} " dadbod.vim: Modern database interface for Vim
@@ -167,9 +178,9 @@ call plug#begin(g:plugDir)
 
   "Plug 'ekalinin/Dockerfile.vim' " Vim syntax file & snippets for Docker's Dockerfile.
   "Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair.
-  Plug 'andymass/vim-matchup', {'for': g:myLangs} " Navigate and highlight matching words. Modern matchit and matchparen replacement.
+  Plug 'andymass/vim-matchup', {'for': g:MY_PROGRAMMING_LANGUAGES} " Navigate and highlight matching words. Modern matchit and matchparen replacement.
   "Plug 'jaxbot/semantic-highlight.vim' " Where every variable is a different color.
-  "Plug 'janko-m/vim-test', {'for': g:myLangs} " Run your tests at the speed of thought.
+  "Plug 'janko-m/vim-test', {'for': g:MY_PROGRAMMING_LANGUAGES} " Run your tests at the speed of thought.
   "Plug 'tpope/vim-dispatch' " Asynchronous build and test dispatcher
   "Plug 'terryma/vim-multiple-cursors' " True Sublime Text style multiple selections for Vim.
   "Plug 'ap/vim-css-color', {'for': 'css'} " Preview colours in source code while editing
@@ -230,11 +241,9 @@ call plug#end()
 "}}}
 
 
-"""""""""""""""""""""""""""""""
-"                             "
-"    Plugins configuration    "
-"                             "
-"""""""""""""""""""""""""""""""
+"|
+"| Configure plugins
+"|
 
 """""""""""""""""""
 " General purpose
@@ -279,7 +288,7 @@ let g:startify_files_number = 30
 let g:startify_change_to_dir = 1 " When opening a file or bookmark, change to its directory.
 let g:startify_change_to_vcs_root = 1 " When opening a file or bookmark, seek and change to the root directory of the VCS.
 let g:startify_fortune_use_unicode = 1 " Fortune header uses utf-8.
-let g:startify_session_dir = g:vimConfigDir . "/session"
+let g:startify_session_dir = g:VIM_CONFIG_HOME . "/session"
 let g:startify_session_number = 10 " The maximum number of sessions to display.
 let g:startify_session_sort = 1 " Sort sessions by modification time.
 "let g:ascii = [
@@ -480,7 +489,7 @@ let g:SuperTabClosePreviewOnPopupClose = 1
 "}}}
 
 " ludovicchabant/vim-gutentags {{{
-let g:gutentags_cache_dir = '~/.vim/gutentags'
+let g:gutentags_cache_dir = g:VIM_CACHE_HOME . '/gutentags'
 let g:gutentags_ctags_exclude = ['*.css', '*.html', '*.js']
 "}}}
 
@@ -599,5 +608,406 @@ let g:vim_markdown_json_frontmatter = 1
 "let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
 "let g:markdown_minlines = 100
 "}}}
+"}}}
+
+
+"|
+"| General configurations
+"|
+"{{{
+" http://stackoverflow.com/questions/5845557/in-a-vimrc-is-set-nocompatible-completely-useless
+set nocompatible
+
+" Enable hidden buffers
+set hidden
+
+" Enable filetype detection, plugin and indent loading for specific file
+" types.
+filetype plugin indent on
+
+" Disable visualbell
+set noerrorbells visualbell t_vb=
+if has('autocmd')
+  autocmd GUIEnter * set visualbell t_vb=
+endif
+
+"" Copy/Paste/Cut
+if has('unnamedplus')
+  set clipboard=unnamed,unnamedplus
+endif
+
+" Recarrega automaticamente arquivos que foram alterados no disco
+set autoread
+
+"" Encoding
+if &modifiable
+	set encoding=utf-8
+	set fileencoding=utf-8
+endif
+"set bomb
+"set binary
+set ttyfast
+" nao funciona no nvim
+"set ttymouse=xterm2
+
+"" Fix backspace indent
+set backspace=indent,eol,start
+
+" http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
+" https://github.com/ncm2/ncm2#install
+" suppress the annoying 'match x of y', 'The only match' and 'Pattern not found' messages
+set shortmess+=c
+"set completeopt=noinsert,longest,menuone
+set completeopt=menu,menuone,preview,noinsert,noselect
+" Enter select first option
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Remap code completion to Ctrl+Space {{{
+inoremap <Nul> <C-x><C-o>
+inoremap <Nul> <C-n>
+"}}}
+" Autocomplete with TAB {{{
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"}}}
+" Workflow: ao difigitar ir exibindo as sugestoes mas sem
+" selecionar. Ao precisar enter ou control+space completar
+" com a primeira sugestao. Backspace apos isso deleta esse autocomplete.
+" Talvez digitar control+space para chamar o autocomplete ja ajude, ai
+" depois uso control+pace para selecionar.
+"Read some more on :help popupmenu-keys or :help ins-completion
+
+set concealcursor=nc
+" Show confirmation when exiting an unsaved buffer.
+set confirm
+
+" For airblade/vim-gitgutter
+set updatetime=100
+
+" Show non printable characters
+"set listchars=tab:⇨\ ,eol:⏎,nbsp:☠,trail:•,extends:⟩,precedes:⟨
+set listchars=tab:⇨\ ,nbsp:☠,trail:•,extends:⟩,precedes:⟨
+set list
+
+" Make File-Open track directory of current file
+set browsedir=buffer
+
+"Keep backups of files in case I mess up :)
+let s:backupDir = g:VIM_CACHE_HOME . "/backup"
+if !isdirectory(s:backupDir)
+  call mkdir(s:backupDir, "", 0700)
+endif
+let &backupdir=s:backupDir
+set backup
+set backupcopy=yes
+
+" Where store swap files.
+let s:swapDir = g:VIM_CACHE_HOME . "/swap"
+if !isdirectory(s:swapDir)
+  call mkdir(s:swapDir, "", 0700)
+endif
+" /,. means: use default directory if an error occurs in swapDir
+let &directory = s:swapDir . "/,."
+
+" Persists undo while computer is on
+"let s:undoDir = "/tmp/.undodir_" . $USER
+let s:undoDir = g:VIM_CACHE_HOME . "/undo"
+if !isdirectory(s:undoDir)
+  call mkdir(s:undoDir, "", 0700)
+endif
+let &undodir=s:undoDir
+set undofile
+set undolevels=10000
+
+let &viminfo="'1000,n" . g:VIM_DATA_HOME . "/viminfo"
+
+" Session
+" If you don't want help windows to be restored:
+set sessionoptions-=help
+" Don't save hidden and unloaded buffers in sessions.
+set sessionoptions-=buffers
+
+" Enable spell checking.
+"if !filereadable(expand('~/.vim/spell/en.utf-8.sug'))
+  "echo "Downloading spell files..."
+  "echo ""
+  "silent !\curl -fLo ~/.vim/spell/en.utf-8.sug --create-dirs http://ftp.vim.org/vim/runtime/spell/en.utf-8.sug
+  "silent !\curl -fLo ~/.vim/spell/en.utf-8.spl --create-dirs http://ftp.vim.org/vim/runtime/spell/en.utf-8.spl
+
+  "silent !\curl -fLo ~/.vim/spell/pt.utf-8.sug --create-dirs http://ftp.vim.org/vim/runtime/spell/pt.utf-8.sug
+  "silent !\curl -fLo ~/.vim/spell/pt.utf-8.spl --create-dirs http://ftp.vim.org/vim/runtime/spell/pt.utf-8.spl
+"endif
+""set spell
+"set spellfile=$HOME/.vim/spell/en.utf-8.add,$HOME/.vim/spell/pt.utf-8.add
+"set spelllang=en,pt
+"}}}
+
+" For spell checking
+set mousemodel=popup_setpos
+
+
+"|
+"| Screen-related configurations
+"|
+"{{{
+syntax on
+set number " shows line number
+set relativenumber " shows line number relative to the current line
+
+set mouse=a
+set mousefocus
+set nomousehide
+set mousemodel=popup_setpos
+set t_Co=256
+set signcolumn=yes " Always show sign column.
+
+" If you prefer the scheme to match the original monokai background color.
+"let g:molokai_original = 1
+" Alternative scheme under development for color terminals which attempts to bring the 256
+" color version as close as possible to the the default (dark) GUI version.
+"let g:rehash256 = 1
+try
+	colorscheme molokai
+catch /^Vim\%((\a\+)\)\=:E185/
+	call PlugInstall()
+endtry
+"colorscheme onedark
+"colorscheme gruvbox
+
+" Matches the terminal colors
+" Do not set this https://github.com/tmux/tmux/issues/699
+"set termguicolors
+
+"" Disable the blinking cursor.
+"set gcr=a:blinkon0
+set scrolloff=3
+
+"" Use modeline overrides
+set modeline
+set modelines=10
+
+set title
+set titleold="Terminal"
+" :h statusline
+set titlestring="%F%m %Y"
+" This is nice, but makes scrolling very slow
+"set title titlestring=...%{strpart(expand(\"%:p:h\"),stridx(expand(\"%:p:h\"),\"/\",strlen(expand(\"%:p:h\"))-12))}%=%n.\ \ %{expand(\"%:t:r\")}\ %m\ %Y\ \ \ \ %l\ of\ %L " [ref05]
+
+set showcmd
+
+" Faz com que o vim pule para a posição no arquivo onde se parou na última
+" fez que ele foi aberto
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+" Quando um bracket eh inserido, saltar rapidamente para o seu primeiro
+" correspondente. O salto só ocorre se o correspondente pode ser visto na
+" tela atual. Para definir por quanto tempo o salto ocorrera, use 'matchtime'
+"set showmatch
+"set textwidth=80
+set colorcolumn=+1
+set cursorline " Destaca a linha onde o cursor está.
+
+" airline already shows the current vim mode.
+set noshowmode
+"set cmdheight=1
+"set laststatus=0
+
+
+" Igora case sensitive durante as buscas
+set ignorecase
+" Ignora a opcao 'ignorecase' se o texto a ser buscado contem caracteres
+" maiusculos
+set smartcase
+" Quando há uma padrao de uma pesquisa anterior, destaque todos os resultados
+set hlsearch
+" Busca incremental. Vai buscando e mostrando os resultados conforme se
+" vai digitando o texto a buscar.
+set incsearch
+
+" Default indent with tabs. [ref 08]
+" Changes the width of the TAB character.
+"set tabstop=4
+" Affects what happens when you press >>, << or ==. It also affects how
+" automatic indentation works.
+"set shiftwidth=4
+" Affects what happens when you press the <TAB> or <BS> keys.
+" Its default value is the same as the value of 'tabstop'.
+"set softtabstop=0
+" Affects what happens when you press the <TAB> key.
+" If 'expandtab' is set, pressing the <TAB> key will always
+" insert 'softtabstop' amount of space characters.
+" Otherwise, the amount of spaces inserted is minimized
+" by using TAB characters.
+"set expandtab
+
+" Configure vimdiff
+if &diff
+    colorscheme apprentice
+
+    set diffopt+=iwhite
+    set diffexpr=""
+endif
+
+" Ignore whitespace on diff
+" https://stackoverflow.com/a/4271247/4668660
+"set diffopt+=iwhite
+"set diffexpr=DiffW()
+"function DiffW()
+  "let opt = ""
+   "if &diffopt =~ "icase"
+     "let opt = opt . "-i "
+   "endif
+   "if &diffopt =~ "iwhite"
+     "let opt = opt . "-w " " swapped vim's -b with -w
+   "endif
+   "silent execute "!diff -a --binary " . opt .
+     "\ v:fname_in . " " . v:fname_new .  " > " . v:fname_out
+"endfunction
+
+" Removes | in window separator
+" https://stackoverflow.com/questions/9001337/vim-split-bar-styling
+"set fillchars+=vert:\ 
+"}}}
+
+
+
+"|
+"| Keys mapping for built-in vim features  
+"|
+" Keys mapping for plugins is in plugins section
+"{{{
+" The idea with this function is to be like a complete refresh of vim.
+if !exists('*MyReload')
+  function! MyReload()
+    echom "Reloading VIM..."
+    source $VIMRC " Reload vimrc
+    filetype detect " force file type detection
+    echom "VIM reloaded."
+  endfunction
+endif
+"nnoremap <F5> :call MyReload()<CR>
+nnoremap <F5> :so ~/.config/vim/vimrc<CR>
+
+" Leader key
+"let mapleader=","
+"let g:mapleader=","
+" [ref 07]
+map <space> <leader>
+map <space><space> <leader><leader>
+
+"Ao inves de usar : use ; que nao precisa do shift
+nnoremap ; :
+
+" Avoid some common mistakes
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
+
+" Press i to enter insert mode, and ii to exit.
+"imap ii <Esc>
+
+" Search mappings: These will make it so that going to the next one in a
+" search will center on the line it's found in.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" Faz com que blocos selecionados sejam reselecionados após identações
+vnoremap < <gv
+vnoremap > >gv
+
+" ,p alterna o modo paste
+" parece que é melhor que pastetoggle
+"nmap <leader>p :set paste!<BAR>set paste?<CR>
+noremap YY "+y<CR>
+noremap <leader>p "+gP<CR>
+noremap XX "+x<CR>
+
+" cd. muda para o diretorio do arquivo atual
+"cmap cd. lcd %:p:h
+
+" Save current file [09]
+noremap <C-S> :w<CR>
+vnoremap <C-S> <C-C>:w<CR>
+inoremap <C-S> <C-O>:w<CR>
+
+" Quit vim with C-Q
+noremap <C-Q> :qa<CR>
+vnoremap <C-Q> <C-C>:qa<CR>
+inoremap <C-Q> <C-O>:qa<CR>
+
+" Switching windows
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+noremap <C-h> <C-w>h
+
+" https://github.com/amix/vimrc#spell-checking
+map <leader>sc :setlocal spell!<cr>
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>s? z=
+"
+map <leader>es :botright cope<cr>
+"map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
+map <leader>en :cn<cr>
+map <leader>ep :cp<cr>
+
+" Set working directory
+nnoremap <leader>cd :lcd %:p:h<CR>
+
+" Diff Get Right
+" #TODO Seria bom usar apenas o `do` e `dp`. se for git repo, usar diffget, se nao,
+" usar normal. o diffget nao parece ser de plugin.
+noremap <Leader>dgr :diffget RE<CR>
+" Diff Get Base
+noremap <Leader>dgb :diffget BA<CR>
+" Diff Get Left
+noremap <Leader>dgl :diffget LO<CR>
+
+" Clean search highlight
+nnoremap <silent> <leader>n :noh<cr>
+
+" Execute (run) current file
+nnoremap <leader>r :!"%:p"<CR>
+
+" Split
+noremap <Leader>sp :<C-u>split<CR>
+noremap <Leader>sv :<C-u>vsplit<CR>
+
+" Tabs
+nnoremap <silent> <Tab> gt
+nnoremap <silent> <S-Tab> gT
+nnoremap <silent> <C-t> :tabnew<CR>
+nnoremap <silent> <A-t> :tabnew<CR>
+nnoremap <silent> <A-w> :close<CR> " Ctrl + w c
+
+" SmartHome
+" Pressing the Home key moves the cursor to the first nonblank character on
+" the line, or, if already at that position, to the start of the line.
+function! SmartHome()
+  let first_nonblank = match(getline('.'), '\S') + 1
+  if first_nonblank == 0
+    return col('.') + 1 >= col('$') ? '0' : '^'
+  endif
+  if col('.') == first_nonblank
+    return '0'  " if at first nonblank, go to start line
+  endif
+  return &wrap && wincol() > 1 ? 'g^' : '^'
+endfunction
+noremap <expr> <silent> <Home> SmartHome()
+imap <silent> <Home> <C-O><Home>
 "}}}
 

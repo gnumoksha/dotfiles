@@ -89,7 +89,7 @@ __pycache__/
 #ipython_config.py
 
 # Environments
-.env
+#.env # symfony uses it
 .venv
 env/
 venv/
