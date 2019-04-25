@@ -143,6 +143,9 @@
 	pl = pull --all
 	st = status
 
+	# git checkout --theirs
+	pull-theirs = pull -Xtheirs
+
 	branch-status = branch -avv
 	branch-clean = !git branch | grep -P 'feature/|hotfix/' | xargs git branch -D
 
