@@ -1,29 +1,26 @@
-# Scheme: Monokai Dark (blue/cyan modified)
+# Scheme: Monokai Dark (modified)
 colors:
   primary:
-    background: '0x272822'
+    background: '0x121212'
     foreground: '0xF8F8F2'
-    #dim_foreground: '0x9a9a9a'
-    #bright_foreground: '0xffffff'
-  cursor:
-    text: '0x000000'
-    cursor: '0xffffff'
+  # Normal colors
   normal:
-    black:   '0x272822'
-    red:     '0xF92672'
-    green:   '0xA6E22E'
-    yellow:  '0xF4BF75'
-    blue:    '0xF8F8F2'
-    magenta: '0xAE81FF'
-    cyan:    '0x08a4a7'
-    white:   '0xF8F8F2'
+    black:   '0x333333'
+    red:     '0xC4265E'
+    green:   '0x86B42B'
+    yellow:  '0xB3B42B'
+    blue:    '0x6A7EC8'
+    magenta: '0x8C6BC8'
+    cyan:    '0x56ADBC'
+    white:   '0xE3E3DD'
+  # Bright colors
   bright:
-    black:   '0x75715E'
+    black:   '0x666666'
     red:     '0xF92672'
     green:   '0xA6E22E'
-    yellow:  '0xF4BF75'
-    blue:    '0x66D9EF'
+    yellow:  '0xE2E22E'
+    blue:    '0x819AFF'
     magenta: '0xAE81FF'
-    cyan:    '0xA1EFE4'
-    white:   '0xF9F8F5'
+    cyan:    '0x66D9EF'
+    white:   '0xF8F8F2'
 

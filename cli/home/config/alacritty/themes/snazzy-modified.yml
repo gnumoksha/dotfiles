@@ -1,0 +1,25 @@
+# Snazzy (modified)
+colors:
+  primary:
+    background: '0x121212'
+    foreground: '0xF8F8F2'
+  # Normal colors
+  normal:
+    black:   '0x333333'
+    red:     '0xff5c57'
+    green:   '0x5af78e'
+    yellow:  '0xf3f99d'
+    blue:    '0x57c7ff'
+    magenta: '0xff6ac1'
+    cyan:    '0x9aedfe'
+    white:   '0xE3E3DD'
+  # Bright colors
+  #bright:
+    #black:   '0x666666'
+    #red:     '0xF92672'
+    #green:   '0xA6E22E'
+    #yellow:  '0xE2E22E'
+    #blue:    '0x819AFF'
+    #magenta: '0xAE81FF'
+    #cyan:    '0x66D9EF'
+    #white:   '0xF8F8F2'
