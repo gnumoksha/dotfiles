@@ -30,9 +30,12 @@ let g:MY_PROGRAMMING_LANGUAGES = ['go', 'html', 'javascript', 'perl', 'php', 'py
 " TODO add g:VIM_CACHE_HOME to runtimepath and move vim plug to it
 " see /usr/share/vim/vim81/debian.vim
 set runtimepath+=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
+"let $VIM_PLUG_HOME = ""
 "let &runtimepath += g:VIM_PLUG_HOME
 "exe 'set runtimepath+=' . expand(g:VIM_PLUG_HOME)
 "let g:VIM_PLUG_FILE = g:VIM_PLUG_HOME . "/autoload/plug.vim"
+
+"set runtimepath+=$XDG_CACHE_HOME/fzf
 
 if has('gui_running')
   " I do not want to store configuration in $HOME (i.e. ~/.gvimrc)
@@ -65,7 +68,7 @@ call plug#begin(g:VIM_PLUG_HOME)
 "    Plug 'Shougo/vimshell.vim' " Powerful shell implemented by vim.
   " CtrlPMixed seems nice
   "Plug 'ctrlpvim/ctrlp.vim' " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
-  Plug 'junegunn/fzf.vim' " A command-line fuzzy finder.
+  Plug 'junegunn/fzf', { 'dir': '~/.cache/fzf', 'do': './install --no-bash --no-zsh --no-fish' } " A command-line fuzzy finder.
   Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
   " Automatically adjusts 'shiftwidth' and 'expandtab' heuristically.
   Plug 'tpope/vim-sleuth'

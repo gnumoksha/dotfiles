@@ -7,8 +7,9 @@
 #
 # Snapcraft
 #
-# Do not show snap directories
-alias_append df '-x squashfs'
+# Do not show snap directories (squashfs) and also
+# do not show overlay/tmpfs/udev because I usually don't want it.
+alias_append df '-x squashfs -x overlay -x tmpfs -x devtmpfs'
 
 #
 # Docker

@@ -1,77 +1,79 @@
 # this configuration file is suitable for displaying monolog log files
 # this is date
 regexp=^\[(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})\]
-colours=default, blue, red, default
+#regexp=^\[(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})\] (\w+\.)
+#regexp=(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})\] (\w+)
+colours=default, blue, red
 count=once
 =====
 # this is a log message with its level
-regexp=(\w+\.EMERGENCY\:.*)(?:{|at)
+regexp=(\w+\.EMERGENCY\:.*?(?= {| at | \[))
 colours=default, blink beep bold red
 count=once
 =====
 # this is a log message with its level
-regexp=(\w+\.ALERT\:.*)(?:{|at)
+regexp=(\w+\.ALERT\:.*?(?= {| at | \[))
 colours=default, blink beep bold red
 count=once
 =====
 # this is a log message with its level
-regexp=(\w+\.CRITICAL\:.*)(?:{|at)
+regexp=(\w+\.CRITICAL\:.*?(?= {| at | \[))
 colours=default, blink beep bold red
 count=once
 =====
 # this is a log message with its level
-regexp=(\w+\.ERROR\:.*)(?:{|at)
+regexp=(\w+\.ERROR\:.*?(?= {| at | \[))
 colours=default, bold red
 count=once
 ======
 # this is a log message with its level
-regexp=(\w+\.WARNING\:.*)(?:{|at)
+regexp=(\w+\.WARNING\:.*?(?= {| at | \[))
 colours=default, yellow
 count=once
 ======
 # this is a log message with its level
-regexp=(\w+\.NOTICE\:.*)(?:{|at)
+regexp=(\w+\.NOTICE\:.*?(?= {| at | \[))
 colours=default, magenta
 count=once
 ======
 # this is a log message with its level
-regexp=(\w+\.INFO\:.*)(?:{|at)
+regexp=(\w+\.INFO\:.*?(?= {| at | \[))
 colours=default, blue
 count=once
 ======
 # this is a log message with its level
-regexp=(\w+\.DEBUG\:.*)(?:{|at)
+regexp=(\w+\.DEBUG\:.*?(?= {| at | \[))
 # dark gray
 colours=default, "\033[1;30m"
 count=once
 ======
 # A pathname
-regexp=\/[\w\/\.]+
-colours=underline dark magenta
-count=more
-======
+#regexp=\/[\w\/\.]+
+#colours=underline dark magenta
+#count=more
+#======
 # A php file name and optional line number
 regexp=(\w+.php(\(\d+\))?)
 colours=bold underline magenta
 count=more
 ======
 # A namespace
-regexp=((?:\\{1,2}\w+|\w+\\{1,2})(?:\w+\\{0,2})+)
-colours=underline dark magenta
-count=more
-======
+#regexp=((?:\\{1,2}\w+|\w+\\{1,2})(?:\w+\\{0,2})+)
+#colours=underline dark magenta
+#count=more
+#======
 # A method after the class name
-regexp=(\->\w+\((.*)+\))
+regexp=(\->(\w+\..*)+\))
 colours=bold underline magenta
 count=more
 ======
 # Full path of a file where an error has occurred
-regexp=at.*?(\w+.php(?:\:\d+)?)
+regexp=at .*?(\w+.php(?:\:\d+)?)
 colours=underline dark red, underline bold red
 count=more
 =======
 # Information about the exception
-regexp=({"exception":.*(?:at))
+regexp=({"exception":.*(?:at ))
 colours=italic default
 count=more
 ======
@@ -85,56 +87,13 @@ regexp=^#\d+
 colours=blue
 count=once
 ======
-# non important characters
-regexp=(\[internal function\]|{main}|\[\])
+# stacktrace text
+regexp=^#\d+(.*)
 colours="\033[1;30m"
-count=more
-
-
-
-
-
-###############
-======
-regexp=(PHP )?Stack trace:
-colours=on_green
 count=once
 ======
-regexp=] PHP [ \d]{2}\d\.
-colours=on_green
-count=once
-======
-# display this line in yellow and stop further processing
-regexp=.*last message repeated \d+ times$
-colours=yellow
-count=stop
-======
-# everything in parentheses
-#regexp=\(.+?\)
-#colours=green
+# non important characters
+#regexp=(\[internal function\]|{main}|\[\])
+#colours="\033[1;30m"
 #count=more
-#======
-# everything in `'
-regexp=\`.+?\'
-colours=bold yellow
-count=more
-======
 
-# name of process and pid
-regexp=([\w/\.\-]+)(\[\d+?\])
-colours=bold blue, bold red
-count=more
-======
-# ip number
-regexp=\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}
-colours=bold magenta
-count=more
-======
-# connect requires special attention
-regexp=connect
-colours=on_red
-count=more
-======
-regexp=^\[
-colours=default
-count=unblock

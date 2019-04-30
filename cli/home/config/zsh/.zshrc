@@ -81,6 +81,15 @@ fi
 #source "${POWERLESS}/utilities.zsh" true
 #unset POWERLESS
 
+#FZF_INSTALL="${XDG_CACHE_HOME}/fzf"
+#if [[ ! -e "${FZF_INSTALL}/install" ]]; then
+	#echo "Installing fzf"
+        ##curl -sSL https://raw.githubusercontent.com/junegunn/fzf/master/install -o /usr/local/fzf-install
+	##bash /usr/local/fzf-install --bin
+	#git clone --depth=1 https://github.com/junegunn/fzf.git "${FZF_INSTALL}"
+#fi
+#unset FZF_INSTALL
+
 #fpath=( "$XDG_CACHE_HOME/zsh/functions" $fpath )
 #if [[ ! -e "${XDG_CACHE_HOME}/zsh/functions/docker-custom.zsh" ]]; then
 	#echo "Installing docker-completions"
