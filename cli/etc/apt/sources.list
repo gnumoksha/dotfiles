@@ -11,18 +11,18 @@ deb http://deb.debian.org/debian/ testing main contrib non-free
 
 # Security updates as recommended by https://wiki.debian.org/Status/Testing
 deb http://security.debian.org testing/updates main contrib non-free
-#deb-src http://security.debian.org testing/updates main contrib non-free
+# deb-src http://security.debian.org testing/updates main contrib non-free
 
 # Debian unstable (Sid) - in case I need more recent software.
 deb http://deb.debian.org/debian/ unstable main contrib non-free
-#deb-src http://deb.debian.org/debian/ unstable main contrib non-free
+# deb-src http://deb.debian.org/debian/ unstable main contrib non-free
 
 # Debian Stable - just in case I need more stable software.
 deb http://deb.debian.org/debian/ stable main contrib non-free
-#deb-src http://deb.debian.org/debian/ stable main contrib non-free
+# deb-src http://deb.debian.org/debian/ stable main contrib non-free
 
 # Work-in-progress ports to other architectures.
-#deb http://ftp.ports.debian.org/debian-ports/ sid main
+# deb http://ftp.ports.debian.org/debian-ports/ sid main
 
 # O pacote distro-info-data armazena informacoes das versoes das distros em:
 # /usr/share/distro-info/{debian,ubuntu}.csv

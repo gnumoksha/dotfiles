@@ -1,2 +1,2 @@
-#deb http://ppa.launchpad.net/bookworm-team/bookworm/ubuntu disco main
+# deb http://ppa.launchpad.net/bookworm-team/bookworm/ubuntu disco main
 # deb-src http://ppa.launchpad.net/bookworm-team/bookworm/ubuntu disco main
