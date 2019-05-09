@@ -65,6 +65,12 @@ unset ZSH_SYNTAX_HIGHLIGHTING
 if [[ ! -e "/usr/local/bin/git-extras" ]]; then
     echo "Installing git-extras"
     curl -sSL http://git.io/git-extras-setup | sudo bash /dev/stdin
+    curl -sSL https://raw.githubusercontent.com/tj/git-extras/master/etc/git-extras-completion.zsh -o $XDG_CACHE_HOME/git-extras-completion.zsh
+fi
+source $XDG_CACHE_HOME/git-extras-completion.zsh
+
+if [[ ! -e /usr/local/bin/git-open ]]; then
+    curl -sSL https://raw.githubusercontent.com/paulirish/git-open/master/git-open -o /usr/local/bin/git-open
 fi
 
 if [[ ! -e "${ZSH_CUSTOM}/themes/powerlevel10k/prompt_powerlevel10k_setup" ]]; then
