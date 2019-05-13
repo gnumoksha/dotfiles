@@ -36,10 +36,13 @@ alias git-checkout="gcf"
 alias git-clean="gclan"
 alias git-ignore="git"
 
-# Copy to clipbox (Xorg)
-alias cpx='xclip -sel clip'
+# Copy buffer to the Xorg's clipboard.
+alias cpb='xclip -sel clip'
 # Copy the current path to the clipboard.
-cpd() { print -n $PWD | cpx; }
+cpd() { print -n $PWD | cpb; }
+
+# Change to the file's directory
+cdf() { cd $(basename $1) }
 
 # Returns the path x times
 # Example:
@@ -47,7 +50,7 @@ cpd() { print -n $PWD | cpx; }
 #bombadil:/tmp$
 cdback() { for i in $(seq 0 $1); do cd ../; done }
 
-# cd and ls
+# Execute cd and ls
 cdls() { cd "$@" && ls; }; alias cs='cdls'
 
 # Hide zsh right prompt. Useful when copying text.

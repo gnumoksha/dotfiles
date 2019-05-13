@@ -3,6 +3,9 @@
 " for development purposes
 "
 
+" This file uses fold. In order to work with it you can use:
+" zo, zO, zc, zC, za, zA
+
 if has('nvim')
   let g:VIM_CONFIG_HOME = $XDG_CONFIG_HOME . "/nvim"
   let g:VIM_CACHE_HOME  = $XDG_CACHE_HOME . "/nvim"
@@ -44,6 +47,13 @@ if has('gui_running')
   runtime gvimrc
 endif
 
+" enable timeout for key sequence or keyboard code
+set timeout
+" The time in milliseconds that is waited for a key code or mapped key
+" sequence to complete
+set timeoutlen=500
+"set lazyredraw
+
 
 "|
 "| Load plugins
@@ -69,6 +79,7 @@ call plug#begin(g:VIM_PLUG_HOME)
   " CtrlPMixed seems nice
   "Plug 'ctrlpvim/ctrlp.vim' " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
   Plug 'junegunn/fzf', { 'dir': '~/.cache/fzf', 'do': './install --no-bash --no-zsh --no-fish' } " A command-line fuzzy finder.
+  Plug 'junegunn/fzf.vim' " complete vim plugin for fzf
   Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
   " Automatically adjusts 'shiftwidth' and 'expandtab' heuristically.
   Plug 'tpope/vim-sleuth'
@@ -102,7 +113,7 @@ call plug#begin(g:VIM_PLUG_HOME)
   "{{{
   " lean & mean status/tabline for vim that's light as air.
   Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
-  " Distraction-free writing in Vim .
+  "" Distraction-free writing in Vim .
   Plug 'junegunn/goyo.vim' | Plug 'junegunn/limelight.vim'
   " Adds file type glyphs/icons to popular Vim plugins.
   Plug 'ryanoasis/vim-devicons'
@@ -131,16 +142,17 @@ call plug#begin(g:VIM_PLUG_HOME)
   "Plug 'bronson/vim-trailing-whitespace'
   Plug 'w0rp/ale' " Asynchronous Lint Engine.
   Plug 'ntpeters/vim-better-whitespace', {'for': g:MY_PROGRAMMING_LANGUAGES}
-  Plug 'scrooloose/nerdcommenter' " Vim plugin for intensely orgasmic commenting.
+  "Plug 'scrooloose/nerdcommenter', {'on': ['NERDComComment', 'NERDComToggleComment']} "  Vim plugin for intensely orgasmic commenting.
+  Plug 'scrooloose/nerdcommenter'
   Plug 'Yggdroot/indentLine' " Display the indention levels with thin vertical lines.
-  Plug 'junegunn/vim-easy-align' " A Vim alignment plugin. # TODO estudar
+  "Plug 'junegunn/vim-easy-align' " A Vim alignment plugin. # TODO study
   "Plug 'tpope/vim-surround' " Quoting/parenthesizing made simple. # TODO conferir se preciso ou se o outro plugin é melhor
-  Plug 'SirVer/ultisnips', {'for': g:MY_PROGRAMMING_LANGUAGES} " The ultimate snippet solution for Vim.
-    Plug 'honza/vim-snippets', {'for': g:MY_PROGRAMMING_LANGUAGES} " Snippets files for various programming languages.
+  "Plug 'SirVer/ultisnips', {'for': g:MY_PROGRAMMING_LANGUAGES} " The ultimate snippet solution for Vim.
+    "Plug 'honza/vim-snippets', {'for': g:MY_PROGRAMMING_LANGUAGES} " Snippets files for various programming languages.
   "Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab.
   Plug 'ludovicchabant/vim-gutentags', {'for': g:MY_PROGRAMMING_LANGUAGES} " A Vim plugin that manages your tag files.
-  Plug 'majutsushi/tagbar' " Displays tags in a window, ordered by scope.
-  Plug 'lvht/tagbar-markdown' " vim-tagbar extension for markdown.
+  Plug 'majutsushi/tagbar', {'on': ['Tagbar', 'TagbarToggle']} " Displays tags in a window, ordered by scope.
+  Plug 'lvht/tagbar-markdown', {'on': ['Tagbar', 'TagbarToggle'], 'for': 'markdown'} " vim-tagbar extension for markdown.
   "Plug 'tpope/vim-dadbod', {'on': 'DB'} " dadbod.vim: Modern database interface for Vim
 
   " A code-completion engine for Vim.
@@ -218,6 +230,7 @@ call plug#begin(g:VIM_PLUG_HOME)
   " Color schemes
   " and icons
   """""""""""""""""""
+  " {{{
   "Plug 'godlygeek/csapprox' " (old: vim-scripts/CSApprox) Make gvim-only colorschemes work transparently in terminal vim.
   Plug 'tomasr/molokai' " Molokai color scheme for Vim.
   "Plug 'junegunn/seoul256.vim' " Low-contrast Vim color scheme based on Seoul Colors.
@@ -228,6 +241,7 @@ call plug#begin(g:VIM_PLUG_HOME)
   Plug 'romainl/Apprentice' " A dark, low-contrast, Vim colorscheme.
   "Plug 'rakr/vim-one' " Adaptation of one-light and one-dark colorschemes for Vim.
   Plug 'morhetz/gruvbox' " Retro groove color scheme for Vim.
+  "}}}
 
   """""""""""""""""""
   " Misc
@@ -373,14 +387,52 @@ nnoremap <F4> :UndotreeToggle<cr>
 "endfunction
 let g:airline_powerline_fonts = 1
 " Nice themes: molokai, powerlineish, tomorrow, base16, angr
-let s:airline_themes = ['molokai', 'powerlineish', 'tomorrow', 'base16', 'angr']
-let g:airline_theme = 'tomorrow'
+"let s:airline_themes = ['molokai', 'powerlineish', 'tomorrow', 'base16', 'angr']
 "let g:airline_theme = s:airline_themes[s:randnum(5)]
-let g:airline#extensions#tabline#enabled = 1 " Automatically displays all buffers when there's only one tab open.
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_theme = 'molokai'
+"if !exists('g:airline_symbols')
+  "let g:airline_symbols = {}
+"endif
+"let g:airline_symbols.spell = 'Ꞩ'
+
+let g:airline_right_sep = '◀'
+let g:airline_left_sep = '▶'
+" Tabline seperators
+let g:airline#extensions#tabline#left_sep = '▶'
+let g:airline#extensions#tabline#right_sep = '◀'
+"let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+let g:airline#extensions#tabline#enabled = 1 " Automatically displays all buffers when there's only one tab open.
+" enable/disable displaying buffers with a single tab.
+let g:airline#extensions#tabline#show_buffers = 0
+" configure whether buffer numbers should be shown.
+let g:airline#extensions#tabline#buffer_nr_show = 1
+
+let g:airline#extensions#tabline#show_tabs = 1
+
+" enable/disable displaying tab number in tabs mode.
+let g:airline#extensions#tabline#show_tab_nr = 0
+
+" configure whether close button should be shown
+let g:airline#extensions#tabline#show_close_button = 0
+
+
+" Branch {
 let g:airline#extensions#branch#enabled = 1
+" truncate long branch names to a fixed length
+let g:airline#extensions#branch#displayed_head_limit = 10
+" change the text for when no branch is detected
+let g:airline#extensions#branch#empty_message = ''
+" to truncate all path sections but the last one, e.g. a branch
+let g:airline#extensions#branch#format = 1
+" }
+
+" Bufferline {
+" enable/disable bufferline integration
+let g:airline#extensions#bufferline#enabled = 0
+" }
+
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#languageclient#enabled = 1
@@ -466,8 +518,13 @@ let g:airline#extensions#ale#enabled = 1 " enable support for w0rp/ale in vimair
 "}}}
 
 " scrooloose/nerdcommenter {{{
-imap <C-/> <plug>NERDCommenterInsert
-imap <C-f> <plug>NERDCommenterToggle
+" C-_ is control+/
+nmap <C-_>   <Plug>NERDCommenterToggle
+vmap <C-_>   <Plug>NERDCommenterToggle<CR>gv
+" restore the lost useful mapping
+map <leader>c<space>  <plug>NERDCommenterToggle
+"imap <C-_>    <C-\><C-O> :NERDCommenterToggle<CR>
+"imap <C-_> <ESC> :NERDCommenterToggle <CR>
 "}}}
 
 " Yggdroot/indentLine {{{
@@ -751,6 +808,7 @@ set mousemodel=popup_setpos
 "|
 "| Screen-related configurations
 "|
+"set foldenable foldlevel=0 " did not work
 "{{{
 syntax on
 set number " shows line number
@@ -876,20 +934,11 @@ endif
 
 
 "|
-"| Keys mapping for built-in vim features  
+"| Keys mapping for built-in vim features
 "|
 " Keys mapping for plugins is in plugins section
 "{{{
-" The idea with this function is to be like a complete refresh of vim.
-if !exists('*MyReload')
-  function! MyReload()
-    echom "Reloading VIM..."
-    source $VIMRC " Reload vimrc
-    filetype detect " force file type detection
-    echom "VIM reloaded."
-  endfunction
-endif
-"nnoremap <F5> :call MyReload()<CR>
+" Reload vimrc.
 nnoremap <F5> :so ~/.config/vim/vimrc<CR>
 
 " Leader key
@@ -899,8 +948,12 @@ nnoremap <F5> :so ~/.config/vim/vimrc<CR>
 map <space> <leader>
 map <space><space> <leader><leader>
 
-"Ao inves de usar : use ; que nao precisa do shift
+" Map ; to : in order to avoid shift use.
 nnoremap ; :
+
+" exit insert mode with kj
+inoremap kj <ESC>
+"set timeoutlen=1000 ttimeoutlen=0
 
 " Avoid some common mistakes
 cnoreabbrev W! w!
@@ -1013,4 +1066,8 @@ endfunction
 noremap <expr> <silent> <Home> SmartHome()
 imap <silent> <Home> <C-O><Home>
 "}}}
+
+"}}}
+
+" vim: foldenable foldmethod=marker foldlevel=0
 

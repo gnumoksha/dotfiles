@@ -1,28 +1,11 @@
-############################
-#                          #
-#    GIT configurations    #
-#                          #
-############################
-
-# git config --global branch.autoSetupMerge always
-# export GIT_{AUTHOR,COMMITTER}_DATE="2018-05-05 12:13:14"
+#|
+#| GIT settings
+#|
 
 [user]
 	name = Tobias Sette
 	email = me@tobias.ws
 	signingkey = 0xE724F606EFFF66F7
-
-[github]
-	user = gnumoksha
-
-[credential "https://github.com"]
-	username = gnumoksha
-
-[credential "https://gitlab.com"]
-	username = gnumoksha
-
-[credential]
-	helper = cache --timeout=300
 
 [core]
 	# Habilitar isso em sistemas nao case sensitive
@@ -37,8 +20,18 @@
 	safecrlf = warn
 	pager = diff-so-fancy | less --tabs=4 -RFX
 
+[commit]
+	gpgsign = true
+	template = ~/.config/git/templates/commit.txt
+
+[credential]
+	username = gnumoksha
+	helper = cache --timeout=300
+	
+[github]
+	user = gnumoksha
+
 [color]
-	# [4]
 	diff = auto
 	grep = auto
 	interactive = auto
@@ -46,12 +39,6 @@
 	branch = auto
 	status = auto
 	ui = true
-
-# or by repository with:
-# git config commit.gpgsign true
-[commit]
-	gpgsign = true
-	template = ~/.config/git/templates/commit.txt
 
 [diff]
 	# [0] [1] [2] [3]
@@ -81,7 +68,6 @@
 	whitespace = red reverse
 
 [merge]
-	# [5]
 	tool = vimdiff
 	keepBackup = false
 	conflictstyle = diff3
@@ -125,6 +111,29 @@
 
 [log]
 	date = iso
+
+[svn]
+	rmdir = true
+
+[cola]
+	spellcheck = true
+	blameviewer = git gui blame
+
+[instaweb]
+	browser = firefox
+
+[web]
+	browser = firefox
+
+[fetch]
+	prune = true # false if remote name?
+	;pruneTags = true
+
+;[branch]
+	;autoSetupMerge = always
+	
+[tar "tar.xz"]
+	command = xz -c
 
 [alias]
 	ad = add -p
@@ -171,7 +180,6 @@
 
 	#diff-commit = show --color --pretty=format:%b
 
-	# [10]
 	showtool = "!showci () { rev=$(git rev-parse \"${*:-HEAD}\"); git difftool $rev~1 $rev; }; showci"
 
 	# https://stackoverflow.com/questions/2016901/viewing-unpushed-git-commits
@@ -201,45 +209,9 @@
 	# Usage git commit at "2018-02-20 08:50:00
 	abc = !echo "$1"
 	commit-at = !export GIT_{AUTHOR,COMMITTER}_DATE="2018-05-05 12:13:14" && git co
-[svn]
-	# [7]
-	rmdir = true
 
-[cola]
-	spellcheck = true
-	blameviewer = git gui blame
+#|
+#| References
+#|
+# man git-config
 
-[instaweb]
-	browser = firefox
-
-[web]
-	browser = firefox
-
-[fetch]
-	prune = true # false if remote name?
-	;pruneTags = true
-
-;[branch]
-	;autoSetupMerge = always
-[tar "tar.xz"]
-	command = xz -c
-
-############################
-#                          #
-#         Referências      #
-#                          #
-############################
-# [0] http://mycomputeradventures.blogspot.com.br/2012/08/git-external-diff-merge-tools_30.html
-# [1] http://technotales.wordpress.com/2009/05/17/git-diff-with-vimdiff/
-# [2] http://jeetworks.org/node/90
-# [3] http://stackoverflow.com/questions/255202/how-do-i-view-git-diff-output-with-a-visual-diff-program
-# [4] http://fellipe.com/blog/definindo-configuracoes-do-gitconfig-apos-a-instalacao-do-git/
-# [5] http://meldmerge.org/help/resolving-conflicts.html
-# [6] https://github.com/sdball/dotfiles/blob/master/.gitconfig
-# [7] https://git.wiki.kernel.org/index.php/Git-svn
-# [8] https://githowto.com/aliases
-# [9] https://git-scm.com/book/tr/v2/Git-Basics-Git-Aliases
-# [10] http://stackoverflow.com/questions/17558221/how-can-i-view-the-output-of-git-show-in-a-diff-viewer-like-meld-kdiff3-etc
-# [11] https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_formatting_and_whitespace
-
-#EOF

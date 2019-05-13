@@ -54,12 +54,12 @@ sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
         --ansi --preview="git log -200 --pretty=format:%s $(echo {+2..} |  sed 's/$/../' )" ) || return
   git checkout $(echo "$target" | awk '{print $2}')
 }
-# change to the directory of the file
-cdf() {
-   local file
-   local dir
-   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
-}
+# change to the directory of the file (is not working on zsh)
+#cdf() {
+   #local file
+   #local dir
+   #file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+#}
 
 # inspired by https://gist.github.com/f440/9992963
 fzf-pass-widget() {
