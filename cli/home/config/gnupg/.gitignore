@@ -4,4 +4,4 @@ pubring.kbx
 tofu.db
 trustdb.gpg
 crls.d/
-
+random_seed

@@ -100,6 +100,7 @@
 	# push the current branch to update a branch with the same name on the receiving end. Works in both
 	# central and non-central workflows.
 	default = current
+	#default = matching
 
 	# If set to true enable --follow-tags option by default, wich means push all the refs that would be pushed
 	# without this option, and also push annotated tags in refs/tags that are missing from the remote but are
@@ -209,6 +210,15 @@
 	# Usage git commit at "2018-02-20 08:50:00
 	abc = !echo "$1"
 	commit-at = !export GIT_{AUTHOR,COMMITTER}_DATE="2018-05-05 12:13:14" && git co
+
+	#update = add -u .
+	#unstage = reset HEAD
+	#untracked = status -u .
+	#untracked-at = status -u
+	#assume-unchanged = update-index --assume-unchanged
+	#ls = ls-files
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %C(dim white)(%an)%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	lg2 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 
 #|
 #| References
