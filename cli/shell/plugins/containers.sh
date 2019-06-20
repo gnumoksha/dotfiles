@@ -16,6 +16,7 @@ alias_append df '-x squashfs -x overlay -x tmpfs -x devtmpfs'
 #
 alias dck='docker'
 alias dcompose='docker-compose'
+alias dlog='docker-compose logs --tail=5 -f'
 # I do not want to remove volumes automatically
 alias docker-clean="docker container prune -f && docker image prune -a -f"
 # show only hardware interfaces
