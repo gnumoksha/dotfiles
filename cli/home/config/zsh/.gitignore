@@ -1,2 +1,4 @@
 /.zsh_history
 /.zcompdump*
+/plugins/oh-my-zsh/custom/themes/powerlevel10k/
+/plugins/oh-my-zsh/custom/themes/alien-minimal/

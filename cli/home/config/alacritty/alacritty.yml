@@ -1,9 +1,9 @@
 #|
 #| Problems with Alacritty
 #|
-# - vim cursor
+# - no vim cursor
 # - no blinking text
-# - maximized
+# - maximized screen does not work
 # - .deb only for ubuntu
 
 # Configuration for Alacritty, the GPU enhanced terminal emulator.

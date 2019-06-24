@@ -11,9 +11,9 @@ TMUX_SESSION_NAME=${TMUX_SESSION_NAME:=TMUX}
 
 if [[ ! -z "$TMUX" ]]; then
 	# Shell is already running inside tmux.
-	if [[ ! -e "$XDG_CONFIG_HOME"/tmux/plugins/tpm ]]; then
+	if [[ ! -e "$XDG_CACHE_HOME"/tmux/plugins/tpm ]]; then
 		echo "Installing Tmux Plugin Manager (TPM) since it is not installed."
-		git clone --depth=1 https://github.com/tmux-plugins/tpm "$XDG_CONFIG_HOME"/tmux/plugins/tpm
+		git clone --depth=1 https://github.com/tmux-plugins/tpm "$XDG_CACHE_HOME"/tmux/plugins/tpm
 	fi
 
 	return

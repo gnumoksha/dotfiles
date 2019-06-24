@@ -19,11 +19,14 @@ fi
 # Nice simple themes: risto, gentoo, gianu, alanpeabody, daveverwer,
 # dieter, maran, miloshadzic, wezm
 # avit (slow), candy
-ZSH_THEME="gnumoksha"
+#ZSH_THEME="gnumoksha"
 # https://github.com/robobenklein/zinc
 # https://github.com/chauncey-garrett/zsh-prompt-garrett (can be customized?)
 #ZSH_THEME=powerlevel10k/powerlevel10k
 #ZSH_THEME=""
+# TODO create a theme based on https://github.com/agkozak/agkozak-zsh-prompt
+# and https://eendroroy.github.io/alien-minimal/
+ZSH_THEME="alien-minimal/alien-minimal"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
