@@ -3,22 +3,22 @@
 regexp=^\[(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})\]
 #regexp=^\[(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})\] (\w+\.)
 #regexp=(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})\] (\w+)
-colours=default, blue, red
+colours=default, blue, green
 count=once
 =====
 # this is a log message with its level
 regexp=(\w+\.EMERGENCY\:.*?(?= {| at | \[))
-colours=default, blink beep bold red
+colours=default, beep bold red
 count=once
 =====
 # this is a log message with its level
 regexp=(\w+\.ALERT\:.*?(?= {| at | \[))
-colours=default, blink beep bold red
+colours=default, beep bold red
 count=once
 =====
 # this is a log message with its level
 regexp=(\w+\.CRITICAL\:.*?(?= {| at | \[))
-colours=default, blink beep bold red
+colours=default, beep bold red
 count=once
 =====
 # this is a log message with its level
@@ -44,7 +44,8 @@ count=once
 # this is a log message with its level
 regexp=(\w+\.DEBUG\:.*?(?= {| at | \[))
 # dark gray
-colours=default, "\033[1;30m"
+#colours="\033[1;30m", on_black
+colours=on_black
 count=once
 ======
 # A pathname
@@ -89,7 +90,8 @@ count=once
 ======
 # stacktrace text
 regexp=^#\d+(.*)
-colours="\033[1;30m"
+#colours="\033[1;30m"
+colours=default
 count=once
 ======
 # non important characters

@@ -29,8 +29,8 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern root)
 # Declare the variable
 typeset -A ZSH_HIGHLIGHT_STYLES
 typeset -A ZSH_HIGHLIGHT_PATTERNS
-# To have paths colored instead of underlined
-ZSH_HIGHLIGHT_STYLES[path]='fg=yellow,bold'
-# To have commands starting with `rm -rf` in red:
+# Paths colored instead of underlined
+ZSH_HIGHLIGHT_STYLES[path]='fg=green'
+# Commands starting with `rm -rf` in red:
 ZSH_HIGHLIGHT_PATTERNS+=('rm -[rR]f *' 'fg=white,bold,bg=red')
 
