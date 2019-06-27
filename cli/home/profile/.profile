@@ -1,8 +1,16 @@
-#
-# User-specific configuration loaded whith the user session.
-#
-# Please, note that if this script fails the GDM will not load the session.
-#
+# ~/.profile: executed by the command interpreter for login shells.
+# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
+# exists.
+# see /usr/share/doc/bash/examples/startup-files for examples.
+# the files are located in the bash-doc package.
+
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
+
+# Please, note that if this script fails to execute then GDM will not
+# load the session.
+
 # https://www.debian.org/doc/manuals/debian-reference/ch07.en.html#_starting_the_x_window_system
 # https://en.wikipedia.org/wiki/Unix_shell#Configuration_files
 
@@ -29,15 +37,15 @@ hash -d DOTFILES="$DOTFILES"
 if [ -n "$DISPLAY" ]; then
   export EDITOR=vim
   export VISUAL=gvim
-  export BROWSER=firefox
+  #export BROWSER=firefox
 else
   export EDITOR=vim
   export VISUAL=vim
-  export BROWSER=links
+  #export BROWSER=links
 fi
 
-# Debian root binaries
-PATH="$PATH:/sbin"
+# Add root stuff into the PATH
+PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
 
 #
 # Golang
@@ -73,6 +81,16 @@ PATH="$PATH:$CARGO_HOME/bin"
 # finally export the path
 export PATH
 
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+	# include .bashrc if it exists
+	if [ -f "$HOME/.bashrc" ]; then
+		. "$HOME/.bashrc"
+	fi
+fi
+
+# Create a named temporary directory for my personal use.
+mkdir /tmp/t
 
 if [[ $(id -u) == 0 ]]; then
   # From Debian's /root/.profile
