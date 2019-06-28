@@ -13,7 +13,12 @@ if [[ ! -z "$TMUX" ]]; then
 	# Shell is already running inside tmux.
 	if [[ ! -e "$XDG_CACHE_HOME"/tmux/plugins/tpm ]]; then
 		echo "Installing Tmux Plugin Manager (TPM) since it is not installed."
-		git clone --depth=1 https://github.com/tmux-plugins/tpm "$XDG_CACHE_HOME"/tmux/plugins/tpm
+		git clone \
+			--depth=1 \
+			--quiet \
+			https://github.com/tmux-plugins/tpm \
+			"$XDG_CACHE_HOME"/tmux/plugins/tpm && \
+		"$XDG_CACHE_HOME"/tmux/plugins/tpm/bin/install_plugins
 	fi
 
 	return
