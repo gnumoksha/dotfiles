@@ -2,14 +2,52 @@
 # Manually install some plugins
 #
 
-ZSH_SYNTAX_HIGHLIGHTING="${XDG_CACHE_HOME}/zsh/zsh-syntax-highlighting"
-if [[ ! -e "${ZSH_SYNTAX_HIGHLIGHTING}/zsh-syntax-highlighting.zsh" ]]; then
-	echo "Installing zsh-syntax-highlighting"
-	git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_SYNTAX_HIGHLIGHTING}"
-fi
-# Must be sourced at the end of the .zshrc
-source "${ZSH_SYNTAX_HIGHLIGHTING}/zsh-syntax-highlighting.zsh"
-unset ZSH_SYNTAX_HIGHLIGHTING
+minstall() {
+    local REPO=${1:-}
+    local DST=${2:-}
+    local EXEC_AFTER=${3:-}
+    local EXEC_ALWAYS=${4:-}
+
+    local PKG_NAME=$(basename $REPO)
+
+    if [[ -z "${DST}" ]]; then
+	DST="${XDG_CACHE_HOME}/manually-installed/${PKG_NAME}"
+    fi
+
+    if [[ ! -a "${DST}" ]]; then
+	echo "Installing $PKG_NAME"
+	git clone --depth=1 --recurse-submodules --quiet "${REPO}" "${DST}"
+
+	if [[ ! -z "${EXEC_AFTER}" ]]; then
+	    cd "${DST}"
+	    echo " -> Executing $EXEC_AFTER"
+	    eval "${EXEC_AFTER}"
+	fi
+    fi
+
+    if [[ ! -z "${EXEC_ALWAYS}" ]]; then
+	cd "${DST}"
+	if [[ "${EXEC_ALWAYS}" == "plug" ]]; then
+	    source "${PKG_NAME}.plugin.zsh"
+	else
+	    eval "${EXEC_ALWAYS}"
+	fi
+    fi
+}
+
+#|
+#| Themes
+#|
+
+minstall "https://github.com/romkatv/powerlevel10k.git" "${ZSH_CUSTOM}/themes/powerlevel10k"
+
+#minstall "https://github.com/martinrotter/powerless.git" "" "" "ssource ${POWERLESS}/powerless.zsh false && source ${POWERLESS}/utilities.zsh true"
+
+minstall "https://github.com/eendroroy/alien-minimal.git" "${ZSH_CUSTOM}/themes/alien-minimal" "" "source $ZDOTDIR/themes/alien-minimal.zsh"
+
+#|
+#| Tools
+#|
 
 if [[ ! -e "/usr/local/bin/git-extras" || ! -e "$XDG_CACHE_HOME/git-extras-completion.zsh" ]]; then
     echo "Installing git-extras"
@@ -18,32 +56,12 @@ if [[ ! -e "/usr/local/bin/git-extras" || ! -e "$XDG_CACHE_HOME/git-extras-compl
 fi
 source $XDG_CACHE_HOME/git-extras-completion.zsh
 
-if [[ ! -e /usr/local/bin/git-open ]]; then
-    curl -sSL https://raw.githubusercontent.com/paulirish/git-open/master/git-open -o /usr/local/bin/git-open
-fi
+minstall "https://github.com/paulirish/git-open" "" "cp git-open /usr/local/bin/git-open"
 
-if [[ ! -e "${ZSH_CUSTOM}/themes/powerlevel10k/prompt_powerlevel10k_setup" ]]; then
-    echo "Installing powerlevel 10k"
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM}/themes/powerlevel10k"
-fi
+minstall "https://github.com/junegunn/fzf" "" "./install --bin && mv ./bin/fzf /usr/local/bin/fzf" "cd shell/ && source completion.zsh && source key-bindings.zsh"
 
-POWERLESS="${XDG_CACHE_HOME}/zsh/powerless"
-if [[ ! -e "${POWERLESS}/powerless.zsh" ]]; then
-	echo "Installing powerless theme"
-	git clone --depth=1 https://github.com/martinrotter/powerless.git "${POWERLESS}"
-fi
-#source "${POWERLESS}/powerless.zsh" false
-#source "${POWERLESS}/utilities.zsh" true
-#unset POWERLESS
-
-#FZF_INSTALL="${XDG_CACHE_HOME}/fzf"
-#if [[ ! -e "${FZF_INSTALL}/install" ]]; then
-	#echo "Installing fzf"
-        ##curl -sSL https://raw.githubusercontent.com/junegunn/fzf/master/install -o /usr/local/fzf-install
-	##bash /usr/local/fzf-install --bin
-	#git clone --depth=1 https://github.com/junegunn/fzf.git "${FZF_INSTALL}"
-#fi
-#unset FZF_INSTALL
+# Must be sourced at the end of the .zshrc
+minstall "https://github.com/zsh-users/zsh-syntax-highlighting" "" "" "plug"
 
 #fpath=( "$XDG_CACHE_HOME/zsh/functions" $fpath )
 #if [[ ! -e "${XDG_CACHE_HOME}/zsh/functions/docker-custom.zsh" ]]; then
@@ -52,8 +70,3 @@ fi
 	#curl https://raw.githubusercontent.com/docker/compose/master/contrib/completion/zsh/_docker-compose -o $XDG_CACHE_HOME/zsh/functions/docker-compose.zsh
 #fi
 
-if [[ ! -e "${ZSH_CUSTOM}/themes/alien-minimal" ]]; then
-	echo "Installing prompt 'alien minimal'"
-	git clone --depth=1 --recurse-submodules https://github.com/eendroroy/alien-minimal.git ${ZSH_CUSTOM}/themes/alien-minimal
-fi
-source $ZDOTDIR/themes/alien-minimal.zsh
