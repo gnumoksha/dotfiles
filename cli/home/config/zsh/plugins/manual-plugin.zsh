@@ -14,25 +14,28 @@ minstall() {
 	DST="${XDG_CACHE_HOME}/manually-installed/${PKG_NAME}"
     fi
 
+    pushd -q "${DST}"
+
     if [[ ! -a "${DST}" ]]; then
 	echo "Installing $PKG_NAME"
 	git clone --depth=1 --recurse-submodules --quiet "${REPO}" "${DST}"
 
 	if [[ ! -z "${EXEC_AFTER}" ]]; then
-	    cd "${DST}"
 	    echo " -> Executing $EXEC_AFTER"
 	    eval "${EXEC_AFTER}"
+	    popd -q
 	fi
     fi
 
     if [[ ! -z "${EXEC_ALWAYS}" ]]; then
-	cd "${DST}"
 	if [[ "${EXEC_ALWAYS}" == "plug" ]]; then
 	    source "${PKG_NAME}.plugin.zsh"
 	else
 	    eval "${EXEC_ALWAYS}"
 	fi
     fi
+    
+    popd -q
 }
 
 #|
@@ -58,7 +61,7 @@ source $XDG_CACHE_HOME/git-extras-completion.zsh
 
 minstall "https://github.com/paulirish/git-open" "" "cp git-open /usr/local/bin/git-open"
 
-minstall "https://github.com/junegunn/fzf" "" "./install --bin && mv ./bin/fzf /usr/local/bin/fzf" "cd shell/ && source completion.zsh && source key-bindings.zsh"
+minstall "https://github.com/junegunn/fzf" "" "./install --bin && mv ./bin/fzf /usr/local/bin/fzf" "source shell/completion.zsh && source shell/key-bindings.zsh"
 
 # Must be sourced at the end of the .zshrc
 minstall "https://github.com/zsh-users/zsh-syntax-highlighting" "" "" "plug"
