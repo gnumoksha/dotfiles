@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2012,SC2116,SC2045,SC2004,SC2086,SC2086
 
 show_cowsay_fortune () {
 	# Show fortune messages with a random cowsay character.
@@ -12,14 +14,14 @@ show_cowsay_fortune () {
 	if [[ ! -z $procura ]]; then
 		return 0
 	else
-		mktemp --suffix=custom_fortune  2>&1 > /dev/null
+		mktemp --suffix=custom_fortune > /dev/null 2>&1
 	fi
 
 	[[ -n $TMUX ]] && return 0
 	[[ $(whoami) == "root" ]] && return 0
-	programaFortune=$(which fortune)
+	programaFortune="$(command -v fortune)"
 	fraseFortune=''
-	if [ -f $programaFortune ]; then
+	if [ -f "$programaFortune" ]; then
 		fraseFortune=$($programaFortune 2>/dev/null)
 	fi
 	# Para quando houver mais de um pacote fortune instalado
@@ -30,8 +32,8 @@ show_cowsay_fortune () {
 	if [[ "$fraseFortune" == '' ]]; then
 		fraseFortune=$(hostname)
 	fi
-	programaCowSay=$(which cowsay)
-	if [ -f $programaCowSay ]; then
+	programaCowSay="$(command -v cowsay)"
+	if [ -f "$programaCowSay" ]; then
 		# cowsay -l exibe os arquivos disponiveis
 		diretorioCows='/usr/share/cowsay/cows'
 		numeroArquivosCow=$(ls -1 $diretorioCows | wc -l)

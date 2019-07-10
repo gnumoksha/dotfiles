@@ -1,7 +1,9 @@
+#!/usr/bin/env bash
 #|
 #| Define shell aliases and some functions
 #| ---------------------------------------
 #|
+# shellcheck disable=SC1117
 
 #|
 #| Aliases
@@ -39,16 +41,20 @@ alias git-ignore="git"
 # Copy buffer to the Xorg's clipboard.
 alias cpb='xclip -sel clip'
 # Copy the current path to the clipboard.
-cpd() { print -n $PWD | cpb; }
+cpd() { print -n "$PWD" | cpb; }
 
 # Change to the file's directory
-cdf() { cd $(basename $1) }
+cdf() { cd "$(dirname "$1")" || return; }
+
+# Create the directory and change to it
+mkcd() { mkdir -p "$1" && cd "$1" || return; }
 
 # Returns the path x times
 # Example:
 #bombadil:/tmp/a/b/c$ cdback 2
 #bombadil:/tmp$
-cdback() { for i in $(seq 0 $1); do cd ../; done }
+# shellcheck disable=SC2034
+cdback() { for i in $(seq 0 "$1"); do cd ../ || return; done }
 
 # Execute cd and ls
 cdls() { cd "$@" && ls; }; alias cs='cdls'
@@ -64,6 +70,7 @@ rprompt_show() { RPROMPT="${RPROMPT_OLD}"; unset RPROMPT_OLD; }
 alias_get() {
   local value
   if [[ ! -z "$ZSH_VERSION" ]]; then
+    # shellcheck disable=SC2154
     value="${aliases[$1]}"
   else
     value="${BASH_ALIASES[$1]}"
@@ -80,11 +87,12 @@ alias_get() {
 alias_append() {
   local value
 
-  value="$(alias_get $1)"
+  value="$(alias_get "$1")"
   if [[ -z "$value" ]]; then
     value="$1"
   fi
 
+  # shellcheck disable=SC2139,SC2086
   alias $1="$value $2"
 }
 
@@ -113,7 +121,7 @@ passgen() {
 
   pp "urandom: " && \
     < /dev/urandom tr -dc 'A-Z-a-z-0-9!@#$%^&*+-' | \
-    head -c ${1:-$pw_length}; echo
+    head -c "${1:-$pw_length}"; echo
 
   printf "\n> simple password: \n"
 
@@ -123,12 +131,12 @@ passgen() {
 
   pp "urandom" && \
     < /dev/urandom tr -dc _A-Z-a-z-0-9 | \
-    head -c ${1:-$pw_length}; echo;
+    head -c "${1:-$pw_length}"; echo;
 
   [[ $(command -v openssl) ]] && \
     pp "openssl: " && \
     openssl rand -base64 $pw_length | \
-    head -c $pw_length; echo;
+    head -c "$pw_length"; echo;
 
   # makepasswd is too simple
   #[[ $(command makepasswd) ]] && \
@@ -149,9 +157,9 @@ passgen() {
   # https://github.com/redacted/XKCD-password-generator
   [[ $(command -v xkcdpass) ]] && \
     pp "xkcdpass: " && \
-    xkcdpass --numwords=3 --delimiter=@ --case=random --count $num_pw;
+    xkcdpass --numwords=3 --delimiter=@ --case=random --count "$num_pw";
     pp "acrostic: " && \
-    xkcdpass --acrostic ${USER} --count $num_pw
+    xkcdpass --acrostic "${USER}" --count "$num_pw"
 
   # #TODO https://xkpasswd.net/s/
 
@@ -184,7 +192,7 @@ psgrep () {
 }
 
 fromtimestamp () {
-  TZ="UTC" date -d @$1
+  TZ="UTC" date -d "@$1"
 }
 totimestamp() {
   # nao consegui usar $@
@@ -194,13 +202,13 @@ totimestamp() {
 # Check the man page for a simple parameter
 # Example: mans ls -l
 # https://unix.stackexchange.com/a/86030/273739
-manp() { man $1 | less -p "^ +$2"; }
+manp() { man "$1" | less -p "^ +$2"; }
 
 #[ $(command -v pinfo)  ] && alias man='pinfo'
 # TODO if tiver most e nao nvim, usar most
 # http://man7.org/linux/man-pages/man7/roff.7.html
 # https://github.com/rtomayko/ronn
-[ $(command -v nvim) ] && export MANPAGER='nvim +Man!'
+[ "$(command -v nvim)" ] && export MANPAGER='nvim +Man!'
 #export LESS_TERMCAP_mb=$'\e[1;32m'
 #export LESS_TERMCAP_md=$'\e[1;32m'
 #export LESS_TERMCAP_me=$'\e[0m'

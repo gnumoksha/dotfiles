@@ -1,6 +1,8 @@
+#!/usr/bin/env bash
 #
 # Add colors to the shell
 #
+# shellcheck disable=SC1091
 
 # https://wiki.archlinux.org/index.php/Color_output_in_console
 
@@ -21,12 +23,12 @@ fi
 # http://www.cyberciti.biz/open-source/command-line-hacks/remark-command-regex-markup-examples/
 # http://savannah.nongnu.org/download/regex-markup/
 # wget -c http://download.savannah.gnu.org/releases/regex-markup/regex-markup_0.10.0-1_amd64.deb -O /tmp/regex-markup.deb
-if [ $(command -v remark) ]; then
-    # Do alias the command because remark adds some delay to ping
-    ping_() { /bin/ping $@ | remark /usr/share/regex-markup/ping; }
-    traceroute_() { /usr/sbin/traceroute $@ | remark /usr/share/regex-markup/traceroute; }
-    diff_() { /usr/bin/diff $@ | remark /usr/share/regex-markup/diff; }
-fi
+#if [ $(command -v remark) ]; then
+#    # Do alias the command because remark adds some delay to ping
+#    ping_() { /bin/ping $@ | remark /usr/share/regex-markup/ping; }
+#    traceroute_() { /usr/sbin/traceroute $@ | remark /usr/share/regex-markup/traceroute; }
+#    diff_() { /usr/bin/diff $@ | remark /usr/share/regex-markup/diff; }
+#fi
 
 #
 # GRC
@@ -53,9 +55,10 @@ fi
 # enable color support of ls and also add handy aliases
 # reference: $HOME/.bashrc found on debian
 if [ -x /usr/bin/dircolors ]; then
-    if [ $(command -v snazzy) ]; then
+    if [ "$(command -v snazzy)" ]; then
        # https://github.com/sharkdp/vivid
-       export LS_COLORS="$(vivid generate molokai)"
+       LS_COLORS="$(vivid generate molokai)"
+       export LS_COLORS
     elif [ -r ~/.dircolors ]; then
        eval "$(dircolors --bourne-shell ~/.dircolors)"
     else

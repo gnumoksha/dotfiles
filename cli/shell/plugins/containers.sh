@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #
 # Stuff related to
 # GNU/Linux containers

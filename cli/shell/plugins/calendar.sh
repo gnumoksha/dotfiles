@@ -1,7 +1,7 @@
-
+#!/usr/bin/env bash
 
 show_calendar () {
-	CALENDAR=$(which calendar 2> /dev/null)
+	CALENDAR=$(command -v calendar 2> /dev/null)
 	ARQUIVO_CALENDAR=~/.calendar/calendar
 	CONTEUDO_ARQUIVO_CALENDAR=$( cat<<EOF
 // ls /usr/share/calendar/
@@ -24,7 +24,7 @@ procura=$(find /tmp -maxdepth 1 -mtime -1 -iname "*bu_calendar" -type f 2>/dev/n
 if [[ ! -z $procura ]]; then
 	return 0
 else
-	mktemp --suffix=bu_calendar  2>&1 > /dev/null
+	mktemp --suffix=bu_calendar > /dev/null 2>&1
 fi
 
 if [[ -z "${CALENDAR}" ]]; then
@@ -33,7 +33,7 @@ else
 	if [ ! -f ${ARQUIVO_CALENDAR} ]; then
 		echo "Criando arquivo calendar com conteúdo padrão."
 		# cria diretório
-		mkdir -p $(dirname "${ARQUIVO_CALENDAR}")
+		mkdir -p "$(dirname "${ARQUIVO_CALENDAR}")"
 		# cria arquivo
 		echo "$CONTEUDO_ARQUIVO_CALENDAR" > "${ARQUIVO_CALENDAR}"
 	fi

@@ -1,0 +1,14 @@
+# See https://docs.gitlab.com/ce/ci/yaml/README.html for all available options
+
+# you can delete this line if you're not using Docker
+image: debian:testing-slim
+
+before_script:
+  - apt-get update -yqq
+  - apt-get install -yqq bash zsh shellcheck
+
+shell-plugins:
+  stage: test
+  script:
+    - shellcheck cli/shell/plugins/*.sh
+

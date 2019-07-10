@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1117,SC1090
 
 if [[ -n "$ZSH_VERSION" && -f ~/.fzf.zsh ]]; then
   source ~/.fzf.zsh
@@ -6,7 +8,7 @@ elif [[ -n "$BASH_VERSION" && -f ~/.fzf.bash ]]; then
 fi
 
 # Setting fd as the default source for fzf
-if [ $(command -v fd) ]; then
+if [ "$(command -v fd)" ]; then
   FZF_DEFAULT_COMMAND='fd --type f'
 else
    FZF_DEFAULT_COMMAND='find --type f'
@@ -36,7 +38,7 @@ fkill() {
 
   if [ "x$pid" != "x" ]
   then
-    echo $pid | xargs kill -${1:-9}
+    echo "$pid" | xargs kill -"${1:-9}"
   fi
 }
 # fco_preview - checkout git branch/tag, with a preview showing the commits between the tag/branch and HEAD
@@ -52,7 +54,7 @@ sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
 (echo "$tags"; echo "$branches") |
     fzf --no-hscroll --no-multi --delimiter="\t" -n 2 \
         --ansi --preview="git log -200 --pretty=format:%s $(echo {+2..} |  sed 's/$/../' )" ) || return
-  git checkout $(echo "$target" | awk '{print $2}')
+  git checkout "$(echo "$target" | awk '{print $2}')"
 }
 # change to the directory of the file (is not working on zsh)
 #cdf() {
@@ -64,13 +66,14 @@ sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
 # inspired by https://gist.github.com/f440/9992963
 fzf-pass-widget() {
 	CMD=$1
+	local FILE=
 	show_pass_files() {
 		local password_store=${PASSWORD_STORE_DIR-~/.password-store}
-		cd "$password_store" > /dev/null
+		cd "$password_store" || return > /dev/null
 		find . -type f ! -name .gpg-id | sed -e 's/\.\/\(.*\).gpg$/\1/'
 	}
-	local FILE=$(show_pass_files | fzf)
-	[ -n "$FILE" ] && pass $CMD $FILE
+    FILE=$(show_pass_files | fzf)
+	[ -n "$FILE" ] && pass "$CMD" "$FILE"
 
 	zle reset-prompt
 }
