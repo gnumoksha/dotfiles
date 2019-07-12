@@ -39,6 +39,12 @@
 #    6. Wrap the body at 72 characters
 #    7. Use the body to explain what and why vs. how
 
+# Utils:
+# GitHub keywords
+# https://help.github.com/en/articles/closing-issues-using-keywords
+# GitLab keywords
+# https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically
+
 # https://help.github.com/en/articles/closing-issues-using-keywords
 # https://udacity.github.io/git-styleguide/
 

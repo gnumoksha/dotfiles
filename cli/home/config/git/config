@@ -158,6 +158,7 @@
 
 	branch-status = branch -avv
 	branch-clean = !git branch | grep -P 'feature/|hotfix/' | xargs git branch -D
+	branch-prune = !git remote prune origin && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -D
 
 	stash-all = !git stash save --include-untracked "Stash all at $(date +%Y-%m-%d_%H:%M:%S)"
 	stash-all-changed = stash --keep-index

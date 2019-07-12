@@ -12,5 +12,11 @@
 #
 # Global Order: zshenv, zprofile, zshrc, zlogin
 
-export ZDOTDIR=${ZDOTDIR:=${XDG_CONFIG_HOME}/zsh}
+# In case ~/.profile was not read yet.
+# This can happen in ssh sessions.
+if [[ "$USER_PROFILE_LOADED" != "yes" ]]; then
+    source ~/.profile
+fi
+
+export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 

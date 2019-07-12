@@ -90,7 +90,7 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # Create a named temporary directory for my personal use.
-mkdir /tmp/t
+[[ ! -d /tmp/t ]] && mkdir /tmp/t
 
 if [[ $(id -u) == 0 ]]; then
   # From Debian's /root/.profile
@@ -101,5 +101,8 @@ if [[ $(id -u) == 0 ]]; then
   fi
   mesg n || true
 fi
+
+#This is used in order to later check if this file was loaded.
+export USER_PROFILE_LOADED="yes"
 
 #EOF
