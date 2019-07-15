@@ -39,12 +39,20 @@ alias git-clean="gclan"
 alias git-ignore="git"
 
 # Copy buffer to the Xorg's clipboard.
-alias cpb='xclip -sel clip'
-# Copy the current path to the clipboard.
-cpd() { print -n "$PWD" | cpb; }
+cpb() { echo "$@" | xclip -sel clip; }
+
+# Copy the current directory path to the clipboard.
+cpd() { cpb "$(echo -n "$PWD")"; }
 
 # Change to the file's directory
-cdf() { cd "$(dirname "$1")" || return; }
+cdf() {
+	local dest=${1:-}
+	if [[ ! -f "$dest" ]]; then
+		echo "$dest is not a file" >&2
+		return 1
+	fi
+	cd "$(dirname "$dest")" || exit 2
+}
 
 # Create the directory and change to it
 mkcd() { mkdir -p "$1" && cd "$1" || return; }
@@ -58,6 +66,16 @@ cdback() { for i in $(seq 0 "$1"); do cd ../ || return; done }
 
 # Execute cd and ls
 cdls() { cd "$@" && ls; }; alias cs='cdls'
+
+# TODO use $@
+totimestamp() { TZ="UTC" date --date="$1 $2"  +%s; }
+# Convert unix timestamp to date
+fromtimestamp () { TZ="UTC" date -d "@$1" "+%F %T %Z"; }
+
+# Check the man page for a simple parameter
+# Example: mans ls -l
+# https://unix.stackexchange.com/a/86030/273739
+manp() { man "$1" | less -p "^ +$2"; }
 
 # Hide zsh right prompt. Useful when copying text.
 rprompt_hide() { RPROMPT_OLD="${RPROMPT}"; unset RPROMPT; }
@@ -190,19 +208,6 @@ psgrep () {
       grep "$@"
     }
 }
-
-fromtimestamp () {
-  TZ="UTC" date -d "@$1"
-}
-totimestamp() {
-  # nao consegui usar $@
-  TZ="UTC" date --date="$1 $2"  +%s
-}
-
-# Check the man page for a simple parameter
-# Example: mans ls -l
-# https://unix.stackexchange.com/a/86030/273739
-manp() { man "$1" | less -p "^ +$2"; }
 
 #[ $(command -v pinfo)  ] && alias man='pinfo'
 # TODO if tiver most e nao nvim, usar most

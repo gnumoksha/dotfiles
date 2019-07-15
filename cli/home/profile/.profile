@@ -15,8 +15,8 @@
 # https://en.wikipedia.org/wiki/Unix_shell#Configuration_files
 
 # Falling back just in case systemd variables were not read.
-if [[ -z "$XDG_CONFIG_HOME" || -z "$DOTFILES" ]]; then
-  XDG_CONFIG_HOME="$HOME/.config"
+if [[ -z "${XDG_CONFIG_HOME:-}" || -z "${DOTFILES:-}" ]]; then
+  XDG_CONFIG_HOME="${HOME}/.config"
 
   # if the file exists, load and export all variables within it.
   if [[ -e ${XDG_CONFIG_HOME}/environment.d/envvars.conf ]]; then
@@ -27,14 +27,14 @@ if [[ -z "$XDG_CONFIG_HOME" || -z "$DOTFILES" ]]; then
 fi
 
 # Create a shortcut to my dotfiles.
-hash -d DOTFILES="$DOTFILES"
+hash -d DOTFILES="${DOTFILES}"
 
 # EDITOR contains the command to run the lightweight program used for editing
 #   files.
 # VISUAL contains command to run the full-fledged editor that is used for more
 #   demanding tasks, such as editing email (e.g., vi, vim, emacs etc).
 # BROWSER contains the path to the web browser.
-if [ -n "$DISPLAY" ]; then
+if [ -n "${DISPLAY:-}" ]; then
   export EDITOR=vim
   export VISUAL=gvim
   #export BROWSER=firefox
@@ -51,7 +51,7 @@ PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
 # Golang
 #
 # GOPATH environment variable specifies the location of your workspace.
-export GOPATH="$XDG_DATA_HOME/golang/workspace"
+export GOPATH="${XDG_DATA_HOME}/golang/workspace"
 # Set the GOBIN path to generate a binary file when go install is run.
 export GOBIN="$GOPATH/bin"
 # If go is not in /usr/local/go, specify where it is.
@@ -62,19 +62,19 @@ PATH="$PATH:$GOROOT/bin:$GOBIN"
 # PHP
 #
 export COMPOSER_HOME="$XDG_CONFIG_HOME/composer" # this is the default.
-export COMPOSER_CACHE_DIR="$XDG_CACHE_HOME/composer" # this is the default.
+export COMPOSER_CACHE_DIR="${XDG_CACHE_HOME}/composer" # this is the default.
 PATH="$PATH:$COMPOSER_HOME/vendor/bin"
 
 #
 # Python
 #
-PATH="$PATH:$HOME/.local/bin"
+PATH="$PATH:${HOME}/.local/bin"
 
 #
 # Rust-lang
 #
 # https://doc.rust-lang.org/cargo/reference/environment-variables.html
-export CARGO_HOME="$XDG_DATA_HOME/cargo" # contains cache e config
+export CARGO_HOME="${XDG_DATA_HOME}/cargo" # contains cache e config
 PATH="$PATH:$CARGO_HOME/bin"
 [ -d /usr/lib/cargo/bin ] && PATH="$PATH:/usr/lib/cargo/bin" # used by apt
 
@@ -84,7 +84,7 @@ export PATH
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
 	# include .bashrc if it exists
-	if [ -f "$HOME/.bashrc" ]; then
+	if [ -f "${HOME}/.bashrc" ]; then
 		. "$HOME/.bashrc"
 	fi
 fi

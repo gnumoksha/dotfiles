@@ -1,5 +1,8 @@
 # dotfiles
-Configuration files for CLI and some GUI softwares.
+![pipeline](https://gitlab.com/gnumoksha/dotfiles/badges/master/pipeline.svg?style=flat-square)
+![coverage](https://gitlab.com/gnumoksha/dotfiles/badges/master/coverage.svg?style=flat-square)
+
+Configuration files for command line and some graphical softwares.
 
 ## Installation
 ```bash

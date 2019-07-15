@@ -2,26 +2,18 @@
 # This script is responsible to install
 # all cli-related stuff.
 
-if [[ -z "$STOW" ]]; then
-	echo "You need to set STOW variable"
-	exit 1
-fi
-
-if [ ! -z "$BASH_SOURCE" ]; then FILE="${BASH_SOURCE[0]}"; else FILE="$0"; fi
-CURRENT_DIR=$(exec 2>/dev/null;cd -- $(dirname "$FILE"); unset PWD; /usr/bin/pwd || /bin/pwd || pwd)
-
 STOW_IN_HOME=(
-"$CURRENT_DIR/home/profile"
-"$CURRENT_DIR/home/bash" # http://savannah.gnu.org/support/?108134
-"$CURRENT_DIR/home/ctags"
-"$CURRENT_DIR/home/zshenv"
-"$CURRENT_DIR/home/ssh" # https://bugzilla.mindrot.org/show_bug.cgi?id=2050
-"$CURRENT_DIR/home/grc"
-"$CURRENT_DIR/home/xorg"
+"$INSTALLATION_DIR/cli/home/profile"
+"$INSTALLATION_DIR/cli/home/bash" # http://savannah.gnu.org/support/?108134
+"$INSTALLATION_DIR/cli/home/ctags"
+"$INSTALLATION_DIR/cli/home/zshenv"
+"$INSTALLATION_DIR/cli/home/ssh" # https://bugzilla.mindrot.org/show_bug.cgi?id=2050
+"$INSTALLATION_DIR/cli/home/grc"
+"$INSTALLATION_DIR/cli/home/xorg"
 )
 
 for item in "${STOW_IN_HOME[@]}"; do
-	if [[ -f "$tem" ]]; then
+	if [[ -f "$item" ]]; then
 		continue
 	fi
 	item_directory=$(dirname $item)
@@ -30,7 +22,7 @@ for item in "${STOW_IN_HOME[@]}"; do
 	printf "\rInstalling %-15s at %-15s\n" $item_basename $HOME
 
 	pushd "$item_directory" > /dev/null 2>&1
-	$STOW --target="$HOME" "$item_basename"
+	stow "$STOW_ARGS" --target="$HOME" "$item_basename"
 	if [[ $? -ne 0 ]]; then
 		>&2 echo "Error while executing GNU stow!"
 		echo
@@ -39,8 +31,8 @@ for item in "${STOW_IN_HOME[@]}"; do
 done
 
 printf "\rInstalling %-15s at %-15s\n" "configs" $XDG_CONFIG_HOME
-pushd "$CURRENT_DIR/home/" > /dev/null 2>&1
-$STOW --target="$XDG_CONFIG_HOME/" config/
+pushd "$INSTALLATION_DIR/cli/home/" > /dev/null 2>&1
+stow "$STOW_ARGS" --target="$XDG_CONFIG_HOME/" config/
 if [[ $? -ne 0 ]]; then
 	>&2 echo "Error while executing GNU stow!"
 	echo

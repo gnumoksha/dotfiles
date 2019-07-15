@@ -1,14 +1,38 @@
+#|
+#| GitLab Continuous Integration config file
+#|
 # See https://docs.gitlab.com/ce/ci/yaml/README.html for all available options
 
-# you can delete this line if you're not using Docker
 image: debian:testing-slim
 
 before_script:
   - apt-get update -yqq
-  - apt-get install -yqq bash zsh shellcheck
+  - apt-get install -yqq stow bash zsh shellcheck bats
+  - useradd --create-home --skel /dev/null --shell /bin/bash tobias
 
-shell-plugins:
+stages:
+  - build
+  - test
+
+install-dotfiles:
+  stage: build
+  script:
+    - rm -Rf $HOME/.profile $HOME/.bashrc $HOME/.config
+    - mkdir -p $HOME/.local/share && mkdir $HOME/.config
+    - cp -R $CI_BUILDS_DIR/gnumoksha/dotfiles $HOME/.local/share/dotfiles
+    - cd $HOME/.local/share/dotfiles
+    - yes | ./install.sh
+#    - su tobias -c 'mkdir -p $HOME/.local/share && mkdir $HOME/.config'
+#    - su tobias -c 'cp -R $CI_BUILDS_DIR/gnumoksha/dotfiles $HOME/.local/share/dotfiles'
+#    - su tobias -c 'cd $HOME/.local/share/dotfiles && yes | ./install.sh'
+
+code-analysis:
   stage: test
   script:
     - shellcheck cli/shell/plugins/*.sh
+
+unit-test:
+  stage: test
+  script:
+    - bats cli/shell/plugins/tests/
 
