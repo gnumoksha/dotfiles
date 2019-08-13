@@ -59,7 +59,7 @@ if [[ ! -e "/usr/local/bin/git-extras" || ! -e "$XDG_CACHE_HOME/git-extras-compl
 fi
 source $XDG_CACHE_HOME/git-extras-completion.zsh
 
-minstall "https://github.com/paulirish/git-open" "" "cp git-open /usr/local/bin/git-open"
+minstall "https://github.com/paulirish/git-open" "" "cp -f git-open /usr/local/bin/git-open"
 
 minstall "https://github.com/junegunn/fzf" "" "./install --bin && mv ./bin/fzf /usr/local/bin/fzf" "source shell/completion.zsh && source shell/key-bindings.zsh"
 

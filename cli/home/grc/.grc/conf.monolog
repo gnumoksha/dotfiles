@@ -44,8 +44,8 @@ count=once
 # this is a log message with its level
 regexp=(\w+\.DEBUG\:.*?(?= {| at | \[))
 # dark gray
-#colours="\033[1;30m", on_black
-colours=on_black
+colours="\033[1;30m"
+#colours=on_black
 count=once
 ======
 # A pathname

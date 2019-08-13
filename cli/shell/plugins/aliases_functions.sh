@@ -38,6 +38,10 @@ alias git-checkout="gcf"
 alias git-clean="gclan"
 alias git-ignore="git"
 
+# Execute the last command as root.
+pls() { sudo $(fc -ln -1); }
+#pls() { sudo !!; }
+
 # Copy buffer to the Xorg's clipboard.
 cpb() { echo "$@" | xclip -sel clip; }
 
@@ -63,6 +67,7 @@ mkcd() { mkdir -p "$1" && cd "$1" || return; }
 #bombadil:/tmp$
 # shellcheck disable=SC2034
 cdback() { for i in $(seq 0 "$1"); do cd ../ || return; done }
+alias cdb="cdback"
 
 # Execute cd and ls
 cdls() { cd "$@" && ls; }; alias cs='cdls'
