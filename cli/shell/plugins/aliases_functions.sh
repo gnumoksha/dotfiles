@@ -161,6 +161,10 @@ passgen() {
     openssl rand -base64 $pw_length | \
     head -c "$pw_length"; echo;
 
+	[[ $(command -v gpg) ]] && \
+    pp "gpg: " && \
+    gpg --gen-random -a 0 $pw_length;
+
   # makepasswd is too simple
   #[[ $(command makepasswd) ]] && \
     #pp "makepasswd: " && \
