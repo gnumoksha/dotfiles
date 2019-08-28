@@ -4,11 +4,6 @@
 
 export ZSH="${XDG_CACHE_HOME}/zsh/oh-my-zsh"
 
-if [[ ! -e "${ZSH}/oh-my-zsh.sh" ]]; then
-	echo "Installing oh-my-zsh..."
-	git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git "${ZSH}"
-fi
-
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -26,7 +21,8 @@ fi
 #ZSH_THEME=""
 # TODO create a theme based on https://github.com/agkozak/agkozak-zsh-prompt
 # and https://eendroroy.github.io/alien-minimal/
-ZSH_THEME="alien-minimal/alien-minimal"
+#ZSH_THEME="alien-minimal/alien-minimal"
+ZSH_THEME=""
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -89,8 +85,6 @@ ZSH_CUSTOM="${0:a:h}/custom"
 # vi-mode virtualenv
 # Repository: https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins
 plugins=(docker docker-compose git-flow-avh)
-
-source "${ZSH}/oh-my-zsh.sh"
 
 #|
 #| References

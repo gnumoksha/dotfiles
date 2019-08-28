@@ -14,31 +14,19 @@
 #/usr/bin/time zsh -i -c exit
 STARTED_AT=$(date +%s.%N)
 
-
 #|
-#| My custom scripts
+#| Plugins and custom scripts
 #|
-# May start tmux.
+# May start tmux
 source "$XDG_CONFIG_HOME/tmux/utils.sh"
-# Settings related to the terminal prompt and ls colors.
-# Contains prezto settings that need to be defined before prezto itself.
-source "$ZDOTDIR/themes/themes.zsh"
 
-
-#|
-#| Plugins
-#|
-# Plugins with zplug
-#source $ZDOTDIR/plugins/zplug.zsh
-
-# Plugins with zgen
-#source $ZDOTDIR/plugins/zgen.zsh
-
-# Plugins with oh-my-zsh
+# Configure (but not load) oh-my-zsh
 source $ZDOTDIR/plugins/oh-my-zsh/oh-my-zsh.zsh
 
-# Manually install some plugins
-source $ZDOTDIR/plugins/manual-plugin.zsh
+# Install plugins
+#source $ZDOTDIR/plugins/zplug.zsh
+#source $ZDOTDIR/plugins/zgen.zsh
+source $ZDOTDIR/plugins/simple-plugin.zsh
 
 #|
 #| ZSH settings
@@ -65,6 +53,12 @@ if [[ $LOAD_TIME -gt 1 ]]; then
 fi
 unset STARTED_AT LOAD_TIME
 
+if [ "$TERM" = "axterm-256color" ]; then
+  xprop \
+    -id $(xdotool getactivewindow) \
+    -f _MOTIF_WM_HINTS 32c \
+    -set _MOTIF_WM_HINTS "0x2, 0x0, 0x0, 0x0, 0x0"
+fi
 
 #|
 #| References
