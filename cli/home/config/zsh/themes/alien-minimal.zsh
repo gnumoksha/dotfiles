@@ -7,7 +7,7 @@
 #| Left prompt
 #|
 #export AM_PROMPT_START_TAG='     '
-export AM_PROMPT_END_TAG='⨠' # ⊳ ≽ ≫  ≥ ❭ ❱ ↳ 💲 $
+export AM_PROMPT_END_TAG='$' # ⨠ ⊳ ≽ ≫  ≥ ❭ ❱ ↳ 💲 $
 #export AM_PROMPT_START_TAG_COLOR=81
 #export AM_PROMPT_END_TAG_COLOR=81
 # Configure dirname in prompt
