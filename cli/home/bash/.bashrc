@@ -27,8 +27,14 @@ if [[ -z "$XDG_CONFIG_HOME" || -z "$DOTFILES" ]]; then
   fi
 fi
 
-# Load my custom shell-agnostic stuff.
-source "$DOTFILES_SHELL_PLUGINS/bootstrap.sh"
+#|
+#| Load my custom shell scripts.
+#| It is here to ensure other plugins will not override my configurations.
+#|
+for filename in "${DOTFILES_SHELL_PLUGINS}"/*.sh; do
+  [ -e "$filename" ] || continue
+  source "$filename"
+done
 
 #
 # History
