@@ -193,6 +193,13 @@ passgen() {
   unset pp
 }
 
+scan_totp() {
+  img_dir=/home/tobias/Documents/Pictures
+  last_img="$(ls -t -1 "$img_dir" | head -1 )"
+  zbarimg -q --raw "$img_dir/$last_img"
+  rm -i "$img_dir/$last_img"
+}
+
 # returns the public ip of this host.
 public_ip () {
   wget -qO- ifconfig.co ||
