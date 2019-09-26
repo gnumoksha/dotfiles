@@ -5,16 +5,15 @@
 #
 # Window
 #
-set -g window-status-current-bg red
-set -g window-status-current-fg black
+set -g window-status-current-style bg=red,fg=black
 set -g window-status-format " #I:#W#F "
 set -g window-status-current-format " #I:#W#F "
 set -g window-status-separator ""
 set -g set-titles on
 set -g set-titles-string "#W [#I:#P]"
 # Window with activity status
-set -g window-status-activity-bg red    # fg and bg are flipped here due to a
-set -g window-status-activity-fg white  # bug in tmux
+set -g window-status-activity-style bg=red,fg=white    # fg and bg are flipped here due to a
+#set -g window-status-activity-fg white  # bug in tmux
 #set inactive/active window styles
 #set -g window-style 'fg=colour247,bg=colour236'
 #set -g window-active-style 'fg=colour250,bg=black'
@@ -24,22 +23,19 @@ set -g window-status-activity-fg white  # bug in tmux
 #
 set -g status-justify centre # Center the window list
 set -g status-interval 5
-set -g status-bg default
-set -g status-fg red
+set -g status-style bg=default,fg=red
 
 #
 # Left side of status bar
 #
-set -g status-left-bg default
-set -g status-left-fg red
+set -g status-left-style bg=default,fg=red
 set -g status-left-length 40
 set -g status-left "#S #[fg=yellow]#I #[fg=magenta]#P"
 
 #
 # Right side of status bar
 #
-set -g status-right-bg default
-set -g status-right-fg magenta
+set -g status-right-style bg=default,fg=magenta
 set -g status-right-length 50
 #set -g status-right "#H #[fg=white]« #[fg=yellow]%H:%M:%S #[fg=green]%d-%b-%y"
 #WEATHER='#(curl -s wttr.in/\?format\=2&period=60)' # format 1-5. 2 and 4 are the best
@@ -49,10 +45,8 @@ set -g status-right ""
 #
 # Pane
 #
-set -g pane-border-bg default
-set -g pane-border-fg black
-set -g pane-active-border-bg default
-set -g pane-active-border-fg red
+set -g pane-border-style bg=default,fg=black
+set -g pane-active-border-style bg=default,fg=red
 set -g display-panes-colour default
 set -g display-panes-active-colour default
 
@@ -63,13 +57,10 @@ set -g display-panes-active-colour default
 set -g clock-mode-colour red
 set -g clock-mode-style 24
 # Message
-set -g message-bg default
-set -g message-fg default
+set -g message-style bg=default,fg=default
 # Command message
-set -g message-command-bg default
-set -g message-command-fg default
+set -g message-command-style bg=default,fg=default
 # Mode
-set -g mode-bg red
-set -g mode-fg default
+set -g mode-style bg=red,fg=default
 
 # vim: ft=tmux
