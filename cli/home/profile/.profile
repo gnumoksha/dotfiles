@@ -15,19 +15,17 @@
 # https://en.wikipedia.org/wiki/Unix_shell#Configuration_files
 
 # Falling back just in case systemd variables were not read.
-if [[ -z "${XDG_CONFIG_HOME:-}" || -z "${DOTFILES:-}" ]]; then
-  XDG_CONFIG_HOME="${HOME}/.config"
+if [[ -z "${ENVVARS_LOADED:-}" || "${ENVVARS_LOADED:-}" != "yes" ]]; then
+  DOTFILES="$HOME/.local/share/dotfiles"
 
-  # if the file exists, load and export all variables within it.
-  if [[ -e ${XDG_CONFIG_HOME}/environment.d/envvars.conf ]]; then
-    set -a
-    . ${XDG_CONFIG_HOME}/environment.d/envvars.conf
-    set +a
-  fi
+  # Load and export all variables from this systemd's file
+  set -a
+  . "$DOTFILES"/cli/home/config/environment.d/envvars.conf
+  set +a
 fi
 
 # Create a shortcut to my dotfiles.
-hash -d DOTFILES="${DOTFILES}"
+ hash -d DOTFILES="${DOTFILES}"
 
 # EDITOR contains the command to run the lightweight program used for editing
 #   files.

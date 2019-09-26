@@ -6,8 +6,9 @@ Configuration files for command line and some graphical softwares.
 
 ## Installation
 ```bash
-git clone --recursive https://gitlab.com/gnumoksha/dotfiles.git ~/.local/share/dotfiles
-cd ~/.local/share/dotfiles
+export DOTFILES=$HOME/.local/share/dotfiles
+git clone --recursive https://gitlab.com/gnumoksha/dotfiles.git $DOTFILES
+cd $DOTFILES
 # This will install configurations for some softwares under your $HOME and
 # will ask about other things.
 ./install.sh

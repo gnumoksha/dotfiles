@@ -21,7 +21,7 @@ install-dotfiles:
     - mkdir -p $HOME/.local/share && mkdir $HOME/.config
     - cp -R $CI_BUILDS_DIR/gnumoksha/dotfiles $HOME/.local/share/dotfiles
     - cd $HOME/.local/share/dotfiles
-    - yes | ./install.sh
+    - export DOTFILES=$HOME/.local/share/dotfiles; yes | ./install.sh
 #    - su tobias -c 'mkdir -p $HOME/.local/share && mkdir $HOME/.config'
 #    - su tobias -c 'cp -R $CI_BUILDS_DIR/gnumoksha/dotfiles $HOME/.local/share/dotfiles'
 #    - su tobias -c 'cd $HOME/.local/share/dotfiles && yes | ./install.sh'
