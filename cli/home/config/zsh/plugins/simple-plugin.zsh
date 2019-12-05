@@ -17,29 +17,39 @@ minstall() {
 	DST="${XDG_CACHE_HOME}/manually-installed/${PKG_NAME}"
     fi
 
-    # FIXME dir do not exists before the first clone
-    pushd -q "${DST}"
-
-    if [[ ! -a "${DST}" ]]; then
+    if [[ ! -d "${DST}" ]]; then
+	# ${DST} is not a directory
 	echo "Installing $PKG_NAME"
 	git clone --depth=1 --recurse-submodules --quiet "${REPO}" "${DST}"
 
 	if [[ ! -z "${EXEC_AFTER}" ]]; then
 	    echo " -> Executing $EXEC_AFTER"
+	    pushd -q "${DST}"
+
 	    eval "${EXEC_AFTER}"
+	    if [[ $? -ne 0 ]]; then
+		echo "Error on exec after!"
+	    fi
+
 	    popd -q
 	fi
     fi
 
-    if [[ ! -z "${EXEC_ALWAYS}" ]]; then
+    if [[ -n "${EXEC_ALWAYS}" ]]; then
+	# User has defined "EXEC_ALWAYS"
+	pushd -q "${DST}"
+
 	if [[ "${EXEC_ALWAYS}" == "plug" ]]; then
 	    source "${PKG_NAME}.plugin.zsh"
 	else
 	    eval "${EXEC_ALWAYS}"
+	    if [[ $? -ne 0 ]]; then
+		echo "Error on exec always!"
+	    fi
 	fi
-    fi
 
-    popd -q
+	popd -q
+    fi
 }
 
 # Oh-my-zsh
@@ -66,11 +76,15 @@ minstall "https://github.com/robbyrussell/oh-my-zsh" "${ZSH}" "" "source oh-my-z
 
 DOTFILES_THEMES="${0:a:h}/../themes"
 
-#minstall "https://github.com/romkatv/powerlevel10k" "" "" "source powerlevel9k.zsh-theme"
+minstall "https://github.com/romkatv/powerlevel10k" "" "" "source powerlevel10k.zsh-theme && source ~/.config/zsh/.p10k.zsh"
 
-#minstall "https://github.com/martinrotter/powerless.git" "" "" "ssource ${POWERLESS}/powerless.zsh false && source ${POWERLESS}/utilities.zsh true"
+#minstall "https://github.com/martinrotter/powerless.git" "" "" "source powerless.zsh false && source utilities.zsh true"
 
-minstall "https://github.com/eendroroy/alien-minimal" "" "" "source $DOTFILES_THEMES/alien-minimal.zsh && source alien-minimal.zsh"
+#minstall "https://github.com/eendroroy/alien-minimal" "" "" "source $DOTFILES_THEMES/alien-minimal.zsh && source alien-minimal.zsh"
+
+# https://github.com/starship/starship
+# has buffer problems with tmux / oh-my-zsh / zsh-highlighting
+#eval "$(starship init zsh)"
 
 
 #|

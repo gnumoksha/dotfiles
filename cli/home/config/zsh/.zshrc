@@ -32,6 +32,7 @@ source $ZDOTDIR/plugins/simple-plugin.zsh
 HISTFILE="$ZDOTDIR/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=10000
+unsetopt SHARE_HISTORY
 
 
 #|
@@ -52,6 +53,14 @@ if [[ $LOAD_TIME -gt 1 ]]; then
     >&2 echo "[warning] startup time was $LOAD_TIME seconds."
 fi
 unset STARTED_AT LOAD_TIME
+
+
+#|
+#| Troubleshooting
+#|
+# autocomplete don't work
+# rm $XDG_CONFIG_HOME/zsh/.zcompdump*
+
 
 #|
 #| References

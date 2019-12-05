@@ -70,9 +70,9 @@ fzf-pass-widget() {
 	show_pass_files() {
 		local password_store=${PASSWORD_STORE_DIR-~/.password-store}
 		cd "$password_store" || return > /dev/null
-		find . -type f ! -name .gpg-id | sed -e 's/\.\/\(.*\).gpg$/\1/'
+		find . -type f ! -name .gpg-id | sort -n | sed -e 's/\.\/\(.*\).gpg$/\1/'
 	}
-    FILE=$(show_pass_files | fzf)
+	FILE=$(show_pass_files | fzf)
 	[ -n "$FILE" ] && pass "$CMD" "$FILE"
 
 	zle reset-prompt
@@ -91,6 +91,10 @@ fzf-pass-edit-widget() {
 	fzf-pass-widget "edit"
 }
 
+fzf-pass-otp-widget() {
+	fzf-pass-widget "otp"
+}
+
 #  colocar no KDB:
 # showkey -a
 #bindkey -s '^Xm' "My mistress\' eyes are nothing like the sun."
@@ -102,6 +106,8 @@ if [ -n "$ZSH_VERSION" ]; then
   bindkey '^Pe' fzf-pass-edit-widget
   zle     -N    fzf-pass-show-widget
   bindkey '^Ps' fzf-pass-show-widget
+  zle     -N    fzf-pass-otp-widget
+  bindkey '^Po' fzf-pass-otp-widget
 
 fi
 

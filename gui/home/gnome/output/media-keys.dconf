@@ -1,28 +1,28 @@
 [/]
-next='<Super>F12'
-play='<Super>F11'
-volume-up='<Super>F9'
-calculator='<Super>c'
-volume-down='<Super>F8'
-search='<Super>s'
-home='<Super>e'
+calculator=['<Super>c']
 custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/']
-previous='<Super>F10'
-
-[custom-keybindings/custom2]
-binding='<Primary><Alt>e'
-command='nautilus'
-name='Nautilus 02'
-
-[custom-keybindings/custom1]
-binding='<Primary><Alt>p'
-command='passmenu'
-name='passmenu'
+home=['<Super>e']
+next=['<Super>F12']
+play=['<Super>F10']
+previous=['<Super>F11']
+search=['<Super>s']
+volume-down=['<Super>F8']
+volume-up=['<Super>F9']
 
 [custom-keybindings/custom0]
 binding='<Primary><Alt>t'
 command='gnome-terminal'
 name='Terminal'
+
+[custom-keybindings/custom1]
+binding='<Primary><Alt>p'
+command='/usr/share/doc/pass/examples/dmenu/passmenu'
+name='passmenu'
+
+[custom-keybindings/custom2]
+binding='<Primary><Alt>e'
+command='nautilus'
+name='Nautilus 02'
 
 [custom-keybindings/custom3]
 binding='<Super>e'

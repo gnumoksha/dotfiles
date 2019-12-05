@@ -79,6 +79,15 @@ PATH="$PATH:$CARGO_HOME/bin"
 # finally export the path
 export PATH
 
+# Java#OpenJDK
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
+# Docker
+export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+# Coreutils
+#source $(dircolors "$XDG_CONFIG_HOME"/dircolors)
+# CUDA
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
+
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
 	# include .bashrc if it exists

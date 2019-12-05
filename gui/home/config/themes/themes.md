@@ -1,4 +1,80 @@
-# Themes
+# Appearance
+
+Classified by predominant color.
+
+## Gnome Shell
+#### Light
+Ant
+Conta-blue-light-compact
+Conta-light-compact
+Conta-indigo-light-compact
+MacOS-Sierra
+Typewriter (nao da pra ver texto das notificacoes)
+#### Dark
+Aqua
+Adapta-Nokto-Eta
+Breeze
+Candra-Theme-3.20
+Conta-Compact
+Conta-indigo-compact
+Flat-Remix todos
+Greybird
+OSX-Arc-Darker
+Plata-Compact
+Qogir-win
+United-Debian
+Yuru
+Zuki-shell
+
+## Applications (GTK)
+#### Light
+Adwaita-tweks
+Arc
+Arc-Flatabulous
+Conta-Blue-Light-Compact (nice nautilus background)
+Conta-Indigo-Light-Compact (nice nautilus background)
+EvoPop
+Flat-Remix-GTK-Blue
+Flat-Remix-GTK-Blue-Darker
+Flat-Remix-GTK-Blue-Solid
+MacOS-Sierra
+Minwaita
+Paper
+Plano
+Qogir-light
+Qogir-win-light
+Typewriter
+United-Debian
+Vimix-light-laptop-doder
+Xenlism-Minimalism
+Yaru
+#### Dark
+Adapta-Nokto-Eta
+Arc-Dark
+Arc-Darker
+Arc-Flatabulous-Dark
+Conta-blue-dark-compact (nice nautilus background)
+Conta-indigo-dark-compact (nice nautilus background)
+Cloak-3.22
+Flat-Remix-GTK-Blue-Dark
+Minwaita-Dark
+Minwaita-Darker
+OSX-Arc-Darker
+Plata-Noir-Compact
+Qogir
+Qogir-dark
+Qogir-win
+Qogir-win-dark
+United-Debian-Dark
+Vimix-dark-laptop-doder
+Zukitre-dark
+
+## Icons
+Flat-Remix-Blue (same as Flat-Remix-Blue-Dark, Flat-Remix-Blue-Light ?)
+
+ 
+icones, gnome-shell, gtk
+apt install flat-remix flat-remix-gnome flat-remix-gtk
 
 https://github.com/daniruiz/Flat-Remix
 https://www.gnome-look.org/p/1013030/

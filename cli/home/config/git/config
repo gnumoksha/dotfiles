@@ -152,12 +152,22 @@
 	ps = push
 	pl = pull --all
 	st = status
+	gui = !git-cola
+
+	# checkout --theirs path/to/file
+	checkout-theirs = checkout --theirs
+
+	# https://stackoverflow.com/questions/10697463/resolve-git-merge-conflicts-in-favor-of-their-changes-during-a-pull
+	rebase-theirs = rebase --theirs
 
 	# git checkout --theirs
-	pull-theirs = pull -Xtheirs
+	# git pull -s recursive -X theirs <remoterepo or other repo>
+	pull-theirs = pull -X theirs
+
+	merge-theirs = merge --strategy-option theirs
 
 	branch-status = branch -avv
-	branch-clean = !git branch | grep -P 'feature/|hotfix/|bugfix/|fix/|refactor/|improvement/' | xargs git branch -D
+	branch-clean = !git branch | grep -P 'feature/|hotfix/|bugfix/|fix/|refactor/|improvement/|tests/|chore/' | xargs git branch -D
 	branch-prune = !git remote prune origin && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -D
 
 	stash-all = !git stash save --include-untracked "Stash all at $(date +%Y-%m-%d_%H:%M:%S)"
