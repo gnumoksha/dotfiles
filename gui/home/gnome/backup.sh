@@ -6,7 +6,7 @@ export IFS=$'\n\t'
 DCONF_DIRS=(
 "/org/gnome/desktop/wm/keybindings/"
 "/org/gnome/settings-daemon/plugins/media-keys/"
-"/org/gnome/terminal/legacy/profiles:/:515250b1-a8cc-46f1-b692-36d0b7d515e3/"
+"/org/gnome/terminal/legacy/"
 )
 
 BKP_DIR="output"

@@ -45,6 +45,9 @@ if has('gui_running')
   " and ~/.config/gvim/gvimrc does not work, so I load gvimrc file
   " under runtimepath.
   runtime gvimrc
+
+  " gvimrc is not being loaded
+  set lines=999 columns=140
 endif
 
 " enable timeout for key sequence or keyboard code

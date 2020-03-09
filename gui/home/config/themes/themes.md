@@ -19,7 +19,9 @@ Conta-Compact
 Conta-indigo-compact
 Flat-Remix todos
 Greybird
+Materia-compact
 OSX-Arc-Darker
+Pano
 Plata-Compact
 Qogir-win
 United-Debian

@@ -151,7 +151,7 @@
 	p = push
 	ps = push
 	pl = pull --all
-	st = status
+	st = status -s
 	gui = !git-cola
 
 	# checkout --theirs path/to/file
@@ -167,11 +167,12 @@
 	merge-theirs = merge --strategy-option theirs
 
 	branch-status = branch -avv
-	branch-clean = !git branch | grep -P 'feature/|hotfix/|bugfix/|fix/|refactor/|improvement/|tests/|chore/' | xargs git branch -D
+	branch-clean = !git branch | grep -P 'feature/|hotfix/|bugfix/|fix/|refactor/|improvement/|imp/|tests/|gnumoksha/|chore/' | xargs git branch -D
 	branch-prune = !git remote prune origin && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -D
 
 	stash-all = !git stash save --include-untracked "Stash all at $(date +%Y-%m-%d_%H:%M:%S)"
 	stash-all-changed = stash --keep-index
+	stash-pop-force = !git stash show -p | git apply
 	# https://stackoverflow.com/questions/10312521/how-to-fetch-all-git-branches
 	# https://coderwall.com/p/0ypmka/git-clone-all-remote-branches-locally
 	fetch-all = "! for branch in $(git branch -a | grep remotes | grep -v HEAD); do git branch --track ${branch#remotes/origin/} $branch; done"

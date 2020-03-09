@@ -26,6 +26,7 @@ alias dmesg_critical="dmesg --level=crit,alert,emerg"
 #alias git='LANG=en_US.UTF-8 git'
 alias dd="dd status=progress"
 alias py="python3"
+py3venv() { python3 -m venv --symlinks --clear --prompt "$(basename $(pwd))" venv; }
 alias fd="fdfind"
 alias g="git"
 alias follow='multitail -p l '
@@ -225,6 +226,13 @@ psgrep () {
       echo "$REPLY";
       grep "$@"
     }
+}
+
+find_in_files () {
+  what=$1
+  where=$2
+  # searches the complete word on txt and md files
+  grep --include=\*.{txt,md} -Rniw "${where}" -e "${what}"
 }
 
 #[ $(command -v pinfo)  ] && alias man='pinfo'

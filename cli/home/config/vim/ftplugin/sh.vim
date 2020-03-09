@@ -14,6 +14,7 @@ setlocal smartindent expandtab shiftwidth=2 softtabstop=2 tabstop=2
 " nao sei se precisa
 "setlocal smarttab
 
-setlocal textwidth=80 " Maximum width of text that is being inserted
-setlocal colorcolumn=+1 " Highlight column after 'textwidth'
+"setlocal textwidth=80 " Maximum width of text that is being inserted
+"setlocal colorcolumn=+1 " Highlight column after 'textwidth'
+setlocal colorcolumn=81
 

@@ -25,6 +25,10 @@ addNautilusTemplates () {
 		echo "Unable to get XDG user dir for templates"
 		exit 1
 	fi
+	if [[ "${destination}" == "${HOME}" ]]; then
+		echo "Nautilus templates directory is equals to $HOME. This is probably wrong."
+		exit 1
+	fi
 	stow "$STOW_ARGS" --target=${destination} nautilus-file-templates/
 	popd > /dev/null 2>&1
 }
