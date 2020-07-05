@@ -26,7 +26,7 @@ alias dmesg_critical="dmesg --level=crit,alert,emerg"
 #alias git='LANG=en_US.UTF-8 git'
 alias dd="dd status=progress"
 alias py="python3"
-py3venv() { python3 -m venv --symlinks --clear --prompt "$(basename $(pwd))" venv; }
+py3venv() { python3 -m venv --symlinks --clear --prompt "$(basename "$(pwd)")" venv;}
 alias fd="fdfind"
 alias g="git"
 alias follow='multitail -p l '
@@ -46,6 +46,7 @@ alias git-ignore="git"
 # Arguments:
 #   None
 #######################################
+# shellcheck disable=SC2046
 pls() { sudo $(fc -ln -1); }
 
 #######################################
@@ -55,13 +56,13 @@ pls() { sudo $(fc -ln -1); }
 #   Text to send to clipboard.
 #######################################
 cpb() {
-	if [[ $# -eq 0 ]]; then
-		read input
-	else
-		input="$@"
-	fi
+  if [[ $# -eq 0 ]]; then
+    read -r input
+  else
+    input=( "$@" )
+  fi
 
-	echo -n "$input" | xclip -sel clip;
+  echo -n "${input[@]}" | xclip -sel clip;
 }
 
 #######################################
@@ -70,7 +71,7 @@ cpb() {
 # Arguments:
 #   None
 #######################################
-cpd() { echo -n "$PWD" | cpb }
+cpd() { echo -n "$PWD" | cpb "$@"; }
 
 # Change to the file's directory
 cdf() {
@@ -116,14 +117,14 @@ rprompt_show() { RPROMPT="${RPROMPT_OLD}"; unset RPROMPT_OLD; }
 # The voted answer does not work if no alias is defined.
 alias_get() {
   local value
-  if [[ ! -z "$ZSH_VERSION" ]]; then
+  if [[ -n "$ZSH_VERSION" ]]; then
     # shellcheck disable=SC2154
     value="${aliases[$1]}"
   else
     value="${BASH_ALIASES[$1]}"
   fi
 
-  if [[ ! -z "$value" ]]; then
+  if [[ -n "$value" ]]; then
     echo "$value"
   else
     echo -n
@@ -220,7 +221,8 @@ pw() {
 }
 
 scan_totp() {
-  img_dir=/home/tobias/Pictures
+  img_dir="$(xdg-user-dir PICTURES)"
+  # shellcheck disable=SC2012
   last_img="$(ls -t -1 "$img_dir" | head -1 )"
   zbarimg -q --raw "$img_dir/$last_img"
   rm -i "$img_dir/$last_img"

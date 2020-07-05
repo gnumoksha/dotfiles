@@ -21,7 +21,7 @@ EOF
 )
 # Para que o calendar apareça apenas uma vez por dia
 procura=$(find /tmp -maxdepth 1 -mtime -1 -iname "*bu_calendar" -type f 2>/dev/null)
-if [[ ! -z $procura ]]; then
+if [[ -n $procura ]]; then
 	return 0
 else
 	mktemp --suffix=bu_calendar > /dev/null 2>&1

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Utils functions for working with tmux.
 
 # Only execute this script if tmux is installed.
@@ -9,7 +10,7 @@ alias tmux='tmux -f "$XDG_CONFIG_HOME"/tmux/tmux.conf'
 
 TMUX_SESSION_NAME=${TMUX_SESSION_NAME:=TMUX}
 
-if [[ ! -z "$TMUX" ]]; then
+if [[ -n "$TMUX" ]]; then
 	# Shell is already running inside tmux.
 	if [[ ! -e "$XDG_CACHE_HOME"/tmux/plugins/tpm ]]; then
 		echo "Installing Tmux Plugin Manager (TPM) since it is not installed."
@@ -25,7 +26,7 @@ if [[ ! -z "$TMUX" ]]; then
 fi
 
 # Do not start inside Emacs ou vim.
-if [[ ! -z "$INSIDE_EMACS" || ! -z "$EMACS" || ! -z "$VIM" ]]; then
+if [[ -n "$INSIDE_EMACS" || -n "$EMACS" || -n "$VIM" ]]; then
 	return
 fi
 

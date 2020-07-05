@@ -8,8 +8,10 @@ elif [[ -n "$BASH_VERSION" && -f ~/.fzf.bash ]]; then
 fi
 
 # Setting fd as the default source for fzf
-if [ "$(command -v fd)" ]; then
-  FZF_DEFAULT_COMMAND='fd --type f'
+if [ "$(command -v fdfind)" ]; then
+  FZF_DEFAULT_COMMAND='fdfind --type f'
+elif [ "$(command -v fd)" ]; then
+    FZF_DEFAULT_COMMAND='fd --type f'
 else
    FZF_DEFAULT_COMMAND='find --type f'
 fi
@@ -95,10 +97,6 @@ fzf-pass-otp-widget() {
 	fzf-pass-widget "otp"
 }
 
-#  colocar no KDB:
-# showkey -a
-#bindkey -s '^Xm' "My mistress\' eyes are nothing like the sun."
-
 if [ -n "$ZSH_VERSION" ]; then
   zle     -N    fzf-pass-copy-widget
   bindkey '^Pc' fzf-pass-copy-widget
@@ -108,7 +106,6 @@ if [ -n "$ZSH_VERSION" ]; then
   bindkey '^Ps' fzf-pass-show-widget
   zle     -N    fzf-pass-otp-widget
   bindkey '^Po' fzf-pass-otp-widget
-
 fi
 
 #TODO for bash

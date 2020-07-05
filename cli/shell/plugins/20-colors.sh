@@ -33,10 +33,10 @@ fi
 #
 # GRC
 #
-if [[ ! -z "$ZSH_VERSION" && -e /etc/grc.zsh ]]; then
+if [[ -n "$ZSH_VERSION" && -e /etc/grc.zsh ]]; then
     source /etc/grc.zsh
     alias lsblk="grc --colour=auto lsblk" # lsblk is not in /etc/grc.zsh
-elif [[ ! -z "$BASH_VERSION" && -e /etc/grc.bashrc ]]; then
+elif [[ -n "$BASH_VERSION" && -e /etc/grc.bashrc ]]; then
     source /etc/grc.bashrc
     alias lsblk="grc --colour=auto lsblk" # lsblk is not in /etc/grc.bashrc
 fi

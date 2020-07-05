@@ -11,7 +11,7 @@ show_cowsay_fortune () {
 
 	# Para que o fortune apareça apenas uma vez por dia
 	procura=$(find /tmp -maxdepth 1 -mtime -1 -iname "*custom_fortune" -type f 2>/dev/null)
-	if [[ ! -z $procura ]]; then
+	if [[ -n $procura ]]; then
 		return 0
 	else
 		mktemp --suffix=custom_fortune > /dev/null 2>&1
