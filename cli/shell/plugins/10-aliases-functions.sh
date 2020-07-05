@@ -41,15 +41,36 @@ alias git-checkout="gcf"
 alias git-clean="gclan"
 alias git-ignore="git"
 
+#######################################
 # Execute the last command as root.
+# Arguments:
+#   None
+#######################################
 pls() { sudo $(fc -ln -1); }
-#pls() { sudo !!; }
 
+#######################################
 # Copy buffer to the Xorg's clipboard.
-cpb() { echo "$@" | xclip -sel clip; }
+# Arguments:
+#   None
+#   Text to send to clipboard.
+#######################################
+cpb() {
+	if [[ $# -eq 0 ]]; then
+		read input
+	else
+		input="$@"
+	fi
 
-# Copy the current directory path to the clipboard.
-cpd() { cpb "$(echo -n "$PWD")"; }
+	echo -n "$input" | xclip -sel clip;
+}
+
+#######################################
+# Copy the current directory path to
+# the clipboard.
+# Arguments:
+#   None
+#######################################
+cpd() { echo -n "$PWD" | cpb }
 
 # Change to the file's directory
 cdf() {
@@ -123,17 +144,19 @@ alias_append() {
 }
 
 # Generate passwords.
-# Usage: passgen <length>
+# Usage: pw <length> <quantity>
 # Examples:
-# passgen
-# passgen 10
+# pw
+# pw 10
 # Resources:
 # https://www.makeuseof.com/tag/5-ways-generate-secure-passwords-linux/
 # https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/
-passgen() {
+# TODO http://tldp.org/LDP/abs/html/contributed-scripts.html#PW
+# TODO https://opensource.com/article/19/11/random-passwords-bash-script
+pw() {
   pw_length=${1:-}
   num_pw=${2:-}
-  [[ -z "$pw_length" ]] && pw_length=20
+  [[ -z "$pw_length" ]] && pw_length=11
   [[ -z "$num_pw" ]] && num_pw=1
 
   pp() { printf "%-10s" "$@"; }
@@ -147,7 +170,7 @@ passgen() {
 
   pp "urandom: " && \
     < /dev/urandom tr -dc 'A-Z-a-z-0-9!@#$%^&*+-' | \
-    head -c "${1:-$pw_length}"; echo
+    head -c "${1:-$pw_length}"; echo;
 
   printf "\n> simple password: \n"
 
@@ -178,18 +201,18 @@ passgen() {
   # left-hand password, which would let you type your password with one hand.
   pp "lefthand: " && \
     </dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | \
-    head -c $pw_length; echo
+    head -c $pw_length; echo;
 
   [[ $(command -v diceware) ]] && \
     pp "diceware: " && \
-    diceware
+    diceware;
 
   # https://github.com/redacted/XKCD-password-generator
   [[ $(command -v xkcdpass) ]] && \
     pp "xkcdpass: " && \
-    xkcdpass --numwords=3 --delimiter=@ --case=random --count "$num_pw";
+    xkcdpass --numwords=3 --delimiter=@ --case=random --count "$num_pw" && \
     pp "acrostic: " && \
-    xkcdpass --acrostic "${USER}" --count "$num_pw"
+    xkcdpass --acrostic "${USER}" --count "$num_pw";
 
   # #TODO https://xkpasswd.net/s/
 
@@ -197,7 +220,7 @@ passgen() {
 }
 
 scan_totp() {
-  img_dir=/home/tobias/Documents/Pictures
+  img_dir=/home/tobias/Pictures
   last_img="$(ls -t -1 "$img_dir" | head -1 )"
   zbarimg -q --raw "$img_dir/$last_img"
   rm -i "$img_dir/$last_img"
