@@ -40,7 +40,7 @@ set number
 " Mostra o número da linha e da coluna, separados por virgula,  onde
 " o cursor está. Desativado pois o texto na linha de status exibe estas
 " informações.
-"set ruler 
+"set ruler
 
 " Exibe o modo atual
 set showmode

@@ -232,7 +232,7 @@ find_in_files () {
   what=$1
   where=$2
   # searches the complete word on txt and md files
-  grep --include=\*.{txt,md} -Rniw "${where}" -e "${what}"
+  grep --include=\*.{txt,md} -Rniwa "${where}" -e "${what}"
 }
 
 #[ $(command -v pinfo)  ] && alias man='pinfo'

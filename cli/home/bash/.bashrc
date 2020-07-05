@@ -28,8 +28,8 @@ if [[ -z "$XDG_CONFIG_HOME" || -z "$DOTFILES" ]]; then
 fi
 
 #|
-#| Load my custom shell scripts.
-#| It is here to ensure other plugins will not override my configurations.
+#| Load custom shell scripts.
+#| This is here to ensure other plugins will not override these scripts.
 #|
 for filename in "${DOTFILES_SHELL_PLUGINS}"/*.sh; do
   [ -e "$filename" ] || continue
@@ -39,9 +39,11 @@ done
 #
 # History
 #
-HISTSIZE=5000
+# how many entries save into the history file.
 HISTFILESIZE=10000
-# Don't put duplicate lines or lines starting with space in the history.
+# How many history entries load into memory.
+HISTSIZE=5000
+# Don't put duplicate lines, or lines starting with a space, into the history.
 HISTCONTROL=ignoreboth
 # Store history on XDG-based directory
 # See https://wiki.archlinux.org/index.php/XDG_Base_Directory#Hardcoded
@@ -49,11 +51,16 @@ HISTCONTROL=ignoreboth
 export HISTFILE="$XDG_DATA_HOME"/bash/history
 # Append to the history file, don't overwrite it
 shopt -s histappend
-
+# Save the history prior to issuing each primary prompt.
+# This way the history will contain entries for all bash sessions.
+export PROMPT_COMMAND='history -a'
 # Check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
-
+# attempt to save all lines of a multiple-line command in the same history entry
+shopt -s cmdhist
+# save multi-line commands to the history with embedded newlines
+shopt -s lithist
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar

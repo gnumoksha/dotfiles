@@ -26,7 +26,7 @@ addNautilusTemplates () {
 		exit 1
 	fi
 	if [[ "${destination}" == "${HOME}" ]]; then
-		echo "Nautilus templates directory is equals to $HOME. This is probably wrong."
+		echo "Nautilus templates directory is equals to $HOME, which is probably wrong."
 		exit 1
 	fi
 	stow "$STOW_ARGS" --target=${destination} nautilus-file-templates/

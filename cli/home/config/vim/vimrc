@@ -46,7 +46,7 @@ if has('gui_running')
   " under runtimepath.
   runtime gvimrc
 
-  " gvimrc is not being loaded
+  " #FIXME gvimrc is not being loaded
   set lines=999 columns=140
 endif
 
@@ -92,20 +92,20 @@ call plug#begin(g:VIM_PLUG_HOME)
   " Prevent various Vim features from keeping the contents of passwordstore.org.
   Plug 'https://git.zx2c4.com/password-store', {'rtp': 'contrib/vim/noplaintext.vim'}
   " Easy note taking in Vim.
-  Plug 'xolox/vim-notes', {'on': 'Note'}
+  "Plug 'xolox/vim-notes', {'on': 'Note'}
   " A syntax plugin for plain-text notes
   "Plug 'junegunn/vim-journal'
   " A Plugin to show a diff, whenever recovering a buffer.
   "Plug 'chrisbra/Recover.vim'
    " Unicode character metadataUnicode character metadata.
-  Plug 'tpope/vim-characterize'
+  "Plug 'tpope/vim-characterize'
   "Plug 'kana/vim-smartinput'
-  Plug 'dzeban/vim-log-syntax'
+  "Plug 'dzeban/vim-log-syntax'
   "Plug 'andreshazard/vim-logreview'
   " Vim plugin that provides additional text objects
-  Plug 'wellle/targets.vim'
+  "Plug 'wellle/targets.vim'
   " A Vim cheat sheet that makes sense, inside Vim!
-  Plug 'lifepillar/vim-cheat40'
+  "Plug 'lifepillar/vim-cheat40'
   "Plug 'rhysd/vim-grammarous'
   "Plug 'edkolev/tmuxline.vim'
   "}}}
@@ -117,7 +117,7 @@ call plug#begin(g:VIM_PLUG_HOME)
   " lean & mean status/tabline for vim that's light as air.
   Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
   "" Distraction-free writing in Vim .
-  Plug 'junegunn/goyo.vim' | Plug 'junegunn/limelight.vim'
+  "Plug 'junegunn/goyo.vim' | Plug 'junegunn/limelight.vim'
   " Adds file type glyphs/icons to popular Vim plugins.
   Plug 'ryanoasis/vim-devicons'
   "}}}
@@ -131,8 +131,67 @@ call plug#begin(g:VIM_PLUG_HOME)
     "Plug 'shumphrey/fugitive-gitlab.vim' " An extension to fugitive.vim for gitlab support
   Plug 'gregsexton/gitv', {'on': ['Gitv']} " gitk for Vim.
   Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
-  Plug 'junegunn/gv.vim', {'on': ['GV']} " A git commit browser in Vim.
-  Plug 'jreybert/vimagit'
+  "Plug 'junegunn/gv.vim', {'on': ['GV']} " A git commit browser in Vim.
+  "Plug 'jreybert/vimagit'
+  "}}}
+
+  """""""""""""""""""
+  " Code autocomplete
+  """""""""""""""""""
+  "{{{
+   " Minimalist autocompletion plugin for Vim.
+   Plug 'lifepillar/vim-mucomplete'
+
+  " A code-completion engine for Vim.
+  " 2017-11-27 - Tobias - PHP support is insufficient.
+  " Must have: apt-get install build-essential cmake python-dev python3-dev
+  " Nice to have: apt-get install golang nodejs npm
+  "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --js-completer' }
+
+  " The PHP plugin is problematic.
+  "Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
+
+  " Language Server Protocol (LSP) support for vim and neovim.
+  "Plug 'autozimu/LanguageClient-neovim', {
+    "\ 'branch': 'next',
+    "\ 'do': 'bash install.sh',
+    "\ }
+
+  " deoplete: Dark powered asynchronous completion framework for neovim/Vim8.
+  " https://github.com/Shougo/deoplete.nvim
+  "if has('nvim')
+    "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  "else
+    "Plug 'Shougo/deoplete.nvim'
+    "Plug 'roxma/nvim-yarp'
+    "Plug 'roxma/vim-hug-neovim-rpc'
+  "endif
+  "Plug 'Shougo/neco-syntax'
+  "Plug 'zchee/deoplete-jedi', {'for': 'python'}
+  "Plug 'zchee/deoplete-zsh', {'for': 'zsh'}
+  "Plug 'Shougo/neco-vim', {'for': 'vim'}
+  "Plug 'deathlyfrantic/deoplete-spell'
+  "if has('nvim')
+    "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  "else
+    "Plug 'Shougo/deoplete.nvim'
+    "Plug 'roxma/nvim-yarp'
+    "Plug 'roxma/vim-hug-neovim-rpc'
+  "endif
+
+  " Intellisense engine for vim8 & neovim, full language server protocol
+  " support as VSCode (requires nodejs).
+  "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+
+  " Using the jedi autocompletion library for VIM.
+  "Plugin 'davidhalter/jedi-vim'
+
+  " https://github.com/ajh17/VimCompletesMe
+
+  " https://kite.com/download
+
+  " https://www.tabnine.com/
+  "Plug 'zxqfl/tabnine-vim'
   "}}}
 
   """""""""""""""""""
@@ -157,42 +216,6 @@ call plug#begin(g:VIM_PLUG_HOME)
   Plug 'majutsushi/tagbar', {'on': ['Tagbar', 'TagbarToggle']} " Displays tags in a window, ordered by scope.
   Plug 'lvht/tagbar-markdown', {'on': ['Tagbar', 'TagbarToggle'], 'for': 'markdown'} " vim-tagbar extension for markdown.
   "Plug 'tpope/vim-dadbod', {'on': 'DB'} " dadbod.vim: Modern database interface for Vim
-
-  " A code-completion engine for Vim.
-  " 2017-11-27 - Tobias - PHP support is insufficient.
-  " Must have: apt-get install build-essential cmake python-dev python3-dev
-  " Nice to have: apt-get install golang nodejs npm
-  "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --js-completer' }
-
-  " The PHP plugin is problematic.
-  "Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
-
-  " Language Server Protocol (LSP) support for vim and neovim.
-  Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-
-  " deoplete: Dark powered asynchronous completion framework for neovim/Vim8.
-  Plug 'Shougo/neco-syntax'
-  Plug 'zchee/deoplete-jedi', {'for': 'python'}
-  Plug 'zchee/deoplete-zsh', {'for': 'zsh'}
-  Plug 'Shougo/neco-vim', {'for': 'vim'}
-  Plug 'deathlyfrantic/deoplete-spell'
-  if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  else
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-  endif
-
-  " Minimalist autocompletion plugin for Vim.
-  "Plug 'lifepillar/vim-mucomplete'
-
-  " Intellisense engine for vim8 & neovim, full language server protocol
-  " support as VSCode.
-  "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
   "Plug 'ekalinin/Dockerfile.vim' " Vim syntax file & snippets for Docker's Dockerfile.
   "Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair.
@@ -589,12 +612,12 @@ let g:tagbar_type_css = {
 " autozimu/LanguageClient-neovim {{{
 " composer global require felixfbecker/language-server
 "
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ 'python': ['/usr/local/bin/pyls'],
-    \ }
+"let g:LanguageClient_serverCommands = {
+    "\ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    "\ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    "\ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    "\ 'python': ['/usr/local/bin/pyls'],
+    "\ }
 "\ 'php': ['php', '~/.config/composer/vendor/felixfbecker/language-server/bin/php-language-server.php'],
 "nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 " Or map each action separately
@@ -605,7 +628,7 @@ let g:LanguageClient_serverCommands = {
 
 " Shougo/deoplete.nvim {{{
 " Enables automatic completation.
-let g:deoplete#enable_at_startup = 1
+"let g:deoplete#enable_at_startup = 1
 "call deoplete#custom#option({
     "\ 'complete_method': "omnifunc",
     "\ 'max_list': 30,

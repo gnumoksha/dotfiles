@@ -5,3 +5,5 @@ tofu.db
 trustdb.gpg
 crls.d/
 random_seed
+sshcontrol
+gpg-card-change-log.txt

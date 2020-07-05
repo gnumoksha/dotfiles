@@ -1,16 +1,64 @@
 #|
-#| GIT settings
+#| GIT configuration
 #|
 
-[user]
-	name = Tobias Sette
-	email = me@tobias.ws
-	signingkey = 0xE724F606EFFF66F7
+[alias]
+	br = branch
+	co = commit --verbose --status
+	ck = checkout
+	df = diff HEAD
+	fe = fetch --all
+	p = push
+	ps = push
+	pl = pull --all
+	st = status -s
+
+	# checkout --theirs path/to/file
+	checkout-theirs = checkout --theirs
+
+	# https://stackoverflow.com/questions/10697463/resolve-git-merge-conflicts-in-favor-of-their-changes-during-a-pull
+	rebase-theirs = rebase --theirs
+
+	# git checkout --theirs
+	# git pull -s recursive -X theirs <remoterepo or other repo>
+	pull-theirs = pull -X theirs
+
+	merge-theirs = merge --strategy-option theirs
+
+	branch-status = branch -avv
+	branch-prune = !git remote prune origin && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -D
+
+	stash-all = !git stash save --include-untracked "Stash all at $(date +%Y-%m-%d_%H:%M:%S)"
+	stash-all-changed = stash --keep-index
+	stash-pop-force = !git stash show -p | git apply
+	# https://stackoverflow.com/questions/10312521/how-to-fetch-all-git-branches
+	# https://coderwall.com/p/0ypmka/git-clone-all-remote-branches-locally
+	fetch-all = "! for branch in $(git branch -a | grep remotes | grep -v HEAD); do git branch --track ${branch#remotes/origin/} $branch; done"
+	clone-all = !git fetch-all
+	undo-changes = reset --hard HEAD
+	undo-last-commit = reset HEAD~
+	undo-all-changes = !git undo-changes && git clean -f -d -i
+	unstage = reset
+	download = clone --depth=1 --shallow-submodules --recurse-submodules
+
+	# Example: git added-in docker-compose.yml
+	added-in = log --follow --diff-filter=A --find-renames --
+
+	# https://stackoverflow.com/questions/2016901/viewing-unpushed-git-commits
+	log-unpushed = log @{push}..
+	
+	last = !git log-one-line -5
+	log-graph = log --decorate=short --source --cherry-mark --oneline --grap
+	log-my-commits = !git log --author=\"$(git config user.name)\"
+
+	# show Without Whitespace
+	show-ww = show --ignore-space-at-eol --ignore-space-change --ignore-all-space --ignore-blank-lines
+	show-with-branch = !git show $1 | git name-rev --stdin
+	backup-uncommited-files = !git ls-files --modified --others --exclude-standard -z | xargs -0 tar rvf backup.tar
+	# Usage git commit at "2018-02-20 08:50:00
+	commit-at = !export GIT_{AUTHOR,COMMITTER}_DATE="2018-05-05 12:13:14" && git co
 
 [core]
-	# Habilitar isso em sistemas nao case sensitive
-	#ignoreCase = true
-	editor = vim
 	# true - converts LF endings into CRLF when you check out code. [11]
 	# input - tell Git to convert CRLF to LF on commit but not the other way around.
 	# false - if you are doing only a windows project with windows people.
@@ -18,18 +66,17 @@
 	autocrlf = input
 	# "warn", in which case Git will only warn about an irreversible conversion but continue the operation.
 	safecrlf = warn
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = [ $(command -v diff-so-fancy) ] && diff-so-fancy | less --tabs=4 -RFX || less
 
 [commit]
-	gpgsign = true
 	template = ~/.config/git/templates/commit.txt
 
 [credential]
-	username = gnumoksha
 	helper = cache --timeout=300
-	
-[github]
-	user = gnumoksha
+
+[cola]
+	spellcheck = true
+	blameviewer = git gui blame
 
 [color]
 	diff = auto
@@ -37,21 +84,7 @@
 	interactive = auto
 	status = auto
 	branch = auto
-	status = auto
 	ui = true
-
-[diff]
-	# [0] [1] [2] [3]
-	# meld | diffuse | kompare | kdiff3
-	# diffmerge | bcompare
-	tool = meld
-	guitool = meld
-	submodule = log
-
-[diff "exif"]
-	# For more comprehensive diff
-	# https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes
-	textconv = exiftool
 
 [color "diff-highlight"]
 	oldNormal = red bold
@@ -67,32 +100,35 @@
 	new = green bold
 	whitespace = red reverse
 
+[diff]
+	submodule = log
+
+[diff "exif"]
+	# For more comprehensive diff
+	# https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes
+	textconv = exiftool
+
+[fetch]
+	prune = true # false if remote name?
+	;pruneTags = true
+
+[include]
+	# Include the config file if it exists in the current directory.
+	path = ./config.private
+
+[log]
+	date = iso
+
 [merge]
-	tool = vimdiff
 	keepBackup = false
 	conflictstyle = diff3
 	ff = yes
 	commit = no
 
 [mergetool]
-	;prompt = false
 	keepBackup = false
 
-[status]
-	submodulesummary = 1
-
-[rebase]
-	# Whether to show a diffstat of what changed upstream since the last rebase. False by default.
-	stat = true
-
-	# When set to true, automatically create a temporary stash entry before the operation begins, and apply it
-	# after the operation ends. This means that you can run rebase on a dirty worktree. However,
-	# use with care: the final stash application after a successful rebase might result in non-trivial conflicts.
-	# Defaults to false.
-	autoStash = true
-
 [pull]
-	# https://stackoverflow.com/a/30209750/4668660
 	rebase = true
 	default = current
 
@@ -107,130 +143,24 @@
 	# pointing at commit-ish that are reachable from the refs being pushed.
 	followTags = true
 
-[gui]
-	editor = gvim
+[rebase]
+	# Whether to show a diffstat of what changed upstream since the last rebase. False by default.
+	stat = true
 
-[log]
-	date = iso
+	# When set to true, automatically create a temporary stash entry before the operation begins, and apply it
+	# after the operation ends. This means that you can run rebase on a dirty worktree. However,
+	# use with care: the final stash application after a successful rebase might result in non-trivial conflicts.
+	# Defaults to false.
+	autoStash = true
+
+[status]
+	submodulesummary = 1
 
 [svn]
 	rmdir = true
 
-[cola]
-	spellcheck = true
-	blameviewer = git gui blame
-
-[instaweb]
-	browser = firefox
-
-[web]
-	browser = firefox
-
-[fetch]
-	prune = true # false if remote name?
-	;pruneTags = true
-
-;[branch]
-	;autoSetupMerge = always
-	
 [tar "tar.xz"]
 	command = xz -c
-
-[alias]
-	ad = add -p
-	br = branch
-	# do not use -m in order to test if the commit message is improved
-	co = commit --verbose --status
-	ck = checkout
-	#ck = checkout --track
-	cpick = cherry-pick -x
-	df = diff HEAD
-	dt = difftool
-	fe = fetch --all
-	mt = mergetool
-	p = push
-	ps = push
-	pl = pull --all
-	st = status -s
-	gui = !git-cola
-
-	# checkout --theirs path/to/file
-	checkout-theirs = checkout --theirs
-
-	# https://stackoverflow.com/questions/10697463/resolve-git-merge-conflicts-in-favor-of-their-changes-during-a-pull
-	rebase-theirs = rebase --theirs
-
-	# git checkout --theirs
-	# git pull -s recursive -X theirs <remoterepo or other repo>
-	pull-theirs = pull -X theirs
-
-	merge-theirs = merge --strategy-option theirs
-
-	branch-status = branch -avv
-	branch-clean = !git branch | grep -P 'feature/|hotfix/|bugfix/|fix/|refactor/|improvement/|imp/|tests/|gnumoksha/|chore/' | xargs git branch -D
-	branch-prune = !git remote prune origin && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -D
-
-	stash-all = !git stash save --include-untracked "Stash all at $(date +%Y-%m-%d_%H:%M:%S)"
-	stash-all-changed = stash --keep-index
-	stash-pop-force = !git stash show -p | git apply
-	# https://stackoverflow.com/questions/10312521/how-to-fetch-all-git-branches
-	# https://coderwall.com/p/0ypmka/git-clone-all-remote-branches-locally
-	fetch-all = "! for branch in $(git branch -a | grep remotes | grep -v HEAD); do git branch --track ${branch#remotes/origin/} $branch; done"
-	clone-all = !git fetch-all
-	undo-changes = reset --hard HEAD
-	undo-last-commit = reset HEAD~
-	undo-all-changes = !git undo-changes && git clean -f -d -i
-	unstage = reset
-	#TODO terminar este comando
-	#my-begin-agin = git reset --soft origin/dev
-	# quero apenas os arquivos para usar o software :)
-	# Fonte: git clone --help
-	download = clone --depth=1 --shallow-submodules --recurse-submodules
-	download-all-branches = !git download --no-single-branch
-
-	# Example: git added-in docker-compose.yml
-	added-in = log --follow --diff-filter=A --find-renames --
-
-	#diff-commit = show --color --pretty=format:%b
-
-	showtool = "!showci () { rev=$(git rev-parse \"${*:-HEAD}\"); git difftool $rev~1 $rev; }; showci"
-
-	# https://stackoverflow.com/questions/2016901/viewing-unpushed-git-commits
-	log-unpushed = log @{push}..
-
-	# Nao utilizo um format no gitconfig para poder continuar usando o git log no formato comum ou perto disso
-	# Baseado em https://stackoverflow.com/a/9463536/4668660
-	log-one-line = log --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(20,trunc)%aN %C(auto,reset)%s%C(auto,red)% gD% D'
-	last = !git log-one-line -5
-	log-graph = log --decorate=short --source --cherry-mark --oneline --grap
-	# WIP
-	log-with-branch = log --pretty=format:'%H | %aN | %s' | git name-rev --stdin --name-only
-
-	log-my-commits = !git log --author=\"$(git config user.name)\"
-
-	# how can I see which commits are in homol but not in master? git compare homol...master
-	# < significa que tem no homol
-	# > significa que tem no master
-	# Baseado em: https://stackoverflow.com/a/7567953/4668660
-	# #TODO usar --no-merges ?
-	compare = !git log-one-line --left-right --graph --cherry-pick
-
-	# show Without Whitespace
-	show-ww = show --ignore-space-at-eol --ignore-space-change --ignore-all-space --ignore-blank-lines
-	show-with-branch = !git show $1 | git name-rev --stdin
-	backup-uncommited-files = !git ls-files --modified --others --exclude-standard -z | xargs -0 tar rvf backup.tar
-	# Usage git commit at "2018-02-20 08:50:00
-	abc = !echo "$1"
-	commit-at = !export GIT_{AUTHOR,COMMITTER}_DATE="2018-05-05 12:13:14" && git co
-
-	#update = add -u .
-	#unstage = reset HEAD
-	#untracked = status -u .
-	#untracked-at = status -u
-	#assume-unchanged = update-index --assume-unchanged
-	#ls = ls-files
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %C(dim white)(%an)%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-	lg2 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 
 #|
 #| References
