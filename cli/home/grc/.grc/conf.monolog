@@ -69,7 +69,7 @@ colours=bold underline magenta
 count=more
 ======
 # Full path of a file where an error has occurred
-regexp=at .*?(\w+.php(?:\:\d+)?)
+regexp= at .*?(\w+.php(?:\:\d+)?)
 colours=underline dark red, underline bold red
 count=more
 =======
