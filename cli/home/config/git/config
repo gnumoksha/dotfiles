@@ -51,6 +51,7 @@
 	log-graph = log --decorate=short --source --cherry-mark --oneline --grap
 	log-my-commits = !git log --author=\"$(git config user.name)\"
 
+	set-upstream = !git branch --set-upstream-to=origin/$(git symbolic-ref --short HEAD)
 	# show Without Whitespace
 	show-ww = show --ignore-space-at-eol --ignore-space-change --ignore-all-space --ignore-blank-lines
 	show-with-branch = !git show $1 | git name-rev --stdin

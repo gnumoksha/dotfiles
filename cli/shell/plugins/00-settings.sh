@@ -26,4 +26,19 @@ fi
     #-set _MOTIF_WM_HINTS "0x2, 0x0, 0x0, 0x0, 0x0"
 #fi
 
+# setup the command-not-found package
+if [[ -x /usr/lib/command-not-found ]] ; then
+  export COMMAND_NOT_FOUND_INSTALL_PROMPT=1
+
+  if [[ -n "$ZSH_VERSION" ]]; then
+    # The following code was adapted from /etc/zsh_command_not_found
+    # present on Debian:
+    if (( ! ${+functions[command_not_found_handler]} )) ; then
+      function command_not_found_handler {
+        [[ -x /usr/lib/command-not-found ]] || return 1
+        /usr/lib/command-not-found -- ${1+"$1"} && :
+      }
+    fi
+  fi
+fi
 

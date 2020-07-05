@@ -33,7 +33,9 @@ HISTFILE="$ZDOTDIR/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=10000
 unsetopt SHARE_HISTORY
-
+# Remove command lines from the history list when the first character
+# on the line is a space
+setopt HIST_IGNORE_SPACE
 
 #|
 #| Load my custom shell scripts.
