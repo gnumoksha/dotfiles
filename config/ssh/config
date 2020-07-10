@@ -51,3 +51,6 @@ Host *
 # * /etc/ssh/ssh_config
 # * https://www.ssh.com/ssh/config/
 
+# https://bugzilla.mindrot.org/show_bug.cgi?id=2050
+# dotfiles: destination=$HOME/.ssh/config
+# vim: ft=sshconfig

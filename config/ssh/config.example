@@ -3,84 +3,54 @@
 #|
 
 # Auth with user and pass.
-#Host galadriel.local
-	#Hostname %h
-	#User tobias
-	##IdentityFile /dev/null
-	#PasswordAuthentication yes
-	#IdentitiesOnly no
-	#ChallengeResponseAuthentication yes
+Host galadriel.local
+	Hostname %h
+	User tobias
+	IdentityFile ~/.ssh/id_rsa
+	IdentitiesOnly yes
+	PasswordAuthentication yes
+	ChallengeResponseAuthentication yes
 
-#Host rabbitmq rabbitmq-fw
-	#Hostname 1.2.3.4
-	#User foo
-	#IdentityFile ~/.ssh/keys/foo
-	#IdentitiesOnly yes
+Host rabbitmq rabbitmq-fw
+	Hostname 1.2.3.4
+	User foo
+	IdentityFile ~/.ssh/keys/foo
+	IdentitiesOnly yes
 
-#Host rabbitmq-fw
-	#LocalForward 15673 localhost:15672
-	#RequestTTY no
-	#RemoteCommand bash -c 'echo "Listening on port 15673"; read -r -d '' _'
+Host rabbitmq-fw
+	LocalForward 15673 localhost:15672
+	RequestTTY no
+	RemoteCommand bash -c 'echo "Listening on port 15673"; read -r -d '' _'
 
-#Host mysql
-	#Hostname foo.bar
-	#User ec2-user
-	#LocalForward 3306 localhost:3306
-	#RequestTTY no
-	#RemoteCommand bash -c 'echo "Listening on port 3306"; read -r -d '' _'
+Host bind-remote-mysql-port-to-local-port
+	Hostname mysql.example.com
+	User some-user
+	LocalForward 3306 localhost:3306
+	RequestTTY no
+	RemoteCommand bash -c 'echo "Listening on port 3306"; read -r -d '' _'
 
-#Host home-daemon.tfy
-	#User sshtunnel
-	#Hostname foo.bar
-	#IdentityFile ~/.ssh/foo
-	#LocalForward 8822 localhost:22
-	#RequestTTY no
-	#TCPKeepAlive no
-	#ServerAliveInterval 15
-	#VisualHostKey no
-	#RemoteCommand bash -c 'echo "Forwarding port 8822 as port 22"; read -r -d '' _'
+Host foo.tunnel
+	Hostname localhost
+	User foo
+	Port 9922
+	IdentityFile ~/.ssh/foo
+	IdentitiesOnly yes
+	ProxyCommand ssh -i ~/.ssh/keys/foo -q -W %h:%p foo@foo.bar
 
-#Host foo.tunnel
-	#Hostname localhost
-	#User foo
-	#Port 9922
-	#IdentityFile ~/.ssh/foo
-	#IdentitiesOnly yes
-	#ProxyCommand ssh -i ~/.ssh/keys/foo -q -W %h:%p foo@foo.bar
+# All connections to github.com or gitlab.com will pass through example.com
+Host github.com gitlab.com
+	Hostname %h
+	User git
+	IdentityFile ~/.ssh/id_rsa_for_git
+	IdentitiesOnly yes
+	ProxyCommand ssh -i ~/.ssh/id_rsa_for_ssh -q -W %h:%p -p 53 user@example.com
 
-# All connections to github.com or gitlab.com will pass through tobias.ws.
-#Host github.com gitlab.com
-	#Hostname %h
-	#User git
-	#IdentityFile ~/.ssh/id_rsa-git
-	#IdentitiesOnly yes
-	#ProxyCommand ssh -i ~/.ssh/id_rsa-2048 -q -W %h:%p -p 53 tobias@tobias.ws
-
-#Host example-proxy-01
-	#HostName finaldestination.server.org
-	#User tobias
-	#IdentityFile ~/.ssh/id_rsa
-	#ProxyCommand /usr/local/bin/corkscrew proxy_address proxy_port %h %p
-	# ssh -L 8080:localhost:80 user@server.at.home -p 443
-
-#Host example-http-forward
-	# Faz com que conexoes na porta 8080 local sejam encaminhadas para porta
-	# 8888 (tinyproxy) no endereço 127.0.0.1 no host bilbo.
-	# retorna o erro "-bash: line 1: SSH-2.0-OpenSSH_6.6.1p1: command not found"
-	# ao logar, mas funciona
-	# ssh -L <local port>:<remote computer>:<remote port> <user>@<remote ip>
-	#ProxyCommand ssh -q -L 8080:127.0.0.1:8888 bilbo
-	#LocalForward 8080 127.0.0.1:8888
-	#ProxyCommand ssh -q -f -N -L 8080:127.0.0.1:8888 bilbo
-
-#Host gondor
-#	# A conexao à este host é feita atraves do condado. Sao efetuados dois logins
-#	HostName gondor
-#	Port 22
-#	User gondor
-#	# ProxyCommand ssh public.example.com nc %h %p
-#	# ProxyCommand  ssh merdely@gateway.hostname.tld nc %h %p 2> /dev/null
-#	ProxyCommand ssh -i ~/.ssh/id_rsa-2048 -q -W %h:%p condado@condado.eutobias.org
-#	IdentityFile ~/.ssh/id_rsa-2048
+Host example-proxy-01
+	HostName finaldestination.server.org
+	User some-user
+	IdentityFile ~/.ssh/id_rsa
+	ProxyCommand /usr/local/bin/corkscrew proxy_address proxy_port %h %p
+	 #ssh -L 8080:localhost:80 user@server.at.home -p 443
 
 # vim: ft=sshconfig
+# dotfiles: destination=$HOME/.ssh/config.example

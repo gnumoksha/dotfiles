@@ -1,3 +1,2 @@
+# dotfiles: destination=$HOME/.ssh/.gitignore
 /keys/
-/config.d/*.work
-/config.d/*.local
