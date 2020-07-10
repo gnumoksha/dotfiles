@@ -1,0 +1,7 @@
+#
+# Allows user-specific commands to be executed at the beginning of the
+# X user session - before the window manager is started.
+#
+# https://www.debian.org/doc/manuals/debian-reference/ch07.en.html#_starting_the_x_window_system
+# https://wiki.archlinux.org/index.php/Xprofile
+# dotfiles: destination=$HOME/.xprofile

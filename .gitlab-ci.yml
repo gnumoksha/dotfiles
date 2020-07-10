@@ -29,10 +29,10 @@ install-dotfiles:
 code-analysis:
   stage: test
   script:
-    - shellcheck cli/shell/plugins/*.sh
+    - shellcheck shell/plugins/*.sh
 
 unit-test:
   stage: test
   script:
-    - bats cli/shell/plugins/tests/
+    - bats shell/plugins/tests/
 

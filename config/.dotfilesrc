@@ -1,0 +1,19 @@
+src=alacritty dst=$XDG_CONFIG_HOME/
+src=byobu dst=$XDG_CONFIG_HOME/
+src=environment.d dst=$XDG_CONFIG_HOME/
+src=git dst=$XDG_CONFIG_HOME/
+src=gnupg dst=$XDG_CONFIG_HOME/
+src=grc dst=$XDG_CONFIG_HOME/
+src=htop dst=$XDG_CONFIG_HOME/
+src=http-prompt dst=$XDG_CONFIG_HOME/
+src=ipython dst=$XDG_CONFIG_HOME/
+src=jupyter dst=$XDG_CONFIG_HOME/
+src=kitty dst=$XDG_CONFIG_HOME/
+src=konsole dst=$XDG_CONFIG_HOME/
+src=ssh dst=$HOME/.ssh
+src=tilix dst=$XDG_CONFIG_HOME/
+src=tmux dst=$XDG_CONFIG_HOME/
+src=vim dst=$XDG_CONFIG_HOME/
+src=xdg/templates dst=$( d=$(xdg-user-dir TEMPLATES); [[ $d == $HOME ]] && echo "/tmp" || echo $d )
+src=xfce4-terminal dst=$XDG_CONFIG_HOME/
+src=zsh dst=$XDG_CONFIG_HOME/

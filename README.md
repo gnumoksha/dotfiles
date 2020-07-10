@@ -7,10 +7,8 @@ Configuration files for command line and some graphical softwares.
 ## Installation
 ```bash
 export DOTFILES=$HOME/.local/share/dotfiles
-git clone --recursive https://gitlab.com/gnumoksha/dotfiles.git $DOTFILES
+git clone https://gitlab.com/gnumoksha/dotfiles.git $DOTFILES
 cd $DOTFILES
-# This will install configurations for some softwares under your $HOME and
-# will ask about other things.
 ./install.sh
 ```
 
