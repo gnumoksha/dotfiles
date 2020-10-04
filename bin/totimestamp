@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# TODO use $@
+TZ="UTC" date --date="$1 $2"  +%s;
+

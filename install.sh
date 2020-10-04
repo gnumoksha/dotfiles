@@ -91,16 +91,21 @@ process_statement() {
 
     log_debug "Will evaluate '$statement'."
     evaluated=$( eval "declare -A info
-				src=
-				dst=
-				execBefore=
+				info[src]=; src=;
+				info[dst]=; dst=;
+				info[execBefore]=; execBefore=;
 				$statement
-				info[src]=$full_path/\$src
+				[[ ! -z "\$src" ]] && info[src]=$full_path/\$src
 				info[dst]=\$dst
 				info[execBefore]=\$execBefore
         typeset -p info"
     )
     eval "$evaluated"
+
+    if [[ -z "${info[src]}" ]] ; then
+        log_debug "Skipping empty statement."
+        return
+    fi
 
 	if [[ -d "${info[src]}" ]] ; then
 		src_symbol='/'
@@ -198,3 +203,4 @@ main() {
 }
 
 main "$@"
+

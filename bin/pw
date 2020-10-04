@@ -1,0 +1,80 @@
+#!/usr/bin/bash
+
+# Generate passwords.
+# Usage: pw <length> <quantity>
+# Examples:
+# pw
+# pw 10
+# Resources:
+# https://www.makeuseof.com/tag/5-ways-generate-secure-passwords-linux/
+# https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/
+# TODO http://tldp.org/LDP/abs/html/contributed-scripts.html#PW
+# TODO https://opensource.com/article/19/11/random-passwords-bash-script
+pw() {
+  pw_length=${1:-}
+  num_pw=${2:-}
+  [[ -z "$pw_length" ]] && pw_length=11
+  [[ -z "$num_pw" ]] && num_pw=1
+
+  pp() { printf "%-10s" "$@"; }
+
+  printf "> strong password: \n"
+
+  [[ $(command -v pwgen) ]] && \
+    pp "pwgen: " && \
+    pwgen --capitalize --numerals --symbols --secure --ambiguous \
+    $pw_length $num_pw
+
+  pp "urandom: " && \
+    < /dev/urandom tr -dc 'A-Z-a-z-0-9!@#$%^&*+-' | \
+    head -c "${1:-$pw_length}"; echo;
+
+  printf "\n> simple password: \n"
+
+  [[ $(command -v pwgen) ]] && \
+    pp "pwgen: " && \
+    pwgen $pw_length $num_pw;
+
+  pp "urandom" && \
+    < /dev/urandom tr -dc _A-Z-a-z-0-9 | \
+    head -c "${1:-$pw_length}"; echo;
+
+  [[ $(command -v openssl) ]] && \
+    pp "openssl: " && \
+    openssl rand -base64 $pw_length | \
+    head -c "$pw_length"; echo;
+
+	[[ $(command -v gpg) ]] && \
+    pp "gpg: " && \
+    gpg --gen-random -a 0 $pw_length;
+
+  # makepasswd is too simple
+  #[[ $(command makepasswd) ]] && \
+    #pp "makepasswd: " && \
+    #makepasswd --chars=$pw_length --count=$num_pw;
+
+  printf "\n> Other types: \n"
+
+  # left-hand password, which would let you type your password with one hand.
+  pp "lefthand: " && \
+    </dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | \
+    head -c $pw_length; echo;
+
+  [[ $(command -v diceware) ]] && \
+    pp "diceware: " && \
+    diceware;
+
+  # https://github.com/redacted/XKCD-password-generator
+  [[ $(command -v xkcdpass) ]] && \
+    pp "xkcdpass: " && \
+    xkcdpass --numwords=3 --delimiter=@ --case=random --count "$num_pw" && \
+    pp "acrostic: " && \
+    xkcdpass --acrostic "${USER}" --count "$num_pw";
+
+  # #TODO https://xkpasswd.net/s/
+
+  unset pp
+}
+
+pw "$@"
+

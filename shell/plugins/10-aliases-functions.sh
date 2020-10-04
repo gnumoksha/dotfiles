@@ -5,11 +5,13 @@
 #|
 # shellcheck disable=SC1117
 
+export PATH="$PATH:$DOTFILES/bin"
+
 #|
 #| Aliases
 #|
 # Note: color-related aliases are defined in colors.sh
-alias l='ls --escape --classify --group-directories-first --no-group --human-readable'
+alias l='clear && ls --escape --classify --group-directories-first --no-group --human-readable'
 alias ll='l -l'
 alias la='l -l --almost-all' # --almost-all because I never want ./ and ../
 alias ls_full='ll -l --author --context'
@@ -57,7 +59,7 @@ pls() { sudo $(fc -ln -1); }
 #######################################
 cpb() {
   if [[ $# -eq 0 ]]; then
-    read -r input
+    input=$(</dev/stdin)
   else
     input=( "$@" )
   fi
@@ -96,11 +98,6 @@ alias cdb="cdback"
 
 # Execute cd and ls
 cdls() { cd "$@" && ls; }; alias cs='cdls'
-
-# TODO use $@
-totimestamp() { TZ="UTC" date --date="$1 $2"  +%s; }
-# Convert unix timestamp to date
-fromtimestamp () { TZ="UTC" date -d "@$1" "+%F %T %Z"; }
 
 # Check the man page for a simple parameter
 # Example: mans ls -l
@@ -144,97 +141,6 @@ alias_append() {
   alias $1="$value $2"
 }
 
-# Generate passwords.
-# Usage: pw <length> <quantity>
-# Examples:
-# pw
-# pw 10
-# Resources:
-# https://www.makeuseof.com/tag/5-ways-generate-secure-passwords-linux/
-# https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/
-# TODO http://tldp.org/LDP/abs/html/contributed-scripts.html#PW
-# TODO https://opensource.com/article/19/11/random-passwords-bash-script
-pw() {
-  pw_length=${1:-}
-  num_pw=${2:-}
-  [[ -z "$pw_length" ]] && pw_length=11
-  [[ -z "$num_pw" ]] && num_pw=1
-
-  pp() { printf "%-10s" "$@"; }
-
-  printf "> strong password: \n"
-
-  [[ $(command -v pwgen) ]] && \
-    pp "pwgen: " && \
-    pwgen --capitalize --numerals --symbols --secure --ambiguous \
-    $pw_length $num_pw
-
-  pp "urandom: " && \
-    < /dev/urandom tr -dc 'A-Z-a-z-0-9!@#$%^&*+-' | \
-    head -c "${1:-$pw_length}"; echo;
-
-  printf "\n> simple password: \n"
-
-  [[ $(command -v pwgen) ]] && \
-    pp "pwgen: " && \
-    pwgen $pw_length $num_pw;
-
-  pp "urandom" && \
-    < /dev/urandom tr -dc _A-Z-a-z-0-9 | \
-    head -c "${1:-$pw_length}"; echo;
-
-  [[ $(command -v openssl) ]] && \
-    pp "openssl: " && \
-    openssl rand -base64 $pw_length | \
-    head -c "$pw_length"; echo;
-
-	[[ $(command -v gpg) ]] && \
-    pp "gpg: " && \
-    gpg --gen-random -a 0 $pw_length;
-
-  # makepasswd is too simple
-  #[[ $(command makepasswd) ]] && \
-    #pp "makepasswd: " && \
-    #makepasswd --chars=$pw_length --count=$num_pw;
-
-  printf "\n> Other types: \n"
-
-  # left-hand password, which would let you type your password with one hand.
-  pp "lefthand: " && \
-    </dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | \
-    head -c $pw_length; echo;
-
-  [[ $(command -v diceware) ]] && \
-    pp "diceware: " && \
-    diceware;
-
-  # https://github.com/redacted/XKCD-password-generator
-  [[ $(command -v xkcdpass) ]] && \
-    pp "xkcdpass: " && \
-    xkcdpass --numwords=3 --delimiter=@ --case=random --count "$num_pw" && \
-    pp "acrostic: " && \
-    xkcdpass --acrostic "${USER}" --count "$num_pw";
-
-  # #TODO https://xkpasswd.net/s/
-
-  unset pp
-}
-
-scan_totp() {
-  img_dir="$(xdg-user-dir PICTURES)"
-  # shellcheck disable=SC2012
-  last_img="$(ls -t -1 "$img_dir" | head -1 )"
-  zbarimg -q --raw "$img_dir/$last_img"
-  rm -i "$img_dir/$last_img"
-}
-
-# returns the public ip of this host.
-public_ip () {
-  wget -qO- ifconfig.co ||
-    wget -qO- ifconfig.me ||
-    wget -qO- icanhazip.com ||
-    dig +short myip.opendns.com @resolver1.opendns.com
-}
 
 # http://stackoverflow.com/questions/1058047/wait-for-any-process-to-finish
 wait_pid() {
@@ -252,6 +158,17 @@ psgrep () {
       grep "$@"
     }
 }
+psgrep2 () {
+  [[ $(command -v grc) ]] && PS=(grc --colour=auto /usr/bin/ps) || PS=(ps)
+  PS+=(-f -C "$@")
+  "${PS[@]}"
+}
+
+# man ps
+# STANDARD FORMAT SPECIFIERS
+
+alias pstree='ps xawf -eo pid,user,cgroup,args'
+# ps -O %cpu,%mem,nice,rssize,trs,vsz,wchan
 
 find_in_files () {
   what=$1

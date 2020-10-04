@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Reference
+# https://unix.stackexchange.com/questions/1974/how-do-i-make-my-pc-speaker-beep
+
+_alarm() {
+  local frequency=$1
+  local duration=$2
+  ( \speaker-test --frequency "$frequency" --test sine )&
+  pid=$!
+  \sleep "$duration"
+  \kill -9 $pid
+}
+
+_alarm 400 200

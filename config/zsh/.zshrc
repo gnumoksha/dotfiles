@@ -28,21 +28,33 @@ source $ZDOTDIR/plugins/simple-plugin.zsh
 #|
 #| ZSH settings
 #|
+# man 1 zshoptions
 # History
 HISTFILE="$ZDOTDIR/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=10000
+# imports new commands from the history file, and also causes your typed
+# commands to be appended to the history file.
 unsetopt SHARE_HISTORY
+
+setopt HIST_FCNTL_LOCK
+setopt HIST_IGNORE_DUPS
 # Remove command lines from the history list when the first character
 # on the line is a space
 setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_VERIFY
+# with the set-local-history zle binding
+setopt INC_APPEND_HISTORY
+setopt EXTENDED_HISTORY
 
 #|
 #| Load my custom shell scripts.
 #| It is here to ensure other plugins will not override my configurations.
 #|
 for filename in "${DOTFILES_SHELL_PLUGINS}"/*.sh; do
-  [ -e "$filename" ] || continue
+  [ -f "$filename" ] || continue
   source "$filename"
 done
 
@@ -62,11 +74,5 @@ unset STARTED_AT LOAD_TIME
 #|
 # autocomplete don't work
 # rm $XDG_CONFIG_HOME/zsh/.zcompdump*
-
-
-#|
-#| References
-#|
-# man zsh
 
 # vim: ft=zsh

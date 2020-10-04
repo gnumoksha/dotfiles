@@ -33,7 +33,7 @@ fi
 #| This is here to ensure other plugins will not override these scripts.
 #|
 for filename in "${DOTFILES_SHELL_PLUGINS}"/*.sh; do
-  [ -e "$filename" ] || continue
+  [ -f "$filename" ] || continue
   source "$filename"
 done
 
@@ -112,6 +112,7 @@ esac
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
+# See https://github.com/scop/bash-completion
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
