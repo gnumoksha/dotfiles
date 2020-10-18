@@ -10,8 +10,14 @@
 #|
 #| Profiling
 #|
+# Load module zprof (man zshmodules)
+# To show the results add "zprof" in the end of this file.
 #zmodload zsh/zprof
-#/usr/bin/time zsh -i -c exit
+# Also, you can use the following command to quickly see
+# the startup time.
+#time zsh -i -c exit
+# The following vaiable will be used to warn the user
+# if startup time is high.
 STARTED_AT=$(date +%s.%N)
 
 #|
@@ -62,6 +68,7 @@ done
 #|
 #| Profiling
 #|
+#zprof # show the profilling results from zprof
 LOAD_TIME=$(( $(date +%s.%N) - STARTED_AT ))
 if [[ $LOAD_TIME -gt 1 ]]; then
     >&2 echo "[warning] startup time was $LOAD_TIME seconds."
