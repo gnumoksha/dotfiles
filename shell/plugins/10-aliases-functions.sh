@@ -5,8 +5,6 @@
 #|
 # shellcheck disable=SC1117
 
-export PATH="$PATH:$DOTFILES/bin"
-
 #|
 #| Aliases
 #|

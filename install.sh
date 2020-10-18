@@ -22,11 +22,11 @@ extract_dotfiles_info() {
     local -n __result=${2:-}
 
     # XXX what happens if more then of info exists?
-    raw_info=$(sed -nr '/#( )?dotfiles( )?:( )?/p' "$path")
-    raw_info=$(echo "$raw_info" | sed -r 's/#( )?dotfiles( )?:( )?//i')
-    if [[ ! -z "$raw_info" ]]; then
-        log_debug "will evaluate '$raw_info'"
-        __result=$(eval "$raw_info"; echo $destination)
+    tag=$(sed -nr '/#( )?dotfiles( )?:( )?/p' "$path")
+    content=$(echo "$tag" | sed -rn 's/.*#( )?dotfiles( )?:( )?/\3/pi')
+    if [[ ! -z "$content" ]]; then
+        log_debug "will evaluate '$content'"
+        __result=$(eval "$content"; echo $destination)
         return
     fi
 
@@ -40,9 +40,10 @@ create_link() {
     local -n __result=${3:-}
     local force_fail=${4:-}
 
-    log_debug "Called to create a link between '$origin' and '$destination'."
+    log_debug "Will create a link between '$origin' and '$destination'."
 
-    if [[ $(basename "$origin") == "." ]]; then # origin is the directory where the .dotfilesrc is in
+    if [[ $(basename "$origin") == "." ]]; then
+        # origin is the directory where the .dotfilesrc is in
         origin=$(dirname "$origin")
     fi
 
@@ -72,11 +73,11 @@ create_link() {
             return
         fi
 
-        pushd "$origin" >/dev/null 2>&1
+        pushd "$origin" >/dev/null >/dev/null
         for i in **; do
             create_link "$origin/$i" "$destination/$i" foo "yes"
         done
-        popd >/dev/null 2>&1
+        popd >/dev/null >/dev/null
         __result="✅ files linked within ${destination}${src_symbol}"
         return
     fi
@@ -195,7 +196,7 @@ main() {
         esac
     done
 
-    for directory in config icons; do
+    for directory in config icons bin; do
         process_path "$INSTALLATION_DIR/$directory"
     done
 
@@ -203,4 +204,3 @@ main() {
 }
 
 main "$@"
-
