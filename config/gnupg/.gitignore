@@ -1,6 +1,7 @@
 private-keys-v1.d/
 pubring.kbx
 *.status
+.*
 tofu.db
 trustdb.gpg
 crls.d/
