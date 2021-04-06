@@ -33,7 +33,7 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
-# fkill - kill process
+# fkill - search a process then kill it
 fkill() {
   local pid
   pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')

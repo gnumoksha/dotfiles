@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
 # TODO use $@
-TZ="UTC" date --date="$1 $2"  +%s;
+
+if [[ -z "$1" ]]; then
+  TZ="UTC" date +%s;
+else
+  TZ="UTC" date --date="$1 $2"  +%s;
+fi
 

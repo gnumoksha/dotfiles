@@ -9,7 +9,6 @@
     "editor.fontFamily": "'DejaVu Sans Mono','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "php.executablePath": "/usr/bin/php",
     "editor.renderControlCharacters": false,
-    "window.zoomLevel": 0,
     "code-runner": {
         // https://github.com/formulahendry/vscode-code-runner#configuration
         "clearPreviousOutput": true,
@@ -45,7 +44,8 @@
         "editor.wordBasedSuggestions": false
     },
     "workbench.iconTheme": "vscode-icons",
-    "editor.fontSize": 16,
+    "editor.fontSize": 18,
     // fixes https://github.com/microsoft/vscode/issues/80798
-    "window.titleBarStyle": "custom"
+    "window.titleBarStyle": "custom",
+    "window.zoomLevel": 1
 }

@@ -58,6 +58,8 @@ pls() { sudo $(fc -ln -1); }
 cpb() {
   if [[ $# -eq 0 ]]; then
     input=$(</dev/stdin)
+  elif [[ -f "$1" ]]; then
+    input=( "$(cat "$1")" )
   else
     input=( "$@" )
   fi
