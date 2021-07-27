@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# wrapper for https://github.com/cheat/cheatsheets
+# https://github.com/cheat/cheat/blob/768d55e5d4738131cdcb097004d5de45e762db4e/README.md#script
+
+CMD=$XDG_CACHE_HOME/cheat/cheatsheets-cmd
+
+if [[ ! -e "$CMD" ]]; then
+  wget -O "$CMD" https://raw.githubusercontent.com/cheat/cheat/master/scripts/git/cheatsheets
+  chmod +x "$CMD"
+fi
+
+$CMD "$@"
+

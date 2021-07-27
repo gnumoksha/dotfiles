@@ -1,5 +1,6 @@
 src=alacritty dst=$XDG_CONFIG_HOME/
 src=byobu dst=$XDG_CONFIG_HOME/
+src=cheat dst=$XDG_CONFIG_HOME/ execBefore='[[ ! -d "$XDG_CACHE_HOME/cheat/cheatsheets" ]] && mkdir -p "$XDG_CACHE_HOME/cheat/cheatsheets" || true'
 src=environment.d dst=$XDG_CONFIG_HOME/
 src=git dst=$XDG_CONFIG_HOME/
 src=gnupg dst=$XDG_CONFIG_HOME/
@@ -17,3 +18,5 @@ src=vim dst=$XDG_CONFIG_HOME/ execBefore='mkdir -p "$XDG_CACHE_HOME"/vim/{undo,s
 src=xdg/templates dst=$( d=$(xdg-user-dir TEMPLATES); [[ $d == $HOME ]] && echo "/tmp" || echo $d )
 src=xfce4-terminal dst=$XDG_CONFIG_HOME/
 src=zsh dst=$XDG_CONFIG_HOME/
+
+# vim: ft=bash
