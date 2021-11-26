@@ -23,13 +23,10 @@ STARTED_AT=$(date +%s.%N)
 #|
 #| Plugins and custom scripts
 #|
-# Configure (but not load) oh-my-zsh
-source $ZDOTDIR/plugins/oh-my-zsh/oh-my-zsh.zsh
-
-# Install plugins
-#source $ZDOTDIR/plugins/zplug.zsh
-#source $ZDOTDIR/plugins/zgen.zsh
-source $ZDOTDIR/plugins/simple-plugin.zsh
+#source $ZDOTDIR/plugins/zplug-cfg.zsh
+#source $ZDOTDIR/plugins/zgen-cfg.zsh
+source $ZDOTDIR/plugins/minstall.zsh
+source $ZDOTDIR/plugins/minstall-cfg.zsh
 
 #|
 #| ZSH settings
@@ -55,10 +52,17 @@ setopt HIST_VERIFY
 setopt INC_APPEND_HISTORY
 setopt EXTENDED_HISTORY
 
+# Prompt
+# show nothing at the end of partial lines
+PROMPT_EOL_MARK=''
+
+
 #|
 #| Load my custom shell scripts.
-#| It is here to ensure other plugins will not override my configurations.
+#| It is defined at this point to ensure other plugins will not override my
+#| configurations.
 #|
+#FIXME tmux.sh should be started alone to not open other terminal and then load ?all plugins? again
 for filename in "${DOTFILES_SHELL_PLUGINS}"/*.sh; do
   [ -f "$filename" ] || continue
   source "$filename"
@@ -68,10 +72,12 @@ done
 #|
 #| Profiling
 #|
-#zprof # show the profilling results from zprof
 LOAD_TIME=$(( $(date +%s.%N) - STARTED_AT ))
 if [[ $LOAD_TIME -gt 1 ]]; then
     >&2 echo "[warning] startup time was $LOAD_TIME seconds."
+    read "?Press [ENTER] to continue"
+    zprof # show the profilling results from zprof module, if loaded
+    read "?Press [ENTER] to continue"
 fi
 unset STARTED_AT LOAD_TIME
 

@@ -5,55 +5,10 @@
 # This is useful because I've ended up with a slow shell startup while
 # using more complete solutions like zplug.
 
-minstall() {
-    local REPO=${1:-}
-    local DST=${2:-}
-    local EXEC_AFTER=${3:-}
-    local EXEC_ALWAYS=${4:-}
-
-    local PKG_NAME=$(basename $REPO)
-
-    if [[ -z "${DST}" ]]; then
-	DST="${XDG_CACHE_HOME}/manually-installed/${PKG_NAME}"
-    fi
-
-    if [[ ! -d "${DST}" ]]; then
-	# ${DST} is not a directory
-	echo "Installing $PKG_NAME"
-	git clone --depth=1 --recurse-submodules --quiet "${REPO}" "${DST}"
-
-	if [[ ! -z "${EXEC_AFTER}" ]]; then
-	    echo " -> Executing $EXEC_AFTER"
-	    pushd -q "${DST}"
-
-	    eval "${EXEC_AFTER}"
-	    if [[ $? -ne 0 ]]; then
-		echo "Error on exec after!"
-	    fi
-
-	    popd -q
-	fi
-    fi
-
-    if [[ -n "${EXEC_ALWAYS}" ]]; then
-	# User has defined "EXEC_ALWAYS"
-	pushd -q "${DST}"
-
-	if [[ "${EXEC_ALWAYS}" == "plug" ]]; then
-	    source "${PKG_NAME}.plugin.zsh"
-	else
-	    eval "${EXEC_ALWAYS}"
-	    if [[ $? -ne 0 ]]; then
-		echo "Error on exec always!"
-	    fi
-	fi
-
-	popd -q
-    fi
-}
-
 # Oh-my-zsh
-minstall "https://github.com/robbyrussell/oh-my-zsh" "${ZSH}" "" "source oh-my-zsh.sh"
+#DISABLE_AUTO_UPDATE=true
+UPDATE_ZSH_DAYS=7
+minstall "https://github.com/robbyrussell/oh-my-zsh" "" "" "source oh-my-zsh.sh"
 
 
 #|
