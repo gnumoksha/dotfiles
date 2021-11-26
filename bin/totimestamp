@@ -1,10 +1,16 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-# TODO use $@
-
-if [[ -z "$1" ]]; then
+if [ -z "$1" ]; then
+  # no date was informed, show the current time as timestamp
   TZ="UTC" date +%s;
+elif [ "$1" = '--help' ]; then
+  cmd=$(basename "$0")
+  echo "Usage: "
+  echo "  $cmd [date]"
+  echo
+  echo "Examples: "
+  echo "  $cmd 2020-11-20"
+  echo "  $cmd 2020-01-05 19:00:00"
 else
-  TZ="UTC" date --date="$1 $2"  +%s;
+  TZ="UTC" date --date="$*"  +%s;
 fi
-

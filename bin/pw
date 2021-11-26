@@ -16,6 +16,14 @@ pw() {
   [[ -z "$pw_length" ]] && pw_length=11
   [[ -z "$num_pw" ]] && num_pw=1
 
+  if [[ ! -t 1 ]]; then
+    # output is not a terminal, so assume it is a pipe and then print only one password.
+    < /dev/urandom tr -dc 'A-Z-a-z-0-9!@#$%^&*+-' | \
+    head -c "${1:-$pw_length}"; echo;
+
+    exit 0
+  fi
+
   pp() { printf "%-10s" "$@"; }
 
   printf "> strong password: \n"
@@ -77,4 +85,3 @@ pw() {
 }
 
 pw "$@"
-
