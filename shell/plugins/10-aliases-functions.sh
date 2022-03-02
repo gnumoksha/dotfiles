@@ -17,6 +17,7 @@ alias ls_full='ll -l --author --context'
 alias rm='rm --interactive'
 alias cp="cp --interactive"
 alias mv="mv --interactive"
+alias untar="tar --extract --one-top-level --file"
 # Nice format :)
 alias dmesg="dmesg --color --ctime --decode"
 alias dmesg_useful="dmesg --level=notice,warn,err,crit,alert,emerg"

@@ -1,3 +1,7 @@
+"uso:
+"export VIMINIT=":source /home/tobias/.config/vim/basic.vimrc"
+"vim big_file.xml
+
 """"""""""""""""""""""""""""""""""""""""""
 "                                        "
 "   Arquivo de configuracao para o VIM   "
@@ -18,9 +22,6 @@
 "{
 " http://stackoverflow.com/questions/5845557/in-a-vimrc-is-set-nocompatible-completely-useless
 set nocompatible
-
-" Recarrega o vim automaticamente quando editando o vimrc
-autocmd! bufwritepost .vimrc source ~/.vimrc
 
 " ? Esconder buffers quando eles são abandonados
 "set hidden
@@ -51,7 +52,7 @@ set laststatus=2
 " Define um texto na barra de status
 set statusline=\ %f%m%r%h\ %w\ \|
 set statusline+=\ [%{&ff}/%Y]\ \|
-set statusline+=\ %<%0(%{hostname()}:%{DiretorioAtual()}%)\ \|
+"set statusline+=\ %<%0(%{hostname()}:%{DiretorioAtual()}%)\ \|
 set statusline+=%=%-10.(%l,%c%V%)\ %p%%/%L
 
 " ? Iniciar a wild expansion na linha de comando usando <Tab>
@@ -61,20 +62,26 @@ set wildchar=<TAB>
 "set mouse=a
 "}
 
+" https://github.com/prabirshrestha/vim-lsp/issues/786
+set redrawtime=10000
+
+set nobackup
+set noundofile
+
 
 """""""""""""""""""""""""""""""
 "            Texto            "
 """""""""""""""""""""""""""""""
 "{
 " Destaque de sintexe.
-if has("syntax")
-	syntax on
-	colorscheme Tomorrow-Night
+syntax off
+"if has("syntax")
+"	syntax on
 	"força o vim a usar o modo de 256 cores
 	"set t_Co=256 " [4]
-	highlight Normal ctermbg=NONE| "[4]
-	highlight nonText ctermbg=NONE| "[4]
-endif
+"	highlight Normal ctermbg=NONE| "[4]
+"	highlight nonText ctermbg=NONE| "[4]
+"endif
 
 " Quando definido para 'dark', vim vai tentar usar cores que ficam
 " bom em um fundo escuro. Quando definido para 'light' vim vai tentar
@@ -215,26 +222,6 @@ nnoremap ; :
 "                 Funções                "
 "                                        "
 """"""""""""""""""""""""""""""""""""""""""
-
-" Auto completa o texto utilizando a tecla TAB
-" http://my.opera.com/smarcell/blog/2013/03/06/vim-autocompletar-com-tab
-function! AutoCompletar(direcao)
-	let posicao = col(".") - 1
-	if ! posicao || getline(".")[posicao - 1] !~ '\k'
-		return "\<Tab>"
-	elseif a:direcao == "avancar"
-		return "\<C-n>"
-	else
-		return "\<C-p>"
-	endif
-endfunction 
-inoremap <Tab> <C-R>=AutoCompletar("avancar")<CR>
-inoremap <S-Tab> <C-R>=AutoCompletar("voltar")<CR> 
-
-function! DiretorioAtual()
-	let dirAtual = substitute(getcwd(), $HOME, "~", "")
-	return dirAtual
-endfunction
 
 " Faz com que o vim reconheca que algo vai ser colado e mude
 " automaticamente para o modo paste e de insercao.

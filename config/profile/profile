@@ -47,47 +47,12 @@ fi
 PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
 
 #
-# Golang
-#
-# GOPATH environment variable specifies the location of your workspace.
-export GOPATH="${XDG_DATA_HOME}/golang/workspace"
-# Set the GOBIN path to generate a binary file when go install is run.
-export GOBIN="$GOPATH/bin"
-# If go is not in /usr/local/go, specify where it is.
-export GOROOT=/usr/lib/go-1.9
-PATH="$PATH:$GOROOT/bin:$GOBIN"
-
-#
-# PHP
-#
-export COMPOSER_HOME="$XDG_CONFIG_HOME/composer" # this is the default.
-export COMPOSER_CACHE_DIR="${XDG_CACHE_HOME}/composer" # this is the default.
-PATH="$PATH:$COMPOSER_HOME/vendor/bin"
-
-#
 # Python
 #
 PATH="$PATH:${HOME}/.local/bin"
 
-#
-# Rust-lang
-#
-# https://doc.rust-lang.org/cargo/reference/environment-variables.html
-export CARGO_HOME="${XDG_DATA_HOME}/cargo" # contains cache e config
-PATH="$PATH:$CARGO_HOME/bin"
-[ -d /usr/lib/cargo/bin ] && PATH="$PATH:/usr/lib/cargo/bin" # used by apt
-
 # finally export the path
 export PATH
-
-# Java#OpenJDK
-export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
-# Docker
-export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
-# Coreutils
-#source $(dircolors "$XDG_CONFIG_HOME"/dircolors)
-# CUDA
-export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -96,9 +61,6 @@ if [ -n "$BASH_VERSION" ]; then
 		. "$HOME/.bashrc"
 	fi
 fi
-
-# Create a named temporary directory for my personal use.
-[[ ! -d /tmp/t ]] && mkdir /tmp/t
 
 if [[ $(id -u) == 0 ]]; then
   # From Debian's /root/.profile
