@@ -260,7 +260,7 @@ call plug#begin(g:VIM_PLUG_HOME)
   "Plug 'godlygeek/csapprox' " (old: vim-scripts/CSApprox) Make gvim-only colorschemes work transparently in terminal vim.
   Plug 'tomasr/molokai' " Molokai color scheme for Vim.
   "Plug 'junegunn/seoul256.vim' " Low-contrast Vim color scheme based on Seoul Colors.
-  Plug 'joshdick/onedark.vim' " A dark Vim/Neovim color scheme inspired by Atom's One Dark syntax theme.
+  Plug 'joshdick/onedark.vim', { 'branch': 'main' } " A dark Vim/Neovim color scheme inspired by Atom's One Dark syntax theme.
   "Plug 'chriskempson/base16-vim' " Base16 for Vim.
   "Plug 'mhinz/vim-janah' " A dark colorscheme for Vim.
   "Plug 'nanotech/jellybeans.vim', { 'tag': 'v1.6' } " A colorful, dark color scheme for Vim.

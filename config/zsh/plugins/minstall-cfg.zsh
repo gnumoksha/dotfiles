@@ -8,6 +8,8 @@
 # Oh-my-zsh
 #DISABLE_AUTO_UPDATE=true
 UPDATE_ZSH_DAYS=7
+# I don't automatically want url quotation because it is buggy, i.e. that ignores ''
+DISABLE_MAGIC_FUNCTIONS=true
 minstall "https://github.com/robbyrussell/oh-my-zsh" "" "" "source oh-my-zsh.sh"
 
 

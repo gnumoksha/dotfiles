@@ -12,6 +12,8 @@
 	ps = push
 	pl = pull --all
 	st = status -s
+	master = !git checkout master && git pull
+	main = !git checkout main && git pull
 
 	# checkout --theirs path/to/file
 	checkout-theirs = checkout --theirs
@@ -26,6 +28,7 @@
 	merge-theirs = merge --strategy-option theirs
 
 	branch-status = branch -avv
+	# git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D
 	branch-prune = !git remote prune origin && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -D
 
 	stash-all = !git stash save --include-untracked "Stash all at $(date +%Y-%m-%d_%H:%M:%S)"
@@ -58,6 +61,7 @@
 	backup-uncommited-files = !git ls-files --modified --others --exclude-standard -z | xargs -0 tar rvf backup.tar
 	# Usage git commit at "2018-02-20 08:50:00
 	commit-at = !export GIT_{AUTHOR,COMMITTER}_DATE="2018-05-05 12:13:14" && git co
+	commit-random = !git commit -m \"$(curl -s http://whatthecommit.com/index.txt)\"
 
 [core]
 	# true - converts LF endings into CRLF when you check out code. [11]
@@ -116,6 +120,9 @@
 [include]
 	# Include the config file if it exists in the current directory.
 	path = ./config.private
+
+[init]
+	defaultBranch = main
 
 [log]
 	date = iso

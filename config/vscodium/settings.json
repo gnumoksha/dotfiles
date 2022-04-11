@@ -49,5 +49,8 @@
     "window.titleBarStyle": "custom",
     "window.zoomLevel": 1,
     "security.workspace.trust.untrustedFiles": "open",
-    "redhat.telemetry.enabled": true
+    "redhat.telemetry.enabled": true,
+    "files.autoSave": "onWindowChange",
+    "editor.renderWhitespace": "trailing",
+    "editor.formatOnPaste": true
 }
