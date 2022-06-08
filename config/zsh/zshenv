@@ -11,7 +11,7 @@
 # output or assume the shell is attached to a tty.
 #
 # Global Order: zshenv, zprofile, zshrc, zlogin
-# dotfiles: destination=$HOME/.zshenv
+# dotfiles: dst=$HOME/.zshenv
 
 # In case ~/.profile was not read yet.
 # This can happen in ssh sessions.

@@ -4,4 +4,4 @@
 #
 # https://www.debian.org/doc/manuals/debian-reference/ch07.en.html#_starting_the_x_window_system
 # https://wiki.archlinux.org/index.php/Xprofile
-# dotfiles: destination=$HOME/.xprofile
+# dotfiles: dst=$HOME/.xprofile

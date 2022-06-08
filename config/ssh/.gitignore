@@ -1,2 +1,2 @@
-# dotfiles: destination=$HOME/.ssh/.gitignore
+# dotfiles: dst=$HOME/.ssh/.gitignore
 /keys/

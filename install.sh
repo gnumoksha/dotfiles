@@ -2,7 +2,7 @@
 set -euo pipefail
 export IFS=$'\n\t'
 
-DEBUG_ENABLED="false"
+DEBUG_ENABLED=${DEBUG_ENABLED:-"false"}
 
 is_debug_enabled() {
     [[ "${DEBUG_ENABLED}" == "true" ]]
@@ -17,16 +17,17 @@ log_error() {
     echo "❌ $*"
 }
 
-extract_dotfiles_info() {
+# full path
+extract_inline_statement() {
     local path=${1:-}
     local -n __result=${2:-}
 
-    # XXX what happens if more then of info exists?
     tag=$(sed -nr '/#( )?dotfiles( )?:( )?/p' "$path")
-    content=$(echo "$tag" | sed -rn 's/.*#( )?dotfiles( )?:( )?/\3/pi')
+    content=$(echo "$tag" | sed -rn 's/.*#( )?dotfiles( )?:( )?/\3/pi' | head -1)
     if [[ ! -z "$content" ]]; then
-        log_debug "will evaluate '$content'"
-        __result=$(eval "$content"; echo $destination)
+        #log_debug "File \"$path\" has in-line statement \"$content\"."
+        #FIXME check if $content already has src
+        __result="src=$path $content"
         return
     fi
 
@@ -34,13 +35,79 @@ extract_dotfiles_info() {
     __result=
 }
 
+# Process a statement like
+# src=file dst=/destination/directory_or_file execBefore=ls execAfter=ls
+process_statement() {
+    local statement=${1}
+    local base_path=${2}
+
+    log_debug "Evaluating the statement \"$statement\"."
+    # it is necessary to declare the variables first to avoid "unbound variable" errors
+    evaluated=$( eval "declare -A info
+				info[src]=; src=;
+				info[dst]=; dst=;
+				info[execBefore]=; execBefore=;
+				info[execAfter]=; execAfter=;
+				$statement
+				if [[ ! -z "\$src" ]]; then
+          if [[ ! -z \"$base_path\" ]]; then
+            info[src]=$base_path/\$src
+          else
+            info[src]=\$src
+          fi
+        fi
+				info[dst]=\$dst
+				info[execBefore]=\$execBefore
+				info[execAfter]=\$execAfter
+        typeset -p info"
+    )
+    eval "$evaluated"
+
+    if [[ -z "${info[src]}" ]] ; then
+        log_debug "Skipping the statement because it has no \"src\" field."
+        return
+    fi
+
+    if [[ -d "${info[src]}" ]] ; then
+        src_symbol='/'
+    else
+        src_symbol=''
+    fi
+
+    if is_debug_enabled; then
+        log_debug "Processing ${info[src]}:"
+        elif [[ $(basename "${info[src]}") == '.' ]]; then
+        printf "%-20.20s" "$(basename "$(dirname "${info[src]}")")${src_symbol}"
+    else
+        printf "%-20.20s" "$(basename "${info[src]}")${src_symbol}"
+    fi
+
+    if [[ ! -z "${info[execBefore]}" ]]; then
+        log_debug "Executing \"execBefore\": ${info[execBefore]}"
+        eval "${info[execBefore]}" # this command must return 0, otherwise the script will stop
+    fi
+
+    create_link "${info[src]}" "${info[dst]}" msg
+    echo "$msg"
+
+    if [[ ! -z "${info[execAfter]}" ]]; then
+        log_debug "Executing \"execAfter\": ${info[execAfter]}"
+        eval "${info[execAfter]}" # this command must return 0, otherwise the script will stop
+    fi
+
+    if is_debug_enabled; then
+        echo
+    fi
+}
+
+# origin and destination must be the full path
 create_link() {
     local origin=${1}
     local destination=${2:-}
     local -n __result=${3:-}
     local force_fail=${4:-}
 
-    log_debug "Will create a link between '$origin' and '$destination'."
+    log_debug "Creating link $origin ➡️ $destination."
 
     if [[ $(basename "$origin") == "." ]]; then
         # origin is the directory where the .dotfilesrc is in
@@ -62,7 +129,7 @@ create_link() {
     fi
 
     if [[ -h "$destination" ]]; then
-        log_debug "destination exists and is a symbolic link, so it will be removed."
+        log_debug "Destination exists and it is a symbolic link, so it will be removed."
         rm -f "$destination"
     fi
 
@@ -73,11 +140,11 @@ create_link() {
             return
         fi
 
-        pushd "$origin" >/dev/null >/dev/null
+        pushd "$origin" >/dev/null
         for i in **; do
             create_link "$origin/$i" "$destination/$i" foo "yes"
         done
-        popd >/dev/null >/dev/null
+        popd >/dev/null
         __result="✅ files linked within ${destination}${src_symbol}"
         return
     fi
@@ -86,91 +153,44 @@ create_link() {
     __result="✅ linked to ${destination}${src_symbol}"
 }
 
-process_statement() {
-    local statement=${1}
-	local full_path=${2}
-
-    log_debug "Will evaluate '$statement'."
-    evaluated=$( eval "declare -A info
-				info[src]=; src=;
-				info[dst]=; dst=;
-				info[execBefore]=; execBefore=;
-				$statement
-				[[ ! -z "\$src" ]] && info[src]=$full_path/\$src
-				info[dst]=\$dst
-				info[execBefore]=\$execBefore
-        typeset -p info"
-    )
-    eval "$evaluated"
-
-    if [[ -z "${info[src]}" ]] ; then
-        log_debug "Skipping empty statement."
-        return
-    fi
-
-	if [[ -d "${info[src]}" ]] ; then
-		src_symbol='/'
-	else
-		src_symbol=''
-	fi
-
-    if is_debug_enabled; then
-        log_debug "Processing ${info[src]}:"
-	elif [[ $(basename "${info[src]}") == '.' ]]; then
-		printf "%-20.20s" "$(basename "$(dirname "${info[src]}")")${src_symbol}"
-    else
-        printf "%-20.20s" "$(basename "${info[src]}")${src_symbol}"
-    fi
-
-    if [[ ! -z "${info[execBefore]}" ]]; then
-        log_debug "Will execute: ${info[execBefore]}"
-        eval "${info[execBefore]}" # this command must return 0, otherwise the script will stop
-    fi
-
-    create_link "${info[src]}" "${info[dst]}" msg
-    echo "$msg"
-
-    if is_debug_enabled; then
-        echo
-    fi
-}
-
-process_path() {
+process_dotfilesrc_files() {
     local full_path=${1}
 
-    log_debug "Processing .dotfilesrc files"
+    log_debug "Searching .dotfilesrc files in $full_path"
     shopt -s dotglob globstar nullglob
     for item in "$full_path"/**/.dotfilesrc; do
-        log_debug "Processing $item"
+        log_debug "Analysing dotfilesrc file at $item"
         local info=
 
         while IFS= read -r line; do
             process_statement "$line" "$full_path"
         done < "$item"
     done
+}
 
-    log_debug "Processing common files"
-    shopt -u dotglob
+process_inline_statements() {
+    local full_path=${1}
+
+    log_debug "Searching in-line statements in files under $full_path"
+    shopt -s dotglob globstar nullglob
     local destination
     for item in "$full_path"/**; do
         if [[ ! -f "$item" ]]; then
             continue
         fi
 
-        extract_dotfiles_info "$item" destination
-
-        if [[ -z "$destination" ]]; then
+        extract_inline_statement "$item" statement
+        if [[ -z "$statement" ]]; then
             continue
         fi
 
         if is_debug_enabled; then
-            log_debug "Processing $item: "
+            log_debug "Processing in-line statement \"$statement\" from file \"$item\"."
         else
             printf "%-20.20s" "$(basename "$item") "
         fi
 
-        create_link "$item" "$destination" msg
-        echo "$msg"
+        process_statement "$statement" ""
 
         if is_debug_enabled; then
             echo
@@ -197,10 +217,32 @@ main() {
     done
 
     for directory in config icons bin; do
-        process_path "$INSTALLATION_DIR/$directory"
+        process_dotfilesrc_files "$INSTALLATION_DIR/$directory"
+        process_inline_statements "$INSTALLATION_DIR/$directory"
     done
 
     log_debug "Successfully finished"
 }
 
 main "$@"
+
+# #FIXME ver quais variaveis sao nescessarias (XDG_CONFIG_HOME, )
+# Colocar somente as variaveis ensensicias no envvars.conf (e.g. XDG)
+# Load the profile, setting environment variables.
+# . "$INSTALLATION_DIR/cli/home/profile/.profile"
+
+#TODO minimal
+
+#TODO
+#mv ~/.profile{,.bkp}
+#mv ~/.bash_logout{,.bkp}
+#mv ~/.bashrc{,.bkp}
+
+# TODO
+# config/apt
+# config/php
+# config/themes
+
+# TODO private dotfiles utilizar outra tag
+
+# TODO copiar para root, nao fazer symlink

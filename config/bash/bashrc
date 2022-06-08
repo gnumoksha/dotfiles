@@ -3,7 +3,7 @@
 # Interactive shell are the ones you connected to a terminal
 # (or pseudo-terminal in the case of, say, a terminal emulator
 # running under a windowing system.
-# dotfiles: destination=$HOME/.bashrc
+# dotfiles: dst=$HOME/.bashrc
 # http://savannah.gnu.org/support/?108134
 
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)

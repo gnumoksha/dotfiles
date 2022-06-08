@@ -1,6 +1,6 @@
 // Place your key bindings in this file to override the defaultsauto[]
 // shit shift is not possible https://github.com/microsoft/vscode/issues/5280
-// #dotfiles: destination=$XDG_CONFIG_HOME/VSCodium/User/keybindings.json
+// #dotfiles: dst=$XDG_CONFIG_HOME/VSCodium/User/keybindings.json
 
 [
     {

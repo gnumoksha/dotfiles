@@ -1,4 +1,4 @@
-# dotfiles: destination=$HOME/.ctags
+# dotfiles: dst=$HOME/.ctags
 
 --langdef=markdown
 --langmap=markdown:.mkd

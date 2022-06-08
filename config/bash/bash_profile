@@ -1,5 +1,5 @@
 # The personal initialization file, executed for login shells.
-# dotfiles: destination=$HOME/.bash_profile
+# dotfiles: dst=$HOME/.bash_profile
 #
 # Login shells are those you login from another host, or login at the text
 # console of a local unix machine.

@@ -1,6 +1,6 @@
 # The individual login shell cleanup file, executed when a
 # login shell exits.
-# dotfiles: destination=$HOME/.bash_logout
+# dotfiles: dst=$HOME/.bash_logout
 
 # when leaving the console clear the screen to increase privacy
 if [ "$SHLVL" = 1 ]; then
