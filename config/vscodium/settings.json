@@ -1,36 +1,44 @@
 // #dotfiles: dst=$XDG_CONFIG_HOME/VSCodium/User/settings.json
 {
+    /**
+     * Editor
+     */
     "editor.minimap.enabled": false,
-    "workbench.colorTheme": "Dark (Molokai)",
+    "editor.fontFamily": "'DejaVu Sans Mono','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.fontSize": 16,
+    "editor.renderControlCharacters": false,
+    "editor.wordSeparators": "`~!@#%^&*()-=+[{]}\\|;:'\",.<>/?",
+    "editor.renderWhitespace": "trailing",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modifications",
+    "editor.linkedEditing": true,
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": true,
+
+    /**
+     * Workbench
+     */
     "workbench.preferredDarkColorTheme": "Dark (Molokai)",
     "workbench.activityBar.visible": true,
-    "terminal.explorerKind": "external",
-    "window.menuBarVisibility": "toggle",
-    "editor.fontFamily": "'DejaVu Sans Mono','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-    "php.executablePath": "/usr/bin/php",
-    "editor.renderControlCharacters": false,
-    "code-runner": {
-        // https://github.com/formulahendry/vscode-code-runner#configuration
-        "clearPreviousOutput": true,
-        "saveFileBeforeRun": true,
-        "executorMap": {
-            // use shortcut Ctrl+Alt+J, or press F1 and then select/type Run By Language,
-            // then type javascript-current-version
-            "javascript-current-version": "docker run --rm -v $dir:/usr/src/app node:current-slim node /usr/src/app/$fileName",
-            "javascript": "docker run --rm -v $dir:/usr/src/app node:14-slim node /usr/src/app/$fileName",
-        }
-    },
     "workbench.startupEditor": "newUntitledFile",
     "workbench.colorCustomizations": {
-        "statusBar.background" : "#303030",
-        "statusBar.noFolderBackground" : "#222225",
+        "statusBar.background": "#303030",
+        "statusBar.noFolderBackground": "#222225",
         "statusBar.debuggingBackground": "#511f1f"
     },
-    "editor.wordSeparators": "`~!@#%^&*()-=+[{]}\\|;:'\",.<>/?",
-    "explorer.autoReveal": false,
     "workbench.tree.renderIndentGuides": "always",
     "workbench.tree.indent": 20,
-    "files.trimTrailingWhitespace": true,
+    "workbench.editor.enablePreview": false, // disable Preview Mode because it's useless
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.colorTheme": "Dark (Molokai)",
+
+    /**
+     * By programming language
+     */
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
     "[dart]": {
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
@@ -43,14 +51,37 @@
         "editor.tabCompletion": "onlySnippets",
         "editor.wordBasedSuggestions": false
     },
-    "workbench.iconTheme": "vscode-icons",
-    "editor.fontSize": 18,
+
+    /**
+     * Extensions
+     */
+    "code-runner": {
+        // https://github.com/formulahendry/vscode-code-runner#configuration
+        "clearPreviousOutput": true,
+        "saveFileBeforeRun": true,
+        "executorMap": {
+            // use shortcut Ctrl+Alt+J, or press F1 and then select/type Run By Language,
+            // then type javascript-current-version
+            "javascript-current-version": "docker run --rm -v $dir:/usr/src/app node:current-slim node /usr/src/app/$fileName",
+            "javascript": "docker run --rm -v $dir:/usr/src/app node:14-slim node /usr/src/app/$fileName",
+        }
+    },
+    "php.executablePath": "/usr/bin/php",
+    "vsicons.dontShowNewVersionMessage": true,
+
+    /**
+     * Miscellaneous
+     */
+    "terminal.explorerKind": "external",
+    "window.menuBarVisibility": "toggle",
+    "explorer.autoReveal": false,
+    "files.trimTrailingWhitespace": true,
     // fixes https://github.com/microsoft/vscode/issues/80798
     "window.titleBarStyle": "custom",
     "window.zoomLevel": 1,
     "security.workspace.trust.untrustedFiles": "open",
     "redhat.telemetry.enabled": true,
     "files.autoSave": "onWindowChange",
-    "editor.renderWhitespace": "trailing",
-    "editor.formatOnPaste": true
+    // to avoid launching tmux and so on
+    "terminal.integrated.defaultProfile.linux": "bash"
 }

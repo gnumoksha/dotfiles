@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# npm install -g lighthouse
+# yarn global add lighthouse
+
+# node:lts-alpine image is too simple (no bash)
+
+# docker volume rm nodejs-docker
+
+docker run --interactive --tty --rm --volume nodejs-docker:/usr/src/app --workdir /usr/src/app node:lts-bullseye "$@"
+

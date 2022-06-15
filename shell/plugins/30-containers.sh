@@ -5,6 +5,11 @@
 #######################
 # depends on: aliases_functions.sh
 
+export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+export MINIKUBE_HOME="$XDG_DATA_HOME"/minikube
+# https://github.com/kubernetes/kubernetes/issues/56402
+export KUBECONFIG="$XDG_CONFIG_HOME"/kubernetes/config
+
 #
 # Snapcraft
 #
@@ -20,13 +25,9 @@ alias_append lsblk '--exclude 7 --fs'
 #
 alias dcompose='docker-compose'
 alias dcompose_tail='docker-compose logs --tail=5 -f'
-# --all Remove all unused images, not just dangling ones
-# --force Do not prompt for confirmation
-# note: I do not want to remove volumes automatically
-# hardcore: docker system prune --all --force --volumes
-alias docker-prune="docker container prune --force && docker image prune --all --force"
 # show only hardware interfaces
 alias ifconfig='ls /sys/class/net | egrep -v "^(lo[0-9]?|sit[0-9]|ce[0-9]?|docker[0-9]?|br[-a-z0-9]{13})$" | xargs --max-args=1 /sbin/ifconfig'
+alias dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}"'
 
 #alias docker-get-image-version="docker image inspect --format '{{ index .Config.Labels \"version\" }}'"
 

@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+# --all Remove all unused images, not just dangling ones
+# --force Do not prompt for confirmation
+# note: I do not want to remove volumes automatically
+# hardcore: docker system prune --all --force --volumes
+# inicie o container que nao quer deletar e execute docker volume prune
+docker system df && docker container prune --force && docker image prune --all --force && docker system df
