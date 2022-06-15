@@ -11,38 +11,62 @@ Include config.d/*
 Host gitlab.com github.com bitbucket.org
 	Hostname %h
 	User git
-	#IdentitiesOnly no
-	#IdentityFile ~/.ssh/keys/old/id_rsa-2048
 
 # These settings will be applied if not specified before.
 Host *
-	ServerAliveInterval 300
-	ServerAliveCountMax 2
+	# If the server becomes unresponsive, ssh will disconnect
+	# after approximately 45 (3*15) seconds.
+	#
+	# Interval in seconds after which, if no data has been received from
+	# the server, ssh will send a message through the encrypted channel
+	# to request a response from the server.
+	ServerAliveInterval 15
+	# The number of server alive messages which may be sent without ssh
+	# receiving any messages back from the server.
+	ServerAliveCountMax 3
+	# Specifies whether the system should send TCP keepalive messages to the other side.
+	TCPKeepAlive yes
+
+	# Whether keys should be automatically added to a running ssh-agent.
+	# "The most convenient way to use public key or certificate
+	# authentication may be with an authentication agent" like this.
 	AddKeysToAgent yes
-	# Do not use VisualHostKey as I will not remember this kind of stuff :)
-	VisualHostKey no
-	ChallengeResponseAuthentication no
-	ForwardAgent no
+
+	# Do not allow X11 connections to be automatically redirected.
 	ForwardX11 no
+	# Do not allow remote X11 clients to have full access to this X11 display.
 	ForwardX11Trusted no
-	# some hosts do not have these Ciphers/MACs
-	# aes256-ctr for MySQL tunnel
-	Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com,aes256-ctr
+
+	# Specifies the ciphers allowed and their order of preference.
+	# To list all available: ssh -Q cipher
+	Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com
+
+	# Specifies the MAC (message authentication code) algorithms in order of preference.
+	# To list all available: ssh -Q mac
 	MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com
+
+	# Specifies the available KEX (Key Exchange) algorithms.
+	# To list all available: ssh -Q kex
 	KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+
+	# Specifies the host key algorithms that the client wants to use in order of preference.
+	# ssh -Q HostKeyAlgorithms
 	HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
+
 	# Do not offer keys unless explicited. Usefull when one
 	# has many keys and in order to avoid key fingerprinting.
 	IdentitiesOnly yes
 	IdentityFile ~/.ssh/keys/tobias-card01
+
 	# If it can't use keys, prompt for the password
-	PasswordAuthentication yes
+	#PasswordAuthentication yes
+	#ChallengeResponseAuthentication no
+	PreferredAuthentications gssapi-with-mic,publickey,password
 
 #|
 #| Troubleshooting
 #|
-# no such identity: /home/fooBar/.ssh/keys/foo-key: No such file or directory
-# see gpg-agent.conf
+# ssh -Q cipher
 
 #|
 #| References
@@ -52,5 +76,5 @@ Host *
 # * https://www.ssh.com/ssh/config/
 
 # https://bugzilla.mindrot.org/show_bug.cgi?id=2050
-# dotfiles: destination=$HOME/.ssh/config
+# dotfiles: dst=$HOME/.ssh/config
 # vim: ft=sshconfig
