@@ -140,6 +140,10 @@ create_link() {
             return
         fi
 
+        if [[ ! -d "$origin" ]]; then
+            log_error "file $destination already exists"
+            exit 1
+        fi
         pushd "$origin" >/dev/null
         for i in **; do
             create_link "$origin/$i" "$destination/$i" foo "yes"
@@ -149,6 +153,7 @@ create_link() {
         return
     fi
 
+    # TODO check if parent dir exists
     ln -s "$origin" "$destination"
     __result="✅ linked to ${destination}${src_symbol}"
 }
@@ -224,25 +229,11 @@ main() {
     log_debug "Successfully finished"
 }
 
+# set default values for some XDG environment variables, if not set
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+
 main "$@"
 
-# #FIXME ver quais variaveis sao nescessarias (XDG_CONFIG_HOME, )
-# Colocar somente as variaveis ensensicias no envvars.conf (e.g. XDG)
-# Load the profile, setting environment variables.
-# . "$INSTALLATION_DIR/cli/home/profile/.profile"
-
-#TODO minimal
-
-#TODO
-#mv ~/.profile{,.bkp}
-#mv ~/.bash_logout{,.bkp}
-#mv ~/.bashrc{,.bkp}
-
-# TODO
-# config/apt
-# config/php
-# config/themes
-
-# TODO private dotfiles utilizar outra tag
-
-# TODO copiar para root, nao fazer symlink
+echo "done"
