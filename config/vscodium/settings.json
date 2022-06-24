@@ -17,6 +17,12 @@
     "editor.guides.bracketPairs": true,
 
     /**
+     * Explorer
+     */
+    "explorer.confirmDragAndDrop": false,
+    "explorer.autoReveal": false,
+
+    /**
      * Workbench
      */
     "workbench.preferredDarkColorTheme": "Dark (Molokai)",
@@ -32,6 +38,14 @@
     "workbench.editor.enablePreview": false, // disable Preview Mode because it's useless
     "workbench.iconTheme": "vscode-icons",
     "workbench.colorTheme": "Dark (Molokai)",
+    "workbench.list.openMode": "doubleClick",
+
+    /**
+     * Built-in terminal emulator
+     */
+    "terminal.integrated.fontFamily": "'Droid Sans Mono Slashed for Powerline','DejaVu Sans Mono'",
+    "terminal.integrated.fontSize": 16,
+    "terminal.explorerKind": "external",
 
     /**
      * By programming language
@@ -72,9 +86,7 @@
     /**
      * Miscellaneous
      */
-    "terminal.explorerKind": "external",
     "window.menuBarVisibility": "toggle",
-    "explorer.autoReveal": false,
     "files.trimTrailingWhitespace": true,
     // fixes https://github.com/microsoft/vscode/issues/80798
     "window.titleBarStyle": "custom",
@@ -82,6 +94,4 @@
     "security.workspace.trust.untrustedFiles": "open",
     "redhat.telemetry.enabled": true,
     "files.autoSave": "onWindowChange",
-    // to avoid launching tmux and so on
-    "terminal.integrated.defaultProfile.linux": "bash"
 }

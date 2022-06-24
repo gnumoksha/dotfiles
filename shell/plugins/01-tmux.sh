@@ -25,8 +25,8 @@ if [[ -n "$TMUX" ]]; then
 	return
 fi
 
-# Do not start inside Emacs ou vim.
-if [[ -n "$INSIDE_EMACS" || -n "$EMACS" || -n "$VIM" ]]; then
+# Do not start inside Emacs, vim, vscodium.
+if [[ -n "$INSIDE_EMACS" || -n "$EMACS" || -n "$VIM" || "$TERM_PROGRAM" == "vscode" ]]; then
 	return
 fi
 
@@ -34,7 +34,13 @@ fi
 tmux list-sessions >/dev/null 2>&1 && return
 
 tmux attach -t $TMUX_SESSION_NAME >/dev/null 2>&1 || tmux new -s $TMUX_SESSION_NAME
-exit; # Automatically close the terminal when tmux exits.
+tmuxExitCode=$?
+if [[ $tmuxExitCode -ne 0 ]]; then
+  echo "Tmux has closed unexpectedly"
+  read -p "Press [ENTER] to continue"
+fi
+# Automatically close the terminal when tmux exits.
+exit $tmuxExitCode
 
 # Reference
 # https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/tmux/tmux.plugin.zsh
