@@ -15,18 +15,26 @@
     "editor.linkedEditing": true,
     "editor.bracketPairColorization.enabled": true,
     "editor.guides.bracketPairs": true,
+    "editor.rulers": [80, 120],
 
     /**
      * Explorer
      */
     "explorer.confirmDragAndDrop": false,
     "explorer.autoReveal": false,
+    "explorer.compactFolders": false,
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.expand": true,
+
+    /**
+     * Files
+     */
+    "files.trimTrailingWhitespace": true,
 
     /**
      * Workbench
      */
     "workbench.preferredDarkColorTheme": "Dark (Molokai)",
-    "workbench.activityBar.visible": true,
     "workbench.startupEditor": "newUntitledFile",
     "workbench.colorCustomizations": {
         "statusBar.background": "#303030",
@@ -39,6 +47,16 @@
     "workbench.iconTheme": "vscode-icons",
     "workbench.colorTheme": "Dark (Molokai)",
     "workbench.list.openMode": "doubleClick",
+    "workbench.layoutControl.enabled": true,
+
+    /**
+     * Window
+     */
+    "window.menuBarVisibility": "toggle",
+    "window.zoomLevel": 1,
+    // fixes https://github.com/microsoft/vscode/issues/80798
+    "window.titleBarStyle": "custom",
+    "window.openFoldersInNewWindow": "on",
 
     /**
      * Built-in terminal emulator
@@ -65,33 +83,46 @@
         "editor.tabCompletion": "onlySnippets",
         "editor.wordBasedSuggestions": false
     },
+    "[python]": {
+        // black can only format the entire file
+        "editor.formatOnSaveMode": "file",
+        "editor.formatOnPaste": false
+    },
+    "python.formatting.provider": "black",
+    "python.linting.enabled": true,
+    // https://code.visualstudio.com/docs/python/linting
+    "python.linting.pylintEnabled": true,
+    "python.linting.ignorePatterns": [
+        "**/site-packages/**/*.py",
+        "/usr/lib/**/*.py",
+        ".vscode/*.py"
+    ],
+    "python.linting.flake8Enabled": true,
+    "python.linting.banditEnabled": true,
+    "python.linting.mypyEnabled": true,
 
     /**
      * Extensions
      */
-    "code-runner": {
-        // https://github.com/formulahendry/vscode-code-runner#configuration
-        "clearPreviousOutput": true,
-        "saveFileBeforeRun": true,
-        "executorMap": {
-            // use shortcut Ctrl+Alt+J, or press F1 and then select/type Run By Language,
-            // then type javascript-current-version
-            "javascript-current-version": "docker run --rm -v $dir:/usr/src/app node:current-slim node /usr/src/app/$fileName",
-            "javascript": "docker run --rm -v $dir:/usr/src/app node:14-slim node /usr/src/app/$fileName",
-        }
+     // https://github.com/formulahendry/vscode-code-runner#configuration
+    "code-runner.executorMap": {
+        // use shortcut Ctrl+Alt+J, or press F1 and then select/type Run By Language,
+        // then type javascript
+        // "javascript": "docker run --rm -v $dir:/usr/src/app node:14-slim node /usr/src/app/$fileName",
     },
-    "php.executablePath": "/usr/bin/php",
     "vsicons.dontShowNewVersionMessage": true,
+    "gitlens.currentLine.enabled": false,
+    "cSpell.userWords": [
+        "Pylint",
+        "pyproject"
+    ],
 
     /**
      * Miscellaneous
      */
-    "window.menuBarVisibility": "toggle",
-    "files.trimTrailingWhitespace": true,
-    // fixes https://github.com/microsoft/vscode/issues/80798
-    "window.titleBarStyle": "custom",
-    "window.zoomLevel": 1,
     "security.workspace.trust.untrustedFiles": "open",
     "redhat.telemetry.enabled": true,
-    "files.autoSave": "onWindowChange",
+    "workbench.activityBar.visible": false,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
 }
