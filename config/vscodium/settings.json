@@ -129,16 +129,18 @@
      * By programming language
      */
     "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "esbenp.prettier-vscode", // ext install esbenp.prettier-vscode
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.formatOnPaste": true,
+        "editor.wordWrap": "wordWrapColumn",
+        "editor.wordWrapColumn": 120, // but prettier's "printWidth" is set to 80
     },
     "javascript.updateImportsOnFileMove.enabled": "always",
     "json.maxItemsComputed": 10000,
     "[dart]": {
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
-        "editor.rulers": [
-            80
-        ],
         "editor.selectionHighlight": false,
         "editor.suggest.snippetsPreventQuickSuggestions": false,
         "editor.suggestSelection": "first",
@@ -148,7 +150,11 @@
     "[python]": {
         // black can only format the entire file
         "editor.formatOnSaveMode": "file",
-        "editor.formatOnPaste": false
+        "editor.formatOnPaste": false,
+        // #TODO test
+        // "editor.wordWrap": "bounded",
+        // "editor.wordWrapColumn": 80,
+        // "editor.wrappingIndent": "same",
     },
     "python.formatting.provider": "black",
     "python.linting.enabled": true,
@@ -178,6 +184,7 @@
     "gitlens.codeLens.enabled": false, // on by default, but annoying
     "cSpell.userWords": [
         "dotfiles",
+        "esbenp",
         "Pylint",
         "pyproject"
     ],
