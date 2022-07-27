@@ -1,6 +1,7 @@
 #
 # Global gitignore.
 ####################
+# dotfiles: dst=$XDG_CONFIG_HOME/git/ignore
 
 #
 # GNU/Linux stuff

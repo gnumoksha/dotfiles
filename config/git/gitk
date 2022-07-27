@@ -1,3 +1,4 @@
+# dotfiles: dst=$XDG_CONFIG_HOME/git/gitk
 set mainfont {sans 9}
 set textfont {monospace 9}
 set uifont {sans 9 bold}

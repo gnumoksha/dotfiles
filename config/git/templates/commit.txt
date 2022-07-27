@@ -53,4 +53,5 @@
 # [1] https://www.conventionalcommits.org
 # [2] https://chris.beams.io/posts/git-commit/
 
+# dotfiles: dst=$XDG_CONFIG_HOME/git/templates/commit.txt execBefore='[[ ! -d "$XDG_CONFIG_HOME/git/templates" ]] && mkdir -p "$XDG_CONFIG_HOME/git/templates" || true'
 # vim: ft=gitcommit

@@ -1,6 +1,7 @@
 #|
 #| GIT configuration
 #|
+# dotfiles: dst=$XDG_CONFIG_HOME/git/config
 
 [alias]
 	br = branch

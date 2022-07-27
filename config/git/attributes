@@ -1,4 +1,6 @@
 # Grabbed (and modified) from https://github.com/alexkaratarakis/gitattributes/blob/master/Web.gitattributes
+# dotfiles: dst=$XDG_CONFIG_HOME/git/attributes execBefore='[[ ! -d "$XDG_CONFIG_HOME/git" ]] && mkdir -p "$XDG_CONFIG_HOME/git" || true'
+
 
 # Details per file setting:
 #   text    These files should be normalized (i.e. convert CRLF to LF).
