@@ -128,6 +128,18 @@
     /**
      * By programming language
      */
+    "[dart]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.selectionHighlight": false,
+        "editor.suggest.snippetsPreventQuickSuggestions": false,
+        "editor.suggestSelection": "first",
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": false
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode", // ext install esbenp.prettier-vscode
+    },
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode", // ext install esbenp.prettier-vscode
         "editor.formatOnSave": true,
@@ -138,15 +150,6 @@
     },
     "javascript.updateImportsOnFileMove.enabled": "always",
     "json.maxItemsComputed": 10000,
-    "[dart]": {
-        "editor.formatOnSave": true,
-        "editor.formatOnType": true,
-        "editor.selectionHighlight": false,
-        "editor.suggest.snippetsPreventQuickSuggestions": false,
-        "editor.suggestSelection": "first",
-        "editor.tabCompletion": "onlySnippets",
-        "editor.wordBasedSuggestions": false
-    },
     "[python]": {
         // black can only format the entire file
         "editor.formatOnSaveMode": "file",
