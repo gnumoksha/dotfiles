@@ -79,6 +79,7 @@
     "window.titleBarStyle": "custom", // fixes https://github.com/microsoft/vscode/issues/80798
     "window.openFoldersInNewWindow": "on",
     "window.commandCenter": true, // I'm testing this
+    //"window.restoreWindows": "all", // open-recent-files-on-startup didn't work
 
     /**
      * Explorer
@@ -100,6 +101,7 @@
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "files.enableTrash": true,
+    //"files.hotExit": "onExit", // open-recent-files-on-startup didn't work
 
     /**
      * Built-in terminal emulator
@@ -128,6 +130,8 @@
     /**
      * By programming language
      */
+    //ext install golang.Go
+    "[go]": {},
     "[dart]": {
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
@@ -137,11 +141,15 @@
         "editor.tabCompletion": "onlySnippets",
         "editor.wordBasedSuggestions": false
     },
+    // ext install esbenp.prettier-vscode
     "[html]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode", // ext install esbenp.prettier-vscode
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
     },
+    // ext install redhat.java
+    "[java]": {},
+    // ext install esbenp.prettier-vscode
     "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode", // ext install esbenp.prettier-vscode
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
         "editor.formatOnPaste": true,
@@ -150,6 +158,7 @@
     },
     "javascript.updateImportsOnFileMove.enabled": "always",
     "json.maxItemsComputed": 10000,
+    // ext install ms-python.python
     "[python]": {
         // black can only format the entire file
         "editor.formatOnSaveMode": "file",
@@ -171,6 +180,11 @@
     "python.linting.flake8Enabled": true,
     "python.linting.banditEnabled": true,
     "python.linting.mypyEnabled": true,
+    // ext install foxundermoon.shell-format
+    "[shellscript]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format",
+        "files.eol": "\n",
+    },
 
     /**
      * Extensions
