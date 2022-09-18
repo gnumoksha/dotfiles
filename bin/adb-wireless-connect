@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+IP=${1:-}
+
+if [[ -z "$IP" ]]; then
+  cat << EOF
+This script will try to find the adb remote debugging port in the specified
+IP address and then tell adb to try to connect to it.
+It is useful for connecting to an android device without opening the
+"Wireless debugging" screen to get the IP and the random port, which is
+cumbersome.
+
+Usage:
+  $(basename $0) [ip-address]
+EOF
+
+  exit 1
+fi
+
+cmd="nmap -p 20000-65535 -T 5 -n -oG - $IP"
+# for testing
+#cmd="cat one_port.txt"
+
+# https://nmap.org/book/output-formats-grepable-output.html
+portsLine=$($cmd | grep "Ports: " | sed -e "s/Ports: //" | cut -d $'\t' -f 2)
+IFS=','; portsInfo=($portsLine); unset IFS;
+
+for portInfo in "${portsInfo[@]}"; do
+  IFS='/'; portFields=($portInfo); unset IFS;
+  port=${portFields[0]};
+  state=${portFields[1]};
+  protocol=${portFields[2]};
+  owner=${portFields[3]};
+  service=${portFields[4]};
+  rpc_info=${portFields[5]};
+  version=${portFields[6]};
+
+  if [[ $state == "open" && $service = "" ]]; then
+    echo "INFO: it will try the port $port"
+    adb connect "$IP:$port"
+    if [[ $? -eq 0 ]]; then
+      echo "INFO: sucefully connected"
+      exit 0
+    fi
+  fi
+done
+
+echo "ERROR: unable to identify the ADB port on the android device"
+exit 1
+
