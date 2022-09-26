@@ -7,6 +7,7 @@
     "editor.minimap.enabled": false,
     "editor.fontFamily": "'DejaVu Sans Mono','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.fontSize": 16, // Eyestrain. This works in combination with "window.zoomLevel"
+    "editor.inlayHints.fontSize": 13,
     "editor.lineHeight": 1.1, // Eyestrain
     "editor.lineNumbers": "on",
     "editor.renderLineHighlight": "all",
@@ -20,9 +21,14 @@
     "editor.formatOnType": true,
     "editor.linkedEditing": true,
     "editor.bracketPairColorization.enabled": true,
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
     "editor.guides.bracketPairs": true,
     "editor.rulers": [80, 120],
-    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "editor.quickSuggestions": {
+        "other": "on",
+        "comments": "on",
+        "strings": "on"
+    },
     // Customize the syntax highlighting
     // Currently only TypeScript, JavaScript and Java have "Editor semantic highlighting" so,
     // the syntax highlighting can't be as good as in JetBrains' IDEs.
@@ -48,6 +54,11 @@
     },
 
     /**
+     * Breadcrumb
+     */
+    "breadcrumbs.symbolSortOrder": "type",
+
+    /**
      * Workbench
      */
     // ext install nonylene.dark-molokai-theme
@@ -57,9 +68,17 @@
     // Customize the Visual Studio Code color theme
     // https://code.visualstudio.com/api/references/theme-color
     "workbench.colorCustomizations": {
+        "tab.activeBorder": "#1a5ce0",
+        "tab.border": "#000000",
         "statusBar.background": "#303030",
         "statusBar.noFolderBackground": "#222225",
         "statusBar.debuggingBackground": "#511f1f",
+        "editorInlayHint.background": "#303030",
+        "editorInlayHint.parameterForeground": "#858585",
+        "editorInlayHint.typeForeground": "#858585",
+        // "editorBracketHighlight.foreground1": "#FFD700",
+        // "editorBracketHighlight.foreground2": "#DA70D6",
+        // "editorBracketHighlight.foreground3": "#179fff",
     },
     "workbench.startupEditor": "newUntitledFile",
     "workbench.tree.renderIndentGuides": "always",
@@ -78,7 +97,7 @@
     "window.zoomLevel": 1, // Eyestrain. This works in combination with "editor.fontSize"
     "window.titleBarStyle": "custom", // fixes https://github.com/microsoft/vscode/issues/80798
     "window.openFoldersInNewWindow": "on",
-    "window.commandCenter": true, // I'm testing this
+    "window.commandCenter": false, // I'm testing this
     //"window.restoreWindows": "all", // open-recent-files-on-startup didn't work
 
     /**
@@ -156,8 +175,38 @@
         "editor.wordWrap": "wordWrapColumn",
         "editor.wordWrapColumn": 120, // but prettier's "printWidth" is set to 80
     },
+    "javascript.inlayHints.parameterNames.enabled": "literals",
+    "javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": true,
+    "javascript.inlayHints.enumMemberValues.enabled": true,
+    "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+    "javascript.inlayHints.parameterTypes.enabled": true,
+    "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
+    "javascript.inlayHints.variableTypes.enabled": true,
+    "javascript.inlayHints.variableTypes.suppressWhenTypeMatchesName": true,
     "javascript.updateImportsOnFileMove.enabled": "always",
     "json.maxItemsComputed": 10000,
+    "json.schemas": [],
+    "json.schemaDownload.enable":true,
+    // Output panel
+    "[Log]": {
+        "editor.fontSize": 16 // Eyestrain
+    },
+    // Built-in support for PHP is bad, so use zobo.php-intellisense or nothing
+    "php.suggest.basic": false,
+    "php.validate.enable": true,
+    "php.validate.run": "onType",
+    // extensions:
+    // ext install xdebug.php-debug
+    // ext install bmewburn.vscode-intelephense-client (but good features are paid https://intelephense.com)
+    // ext install zobo.php-intellisense
+    // ext install ikappas.phpcs
+    // ext install junstyle.php-cs-fixer
+    // ext install neilbrayfield.php-docblocker
+    // ext install MehediDracula.php-namespace-resolver
+    // ext install phiter.phpstorm-snippets
+    // ext install breezelin.phpstan
+    // for "Parameter Hints":
+    // ext install liamhammett.inline-parameters or ext install BobbyZrncev.intellij-parameter-hints
     // ext install ms-python.python
     "[python]": {
         // black can only format the entire file
@@ -167,7 +216,10 @@
         // "editor.wordWrap": "bounded",
         // "editor.wordWrapColumn": 80,
         // "editor.wrappingIndent": "same",
+        // HOVER_ISSUE https://github.com/microsoft/vscode/issues/73120
+        // "editor.hover.enabled": false
     },
+    "python.experiments.enabled": false,
     "python.formatting.provider": "black",
     "python.linting.enabled": true,
     // https://code.visualstudio.com/docs/python/linting
@@ -177,14 +229,23 @@
         "/usr/lib/**/*.py",
         ".vscode/*.py"
     ],
-    "python.linting.flake8Enabled": true,
+    // pylint seems to do everything relevant that flake8 does
+    // and it has a better integration with VSCode. So, disable flake8
+    "python.linting.flake8Enabled": false,
+    // nothing in flake8 seems to be an error, so change its VSCode mapping
+    "python.linting.flake8CategorySeverity.F": "Warning",
+    "python.linting.flake8CategorySeverity.E": "Warning",
+    "python.linting.flake8CategorySeverity.W": "Warning",
     "python.linting.banditEnabled": true,
+    "python.linting.banditArgs": ["-c", "pyproject.toml"],
     "python.linting.mypyEnabled": true,
     // ext install foxundermoon.shell-format
     "[shellscript]": {
         "editor.defaultFormatter": "foxundermoon.shell-format",
         "files.eol": "\n",
     },
+    // https://github.com/redhat-developer/vscode-yaml
+    "yaml.schemaStore.enable": true,
 
     /**
      * Extensions
@@ -195,11 +256,14 @@
         // then type javascript
         // "javascript": "docker run --rm -v $dir:/usr/src/app node:14-slim node /usr/src/app/$fileName",
     },
+    "code-runner.clearPreviousOutput": true,
     "vsicons.dontShowNewVersionMessage": true,
     // https://github.com/gitkraken/vscode-gitlens
     "gitlens.currentLine.enabled": false, // on by default, but annoying
     "gitlens.codeLens.enabled": false, // on by default, but annoying
     "cSpell.userWords": [
+        "awslambdaric",
+        "Coroutines",
         "dotfiles",
         "esbenp",
         "Pylint",
@@ -212,4 +276,5 @@
     "security.workspace.trust.untrustedFiles": "open",
     "redhat.telemetry.enabled": true,
     "workbench.editor.enablePreview": false,
+    "bashIde.highlightParsingErrors": true,
 }
