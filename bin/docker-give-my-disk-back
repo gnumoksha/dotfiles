@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+docker-stop-all-containers
+docker-remove-all-containers
+docker-prune
+
