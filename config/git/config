@@ -50,7 +50,7 @@
 
 	# https://stackoverflow.com/questions/2016901/viewing-unpushed-git-commits
 	log-unpushed = log @{push}..
-	
+
 	last = !git log-one-line -5
 	log-graph = log --decorate=short --source --cherry-mark --oneline --grap
 	log-my-commits = !git log --author=\"$(git config user.name)\"
@@ -137,6 +137,11 @@
 [mergetool]
 	keepBackup = false
 
+[mergetool "codium"]
+	cmd = code --wait $MERGED
+[difftool "codium"]
+	cmd = code --wait --diff $LOCAL $REMOTE
+
 [pull]
 	rebase = true
 	default = current
@@ -175,4 +180,3 @@
 #| References
 #|
 # man git-config
-
