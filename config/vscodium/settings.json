@@ -105,7 +105,10 @@
      */
     // Notes:
     //  - there is no setting to increase the font size so, you need to use "window.zoomLevel" and "editor.fontSize"
-    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDragAndDrop": true,
+    "explorer.confirmDelete": true,
+    "explorer.confirmUndo": "verbose",
+    "explorer.incrementalNaming": "smart", // no option to ask, like in PhpStorm?
     "explorer.autoReveal": false,
     "explorer.compactFolders": false,
     "explorer.fileNesting.enabled": true,
@@ -121,6 +124,15 @@
     "files.insertFinalNewline": true,
     "files.enableTrash": true,
     //"files.hotExit": "onExit", // open-recent-files-on-startup didn't work
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.venv": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true
+    },
 
     /**
      * Built-in terminal emulator
@@ -128,6 +140,7 @@
     "terminal.integrated.fontFamily": "'Droid Sans Mono Slashed for Powerline','DejaVu Sans Mono'",
     "terminal.integrated.fontSize": 16, // Eyestrain
     "terminal.explorerKind": "external",
+    "terminal.integrated.rightClickBehavior": "copyPaste",
 
     /**
      * Problems
@@ -139,11 +152,17 @@
      */
     "search.smartCase": true,
     "search.useIgnoreFiles": true,
+    "search.useParentIgnoreFiles": true,
     "search.useGlobalIgnoreFiles": false,
+    "search.maxResults": 500,
+    "search.mode": "reuseEditor",
+    "search.searchOnType": true,
+    "search.sortOrder": "type",
 
     /**
      * Git
      */
+    "git.autoStash": true,
     "git.mergeEditor": true,
 
     /**
@@ -208,10 +227,18 @@
     // for "Parameter Hints":
     // ext install liamhammett.inline-parameters or ext install BobbyZrncev.intellij-parameter-hints
     // ext install ms-python.python
+    // ext install ms-pyright.pyright or ms-python.vscode-pylance
     "[python]": {
+        // use the experimental extension ms-python.black-formatter
+        // it didn't work
+        // "editor.defaultFormatter": "ms-python.black-formatter",
+        // "editor.formatOnSave": true,
+
+        // default black formatter bundled in ms-python extension
         // black can only format the entire file
         "editor.formatOnSaveMode": "file",
         "editor.formatOnPaste": false,
+
         // #TODO test
         // "editor.wordWrap": "bounded",
         // "editor.wordWrapColumn": 80,
@@ -219,8 +246,20 @@
         // HOVER_ISSUE https://github.com/microsoft/vscode/issues/73120
         // "editor.hover.enabled": false
     },
+    "python.autoComplete.extraPaths": [],
+    "python.diagnostics.sourceMapsEnabled": true,
     "python.experiments.enabled": false,
+    // use "none" if using "ms-python.black-formatter" extension
     "python.formatting.provider": "black",
+    // ext install ms-python.vscode-pylance
+    // this is a proprietary software and Microsoft does not allow it
+    // to run outside VSCode
+    // https://www.reddit.com/r/linux/comments/k0s8qw/vs_code_developers_prevent_running_the_new/
+    // https://github.com/microsoft/pylance-release/issues/483
+    // https://github.com/VSCodium/vscodium/issues/892
+    // https://github.com/flathub/com.vscodium.codium/issues/90
+    // "python.languageServer": "Pylance",
+    // "python.languageServer": "Jedi",
     "python.linting.enabled": true,
     // https://code.visualstudio.com/docs/python/linting
     "python.linting.pylintEnabled": true,
@@ -239,6 +278,9 @@
     "python.linting.banditEnabled": true,
     "python.linting.banditArgs": ["-c", "pyproject.toml"],
     "python.linting.mypyEnabled": true,
+    "python.sortImports.path": "isort",
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": true,
     // ext install foxundermoon.shell-format
     "[shellscript]": {
         "editor.defaultFormatter": "foxundermoon.shell-format",
@@ -255,8 +297,11 @@
         // use shortcut Ctrl+Alt+J, or press F1 and then select/type Run By Language,
         // then type javascript
         // "javascript": "docker run --rm -v $dir:/usr/src/app node:14-slim node /usr/src/app/$fileName",
+        // To avoid "ModuleNotFoundError" and "AttributeError"
+        "python": "PYTHONPATH=$workspaceRoot python $fullFileName"
     },
     "code-runner.clearPreviousOutput": true,
+    "code-runner.runInTerminal": false,
     "vsicons.dontShowNewVersionMessage": true,
     // https://github.com/gitkraken/vscode-gitlens
     "gitlens.currentLine.enabled": false, // on by default, but annoying
@@ -275,6 +320,8 @@
      */
     "security.workspace.trust.untrustedFiles": "open",
     "redhat.telemetry.enabled": true,
+    "telemetry.telemetryLevel":"off",
     "workbench.editor.enablePreview": false,
     "bashIde.highlightParsingErrors": true,
+    "python.analysis.extraPaths": [],
 }
