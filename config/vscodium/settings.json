@@ -170,6 +170,7 @@
      */
     //ext install golang.Go
     "[go]": {},
+    "go.toolsManagement.autoUpdate": true,
     "[dart]": {
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
