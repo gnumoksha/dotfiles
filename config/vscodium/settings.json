@@ -6,9 +6,9 @@
      */
     "editor.minimap.enabled": false,
     "editor.fontFamily": "'DejaVu Sans Mono','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-    "editor.fontSize": 16, // Eyestrain. This works in combination with "window.zoomLevel"
+    "editor.fontSize": 16, // #eyestrain. This works in combination with "window.zoomLevel"
     "editor.inlayHints.fontSize": 13,
-    "editor.lineHeight": 1.1, // Eyestrain
+    "editor.lineHeight": 1.1, // #eyestrain
     "editor.lineNumbers": "on",
     "editor.renderLineHighlight": "all",
     "editor.fontLigatures": false,
@@ -17,18 +17,31 @@
     "editor.renderWhitespace": "trailing",
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
-    "editor.formatOnSaveMode": "modifications",
+    "editor.formatOnSaveMode": "file", // it is better to change it by language
     "editor.formatOnType": true,
     "editor.linkedEditing": true,
     "editor.bracketPairColorization.enabled": true,
     "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
     "editor.guides.bracketPairs": true,
     "editor.rulers": [80, 120],
+    "editor.suggest.preview": true, // shows a opaque text next to the cursor
+    "editor.suggest.insertMode": "replace", // I'm testing this
     "editor.quickSuggestions": {
-        "other": "on",
-        "comments": "on",
-        "strings": "on"
+        "other": "on", // defualt on
+        "comments": "on", // defualt off
+        "strings": "on" // defualt off
     },
+    // #bad-suggestion I want:
+    // 1. VSCode to not select the first suggestion,
+    //    so I can type enter whenever I want.
+    //    But that doesnt't seems possible
+    //    https://github.com/microsoft/vscode/issues/85768
+    // 2. automatic suggestions/autocomplete only for IntelliSense
+    //    If suggestions are from dictionaries or something, only show them
+    //    if I've pressed control+space or something
+    //    Is that possible?
+    "editor.acceptSuggestionOnEnter": "smart", // workaround for item 1
+
     // Customize the syntax highlighting
     // Currently only TypeScript, JavaScript and Java have "Editor semantic highlighting" so,
     // the syntax highlighting can't be as good as in JetBrains' IDEs.
@@ -37,6 +50,8 @@
     //   - https://github.com/dracula/visual-studio-code/blob/master/src/dracula.yml
     "editor.tokenColorCustomizations":{
         "[*Molokai*]": {
+            "variables": "#ca88ff",
+            "numbers": "#ffffff",
             "textMateRules": [
                 {
                     "scope": [
@@ -64,6 +79,7 @@
     // ext install nonylene.dark-molokai-theme
     "workbench.colorTheme": "Dark (Molokai)",
     "workbench.preferredDarkColorTheme": "Dark (Molokai)",
+    // ext install vscode-icons-team.vscode-icons
     "workbench.iconTheme": "vscode-icons",
     // Customize the Visual Studio Code color theme
     // https://code.visualstudio.com/api/references/theme-color
@@ -87,6 +103,7 @@
     "workbench.layoutControl.enabled": true,
     "workbench.activityBar.visible": false,
     "workbench.editor.titleScrollbarSizing": "large",
+    "workbench.editor.enablePreview": false,
     "workbench.view.alwaysShowHeaderActions": true,
 
     /**
@@ -94,7 +111,7 @@
      */
     "window.title": "${dirty}${rootName}${separator}${activeEditorMedium}",
     "window.menuBarVisibility": "toggle",
-    "window.zoomLevel": 1, // Eyestrain. This works in combination with "editor.fontSize"
+    "window.zoomLevel": 1, // #eyestrain. This works in combination with "editor.fontSize"
     "window.titleBarStyle": "custom", // fixes https://github.com/microsoft/vscode/issues/80798
     "window.openFoldersInNewWindow": "on",
     "window.commandCenter": false, // I'm testing this
@@ -138,7 +155,7 @@
      * Built-in terminal emulator
      */
     "terminal.integrated.fontFamily": "'Droid Sans Mono Slashed for Powerline','DejaVu Sans Mono'",
-    "terminal.integrated.fontSize": 16, // Eyestrain
+    "terminal.integrated.fontSize": 16, // #eyestrain
     "terminal.explorerKind": "external",
     "terminal.integrated.rightClickBehavior": "copyPaste",
 
@@ -168,9 +185,40 @@
     /**
      * By programming language
      */
-    //ext install golang.Go
-    "[go]": {},
+    // ext install golang.Go
+    // https://github.com/golang/vscode-go/blob/master/README.md
+    "[go]": {
+        // #bad-suggestion and also an experiment that
+        // tries to get better suggestions
+        "editor.quickSuggestions": {
+            "other": "on", // defualt on
+            "comments": "off", // defualt off
+            "strings": "off" // defualt off
+        },
+        "editor.suggest.shareSuggestSelections": false,
+        "editor.inlineSuggest.enabled": false,
+        "editor.suggestOnTriggerCharacters": false,
+        "editor.acceptSuggestionOnCommitCharacter": false,
+        "editor.suggestSelection": "recentlyUsed", // doesn't seem to work
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "file",
+        "editor.formatOnType": true,
+        "editor.formatOnPaste": true,
+    },
+    "go.inlayHints.assignVariableTypes": true,
+    "go.inlayHints.compositeLiteralFields": true,
+    "go.inlayHints.compositeLiteralTypes": true,
+    "go.inlayHints.constantValues": true,
+    "go.inlayHints.functionTypeParameters": true,
+    "go.inlayHints.parameterNames": true,
+    "go.inlayHints.rangeVariableTypes": true,
+    "go.lintOnSave": "package",
+    "go.useLanguageServer": true,
     "go.toolsManagement.autoUpdate": true,
+    "gopls": {
+        // For better syntax highlighting
+        "ui.semanticTokens": true
+    },
     "[dart]": {
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
@@ -207,9 +255,17 @@
     "json.maxItemsComputed": 10000,
     "json.schemas": [],
     "json.schemaDownload.enable":true,
+    "[jsonc]": {
+        "editor.quickSuggestions": {
+            "strings": true
+        },
+        "editor.suggest.insertMode": "replace",
+        // I want to keep blank lines
+        "editor.formatOnSaveMode": "modifications",
+    },
     // Output panel
     "[Log]": {
-        "editor.fontSize": 16 // Eyestrain
+        "editor.fontSize": 16 // #eyestrain
     },
     // Built-in support for PHP is bad, so use zobo.php-intellisense or nothing
     "php.suggest.basic": false,
@@ -287,6 +343,7 @@
         "editor.defaultFormatter": "foxundermoon.shell-format",
         "files.eol": "\n",
     },
+    "bashIde.highlightParsingErrors": true,
     // https://github.com/redhat-developer/vscode-yaml
     "yaml.schemaStore.enable": true,
 
@@ -316,13 +373,15 @@
         "pyproject"
     ],
 
+    // in 2022 the "/" key still does not work in a pt-br keyword
+    // https://github.com/microsoft/vscode/issues/24147
+    // I will not use this because I don't know the side-effects
+    // "keyboard.dispatch": "keyCode",
+
     /**
      * Miscellaneous
      */
     "security.workspace.trust.untrustedFiles": "open",
     "redhat.telemetry.enabled": true,
     "telemetry.telemetryLevel":"off",
-    "workbench.editor.enablePreview": false,
-    "bashIde.highlightParsingErrors": true,
-    "python.analysis.extraPaths": [],
 }

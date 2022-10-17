@@ -170,5 +170,27 @@
         "key": "ctrl+shift+space",
         "command": "-editor.action.triggerParameterHints",
         "when": "editorHasSignatureHelpProvider && editorTextFocus"
+    },
+    // The following two keys are for toggle line comment
+    {
+        "key": "ctrl+/",
+        "command": "-editor.action.commentLine",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+/",
+        "command": "editor.action.commentLine",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    // The following two keys are for toggle line comment using the numpad
+    {
+        "key": "ctrl+numpad_divide",
+        "command": "-editor.action.commentLine",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+numpad_divide",
+        "command": "editor.action.commentLine",
+        "when": "editorTextFocus && !editorReadonly"
     }
 ]
