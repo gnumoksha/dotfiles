@@ -37,6 +37,6 @@ for line in $(avahi-browse --terminate --resolve --parsable --no-db-lookup _adb-
 	fi
 done
 
-echo "ERROR: unable to identify the ADB port on the android device"
+echo "ERROR: Unable to connect to android.\nYou may need to pair first."
 exit 1
 
