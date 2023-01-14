@@ -74,11 +74,39 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
     alias ip='ip --color'
+    # a trailing space causes the next word to be checked for alias
+    # substitution when the alias is expanded.
+    # https://unix.stackexchange.com/a/25329
+    alias watch='watch --color '
+fi
+
+# Magpager
+# Test it by running: man 2 select
+# TODO if tiver most e nao nvim, usar most
+# http://man7.org/linux/man-pages/man7/roff.7.html
+# https://github.com/rtomayko/ronn
+if [ $(command -v bat) ]; then
+    # reference: https://github.com/sharkdp/bat#man
+    alias cat='bat'
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+elif [ $(command -v batcat) ]; then
+    alias cat='batcat'
+    export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
+elif [ $(command -v nvim) ]; then
+    export MANPAGER='nvim +Man!'
+else
+    export LESS_TERMCAP_mb=$'\e[1;32m'
+    export LESS_TERMCAP_md=$'\e[1;32m'
+    export LESS_TERMCAP_me=$'\e[0m'
+    export LESS_TERMCAP_se=$'\e[0m'
+    export LESS_TERMCAP_so=$'\e[01;33m'
+    export LESS_TERMCAP_ue=$'\e[0m'
+    export LESS_TERMCAP_us=$'\e[1;4;31m'
+    #export LESS='-R --use-color -Dd+r$Du+b'
+    export MANPAGER="less -R --use-color -Dd+r -Du+b"
 fi
 
 # colored GCC warnings and errors. Source: Debian's $HOME/.bashrc
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 export DOTFILES_USE_COLORS
-
-#EOF

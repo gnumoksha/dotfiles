@@ -220,6 +220,7 @@
      // ext install mechatroner.rainbow-csv
     "[csv]": {
     },
+
     // ext install golang.Go
     // https://github.com/golang/vscode-go/blob/master/README.md
     "[go]": {
@@ -254,6 +255,7 @@
         // For better syntax highlighting
         "ui.semanticTokens": true
     },
+
     "[dart]": {
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
@@ -263,12 +265,24 @@
         "editor.tabCompletion": "onlySnippets",
         "editor.wordBasedSuggestions": false
     },
+
     // ext install esbenp.prettier-vscode
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
     },
+
     // ext install redhat.java
-    "[java]": {},
+    "[java]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.formatOnPaste": true,
+    },
+    "java.inlayHints.parameterNames.enabled": "literals",
+    "java.codeGeneration.insertionLocation": "beforeCursor",
+    "java.format.enabled": true,
+    "java.format.comments.enabled": true,
+    "java.format.onType.enabled": true,
+
     // ext install esbenp.prettier-vscode
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -290,6 +304,8 @@
     "json.maxItemsComputed": 10000,
     "json.schemas": [],
     "json.schemaDownload.enable":true,
+    "json.format.enable": true,
+    "json.format.keepLines": true, // keep empty lines in jsonc files
     "[jsonc]": {
         "editor.quickSuggestions": {
             "strings": true
@@ -299,10 +315,12 @@
         "editor.formatOnSaveMode": "modifications",
         "editor.defaultFormatter": "vscode.json-language-features",
     },
+
     // Output panel
     "[Log]": {
         "editor.fontSize": 16 // #eyestrain
     },
+
     // ext install DavidAnson.vscode-markdownlint
     // ext install ms-vscode.Theme-MarkdownKit ?does nothing?
     // #markdown-highlight does not work for console commands
@@ -312,10 +330,8 @@
         "editor.formatOnSave": true,
         "editor.formatOnPaste": true
     },
+
     // Built-in support for PHP is bad, so use zobo.php-intellisense or nothing
-    "php.suggest.basic": false,
-    "php.validate.enable": true,
-    "php.validate.run": "onType",
     // extensions:
     // ext install xdebug.php-debug
     // ext install bmewburn.vscode-intelephense-client (but good features are paid https://intelephense.com)
@@ -328,6 +344,10 @@
     // ext install breezelin.phpstan
     // for "Parameter Hints":
     // ext install liamhammett.inline-parameters or ext install BobbyZrncev.intellij-parameter-hints
+    "php.suggest.basic": false,
+    "php.validate.enable": true,
+    "php.validate.run": "onType",
+
     // ext install ms-python.python
     // ext install ms-pyright.pyright or ms-python.vscode-pylance
     "[python]": {
@@ -387,13 +407,28 @@
     "python.testing.unittestEnabled": false,
     "python.testing.autoTestDiscoverOnSaveEnabled": true,
     "python.analysis.typeCheckingMode": "strict",
+    "python.analysis.autoImportCompletions": true,
     "python.analysis.extraPaths": [],
-    // ext install foxundermoon.shell-format
+
     "[shellscript]": {
+        // ext install foxundermoon.shell-format
         "editor.defaultFormatter": "foxundermoon.shell-format",
         "files.eol": "\n",
     },
     "bashIde.highlightParsingErrors": true,
+
+    "[xml]": {
+        // ext install redhat.vscode-xml
+        "editor.defaultFormatter": "redhat.vscode-xml",
+    },
+    // https://github.com/redhat-developer/vscode-xml/tree/main/docs
+    "xml.format.enabled": false,
+    "xml.format.joinCDATALines": true,
+    "xml.format.joinContentLines": true,
+    "xml.format.preservedNewlines": 0,
+    "xml.preferences.quoteStyle": "double",
+    "xml.format.enforceQuoteStyle": "preferred",
+
     // https://github.com/redhat-developer/vscode-yaml
     "yaml.schemaStore.enable": true,
 
@@ -422,6 +457,7 @@
         "dotfiles",
         "esbenp",
         "Pylint",
-        "pyproject"
+        "pyproject",
+        "Stringable"
     ],
 }

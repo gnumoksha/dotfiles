@@ -11,9 +11,9 @@ fi
 if [ "$(command -v fdfind)" ]; then
   FZF_DEFAULT_COMMAND='fdfind --type f'
 elif [ "$(command -v fd)" ]; then
-    FZF_DEFAULT_COMMAND='fd --type f'
+  FZF_DEFAULT_COMMAND='fd --type f'
 else
-   FZF_DEFAULT_COMMAND='find --type f'
+  FZF_DEFAULT_COMMAND='find --type f'
 fi
 export FZF_DEFAULT_COMMAND
 # To apply the command to CTRL-T as well
@@ -95,6 +95,44 @@ fzf-pass-edit-widget() {
 
 fzf-pass-otp-widget() {
 	fzf-pass-widget "otp"
+}
+
+fzf-kubectl-attach-widget() {
+	NAMESPACE=$1
+  CONTAINER=${2:-}
+	local POD=
+
+	POD=$(kubectl get pods -n "$NAMESPACE" | fzf --header-lines=1 | cut -f 1 -d ' ')
+  # -c pau-pra-toda-obra
+  [ -n "$POD" ] && kubectl attach -i -t --namespace="$NAMESPACE" "$POD"
+
+	#zle reset-prompt
+}
+
+fzf-kubectl-exec-shell-widget() {
+	NAMESPACE=$1
+  CONTAINER=${2:-}
+	local POD=
+
+	POD=$(kubectl get pods -n "$NAMESPACE" | fzf --header-lines=1 | cut -f 1 -d ' ')
+  # -c pau-pra-toda-obra
+  [ -n "$POD" ] && kubectl exec --stdin --tty --namespace="$NAMESPACE" "$POD" -- sh -c "clear; (bash || ash || sh)"
+
+	#zle reset-prompt
+}
+
+fzf-kubectl-logs-widget() {
+	NAMESPACE=$1
+  CONTAINER=${2:-}
+	local POD=
+
+	POD=$(kubectl get pods -n "$NAMESPACE" | fzf --header-lines=1 | cut -f 1 -d ' ')
+  # -c pau-pra-toda-obra
+  # --all-containers
+  # --previous
+  [ -n "$POD" ] && kubectl logs --follow --namespace="$NAMESPACE" "$POD"
+
+	#zle reset-prompt
 }
 
 if [ -n "$ZSH_VERSION" ]; then

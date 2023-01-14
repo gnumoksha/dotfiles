@@ -1,9 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # wrapper for https://github.com/cheat/cheatsheets
 # https://github.com/cheat/cheat/blob/768d55e5d4738131cdcb097004d5de45e762db4e/README.md#script
 
 CMD=$XDG_CACHE_HOME/cheat/cheatsheets-cmd
+CHEATSHEETS_DIR=$XDG_CACHE_HOME/cheat/cheatsheets
+
+if [[ ! -d "$(dirname $CMD)" ]]; then
+  mkdir -p "$(dirname $CMD)"
+fi
+
+if [[ ! -d "$CHEATSHEETS_DIR" ]]; then
+  mkdir -p "$CHEATSHEETS_DIR"
+fi
 
 if [[ ! -e "$CMD" ]]; then
   wget -O "$CMD" https://raw.githubusercontent.com/cheat/cheat/master/scripts/git/cheatsheets
