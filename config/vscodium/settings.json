@@ -98,7 +98,7 @@
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "files.enableTrash": true,
-    //"files.hotExit": "onExit", // open-recent-files-on-startup didn't work
+    //"files.hotExit": "onExit", // open-select-recent-projects-on-startup didn't work
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -175,7 +175,8 @@
     "window.titleBarStyle": "custom", // fixes https://github.com/microsoft/vscode/issues/80798
     "window.openFoldersInNewWindow": "on",
     "window.commandCenter": false, // I'm testing this
-    //"window.restoreWindows": "all", // open-recent-files-on-startup didn't work
+    "window.restoreWindows": "none", // open-select-recent-projects-on-startup
+    "window.restoreFullscreen": true,
 
     /**
      * Workbench
@@ -200,7 +201,6 @@
         // "editorBracketHighlight.foreground2": "#DA70D6",
         // "editorBracketHighlight.foreground3": "#179fff",
     },
-    "workbench.startupEditor": "newUntitledFile",
     "workbench.tree.renderIndentGuides": "always",
     "workbench.tree.indent": 20, // disable Preview Mode because it's useless
     "workbench.list.openMode": "doubleClick",
@@ -209,6 +209,7 @@
     "workbench.editor.enablePreview": false,
     "workbench.view.alwaysShowHeaderActions": true,
     "workbench.activityBar.visible": false,
+    "workbench.startupEditor": "welcomePageInEmptyWorkbench", // open-select-recent-projects-on-startup
     // necessary to see the problem for the current line
     // as the mouse hover can show too much unnecessary info
     "workbench.statusBar.visible": true,
@@ -330,6 +331,7 @@
         "editor.formatOnSave": true,
         "editor.formatOnPaste": true
     },
+    "markdown.preview.fontSize": 16, // #eyestrain
 
     // Built-in support for PHP is bad, so use zobo.php-intellisense or nothing
     // extensions:
@@ -446,6 +448,8 @@
     "code-runner.clearPreviousOutput": true,
     "code-runner.runInTerminal": false,
     "vsicons.dontShowNewVersionMessage": true,
+    "debug.console.fontSize": 16, // #eyestrain
+    "rest-client.fontSize": 16, // #eyestrain
     // https://github.com/gitkraken/vscode-gitlens
     "gitlens.currentLine.enabled": false, // on by default, but annoying
     "gitlens.codeLens.enabled": false, // on by default, but annoying
