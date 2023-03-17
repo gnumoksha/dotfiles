@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
-is_gnome_42=$(cat /usr/share/gnome/gnome-version.xml | grep -i platform | grep 42)
+# Get the TOTP string from the qrcode in the last screenshot taken.
+
+#is_gnome_42=$(cat /usr/share/gnome/gnome-version.xml | grep -i platform | grep 42)
 img_dir="$(xdg-user-dir PICTURES)"
-if [[ $is_gnome_42 ]]; then
+#if [[ $is_gnome_42 ]]; then
   #FIXME >=42
   img_dir="$img_dir/Screenshots"
-fi
+#fi
 
 # shellcheck disable=SC2012
 last_img="$(ls -t -1 "$img_dir" | head -1 )"

@@ -11,7 +11,7 @@
      * Editor
      */
     "editor.minimap.enabled": false,
-    "editor.fontFamily": "'DejaVu Sans Mono','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.fontFamily": "'DejaVu Sans Mono','Droid Sans Mono', 'monospace', 'Droid Sans Fallback'",
     "editor.fontSize": 16, // #eyestrain. This works in combination with "window.zoomLevel"
     "editor.inlayHints.fontSize": 13,
     "editor.lineHeight": 1.1, // #eyestrain
@@ -154,8 +154,10 @@
     /**
      * Built-in terminal emulator
      */
-    "terminal.integrated.fontFamily": "'Droid Sans Mono Slashed for Powerline','DejaVu Sans Mono'",
+    "terminal.integrated.fontFamily": "'DejaVuSansMono Nerd Font','Droid Sans Mono Slashed for Powerline','DejaVu Sans Mono'",
     "terminal.integrated.fontSize": 16, // #eyestrain
+    "terminal.integrated.cursorStyle": "underline",
+    "terminal.integrated.cursorBlinking": true,
     "terminal.explorerKind": "external",
     "terminal.integrated.rightClickBehavior": "copyPaste",
 
@@ -207,9 +209,9 @@
     "workbench.layoutControl.enabled": true,
     "workbench.editor.titleScrollbarSizing": "large",
     "workbench.editor.enablePreview": false,
-    "workbench.view.alwaysShowHeaderActions": true,
-    "workbench.activityBar.visible": false,
     "workbench.startupEditor": "welcomePageInEmptyWorkbench", // open-select-recent-projects-on-startup
+    "workbench.view.alwaysShowHeaderActions": true,
+    "workbench.activityBar.visible": false, // open-select-recent-projects-on-startup
     // necessary to see the problem for the current line
     // as the mouse hover can show too much unnecessary info
     "workbench.statusBar.visible": true,
@@ -411,6 +413,9 @@
     "python.analysis.typeCheckingMode": "strict",
     "python.analysis.autoImportCompletions": true,
     "python.analysis.extraPaths": [],
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.analysis.inlayHints.pytestParameters": true,
 
     "[shellscript]": {
         // ext install foxundermoon.shell-format

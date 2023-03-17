@@ -75,8 +75,13 @@ done
 LOAD_TIME=$(( $(date +%s.%N) - STARTED_AT ))
 if [[ $LOAD_TIME -gt 1 ]]; then
     >&2 echo "[warning] startup time was $LOAD_TIME seconds."
-    read "?Press [ENTER] to continue"
-    zprof # show the profilling results from zprof module, if loaded
+    if [[ $(zmodload | grep "^zsh/zprof$") ]]; then
+      read "?Press [ENTER] to run the profiling."
+      zprof # show the profilling results from zprof module, if loaded
+    else
+      >&2 echo "[warning] enable zsh/zprof if you want to run the profiling."
+    fi
+    >&2 echo '[warning] you can also run: for i in $(seq 1 10); do time /bin/zsh -i -c exit; done;'
     read "?Press [ENTER] to continue"
 fi
 unset STARTED_AT LOAD_TIME
