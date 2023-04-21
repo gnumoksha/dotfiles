@@ -9,6 +9,9 @@
 #| Aliases
 #|
 # Note: color-related aliases are defined in colors.sh
+if [ "$(command -v exa)" ]; then
+  alias ls='exa'
+fi
 alias l='clear && ls --escape --classify --group-directories-first --no-group --human-readable'
 alias ll='l -l'
 alias la='l -l --almost-all' # --almost-all because I never want ./ and ../
@@ -80,12 +83,12 @@ cpd() { echo -n "$PWD" | cpb "$@"; }
 
 # Change to the file's directory
 cdf() {
-	local dest=${1:-}
-	if [[ ! -f "$dest" ]]; then
-		echo "$dest is not a file" >&2
-		return 1
-	fi
-	cd "$(dirname "$dest")" || exit 2
+  local dest=${1:-}
+  if [[ ! -f "$dest" ]]; then
+    echo "$dest is not a file" >&2
+    return 1
+  fi
+  cd "$(dirname "$dest")" || exit 2
 }
 
 # Create the directory and change to it
@@ -178,6 +181,23 @@ find_in_files () {
   where=$2
   # searches the complete word on txt and md files
   grep --include=\*.{txt,md} -Rniwa "${where}" -e "${what}"
+}
+
+# Usage: nettest google.com 80
+nettest() {
+  # -v verbose output
+  # -w timeout
+  # -z don't send data
+  nc -v -w 3 -z "$@"
+}
+
+httptest() {
+  # TODO use GET if nc is unavailable
+  printf "GET / HTTP/1.0\r\n\r\n" | nc "$@"
+}
+
+curljson() {
+  curl --header "Content-Type: application/json" -H "Accept: application/json" "$@"
 }
 
 #[ $(command -v pinfo)  ] && alias man='pinfo'

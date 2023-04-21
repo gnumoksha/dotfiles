@@ -465,6 +465,7 @@
         "Coroutines",
         "dotfiles",
         "esbenp",
+        "middlewares",
         "Pylint",
         "pyproject",
         "Stringable"
