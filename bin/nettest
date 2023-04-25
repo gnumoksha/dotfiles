@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Usage: nettest google.com 80
+nettest() {
+  # -v verbose output
+  # -w timeout
+  # -z don't send data
+  nc -v -w 3 -z "$@"
+}
+
+nettest "$@"

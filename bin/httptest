@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# TODO use GET if nc is unavailable
+printf "GET / HTTP/1.0\r\n\r\n" | nc "$@"
+

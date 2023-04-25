@@ -42,3 +42,5 @@ if [[ -x /usr/lib/command-not-found ]] ; then
   fi
 fi
 
+export PATH="$PATH:$DOTFILES/bin"
+

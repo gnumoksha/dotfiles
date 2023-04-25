@@ -33,106 +33,74 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
-# fkill - search a process then kill it
-fkill() {
-  local pid
-  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-
-  if [ "x$pid" != "x" ]
-  then
-    echo "$pid" | xargs kill -"${1:-9}"
-  fi
-}
-# fco_preview - checkout git branch/tag, with a preview showing the commits between the tag/branch and HEAD
-fco_preview() {
-  local tags branches target
-  tags=$(
-git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
-  branches=$(
-git branch --all | grep -v HEAD |
-sed "s/.* //" | sed "s#remotes/[^/]*/##" |
-sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
-  target=$(
-(echo "$tags"; echo "$branches") |
-    fzf --no-hscroll --no-multi --delimiter="\t" -n 2 \
-        --ansi --preview="git log -200 --pretty=format:%s $(echo {+2..} |  sed 's/$/../' )" ) || return
-  git checkout "$(echo "$target" | awk '{print $2}')"
-}
-# change to the directory of the file (is not working on zsh)
-#cdf() {
-   #local file
-   #local dir
-   #file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
-#}
-
 # inspired by https://gist.github.com/f440/9992963
 fzf-pass-widget() {
-	CMD=$1
-	local FILE=
-	show_pass_files() {
-		local password_store=${PASSWORD_STORE_DIR-~/.password-store}
-		cd "$password_store" || return > /dev/null
-		find . -type f ! -name .gpg-id | sort -n | sed -e 's/\.\/\(.*\).gpg$/\1/'
-	}
-	FILE=$(show_pass_files | fzf)
-	[ -n "$FILE" ] && pass "$CMD" "$FILE"
+  CMD=$1
+  local FILE=
+  show_pass_files() {
+    local password_store=${PASSWORD_STORE_DIR-~/.password-store}
+    cd "$password_store" || return > /dev/null
+    find . -type f ! -name .gpg-id | sort -n | sed -e 's/\.\/\(.*\).gpg$/\1/'
+  }
+  FILE=$(show_pass_files | fzf)
+  [ -n "$FILE" ] && pass "$CMD" "$FILE"
 
-	zle reset-prompt
+  zle reset-prompt
 }
 
 fzf-pass-copy-widget() {
-	fzf-pass-widget "-c"
+  fzf-pass-widget "-c"
 }
 
 fzf-pass-show-widget() {
-	fzf-pass-widget "show"
+  fzf-pass-widget "show"
 }
 
 # TODO is it possible just pass the arg on zle?
 fzf-pass-edit-widget() {
-	fzf-pass-widget "edit"
+  fzf-pass-widget "edit"
 }
 
 fzf-pass-otp-widget() {
-	fzf-pass-widget "otp"
+  fzf-pass-widget "otp"
 }
 
 fzf-kubectl-attach-widget() {
-	NAMESPACE=$1
+  NAMESPACE=$1
   CONTAINER=${2:-}
-	local POD=
+  local POD=
 
-	POD=$(kubectl get pods -n "$NAMESPACE" | fzf --header-lines=1 | cut -f 1 -d ' ')
+  POD=$(kubectl get pods -n "$NAMESPACE" | fzf --header-lines=1 | cut -f 1 -d ' ')
   # -c pau-pra-toda-obra
   [ -n "$POD" ] && kubectl attach -i -t --namespace="$NAMESPACE" "$POD"
 
-	#zle reset-prompt
+  #zle reset-prompt
 }
 
 fzf-kubectl-exec-shell-widget() {
-	NAMESPACE=$1
+  NAMESPACE=$1
   CONTAINER=${2:-}
-	local POD=
+  local POD=
 
-	POD=$(kubectl get pods -n "$NAMESPACE" | fzf --header-lines=1 | cut -f 1 -d ' ')
+  POD=$(kubectl get pods -n "$NAMESPACE" | fzf --header-lines=1 | cut -f 1 -d ' ')
   # -c pau-pra-toda-obra
   [ -n "$POD" ] && kubectl exec --stdin --tty --namespace="$NAMESPACE" "$POD" -- sh -c "clear; (bash || ash || sh)"
 
-	#zle reset-prompt
+  #zle reset-prompt
 }
 
 fzf-kubectl-logs-widget() {
-	NAMESPACE=$1
+  NAMESPACE=$1
   CONTAINER=${2:-}
-	local POD=
+  local POD=
 
-	POD=$(kubectl get pods -n "$NAMESPACE" | fzf --header-lines=1 | cut -f 1 -d ' ')
+  POD=$(kubectl get pods -n "$NAMESPACE" | fzf --header-lines=1 | cut -f 1 -d ' ')
   # -c pau-pra-toda-obra
   # --all-containers
   # --previous
   [ -n "$POD" ] && kubectl logs --follow --namespace="$NAMESPACE" "$POD"
 
-	#zle reset-prompt
+  #zle reset-prompt
 }
 
 if [ -n "$ZSH_VERSION" ]; then

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# don't use the alias
+#df -Th
+# don't work in a command
+#$(alias_get df) -Th
+
+grc --colour=auto /usr/bin/df -x squashfs -x overlay -x tmpfs -x devtmpfs -Th

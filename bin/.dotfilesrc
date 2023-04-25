@@ -1,3 +1,0 @@
-src=. dst=$HOME/.local/bin
-
-# vim: ft=bash

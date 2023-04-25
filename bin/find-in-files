@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+find_in_files () {
+  what=$1
+  where=$2
+  # searches the complete word on txt and md files
+  grep --include=\*.{txt,md} -Rniwa "${where}" -e "${what}"
+}
+
+find_in_files "$1" "$2"
+

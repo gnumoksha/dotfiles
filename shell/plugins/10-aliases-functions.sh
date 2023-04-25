@@ -147,57 +147,6 @@ alias_append() {
   alias $1="$value $2"
 }
 
-
-# http://stackoverflow.com/questions/1058047/wait-for-any-process-to-finish
-wait_pid() {
-  for pid in "$@"; do
-    while kill -0 "$pid"; do
-      sleep 0.5
-    done
-  done
-}
-
-psgrep () {
-  ps -ef | {
-    read -r;
-      echo "$REPLY";
-      grep "$@"
-    }
-}
-psgrep2 () {
-  [[ $(command -v grc) ]] && PS=(grc --colour=auto /usr/bin/ps) || PS=(ps)
-  PS+=(-f -C "$@")
-  "${PS[@]}"
-}
-
-# man ps
-# STANDARD FORMAT SPECIFIERS
-
 alias pstree='ps xawf -eo pid,user,cgroup,args'
-# ps -O %cpu,%mem,nice,rssize,trs,vsz,wchan
-
-find_in_files () {
-  what=$1
-  where=$2
-  # searches the complete word on txt and md files
-  grep --include=\*.{txt,md} -Rniwa "${where}" -e "${what}"
-}
-
-# Usage: nettest google.com 80
-nettest() {
-  # -v verbose output
-  # -w timeout
-  # -z don't send data
-  nc -v -w 3 -z "$@"
-}
-
-httptest() {
-  # TODO use GET if nc is unavailable
-  printf "GET / HTTP/1.0\r\n\r\n" | nc "$@"
-}
-
-curljson() {
-  curl --header "Content-Type: application/json" -H "Accept: application/json" "$@"
-}
 
 #[ $(command -v pinfo)  ] && alias man='pinfo'
