@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+NAMESPACE=${1:-}
+CONTAINER=${2:-}
+
+if [[ -z "$NAMESPACE" ]]; then
+    echo "Usage: $0 NAMESPACE"
+    echo "Select a POD and then run a shell."
+    exit 1
+fi
+
+POD=$(kubectl get pods -n "$NAMESPACE" | fzf --header-lines=1 | cut -f 1 -d ' ')
+[ -n "$POD" ] && kubectl exec --stdin --tty --namespace="$NAMESPACE" "$POD" -- sh -c "clear; (bash || ash || sh)"
