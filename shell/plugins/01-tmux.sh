@@ -26,8 +26,13 @@ if [[ -n "$TMUX" ]]; then
 fi
 
 # Do not start inside Emacs, vim, vscodium.
-# note: check GIO_LAUNCHED_DESKTOP_FILE to see if the main process is a GUI
-if [[ -n "$INSIDE_EMACS" || -n "$EMACS" || -n "$VIM" || -n "$GIO_LAUNCHED_DESKTOP_FILE" || -n "$VSCODE_RESOLVING_ENVIRONMENT" || "$TERM_PROGRAM" = "vscode" ]]; then
+# note: check GIO_LAUNCHED_DESKTOP_FILE to see if the main process is a GUI (didn't work on alacritty)
+if [[
+  -n "$INSIDE_EMACS" || \
+  -n "$EMACS" || \
+  -n "$VIM" || \
+  -n "$VSCODE_RESOLVING_ENVIRONMENT" || \
+  "$TERM_PROGRAM" = "vscode" ]]; then
   return
 fi
 
