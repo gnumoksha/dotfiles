@@ -54,26 +54,6 @@ alias git-ignore="git"
 pls() { sudo $(fc -ln -1); }
 
 #######################################
-# Copy buffer to the Xorg's clipboard.
-# Arguments:
-#   None
-#   Text to send to clipboard.
-#######################################
-cpb() {
-  if [[ $# -eq 0 ]]; then
-    input=$(</dev/stdin)
-  elif [[ -f "$1" ]]; then
-    input=( "$(cat "$1")" )
-  else
-    input=( "$@" )
-  fi
-
-  echo -n "${input[@]}" | xclip -sel clip;
-
-  # TODO https://github.com/bugaevc/wl-clipboard
-}
-
-#######################################
 # Copy the current directory path to
 # the clipboard.
 # Arguments:

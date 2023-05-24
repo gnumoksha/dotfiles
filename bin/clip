@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+#######################################
+# Copy buffer to the system's clipboard.
+# Arguments:
+#   None
+#   Text to send to clipboard.
+#######################################
+if [[ $# -eq 0 ]]; then
+  input=$(</dev/stdin)
+elif [[ -f "$1" ]]; then
+  input=( "$(cat "$1")" )
+else
+  input=( "$@" )
+fi
+
+if [ $(command -v xclip) ]; then
+  echo -n "${input[@]}" | xclip -sel clip
+elif [ $(command -v wl-copy) ]; then
+  # wl-clipboard https://github.com/bugaevc/wl-clipboard
+  echo -n "${input[@]}" | wl-copy
+elif [ $(command -v termux-clipboard-set) ]; then
+  echo -n "${input[@]}" | termux-clipboard-set
+else
+  echo "Error: Unable to find a program to send the data to the clipboard"
+fi
+
