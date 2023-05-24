@@ -37,13 +37,6 @@ alias follow='multitail -p l '
 alias follow2="less -S +F"
 alias follow_monolog='multitail -p l -cS squid '
 alias greperrors="grep -i 'warning\|error\|alert\|critical'"
-# see https://github.com/wfxr/forgit#custom-options
-alias git-add="ga"
-alias git-log="glo"
-alias git-diff="gd"
-alias git-checkout="gcf"
-alias git-clean="gclan"
-alias git-ignore="git"
 
 #######################################
 # Execute the last command as root.
