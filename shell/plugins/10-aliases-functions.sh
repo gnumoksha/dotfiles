@@ -30,7 +30,7 @@ alias dmesg_critical="dmesg --level=crit,alert,emerg"
 #alias git='LANG=en_US.UTF-8 git'
 alias dd="dd status=progress"
 alias py="python3"
-py3venv() { python3 -m venv --symlinks --clear --prompt "$(basename "$(pwd)")" venv;}
+py3venv() { python3 -m venv --symlinks --clear --prompt "$(basename "$(pwd)")" venv; }
 alias fd="fdfind"
 alias g="git"
 alias follow='multitail -p l '
@@ -52,7 +52,7 @@ pls() { sudo $(fc -ln -1); }
 # Arguments:
 #   None
 #######################################
-cpd() { echo -n "$PWD" | cpb "$@"; }
+cpd() { echo -n "$PWD" | clip "$@"; }
 
 # Change to the file's directory
 cdf() {
@@ -72,11 +72,12 @@ mkcd() { mkdir -p "$1" && cd "$1" || return; }
 #bombadil:/tmp/a/b/c$ cdback 2
 #bombadil:/tmp$
 # shellcheck disable=SC2034
-cdback() { for i in $(seq 0 "$1"); do cd ../ || return; done }
+cdback() { for i in $(seq 0 "$1"); do cd ../ || return; done; }
 alias cdb="cdback"
 
 # Execute cd and ls
-cdls() { cd "$@" && ls; }; alias cs='cdls'
+cdls() { cd "$@" && ls; }
+alias cs='cdls'
 
 # Check the man page for a simple parameter
 # Example: mans ls -l
@@ -84,8 +85,14 @@ cdls() { cd "$@" && ls; }; alias cs='cdls'
 manp() { man "$1" | less -p "^ +$2"; }
 
 # Hide zsh right prompt. Useful when copying text.
-rprompt_hide() { RPROMPT_OLD="${RPROMPT}"; unset RPROMPT; }
-rprompt_show() { RPROMPT="${RPROMPT_OLD}"; unset RPROMPT_OLD; }
+rprompt_hide() {
+  RPROMPT_OLD="${RPROMPT}"
+  unset RPROMPT
+}
+rprompt_show() {
+  RPROMPT="${RPROMPT_OLD}"
+  unset RPROMPT_OLD
+}
 
 # Get the value for the specified alias.
 # Usage: get_alias ls
