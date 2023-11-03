@@ -18,8 +18,8 @@ if [[ -n "$TMUX" ]]; then
       --depth=1 \
       --quiet \
       https://github.com/tmux-plugins/tpm \
-      "$XDG_CACHE_HOME"/tmux/plugins/tpm && \
-    "$XDG_CACHE_HOME"/tmux/plugins/tpm/bin/install_plugins
+      "$XDG_CACHE_HOME"/tmux/plugins/tpm &&
+      "$XDG_CACHE_HOME"/tmux/plugins/tpm/bin/install_plugins
   fi
 
   return
@@ -27,11 +27,11 @@ fi
 
 # Do not start inside Emacs, vim, vscodium.
 # note: check GIO_LAUNCHED_DESKTOP_FILE to see if the main process is a GUI (didn't work on alacritty)
-if [[
-  -n "$INSIDE_EMACS" || \
-  -n "$EMACS" || \
-  -n "$VIM" || \
-  -n "$VSCODE_RESOLVING_ENVIRONMENT" || \
+if [[ 
+  -n "$INSIDE_EMACS" ||
+  -n "$EMACS" ||
+  -n "$VIM" ||
+  -n "$VSCODE_RESOLVING_ENVIRONMENT" ||
   "$TERM_PROGRAM" = "vscode" ]]; then
   return
 fi
@@ -51,4 +51,3 @@ exit $tmuxExitCode
 
 # Reference
 # https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/tmux/tmux.plugin.zsh
-

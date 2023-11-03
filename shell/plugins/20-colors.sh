@@ -9,7 +9,7 @@
 DOTFILES_USE_COLORS=${DOTFILES_USE_COLORS:-}
 
 case "$TERM" in
-  xterm-color | *-256color) [[ -z "${DOTFILES_USE_COLORS}" ]] && DOTFILES_USE_COLORS=true ;;
+xterm-color | *-256color) [[ -z "${DOTFILES_USE_COLORS}" ]] && DOTFILES_USE_COLORS=true ;;
 esac
 
 if [[ "${DOTFILES_USE_COLORS}" != 'true' ]]; then

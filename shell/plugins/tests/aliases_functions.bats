@@ -3,8 +3,8 @@
 load test_helper
 
 setup() {
-	mkdir -p "$BATS_TMPDIR/a/b/c"
-	touch "$BATS_TMPDIR/a/b/c/d.txt"
+  mkdir -p "$BATS_TMPDIR/a/b/c"
+  touch "$BATS_TMPDIR/a/b/c/d.txt"
 }
 
 @test "will change to the file's directory" {
@@ -36,4 +36,3 @@ setup() {
   [ "$status" -eq 0 ]
   [ "$output" = "2019-09-01 12:13:14 UTC" ]
 }
-

@@ -39,7 +39,7 @@ fzf-pass-widget() {
   local FILE=
   show_pass_files() {
     local password_store=${PASSWORD_STORE_DIR-~/.password-store}
-    cd "$password_store" || return > /dev/null
+    cd "$password_store" || return >/dev/null
     find . -type f ! -name .gpg-id | sort -n | sed -e 's/\.\/\(.*\).gpg$/\1/'
   }
   FILE=$(show_pass_files | fzf)
@@ -66,17 +66,16 @@ fzf-pass-otp-widget() {
 }
 
 if [ -n "$ZSH_VERSION" ]; then
-  zle     -N    fzf-pass-copy-widget
+  zle -N fzf-pass-copy-widget
   bindkey '^Pc' fzf-pass-copy-widget
-  zle     -N    fzf-pass-edit-widget
+  zle -N fzf-pass-edit-widget
   bindkey '^Pe' fzf-pass-edit-widget
-  zle     -N    fzf-pass-show-widget
+  zle -N fzf-pass-show-widget
   bindkey '^Ps' fzf-pass-show-widget
-  zle     -N    fzf-pass-otp-widget
+  zle -N fzf-pass-otp-widget
   bindkey '^Po' fzf-pass-otp-widget
 fi
 
 #TODO for bash
 # TODO fzf has modifiers? Send c/e/s to fzf.
 #TODO copy login too (as second register?)
-

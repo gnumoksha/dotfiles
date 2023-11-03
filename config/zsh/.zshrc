@@ -6,7 +6,6 @@
 #
 # Global Order: zshenv, zprofile, zshrc, zlogin
 
-
 #|
 #| Profiling
 #|
@@ -56,7 +55,6 @@ setopt EXTENDED_HISTORY
 # show nothing at the end of partial lines
 PROMPT_EOL_MARK=''
 
-
 #|
 #| Load my custom shell scripts.
 #| It is defined at this point to ensure other plugins will not override my
@@ -68,24 +66,22 @@ for filename in "${DOTFILES_SHELL_PLUGINS}"/*.sh; do
   source "$filename"
 done
 
-
 #|
 #| Profiling
 #|
-LOAD_TIME=$(( $(date +%s.%N) - STARTED_AT ))
+LOAD_TIME=$(($(date +%s.%N) - STARTED_AT))
 if [[ $LOAD_TIME -gt 1 ]]; then
-    >&2 echo "[warning] startup time was $LOAD_TIME seconds."
-    if [[ $(zmodload | grep "^zsh/zprof$") ]]; then
-      read "?Press [ENTER] to run the profiling."
-      zprof # show the profilling results from zprof module, if loaded
-    else
-      >&2 echo "[warning] enable zsh/zprof if you want to run the profiling."
-    fi
-    >&2 echo '[warning] you can also run: for i in $(seq 1 10); do time /bin/zsh -i -c exit; done;'
-    read "?Press [ENTER] to continue"
+  echo >&2 "[warning] startup time was $LOAD_TIME seconds."
+  if [[ $(zmodload | grep "^zsh/zprof$") ]]; then
+    read "?Press [ENTER] to run the profiling."
+    zprof # show the profilling results from zprof module, if loaded
+  else
+    echo >&2 "[warning] enable zsh/zprof if you want to run the profiling."
+  fi
+  echo >&2 '[warning] you can also run: for i in $(seq 1 10); do time /bin/zsh -i -c exit; done;'
+  read "?Press [ENTER] to continue"
 fi
 unset STARTED_AT LOAD_TIME
-
 
 #|
 #| Troubleshooting

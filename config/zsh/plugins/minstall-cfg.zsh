@@ -5,13 +5,14 @@
 # This is useful because I've ended up with a slow shell startup while
 # using more complete solutions like zplug.
 
-# Oh-my-zsh
+#|
+#| Oh-my-zsh
+#|
 #DISABLE_AUTO_UPDATE=true
 UPDATE_ZSH_DAYS=7
 # I don't automatically want url quotation because it is buggy, i.e. that ignores ''
 DISABLE_MAGIC_FUNCTIONS=true
 minstall "https://github.com/robbyrussell/oh-my-zsh" "" "" "source oh-my-zsh.sh"
-
 
 #|
 #| Themes
@@ -43,15 +44,13 @@ minstall "https://github.com/romkatv/powerlevel10k" "" "" "source powerlevel10k.
 # has buffer problems with tmux / oh-my-zsh / zsh-highlighting
 #eval "$(starship init zsh)"
 
-
 #|
 #| Tools
 #|
-
 if [[ ! -e "/usr/local/bin/git-extras" || ! -e "$XDG_CACHE_HOME/git-extras-completion.zsh" ]]; then
-    echo "Installing git-extras"
-    curl -sSL http://git.io/git-extras-setup | sudo bash /dev/stdin
-    curl -sSL https://raw.githubusercontent.com/tj/git-extras/master/etc/git-extras-completion.zsh -o $XDG_CACHE_HOME/git-extras-completion.zsh
+  echo "Installing git-extras"
+  curl -sSL http://git.io/git-extras-setup | sudo bash /dev/stdin
+  curl -sSL https://raw.githubusercontent.com/tj/git-extras/master/etc/git-extras-completion.zsh -o $XDG_CACHE_HOME/git-extras-completion.zsh
 fi
 source $XDG_CACHE_HOME/git-extras-completion.zsh
 
@@ -71,11 +70,3 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=green'
 ZSH_HIGHLIGHT_PATTERNS+=('rm -[rR]f *' 'fg=white,bold,bg=red')
 # Must be sourced at the end of the .zshrc
 minstall "https://github.com/zsh-users/zsh-syntax-highlighting" "" "" "plug"
-
-#fpath=( "$XDG_CACHE_HOME/zsh/functions" $fpath )
-#if [[ ! -e "${XDG_CACHE_HOME}/zsh/functions/docker-custom.zsh" ]]; then
-	#echo "Installing docker-completions"
-	#curl https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker -o "${XDG_CACHE_HOME}/zsh/functions/docker-custom.zsh"
-	#curl https://raw.githubusercontent.com/docker/compose/master/contrib/completion/zsh/_docker-compose -o $XDG_CACHE_HOME/zsh/functions/docker-compose.zsh
-#fi
-

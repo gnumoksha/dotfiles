@@ -11,15 +11,15 @@ ZPLUG_BIN='/usr/local/bin/zplug'
 ZPLUG_USE_CACHE=true
 ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
 if [[ ! -e "$ZPLUG_HOME/init.zsh" ]]; then
-	echo "Installing zplug..."
-	if [[ ! -d "$ZPLUG_HOME" ]]; then
-		mkdir -p "$ZPLUG_HOME"
-	fi
-	curl --silent --show-error --location --proto-redir -all,https \
-		https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-	# in order to wait something that will make zplug available.
-	sleep 3s
-	ZPLUG_WAS_JUST_INSTALLED=true
+  echo "Installing zplug..."
+  if [[ ! -d "$ZPLUG_HOME" ]]; then
+    mkdir -p "$ZPLUG_HOME"
+  fi
+  curl --silent --show-error --location --proto-redir -all,https \
+    https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+  # in order to wait something that will make zplug available.
+  sleep 3s
+  ZPLUG_WAS_JUST_INSTALLED=true
 fi
 source "$ZPLUG_HOME/init.zsh"
 
@@ -79,11 +79,12 @@ zplug load
 # if zsh was just installed.
 # See https://github.com/zplug/zplug/issues/368
 if [[ "$ZPLUG_WAS_JUST_INSTALLED" == true ]]; then
-	if ! zplug check --verbose; then
-		printf "Install missing plugins? [y/N]: "
-		if read; then
-			echo; zplug install
-		fi
-	fi
+  if ! zplug check --verbose; then
+    printf "Install missing plugins? [y/N]: "
+    if read; then
+      echo
+      zplug install
+    fi
+  fi
 fi
 #https://github.com/zplug/zplug/issues/509

@@ -19,7 +19,6 @@ alias_append df '-x squashfs -x overlay -x tmpfs -x devtmpfs'
 # remove devices 7 (i.e. loop. See code running `cat /proc/devices`)
 alias_append lsblk '--exclude 7 --fs'
 
-
 #
 # Docker
 #
@@ -30,4 +29,3 @@ alias ifconfig='ls /sys/class/net | egrep -v "^(lo[0-9]?|sit[0-9]|ce[0-9]?|docke
 alias dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}"'
 
 #alias docker-get-image-version="docker image inspect --format '{{ index .Config.Labels \"version\" }}'"
-

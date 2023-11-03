@@ -12,8 +12,8 @@ export GPG_TTY
 # If you enabled the ssh agent support, you also need to tell ssh about it.
 unset SSH_AGENT_PID
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-	SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-	export SSH_AUTH_SOCK
+  SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+  export SSH_AUTH_SOCK
 fi
 
 # Note: in case the gpg-agent receives a signature request,
@@ -26,7 +26,7 @@ fi
 # gpg-connect-agent updatestartuptty /bye
 result=$( (gpg-connect-agent --verbose updatestartuptty /bye) 2>&1)
 if [[ $? -ne 0 ]]; then
-	echo "Error starting GnuPG agent! Details: ${result}"
+  echo "Error starting GnuPG agent! Details: ${result}"
 fi
 unset result
 
@@ -38,4 +38,3 @@ alias gpg-agent-kill='gpgconf --kill gpg-agent'
 # man gpg-agent
 # https://www.gnupg.org/documentation/manuals/gnupg/
 # https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/gpg-agent/gpg-agent.plugin.zsh
-
