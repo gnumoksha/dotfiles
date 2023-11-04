@@ -9,9 +9,9 @@
 if [[ $# -eq 0 ]]; then
   input=$(</dev/stdin)
 elif [[ -f "$1" ]]; then
-  input=( "$(cat "$1")" )
+  input=("$(cat "$1")")
 else
-  input=( "$@" )
+  input=("$@")
 fi
 
 if [ $(command -v xclip) ]; then
@@ -24,4 +24,3 @@ elif [ $(command -v termux-clipboard-set) ]; then
 else
   echo "Error: Unable to find a program to send the data to the clipboard"
 fi
-

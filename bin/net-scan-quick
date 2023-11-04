@@ -33,23 +33,23 @@ $GRC $NMAP $quick --exclude $my_ip $default_netmask
 #'-A -sA '
 
 net-get-default-interface() {
-	echo "$(ip route list | awk '/^default/ {print $5}')"
+  echo "$(ip route list | awk '/^default/ {print $5}')"
 }
 
 net-get-default-netmask() {
-echo "oi";
-	defaultInterface=$(net-get-default-interface)
-	echo ""$(ip -o -f inet addr show $defaultInterface | awk '{print $4}')""
+  echo "oi"
+  defaultInterface=$(net-get-default-interface)
+  echo ""$(ip -o -f inet addr show $defaultInterface | awk '{print $4}')""
 }
 
 net-get-my-ip() {
-	echo "$(hostname -I | cut -d' ' -f1)"
+  echo "$(hostname -I | cut -d' ' -f1)"
 }
 
 alias http-dump-page-links='lynx -listonly -dump'
 
 net-list-hosts() {
-	local v=$(net-get-default-netmask)
-	echo "running nmap -F $v"
-	nmap -F $v
+  local v=$(net-get-default-netmask)
+  echo "running nmap -F $v"
+  nmap -F $v
 }

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-find_in_files () {
+find_in_files() {
   what=$1
   where=$2
   # searches the complete word on txt and md files
@@ -8,4 +8,3 @@ find_in_files () {
 }
 
 find_in_files "$1" "$2"
-

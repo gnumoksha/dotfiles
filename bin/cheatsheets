@@ -20,4 +20,3 @@ if [[ ! -e "$CMD" ]]; then
 fi
 
 $CMD "$@"
-

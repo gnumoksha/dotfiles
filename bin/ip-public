@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # returns the public ip of this host.
-public_ip () {
+public_ip() {
   wget -qO- ifconfig.co ||
     wget -qO- ifconfig.me ||
     wget -qO- icanhazip.com ||

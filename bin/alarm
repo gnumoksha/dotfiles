@@ -5,7 +5,7 @@
 _alarm() {
   local frequency=$1
   local duration=$2
-  ( \speaker-test --frequency "$frequency" --test sine )&
+  (\speaker-test --frequency "$frequency" --test sine) &
   pid=$!
   \sleep "$duration"
   \kill -9 $pid

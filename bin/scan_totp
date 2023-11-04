@@ -5,13 +5,12 @@
 #is_gnome_42=$(cat /usr/share/gnome/gnome-version.xml | grep -i platform | grep 42)
 img_dir="$(xdg-user-dir PICTURES)"
 #if [[ $is_gnome_42 ]]; then
-  #FIXME >=42
-  img_dir="$img_dir/Screenshots"
+#FIXME >=42
+img_dir="$img_dir/Screenshots"
 #fi
 
 # shellcheck disable=SC2012
-last_img="$(ls -t -1 "$img_dir" | head -1 )"
+last_img="$(ls -t -1 "$img_dir" | head -1)"
 echo "Using image $imd_dir/$last_img"
 
 zbarimg -q --raw "$img_dir/$last_img" && rm --interactive=always --verbose "$img_dir/$last_img"
-

@@ -6,4 +6,3 @@ for pid in "$@"; do
     sleep 0.5
   done
 done
-

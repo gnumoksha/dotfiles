@@ -4,9 +4,9 @@ NAMESPACE=$1
 CONTAINER=${2:-}
 
 if [[ -z "$NAMESPACE" ]]; then
-    echo "Usage: $0 NAMESPACE"
-    echo "Select a POD and then attach."
-    exit 1
+  echo "Usage: $0 NAMESPACE"
+  echo "Select a POD and then attach."
+  exit 1
 fi
 
 POD=$(kubectl get pods -n "$NAMESPACE" | fzf --header-lines=1 | cut -f 1 -d ' ')

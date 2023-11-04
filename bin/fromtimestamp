@@ -25,5 +25,5 @@ if [ -z "$input" ] || [ "$1" = '--help' ]; then
   echo "Examples: "
   echo "  $cmd 1617756131"
 else
-  TZ="UTC" date -d "@$input" "+%F %T %Z";
+  TZ="UTC" date -d "@$input" "+%F %T %Z"
 fi

@@ -1,19 +1,17 @@
 #!/usr/bin/env bash
 
-psgrep () {
+psgrep() {
   ps -ef | {
-    read -r;
-      echo "$REPLY";
-      grep "$@"
-    }
+    read -r
+    echo "$REPLY"
+    grep "$@"
+  }
 }
 
-psgrep2 () {
+psgrep2() {
   [[ $(command -v grc) ]] && PS=(grc --colour=auto /usr/bin/ps) || PS=(ps)
   PS+=(-f -C "$@")
   "${PS[@]}"
 }
 
-
 psgrep "$@"
-
