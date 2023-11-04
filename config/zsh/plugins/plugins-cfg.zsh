@@ -12,7 +12,7 @@
 UPDATE_ZSH_DAYS=7
 # I don't automatically want url quotation because it is buggy, i.e. that ignores ''
 DISABLE_MAGIC_FUNCTIONS=true
-minstall "https://github.com/robbyrussell/oh-my-zsh" "" "" "source oh-my-zsh.sh"
+zsh-plugin-installer "https://github.com/robbyrussell/oh-my-zsh" "" "" "source oh-my-zsh.sh"
 
 #|
 #| Themes
@@ -34,10 +34,10 @@ minstall "https://github.com/robbyrussell/oh-my-zsh" "" "" "source oh-my-zsh.sh"
 
 DOTFILES_THEMES="${0:a:h}/../themes"
 
-#minstall "https://github.com/martinrotter/powerless.git" "" "" "source powerless.zsh false && source utilities.zsh true"
-#minstall "https://github.com/eendroroy/alien-minimal" "" "" "source $DOTFILES_THEMES/alien-minimal.zsh && source alien-minimal.zsh"
-#minstall "https://github.com/romkatv/powerlevel10k" "" "" "source powerlevel10k.zsh-theme && source ~/.config/zsh/.p10k.zsh"
-minstall "https://github.com/starship/starship" "" "./install/install.sh --yes --bin-dir=/usr/local/bin" 'eval "$(starship init zsh)"'
+#zsh-plugin-installer "https://github.com/martinrotter/powerless.git" "" "" "source powerless.zsh false && source utilities.zsh true"
+#zsh-plugin-installer "https://github.com/eendroroy/alien-minimal" "" "" "source $DOTFILES_THEMES/alien-minimal.zsh && source alien-minimal.zsh"
+#zsh-plugin-installer "https://github.com/romkatv/powerlevel10k" "" "" "source powerlevel10k.zsh-theme && source ~/.config/zsh/.p10k.zsh"
+zsh-plugin-installer "https://github.com/starship/starship" "" "./install/install.sh --yes --bin-dir=/usr/local/bin" 'eval "$(starship init zsh)"'
 
 #|
 #| Tools
@@ -49,9 +49,9 @@ if [[ ! -e "/usr/local/bin/git-extras" || ! -e "$XDG_CACHE_HOME/git-extras-compl
 fi
 source $XDG_CACHE_HOME/git-extras-completion.zsh
 
-minstall "https://github.com/paulirish/git-open" "" "cp -f git-open /usr/local/bin/git-open"
+zsh-plugin-installer "https://github.com/paulirish/git-open" "" "cp -f git-open /usr/local/bin/git-open"
 
-minstall "https://github.com/junegunn/fzf" "" "./install --bin && mv ./bin/fzf /usr/local/bin/fzf" "source shell/completion.zsh && source shell/key-bindings.zsh"
+zsh-plugin-installer "https://github.com/junegunn/fzf" "" "./install --bin && mv ./bin/fzf /usr/local/bin/fzf" "source shell/completion.zsh && source shell/key-bindings.zsh"
 
 # Syntax Highlighting
 # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
@@ -64,4 +64,4 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=green'
 # Commands starting with `rm -rf` in red:
 ZSH_HIGHLIGHT_PATTERNS+=('rm -[rR]f *' 'fg=white,bold,bg=red')
 # Must be sourced at the end of the .zshrc
-minstall "https://github.com/zsh-users/zsh-syntax-highlighting" "" "" "plug"
+zsh-plugin-installer "https://github.com/zsh-users/zsh-syntax-highlighting" "" "" "plug"

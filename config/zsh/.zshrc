@@ -22,10 +22,8 @@ STARTED_AT=$(date +%s.%N)
 #|
 #| Plugins and custom scripts
 #|
-#source $ZDOTDIR/plugins/zplug-cfg.zsh
-#source $ZDOTDIR/plugins/zgen-cfg.zsh
-source $ZDOTDIR/plugins/minstall.zsh
-source $ZDOTDIR/plugins/minstall-cfg.zsh
+source $ZDOTDIR/plugins/plugin-installer.zsh
+source $ZDOTDIR/plugins/plugins-cfg.zsh
 
 #|
 #| ZSH settings

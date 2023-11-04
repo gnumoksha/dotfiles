@@ -1,11 +1,8 @@
-#|
-#| Manually install some plugins
-#|
+# Simple function to install a zsh plugin from a git repository.
 #
 # This is useful because I've ended up with a slow shell startup while
 # using more complete solutions like zplug.
-
-minstall() {
+zsh-plugin-installer() {
   local REPO=${1:-}
   local DST=${2:-}
   local EXEC_AFTER=${3:-}
@@ -15,7 +12,7 @@ minstall() {
   STARTED_AT=$(date +%s.%N)
 
   if [[ -z "${DST}" ]]; then
-    DST="${XDG_CACHE_HOME}/manually-installed/${PKG_NAME}"
+    DST="${XDG_CACHE_HOME}/zsh-plugin-installer/${PKG_NAME}"
   fi
 
   if [[ ! -d "${DST}" ]]; then
