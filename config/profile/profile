@@ -15,7 +15,7 @@
 # https://www.debian.org/doc/manuals/debian-reference/ch07.en.html#_starting_the_x_window_system
 # https://en.wikipedia.org/wiki/Unix_shell#Configuration_files
 
-# Falling back just in case systemd variables were not read.
+# Loads environment variables from the systemd file.
 if [[ -z "${ENVVARS_LOADED:-}" || "${ENVVARS_LOADED:-}" != "yes" ]]; then
   DOTFILES="$HOME/.local/share/dotfiles"
 
@@ -26,7 +26,8 @@ if [[ -z "${ENVVARS_LOADED:-}" || "${ENVVARS_LOADED:-}" != "yes" ]]; then
 fi
 
 # Create a shortcut to my dotfiles.
- hash -d DOTFILES="${DOTFILES}"
+# commented because I didn't use this
+# hash -d DOTFILES="${DOTFILES}"
 
 # EDITOR contains the command to run the lightweight program used for editing
 #   files.
@@ -35,7 +36,7 @@ fi
 # BROWSER contains the path to the web browser.
 if [ -n "${DISPLAY:-}" ]; then
   export EDITOR=vim
-  export VISUAL=gvim
+  export VISUAL=codium
   #export BROWSER=firefox
 else
   export EDITOR=vim
@@ -45,11 +46,6 @@ fi
 
 # Add root stuff into the PATH
 PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
-
-#
-# Python
-#
-PATH="$PATH:${HOME}/.local/bin"
 
 # finally export the path
 export PATH
@@ -75,4 +71,3 @@ fi
 #This is used in order to later check if this file was loaded.
 export USER_PROFILE_LOADED="yes"
 
-#EOF

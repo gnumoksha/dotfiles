@@ -42,5 +42,13 @@ if [[ -x /usr/lib/command-not-found ]] ; then
   fi
 fi
 
+#export PAGER=most
+# https://github.com/rkitover/vimpager
+#export PAGER=/opt/apps/vimpager/vimpager
+#alias less=$PAGER
+#alias zless=$PAGER
+export PAGER=less
+export LESS='-g -i -M -R -S -w -z-4'
+
 export PATH="$PATH:$DOTFILES/bin"
 
