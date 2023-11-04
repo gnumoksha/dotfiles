@@ -21,35 +21,3 @@ slow_comprehensive='-sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 
 
 echo "Executing $NMAP $intense --exclude $my_ip $default_netmask"
 $GRC $NMAP $quick --exclude $my_ip $default_netmask
-
-#nmap -sV --version-intensity 5 -P0 -p80 tobias.ws
-#info nmap -sV -sC tobias.ws
-#nmap --script=asn-query,ip-geolocation-maxmind tobias.ws
-#nmap -sV -p 443 --script=ssl-heartbleed tobias.ws
-
-#curl https://api.hackertarget.com/geoip/\?q\=$(get_public_ip)
-
-## -A detect SO. is protected by firewall?
-#'-A -sA '
-
-net-get-default-interface() {
-  echo "$(ip route list | awk '/^default/ {print $5}')"
-}
-
-net-get-default-netmask() {
-  echo "oi"
-  defaultInterface=$(net-get-default-interface)
-  echo ""$(ip -o -f inet addr show $defaultInterface | awk '{print $4}')""
-}
-
-net-get-my-ip() {
-  echo "$(hostname -I | cut -d' ' -f1)"
-}
-
-alias http-dump-page-links='lynx -listonly -dump'
-
-net-list-hosts() {
-  local v=$(net-get-default-netmask)
-  echo "running nmap -F $v"
-  nmap -F $v
-}
