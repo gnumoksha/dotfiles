@@ -34,15 +34,10 @@ minstall "https://github.com/robbyrussell/oh-my-zsh" "" "" "source oh-my-zsh.sh"
 
 DOTFILES_THEMES="${0:a:h}/../themes"
 
-minstall "https://github.com/romkatv/powerlevel10k" "" "" "source powerlevel10k.zsh-theme && source ~/.config/zsh/.p10k.zsh"
-
 #minstall "https://github.com/martinrotter/powerless.git" "" "" "source powerless.zsh false && source utilities.zsh true"
-
 #minstall "https://github.com/eendroroy/alien-minimal" "" "" "source $DOTFILES_THEMES/alien-minimal.zsh && source alien-minimal.zsh"
-
-# https://github.com/starship/starship
-# has buffer problems with tmux / oh-my-zsh / zsh-highlighting
-#eval "$(starship init zsh)"
+#minstall "https://github.com/romkatv/powerlevel10k" "" "" "source powerlevel10k.zsh-theme && source ~/.config/zsh/.p10k.zsh"
+minstall "https://github.com/starship/starship" "" "./install/install.sh --yes --bin-dir=/usr/local/bin" 'eval "$(starship init zsh)"'
 
 #|
 #| Tools
