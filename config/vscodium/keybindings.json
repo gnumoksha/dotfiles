@@ -153,10 +153,6 @@
         "command": "-workbench.action.gotoSymbol"
     },
     {
-        "key": "ctrl+4 right",
-        "command": "workbench.action.moveEditorToRightGroup"
-    },
-    {
         "key": "ctrl+4 left",
         "command": "workbench.action.moveEditorToLeftGroup"
     },
@@ -201,5 +197,13 @@
         "key": "ctrl+shift+[BracketLeft]",
         "command": "-workbench.action.terminal.toggleTerminal",
         "when": "terminal.active"
+    },
+    {
+        "key": "ctrl+4 right",
+        "command": "workbench.action.splitEditorRight"
+    },
+    {
+        "key": "ctrl+k ctrl+\\",
+        "command": "-workbench.action.splitEditorRight"
     }
 ]
