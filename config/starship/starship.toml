@@ -21,7 +21,7 @@ $golang\
 $php\
 [](fg:#212736 bg:#1d2230)\
 $cmd_duration\
-[ ](fg:#1d2230)\
+[](fg:#1d2230)\
 $character"""
 
 # Disable the blank line at the start of the prompt
@@ -66,9 +66,9 @@ truncate_to_repo = true
 # "Important 󰈙 " = " 󰈙 "
 
 [character]
-success_symbol = "[>](bold green)"
-error_symbol = "[x](bold red)"
-vimcmd_symbol = "[<](bold green)"
+success_symbol = "[⮞](bold green)"
+error_symbol = "[🗙](bold red)"
+vimcmd_symbol = "[⮜](bold green)"
 
 [cmd_duration]
 min_time = 2_000
