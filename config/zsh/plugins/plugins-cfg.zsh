@@ -38,6 +38,23 @@ DOTFILES_THEMES="${0:a:h}/../themes"
 #zsh-plugin-installer "https://github.com/eendroroy/alien-minimal" "" "" "source $DOTFILES_THEMES/alien-minimal.zsh && source alien-minimal.zsh"
 #zsh-plugin-installer "https://github.com/romkatv/powerlevel10k" "" "" "source powerlevel10k.zsh-theme && source ~/.config/zsh/.p10k.zsh"
 zsh-plugin-installer "https://github.com/starship/starship" "" "./install/install.sh --yes --bin-dir=/usr/local/bin" 'eval "$(starship init zsh)"'
+# #starship-kubectl-issue
+function configure_starship() {
+  local BUFFER=$@
+  # If buffer contains kubectl, enable kubernetes module
+  if [[ $BUFFER == *"kubectl"* ]]; then
+    starship config kubernetes.disabled false
+  else
+    starship config kubernetes.disabled true
+  fi
+}
+function zle-line-pre-redraw {
+  if [[ $KEYS_QUEUED_COUNT -eq 0 ]]; then
+    configure_starship $BUFFER
+    zle reset-prompt
+  fi
+}
+zle -N zle-line-pre-redraw
 
 #|
 #| Tools

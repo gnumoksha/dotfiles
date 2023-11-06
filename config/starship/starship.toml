@@ -4,7 +4,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-$time\
 [](#a3aed2)\
 $os\
 $username\
@@ -19,30 +18,29 @@ $nodejs\
 $rust\
 $golang\
 $php\
+$python\
+$docker_context\
+$kubernetes\
 [](fg:#212736 bg:#1d2230)\
 $cmd_duration\
 [](fg:#1d2230)\
 $character"""
 
+right_format = """$time"""
+
 # Disable the blank line at the start of the prompt
 add_newline = false
 
-# You can also replace your username with a neat symbol like   or disable this
-# and use the os module below
-[username]
-show_always = true
-style_user = "bg:#a3aed2 fg:#000000"
-style_root = "bg:#9a3448"
-format = '[$user]($style)'
+[character]
+success_symbol = "[⮞](bold green)"
+error_symbol = "[🗙](bold red)"
+vimcmd_symbol = "[⮜](bold green)"
 
-[hostname]
-ssh_only = true
-
-# An alternative to the username module which displays a symbol that
-# represents the current operating system
-[os]
-style = "bg:#a3aed2 fg:#b42222"
-disabled = true
+[cmd_duration]
+min_time = 2_000
+show_notifications = false
+format = "[$duration]($style)"
+style = "yellow bg:#1d2230"
 
 [directory]
 style = "bg:#769ff0 fg:#000000"
@@ -65,36 +63,10 @@ truncate_to_repo = true
 # So either put "Important Documents" before "Documents" or use the substituted version:
 # "Important 󰈙 " = " 󰈙 "
 
-[character]
-success_symbol = "[⮞](bold green)"
-error_symbol = "[🗙](bold red)"
-vimcmd_symbol = "[⮜](bold green)"
-
-[cmd_duration]
-min_time = 2_000
-show_notifications = false
-format = "[$duration]($style) "
-style = "yellow"
-
-[c]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
 [docker_context]
 symbol = " "
 style = "bg:#06969A"
 format = '[ $symbol $context ]($style) $path'
-
-[elixir]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[elm]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
 
 [git_branch]
 symbol = ""
@@ -105,28 +77,67 @@ format = '[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)'
 style = "bg:#394260"
 format = '[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)'
 
+[golang]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[hostname]
+ssh_only = true
+
+[kubernetes]
+# #starship-kubectl-issue
+# I want to show this module only when kubectl is being used
+# https://github.com/starship/starship/issues/840
+# https://github.com/starship/starship/issues/5509
+disabled = true
+format = '[$symbol$context( \($namespace\))]($style)'
+
+[kubernetes.context_aliases]
+'arn\:aws.*/(?P<var_cluster>[\w-]+)' = 'eks:$var_cluster'
+'gke_.*_(?P<var_cluster>[\w-]+)' = 'gke:$var_cluster'
+
 [nodejs]
 symbol = ""
 style = "bg:#212736"
 format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+disabled = true
+
+# An alternative to the username module which displays a symbol that
+# represents the current operating system
+[os]
+style = "bg:#a3aed2 fg:#b42222"
+disabled = true
+
+[php]
+# Don't trigger for files with the php extension
+detect_extensions = []
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+disabled = true
+
+[python]
+# Don't trigger for files with the py extension
+detect_extensions = []
+symbol = "🐍"
+style = "bg:#212736"
+format = '[[ $symbol($version) \($virtualenv\)](fg:#769ff0 bg:#212736)]($style)'
 
 [rust]
 symbol = ""
 style = "bg:#212736"
 format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
-[golang]
-symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
-
-[php]
-symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
-
 [time]
+time_format = "%T" # https://docs.rs/chrono/0.4.7/chrono/format/strftime/index.html
+format = '[[  $time ](fg:#a0a9cb)]($style)'
 disabled = false
-time_format = "%R" # Hour:Minute Format
-style = "bg:#1d2230"
-format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
+
+# You can also replace your username with a neat symbol like   or disable this
+# and use the OS module
+[username]
+show_always = true
+style_user = "bg:#a3aed2 fg:#000000"
+style_root = "bg:#9a3448"
+format = '[$user]($style)'
