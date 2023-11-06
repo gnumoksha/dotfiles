@@ -55,6 +55,8 @@ function zle-line-pre-redraw {
   fi
 }
 zle -N zle-line-pre-redraw
+# nice themes: agnoster, mojada, nu4a, powerline, unicorn
+#zsh-plugin-installer "https://github.com/JanDeDobbeleer/oh-my-posh" "" "bash ./website/static/install.sh -d /usr/local/bin" 'eval "$(oh-my-posh init zsh --config $XDG_CACHE_HOME/oh-my-posh/themes/agnoster.omp.json)"'
 
 #|
 #| Tools
