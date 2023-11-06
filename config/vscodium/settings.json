@@ -11,7 +11,7 @@
      * Editor
      */
     "editor.minimap.enabled": false,
-    "editor.fontFamily": "'DejaVu Sans Mono','Droid Sans Mono', 'monospace', 'Droid Sans Fallback'",
+    "editor.fontFamily": "'FiraMono Nerd Font Mono','DejaVu Sans Mono','Droid Sans Mono', 'monospace', 'Droid Sans Fallback'",
     "editor.fontSize": 16, // #eyestrain. This works in combination with "window.zoomLevel"
     "editor.inlayHints.fontSize": 13,
     "editor.lineHeight": 1.1, // #eyestrain
@@ -74,6 +74,7 @@
             ]
         }
     },
+    "editor.largeFileOptimizations": false,
 
     /**
      * Explorer
@@ -97,6 +98,7 @@
     "files.autoSave": "off", // to avoid saving unfinished code
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
     "files.enableTrash": true,
     //"files.hotExit": "onExit", // open-select-recent-projects-on-startup didn't work
     "files.exclude": {
@@ -211,10 +213,10 @@
     "workbench.editor.enablePreview": false,
     "workbench.startupEditor": "welcomePageInEmptyWorkbench", // open-select-recent-projects-on-startup
     "workbench.view.alwaysShowHeaderActions": true,
-    "workbench.activityBar.visible": false, // open-select-recent-projects-on-startup
     // necessary to see the problem for the current line
     // as the mouse hover can show too much unnecessary info
     "workbench.statusBar.visible": true,
+    "workbench.activityBar.location": "top",
 
     /**
      * By programming language
@@ -354,13 +356,15 @@
 
     // ext install ms-python.python
     // ext install ms-pyright.pyright or ms-python.vscode-pylance
+    // ext install ms-python.pylint
+    // ext install ms-python.flake8 (pylint may be sufficient)
+    // ext install ms-python.mypy-type-checker
+    // ext install ms-python.black-formatter
     "[python]": {
-        // use the experimental extension ms-python.black-formatter
-        // it didn't work
-        // "editor.defaultFormatter": "ms-python.black-formatter",
-        // "editor.formatOnSave": true,
+        // use the extension ms-python.black-formatter
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
 
-        // default black formatter bundled in ms-python extension
         // black can only format the entire file
         "editor.formatOnSaveMode": "file",
         "editor.formatOnPaste": false,
@@ -376,35 +380,6 @@
     "python.autoComplete.extraPaths": [],
     "python.diagnostics.sourceMapsEnabled": true,
     "python.experiments.enabled": false,
-    // use "none" if using "ms-python.black-formatter" extension
-    "python.formatting.provider": "black",
-    // ext install ms-python.vscode-pylance
-    // this is a proprietary software and Microsoft does not allow it
-    // to run outside VSCode
-    // https://www.reddit.com/r/linux/comments/k0s8qw/vs_code_developers_prevent_running_the_new/
-    // https://github.com/microsoft/pylance-release/issues/483
-    // https://github.com/VSCodium/vscodium/issues/892
-    // https://github.com/flathub/com.vscodium.codium/issues/90
-    // "python.languageServer": "Pylance",
-    // "python.languageServer": "Jedi",
-    "python.linting.enabled": true,
-    // https://code.visualstudio.com/docs/python/linting
-    "python.linting.pylintEnabled": true,
-    "python.linting.ignorePatterns": [
-        "**/site-packages/**/*.py",
-        "/usr/lib/**/*.py",
-        ".vscode/*.py"
-    ],
-    // pylint seems to do everything relevant that flake8 does
-    // and it has a better integration with VSCode. So, disable flake8
-    "python.linting.flake8Enabled": false,
-    // nothing in flake8 seems to be an error, so change its VSCode mapping
-    "python.linting.flake8CategorySeverity.F": "Warning",
-    "python.linting.flake8CategorySeverity.E": "Warning",
-    "python.linting.flake8CategorySeverity.W": "Warning",
-    "python.linting.banditEnabled": true,
-    "python.linting.banditArgs": ["-c", "pyproject.toml"],
-    "python.linting.mypyEnabled": true,
     "python.sortImports.path": "isort",
     // enable pytest or unittest, not both
     "python.testing.pytestEnabled": true,
@@ -415,7 +390,29 @@
     "python.analysis.extraPaths": [],
     "python.analysis.inlayHints.functionReturnTypes": true,
     "python.analysis.inlayHints.variableTypes": true,
-    "python.analysis.inlayHints.pytestParameters": true,
+    "black-formatter.showNotifications": "onError",
+    "pylint.lintOnChange": true, // get immediate feedback
+    "pylint.ignorePatterns": [
+        "**/site-packages/**/*.py",
+        ".vscode/*.py",
+        "/usr/lib/**/*.py",
+    ],
+    "pylint.showNotifications": "onError",
+    "mypy-type-checker.ignorePatterns": [
+        "**/site-packages/**/*.py",
+        ".vscode/*.py",
+        "/usr/lib/**/*.py",
+    ],
+    "mypy-type-checker.showNotifications": "onError",
+    // ext install ms-python.vscode-pylance
+    // this is a proprietary software and Microsoft does not allow it
+    // to run outside VSCode
+    // https://www.reddit.com/r/linux/comments/k0s8qw/vs_code_developers_prevent_running_the_new/
+    // https://github.com/microsoft/pylance-release/issues/483
+    // https://github.com/VSCodium/vscodium/issues/892
+    // https://github.com/flathub/com.vscodium.codium/issues/90
+    // "python.languageServer": "Pylance",
+    // "python.languageServer": "Jedi",
 
     "[shellscript]": {
         // ext install foxundermoon.shell-format
@@ -461,6 +458,7 @@
     // ext install streetsidesoftware.code-spell-checker
     // ext install streetsidesoftware.code-spell-checker-portuguese-brazilian
     "cSpell.userWords": [
+        "Alacritty",
         "awslambdaric",
         "Coroutines",
         "dotfiles",
