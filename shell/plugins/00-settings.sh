@@ -5,7 +5,7 @@
 #
 # Disables Software Flow Control (XON/XOFF flow control)
 # i.e. "Ctrl s" and "Ctrl q" will have no special behavior.
-[[ $- == *i*  ]] && stty -ixon
+[[ $- == *i*  ]] && stty -ixon <$TTY >$TTY
 
 #
 # For Tilix.

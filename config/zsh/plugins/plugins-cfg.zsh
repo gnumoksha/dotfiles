@@ -35,26 +35,21 @@ zsh-plugin-installer "https://github.com/robbyrussell/oh-my-zsh" "" "" "source o
 DOTFILES_THEMES="${0:a:h}/../themes"
 
 #zsh-plugin-installer "https://github.com/martinrotter/powerless.git" "" "" "source powerless.zsh false && source utilities.zsh true"
+
 #zsh-plugin-installer "https://github.com/eendroroy/alien-minimal" "" "" "source $DOTFILES_THEMES/alien-minimal.zsh && source alien-minimal.zsh"
-#zsh-plugin-installer "https://github.com/romkatv/powerlevel10k" "" "" "source powerlevel10k.zsh-theme && source ~/.config/zsh/.p10k.zsh"
-zsh-plugin-installer "https://github.com/starship/starship" "" "./install/install.sh --yes --bin-dir=/usr/local/bin" 'eval "$(starship init zsh)"'
-# #starship-kubectl-issue
-function configure_starship() {
-  local BUFFER=$@
-  # If buffer contains kubectl, enable kubernetes module
-  if [[ $BUFFER == *"kubectl"* ]]; then
-    starship config kubernetes.disabled false
-  else
-    starship config kubernetes.disabled true
-  fi
-}
-function zle-line-pre-redraw {
-  if [[ $KEYS_QUEUED_COUNT -eq 0 ]]; then
-    configure_starship $BUFFER
-    zle reset-prompt
-  fi
-}
-zle -N zle-line-pre-redraw
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+zsh-plugin-installer "https://github.com/romkatv/powerlevel10k" "" "" "source powerlevel10k.zsh-theme && source $XDG_CONFIG_HOME/zsh/.p10k.zsh"
+
+# starship has less options than powerlevel10k
+#zsh-plugin-installer "https://github.com/starship/starship" "" "./install/install.sh --yes --bin-dir=/usr/local/bin" 'eval "$(starship init zsh)"'
+
+# oh-my-posh is difficult to customize and it is focused on Windows
 # nice themes: agnoster, mojada, nu4a, powerline, unicorn
 #zsh-plugin-installer "https://github.com/JanDeDobbeleer/oh-my-posh" "" "bash ./website/static/install.sh -d /usr/local/bin" 'eval "$(oh-my-posh init zsh --config $XDG_CACHE_HOME/oh-my-posh/themes/agnoster.omp.json)"'
 
