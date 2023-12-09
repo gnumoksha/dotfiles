@@ -17,17 +17,39 @@ log_error() {
   echo "❌ $*"
 }
 
-# full path
-extract_inline_statement() {
+#######################################
+# Extract the inline dotfiles statements
+# that may exists in the given file.
+#
+# Globals:
+#   None
+# Arguments:
+#   full file path
+#   result - variable that will hold
+#            the returned value
+# Returns:
+#   None
+#######################################
+extract_inline_statements() {
   local path=${1:-}
   local -n __result=${2:-}
+  local parsed_statements=
 
-  tag=$(sed -nr '/#( )?dotfiles( )?:( )?/p' "$path")
-  content=$(echo "$tag" | sed -rn 's/.*#( )?dotfiles( )?:( )?/\3/pi' | head -1)
-  if [[ ! -z "$content" ]]; then
-    #log_debug "File \"$path\" has in-line statement \"$content\"."
-    #FIXME check if $content already has src
-    __result="src=$path $content"
+  statements=$(sed -nr '/#( )?dotfiles( )?:( )?/p' "$path")
+  if [[ ! -z "$statements" ]]; then
+    for st in $statements; do
+      statement_content=$(echo "$st" | sed -rn 's/.*#( )?dotfiles( )?:( )?/\3/pi')
+
+      #TODO check if $statement_content already has src
+      if [[ -z "$parsed_statements" ]]; then
+        parsed_statements="src=$path $statement_content"
+      else
+        parsed_statements="$parsed_statements\nsrc=$path $statement_content"
+      fi
+
+      __result=$parsed_statements
+    done
+
     return
   fi
 
@@ -35,8 +57,19 @@ extract_inline_statement() {
   __result=
 }
 
-# Process a statement like
+#######################################
+# Process the dotfiles statement that
+# looks like:
 # src=file dst=/destination/directory_or_file execBefore=ls execAfter=ls
+#
+# Globals:
+#   None
+# Arguments:
+#   statement
+#   base_path (optional) it will be used if statament does not contain src
+# Returns:
+#   None
+#######################################
 process_statement() {
   local statement=${1}
   local base_path=${2}
@@ -101,7 +134,22 @@ process_statement() {
   fi
 }
 
-# origin and destination must be the full path
+#######################################
+# Creates a link between origin and
+# destination
+#
+# Globals:
+#   None
+# Arguments:
+#   origin - full file path
+#   destination - full file path
+#   result - variable that will hold
+#            the returned value
+#   force_fail - yes or no if it must fail
+#                if destination already exists
+# Returns:
+#   None
+#######################################
 create_link() {
   local origin=${1}
   local destination=${2:-}
@@ -185,22 +233,25 @@ process_inline_statements() {
       continue
     fi
 
-    extract_inline_statement "$item" statement
-    if [[ -z "$statement" ]]; then
+    extract_inline_statements "$item" statements
+    if [[ -z "$statements" ]]; then
       continue
     fi
 
-    if is_debug_enabled; then
-      log_debug "Processing in-line statement \"$statement\" from file \"$item\"."
-    else
-      printf "%-20.20s" "$(basename "$item") "
-    fi
+    # if statements contain multiple lines, printf will make this loop work
+    for statement in $(printf "$statements"); do
+      if is_debug_enabled; then
+        log_debug "Processing in-line statement \"$statement\" from file \"$item\"."
+      else
+        printf "%-20.20s" "$(basename "$item") "
+      fi
 
-    process_statement "$statement" ""
+      process_statement "$statement" ""
 
-    if is_debug_enabled; then
-      echo
-    fi
+      if is_debug_enabled; then
+        echo
+      fi
+    done
   done
 }
 
