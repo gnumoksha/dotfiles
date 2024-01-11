@@ -1,4 +1,5 @@
 // #dotfiles: dst=$XDG_CONFIG_HOME/VSCodium/User/settings.json
+// #dotfiles: dst=$XDG_CONFIG_HOME/Code/User/settings.json
 // https://code.visualstudio.com/docs/getstarted/settings#_default-settings
 {
     /**
@@ -75,13 +76,16 @@
         }
     },
     "editor.largeFileOptimizations": false,
+    // under testing
+    // https://learn.microsoft.com/en-us/visualstudio/ide/editor-sticky-scroll?view=vs-2022
+    "editor.stickyScroll.enabled": true,
 
     /**
      * Explorer
      */
     // Notes:
     //  - there is no setting to increase the font size so, you need to use "window.zoomLevel" and "editor.fontSize"
-    "explorer.confirmDragAndDrop": true,
+    "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": true,
     "explorer.confirmUndo": "verbose",
     "explorer.incrementalNaming": "smart", // no option to ask, like in PhpStorm?
@@ -217,6 +221,8 @@
     // as the mouse hover can show too much unnecessary info
     "workbench.statusBar.visible": true,
     "workbench.activityBar.location": "top",
+    // under testing
+    "workbench.tree.enableStickyScroll": true,
 
     /**
      * By programming language
@@ -237,7 +243,7 @@
             "strings": "off" // defualt off
         },
         "editor.suggest.shareSuggestSelections": false,
-        "editor.inlineSuggest.enabled": false,
+        "editor.inlineSuggest.enabled": true, // must be true for Copilot to work
         "editor.suggestOnTriggerCharacters": false,
         "editor.acceptSuggestionOnCommitCharacter": false,
         "editor.suggestSelection": "recentlyUsed", // doesn't seem to work
@@ -268,7 +274,7 @@
         "editor.suggest.snippetsPreventQuickSuggestions": false,
         "editor.suggestSelection": "first",
         "editor.tabCompletion": "onlySnippets",
-        "editor.wordBasedSuggestions": false
+        "editor.wordBasedSuggestions": "off"
     },
 
     // ext install esbenp.prettier-vscode
@@ -468,4 +474,21 @@
         "pyproject",
         "Stringable"
     ],
+    // ext install emeraldwalk.RunOnSave
+    // go install github.com/segmentio/golines@latest
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": "\\.go$",
+                "cmd": "golines ${file} --max-len=100 --shorten-comments --write-output"
+            }
+        ],
+    },
+    // ext install GitHub.copilot
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    }
 }
