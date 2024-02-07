@@ -35,12 +35,12 @@ fi
 #   demanding tasks, such as editing email (e.g., vi, vim, emacs etc).
 # BROWSER contains the path to the web browser.
 if [ -n "${DISPLAY:-}" ]; then
-  export EDITOR=vim
+  export EDITOR=nvim
   export VISUAL=codium
   #export BROWSER=firefox
 else
-  export EDITOR=vim
-  export VISUAL=vim
+  export EDITOR=nvim
+  export VISUAL=nvim
   #export BROWSER=links
 fi
 
@@ -70,4 +70,3 @@ fi
 
 #This is used in order to later check if this file was loaded.
 export USER_PROFILE_LOADED="yes"
-

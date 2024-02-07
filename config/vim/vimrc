@@ -91,7 +91,7 @@ call plug#begin(g:VIM_PLUG_HOME)
   " The ultimate undo history visualizer for VIM.
   Plug 'mbbill/undotree'
   " Prevent various Vim features from keeping the contents of passwordstore.org.
-  Plug 'https://git.zx2c4.com/password-store', {'rtp': 'contrib/vim/noplaintext.vim'}
+  Plug 'https://git.zx2c4.com/password-store', {'rtp': 'contrib/vim/redact_pass.vim'}
   " Easy note taking in Vim.
   "Plug 'xolox/vim-notes', {'on': 'Note'}
   " A syntax plugin for plain-text notes
@@ -131,7 +131,7 @@ call plug#begin(g:VIM_PLUG_HOME)
     "Plug 'tpope/vim-rhubarb' " GitHub extension for fugitive.vim
     "Plug 'shumphrey/fugitive-gitlab.vim' " An extension to fugitive.vim for gitlab support
   Plug 'gregsexton/gitv', {'on': ['Gitv']} " gitk for Vim.
-  Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
+  Plug 'airblade/vim-gitgutter', { 'branch': 'main' } " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
   "Plug 'junegunn/gv.vim', {'on': ['GV']} " A git commit browser in Vim.
   "Plug 'jreybert/vimagit'
   "}}}
@@ -1097,4 +1097,4 @@ imap <silent> <Home> <C-O><Home>
 "}}}
 
 " vim: foldenable foldmethod=marker foldlevel=0
-
+" #dotfiles: dst=$HOME/.vimrc

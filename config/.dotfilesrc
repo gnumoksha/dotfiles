@@ -15,6 +15,7 @@ src=ssh/keys dst=$HOME/.ssh/keys execBefore='[[ ! -d "$HOME/.ssh/config.d" ]] &&
 src=tilix dst=$XDG_CONFIG_HOME/
 src=tmux dst=$XDG_CONFIG_HOME/
 src=vim dst=$XDG_CONFIG_HOME/ execBefore='mkdir -p "$XDG_CACHE_HOME"/vim/{undo,swap,backup} "$XDG_CACHE_HOME"/nvim/{undo,swap,backup} 2>/dev/null'
+src=nvim dst=$XDG_CONFIG_HOME/ execBefore='mkdir -p "$XDG_CACHE_HOME"/nvim/{undo,swap,backup} 2>/dev/null'
 src=xdg/templates dst=$( d=$(xdg-user-dir TEMPLATES); [[ $d == $HOME ]] && echo "/tmp" || echo $d )
 src=xfce4-terminal dst=$XDG_CONFIG_HOME/
 src=zsh dst=$XDG_CONFIG_HOME/
