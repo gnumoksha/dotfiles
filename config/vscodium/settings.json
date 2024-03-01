@@ -85,7 +85,7 @@
      */
     // Notes:
     //  - there is no setting to increase the font size so, you need to use "window.zoomLevel" and "editor.fontSize"
-    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDragAndDrop": true, // future me: do not use false here :) I like that
     "explorer.confirmDelete": true,
     "explorer.confirmUndo": "verbose",
     "explorer.incrementalNaming": "smart", // no option to ask, like in PhpStorm?
