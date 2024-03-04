@@ -26,7 +26,7 @@
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "file", // it is better to change it by language
     "editor.formatOnType": true,
-    "editor.linkedEditing": true,
+    "editor.linkedEditing": true, // modify linked html tags
     "editor.bracketPairColorization.enabled": true,
     "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
     "editor.guides.bracketPairs": true,
@@ -225,8 +225,13 @@
     "workbench.tree.enableStickyScroll": true,
 
     /**
-     * By programming language
+     * By language
      */
+
+    // ext install esbenp.prettier-vscode
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
 
      // ext install mechatroner.rainbow-csv
     "[csv]": {
