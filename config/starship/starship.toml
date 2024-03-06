@@ -37,7 +37,7 @@ error_symbol = "[🗙](bold red)"
 vimcmd_symbol = "[⮜](bold green)"
 
 [cmd_duration]
-min_time = 2_000
+min_time = 10_000
 show_notifications = false
 format = "[$duration]($style)"
 style = "yellow bg:#1d2230"
