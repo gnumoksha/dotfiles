@@ -1,0 +1,59 @@
+#
+# Title
+#
+set -g set-titles on
+set -g set-titles-string "#W [#I:#P]"
+
+#
+# Apply to the entire status bar
+#
+set -g status-justify centre
+set -g status-interval 5
+set -g status-style bg=default,fg="#1c1c1c"
+
+#
+# Window list
+#
+set -g window-status-style bg=terminal,fg=gray
+set -g window-status-current-style bg=red,fg="#1c1c1c"
+set -g window-status-format " #I:#W#F "
+set -g window-status-current-format " #I:#W#F "
+set -g window-status-separator ""
+
+#
+# Left side of status bar
+#
+set -g status-left-style bg=default,fg=red
+set -g status-left-length 50
+set -g status-left "#S #[fg=yellow]#I #[fg=magenta]#P"
+
+#
+# Right side of status bar
+#
+set -g status-right-style bg=default,fg=gray
+set -g status-right-length 50
+WEATHER='#(curl -s wttr.in/São+Paulo\?format\=2&period=60)' # format 1-5. 2 and 4 are the best
+set -g status-right "$WEATHER"
+
+#
+# Pane
+#
+set -g pane-border-style bg=default,fg=black
+set -g pane-active-border-style bg=default,fg=red
+set -g display-panes-colour default
+set -g display-panes-active-colour default
+
+#
+# Misc
+#
+# Clock mode (Prefix + t)
+set -g clock-mode-colour red
+set -g clock-mode-style 24
+# Message
+set -g message-style bg=default,fg=default
+# Command message
+set -g message-command-style bg=default,fg=default
+# Mode
+set -g mode-style bg=red,fg=default
+
+# vim: ft=tmux
