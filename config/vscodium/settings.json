@@ -386,6 +386,11 @@
         // "editor.wrappingIndent": "same",
         // HOVER_ISSUE https://github.com/microsoft/vscode/issues/73120
         // "editor.hover.enabled": false
+
+        "editor.codeActionsOnSave": {
+            // ext install ms-python.isort
+            "source.organizeImports": "always"
+        },
     },
     "python.envFile": "${workspaceFolder}/.env", // To avoid "ModuleNotFoundError"
     "python.autoComplete.extraPaths": [],
@@ -415,6 +420,8 @@
         "/usr/lib/**/*.py",
     ],
     "mypy-type-checker.showNotifications": "onError",
+    // ext install ms-python.isort
+    "isort.args": [ "--profile", "black" ],
     // ext install ms-python.vscode-pylance
     // this is a proprietary software and Microsoft does not allow it
     // to run outside VSCode
