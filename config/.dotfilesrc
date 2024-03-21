@@ -2,7 +2,6 @@ src=alacritty dst=$XDG_CONFIG_HOME/
 src=byobu dst=$XDG_CONFIG_HOME/
 src=cheat dst=$XDG_CONFIG_HOME/ execBefore='[[ ! -d "$XDG_CACHE_HOME/cheat/cheatsheets" ]] && mkdir -p "$XDG_CACHE_HOME/cheat/cheatsheets" || true'
 src=environment.d dst=$XDG_CONFIG_HOME/
-src=gnupg dst=$XDG_CONFIG_HOME/
 src=grc dst=$XDG_CONFIG_HOME/
 src=htop dst=$XDG_CONFIG_HOME/
 src=http-prompt dst=$XDG_CONFIG_HOME/
