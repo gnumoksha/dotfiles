@@ -5,13 +5,15 @@
 #|
 # shellcheck disable=SC1117
 
+has_cmd() {
+  command -v "$@" 1>/dev/null 2>&1
+}
+
 #|
 #| Aliases
 #|
 # Note: color-related aliases are defined in colors.sh
-if [ "$(command -v exa)" ]; then
-  alias ls='exa'
-fi
+has_cmd "exa" && alias ls='exa'
 alias l='clear && ls --escape --classify --group-directories-first --no-group --human-readable'
 alias ll='l -l'
 alias la='l -l --almost-all' # --almost-all because I never want ./ and ../
@@ -30,8 +32,13 @@ alias dmesg_critical="dmesg --level=crit,alert,emerg"
 #alias git='LANG=en_US.UTF-8 git'
 alias dd="dd status=progress"
 alias py="python3"
-py3venv() { python3 -m venv --symlinks --clear --prompt "$(basename "$(pwd)")" venv; }
-alias fd="fdfind"
+python-venv() {
+  python -m venv --symlinks --clear venv
+  source venv/bin/activate
+  pip install --upgrade pip
+}
+alias python-unittest="python -m unittest discover --failfast --catch --pattern '*_test.py' ."
+has_cmd "fdfind" && alias fd="fdfind" # for fd package in Debian
 alias g="git"
 alias follow='multitail -p l '
 alias follow2="less -S +F"

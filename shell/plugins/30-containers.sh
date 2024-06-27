@@ -22,10 +22,9 @@ alias_append lsblk '--exclude 7 --fs'
 #
 # Docker
 #
-alias dcompose='docker-compose'
-alias dcompose_tail='docker-compose logs --tail=5 -f'
+alias dcompose-tail='docker compose logs --tail=5 -f'
 # show only hardware interfaces
 alias ifconfig='ls /sys/class/net | egrep -v "^(lo[0-9]?|sit[0-9]|ce[0-9]?|docker[0-9]?|br[-a-z0-9]{13})$" | xargs --max-args=1 /sbin/ifconfig'
-alias dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}"'
+alias docker-ps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}"'
 
 #alias docker-get-image-version="docker image inspect --format '{{ index .Config.Labels \"version\" }}'"
