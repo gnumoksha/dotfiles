@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+while [ true ]; do
+	sudo systemctl restart pcscd
+
+	gpg --card-status
+	if [[ $? -eq 0 ]]; then
+		echo "Done!"
+		exit 0
+	fi
+done
