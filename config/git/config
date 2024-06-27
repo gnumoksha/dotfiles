@@ -157,6 +157,8 @@
 	# pointing at commit-ish that are reachable from the refs being pushed.
 	followTags = true
 
+	autoSetupRemote = true
+
 [rebase]
 	# Whether to show a diffstat of what changed upstream since the last rebase. False by default.
 	stat = true
