@@ -16,12 +16,12 @@
 # https://en.wikipedia.org/wiki/Unix_shell#Configuration_files
 
 # Loads environment variables from the systemd file.
-if [[ -z "${ENVVARS_LOADED:-}" || "${ENVVARS_LOADED:-}" != "yes" ]]; then
+if [[ -z "${DOTFILES_ENVVARS_LOADED:-}" || "${DOTFILES_ENVVARS_LOADED:-}" != "yes" ]]; then
   DOTFILES="$HOME/.local/share/dotfiles"
 
   # Load and export all variables from this systemd's file
   set -a
-  . "$DOTFILES"/config/environment.d/envvars.conf
+  . "$DOTFILES"/config/environment.d/dotfiles.conf
   set +a
 fi
 
