@@ -34,14 +34,14 @@
     "editor.suggest.preview": true, // shows a opaque text next to the cursor
     "editor.suggest.insertMode": "replace", // I'm testing this
     "editor.quickSuggestions": {
-        "other": "on", // defualt on
-        "comments": "on", // defualt off
-        "strings": "on" // defualt off
+        "other": "on", // default on
+        "comments": "on", // default off
+        "strings": "on" // default off
     },
     // #bad-suggestion I want:
     // 1. VSCode to not select the first suggestion,
     //    so I can type enter whenever I want.
-    //    But that doesnt't seems possible
+    //    But that doesn't seem possible
     //    https://github.com/microsoft/vscode/issues/85768
     // 2. automatic suggestions/autocomplete only for IntelliSense
     //    If suggestions are from dictionaries or something, only show them
@@ -93,8 +93,8 @@
     "explorer.compactFolders": false,
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.expand": true,
-    "explorer.excludeGitIgnore": true, // use this or "files.exclude" or search.exclude"
-    "explorer.openEditors.visible": 0, // hide Open Editors pane as I use only the workbench tabs
+    "explorer.excludeGitIgnore": false, // use this or "files.exclude" or search.exclude". False here to edit .env files
+    "explorer.openEditors.visible": 1, // hide Open Editors pane as I use only the workbench tabs
 
     /**
      * Files
@@ -112,7 +112,9 @@
         "**/.venv": true,
         "**/CVS": true,
         "**/.DS_Store": true,
-        "**/Thumbs.db": true
+        "**/Thumbs.db": true,
+        "**/__pycache__": true,
+        "**/.pytest_cache": true
     },
 
     /**
@@ -145,6 +147,18 @@
     "search.mode": "reuseEditor",
     "search.searchOnType": true,
     "search.sortOrder": "type",
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true,
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.venv": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true
+    },
 
     /**
      * Security
@@ -166,6 +180,10 @@
     "terminal.integrated.cursorBlinking": true,
     "terminal.explorerKind": "external",
     "terminal.integrated.rightClickBehavior": "copyPaste",
+    "terminal.integrated.env.linux": {
+        "PYTHONDEVMODE": "1",
+        "PYTHONPATH": "${workspaceFolder}"
+    },
 
     /**
      * Testing
@@ -185,6 +203,7 @@
     "window.commandCenter": false, // I'm testing this
     "window.restoreWindows": "none", // open-select-recent-projects-on-startup
     "window.restoreFullscreen": true,
+    "window.newWindowDimensions": "inherit",
 
     /**
      * Workbench
@@ -192,7 +211,7 @@
     // ext install nonylene.dark-molokai-theme
     "workbench.colorTheme": "Dark (Molokai)",
     "workbench.preferredDarkColorTheme": "Dark (Molokai)",
-    // ext install vscode-icons-team.vscode-icons
+    // ext install vscode-icons
     "workbench.iconTheme": "vscode-icons",
     // Customize the Visual Studio Code color theme
     // https://code.visualstudio.com/api/references/theme-color
@@ -208,6 +227,10 @@
         // "editorBracketHighlight.foreground1": "#FFD700",
         // "editorBracketHighlight.foreground2": "#DA70D6",
         // "editorBracketHighlight.foreground3": "#179fff",
+        "errorLens.errorBackground": "#fff0",
+        "errorLens.infoBackground": "#fff0",
+        "errorLens.hintBackground": "#fff0",
+        "errorLens.warningBackground": "#fff0"
     },
     "workbench.tree.renderIndentGuides": "always",
     "workbench.tree.indent": 20, // disable Preview Mode because it's useless
@@ -320,8 +343,7 @@
     "json.maxItemsComputed": 10000,
     "json.schemas": [],
     "json.schemaDownload.enable":true,
-    "json.format.enable": true,
-    "json.format.keepLines": true, // keep empty lines in jsonc files
+    "json.format.enable": true, // keep empty lines in jsonc files
     "[jsonc]": {
         "editor.quickSuggestions": {
             "strings": true
@@ -366,7 +388,7 @@
     "php.validate.run": "onType",
 
     // ext install ms-python.python
-    // ext install ms-pyright.pyright or ms-python.vscode-pylance
+    // ext install ~ms-pyright.pyright~ or ms-python.vscode-pylance
     // ext install ms-python.pylint
     // ext install ms-python.flake8 (pylint may be sufficient)
     // ext install ms-python.mypy-type-checker
@@ -407,7 +429,22 @@
     "python.analysis.inlayHints.functionReturnTypes": true,
     "python.analysis.inlayHints.variableTypes": true,
     "black-formatter.showNotifications": "onError",
-    "pylint.lintOnChange": true, // get immediate feedback
+    // Pylance should not analyze these files.
+    // Note: this will not work if pyproject.toml contains [tool.pyright]
+    //       and I was unable to ignore "/usr/lib/**/*.py" there.
+    "python.analysis.ignore": [
+        "**/site-packages/**/*.py",
+        ".vscode/**/*.py",
+        ".vscode/**/*.pyi",
+        "**/.vscode-oss/**/*.py",
+        "**/.vscode-oss/**/*.pyi",
+        "/home/*/.vscode/extensions/**/*.pyi",
+        "/home/*/.vscode-oss/extensions/**/*.pyi",
+        "/home/*/.cache/pypoetry/virtualenvs/**/*.py",
+        "/usr/lib/**/*.py"
+    ],
+    // pylint is incredible slow. So, only run it on save (or use flake8)
+    "pylint.lintOnChange": false,
     "pylint.ignorePatterns": [
         "**/site-packages/**/*.py",
         ".vscode/*.py",
@@ -463,29 +500,64 @@
         // then type javascript
         // "javascript": "docker run --rm -v $dir:/usr/src/app node:14-slim node /usr/src/app/$fileName",
         // To avoid "ModuleNotFoundError" and "AttributeError"
-        //"python": "PYTHONPATH=$workspaceRoot python $fullFileName"
+        // for some reason it only work with "Run By Language" described above.
+        // Or you can run "export PYTHONPATH=." in the integrated terminal.
+        "python": "PYTHONDEVMODE=1 PYTHONPATH=$workspaceRoot python $fullFileName",
+        // didn't work. I removed MagicPython
+        //"MagicPython": "PYTHONPATH=$workspaceRoot python $fullFileName"
     },
     "code-runner.clearPreviousOutput": true,
     "code-runner.runInTerminal": false,
+    // ext install vscode-icons
+    // https://github.com/vscode-icons/vscode-icons/wiki/Configuration
     "vsicons.dontShowNewVersionMessage": true,
     "debug.console.fontSize": 16, // #eyestrain
     "rest-client.fontSize": 16, // #eyestrain
+    // ext install eamodio.gitlens
     // https://github.com/gitkraken/vscode-gitlens
     "gitlens.currentLine.enabled": false, // on by default, but annoying
     "gitlens.codeLens.enabled": false, // on by default, but annoying
     // ext install streetsidesoftware.code-spell-checker
     // ext install streetsidesoftware.code-spell-checker-portuguese-brazilian
+    "cSpell.language": "en,pt-BR",
+    "cSpell.diagnosticLevel": "Hint",
     "cSpell.userWords": [
         "Alacritty",
         "awslambdaric",
         "Coroutines",
+        "dotenv",
         "dotfiles",
         "esbenp",
+        "fastapi",
+        "gettext",
+        "isort",
+        "journalctl",
+        "linkedin",
         "middlewares",
+        "mypy",
+        "mysql",
+        "openai",
+        "pipx",
+        "pycache",
+        "pydantic",
+        "pylance",
+        "pylint",
         "Pylint",
         "pyproject",
-        "Stringable"
+        "pyright",
+        "pytest",
+        "redhat",
+        "rtype",
+        "sqlite",
+        "Stringable",
+        "talentify",
+        "tobias",
+        "usleep",
+        "venv",
+        "webservice"
     ],
+    // ext install usernamehw.errorlens
+    "errorLens.addNumberOfDiagnostics": true,
     // ext install emeraldwalk.RunOnSave
     // go install github.com/segmentio/golines@latest
     "emeraldwalk.runonsave": {
@@ -502,5 +574,6 @@
         "plaintext": false,
         "markdown": false,
         "scminput": false
-    }
+    },
+    "material-icon-theme.showWelcomeMessage": false
 }
