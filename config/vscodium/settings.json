@@ -343,7 +343,9 @@
     "json.maxItemsComputed": 10000,
     "json.schemas": [],
     "json.schemaDownload.enable":true,
-    "json.format.enable": true, // keep empty lines in jsonc files
+    "json.format.enable": true,
+    // Keep empty lines in jsonc files. But this will also affect json files.
+    //"json.format.keepLines": true,
     "[jsonc]": {
         "editor.quickSuggestions": {
             "strings": true
@@ -414,20 +416,42 @@
             "source.organizeImports": "always"
         },
     },
+    "python.defaultInterpreterPath": "/usr/bin/python",
     "python.envFile": "${workspaceFolder}/.env", // To avoid "ModuleNotFoundError"
     "python.autoComplete.extraPaths": [],
     "python.diagnostics.sourceMapsEnabled": true,
     "python.experiments.enabled": false,
     "python.sortImports.path": "isort",
-    // enable pytest or unittest, not both
+    /**
+     * You can configure your tests anytime by using the Python: Configure Tests
+     * command from the Command Palette.
+     * "If both frameworks (unittest and pytest) are enabled, then the Python
+     * extension will only run pytest." (what does that mean? Because I've
+     * sucefully ran the unitests with both enabled)
+     */
+    "python.testing.unittestEnabled": true,
     "python.testing.pytestEnabled": true,
-    "python.testing.unittestEnabled": false,
     "python.testing.autoTestDiscoverOnSaveEnabled": true,
     "python.analysis.typeCheckingMode": "strict",
     "python.analysis.autoImportCompletions": true,
     "python.analysis.extraPaths": [],
     "python.analysis.inlayHints.functionReturnTypes": true,
     "python.analysis.inlayHints.variableTypes": true,
+    "python.analysis.diagnosticSeverityOverrides": {
+        // decrease the severity of some pylance diagnostics
+        "reportUnknownVariableType":"warning",
+        "reportUnknownArgumentType": "warning",
+        "reportUnknownLambdaType":"information",
+        "reportUnknownMemberType": "warning",
+        "reportUnknownParameterType": "warning",
+        "reportMissingParameterType": "warning"
+    },
+    "python.analysis.ignore": [
+        "**/site-packages/**/*.py",
+        ".vscode/*.py",
+        "/usr/lib/**/*.py",
+        "/usr/lib64/**/*.py",
+    ],
     "black-formatter.showNotifications": "onError",
     // Pylance should not analyze these files.
     // Note: this will not work if pyproject.toml contains [tool.pyright]
@@ -575,5 +599,7 @@
         "markdown": false,
         "scminput": false
     },
-    "material-icon-theme.showWelcomeMessage": false
+    "github.copilot.editor.enableAutoCompletions": true,
+    "window.customTitleBarVisibility": "auto",
+    "workbench.productIconTheme": "material-product-icons",
 }
