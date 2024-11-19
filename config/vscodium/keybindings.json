@@ -3,6 +3,22 @@
 // #dotfiles: dst=$XDG_CONFIG_HOME/VSCodium/User/keybindings.json
 // #dotfiles: dst=$XDG_CONFIG_HOME/Code/User/keybindings.json
 [
+    // PhpStorm-like shortcuts
+    // https://github.com/microsoft/vscode/issues/142465
+    // https://alexisvigoureux.medium.com/double-shift-key-in-visual-studio-code-eaef156b493f
+    {
+      "key": "shift shift",
+      "command": "workbench.action.quickOpen"
+    },
+    {
+      "key": "alt alt",
+      "command": "workbench.action.showCommands"
+    },
+    {
+      "key": "ctrl ctrl",
+      "command": "workbench.action.toggleSidebarVisibility"
+    },
+    //
     {
         "key": "ctrl+y",
         "command": "-redo",
