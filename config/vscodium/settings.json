@@ -305,9 +305,15 @@
         "editor.wordBasedSuggestions": "off"
     },
 
-    // ext install esbenp.prettier-vscode
     "[html]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        // Prettier does not format bad HTML files
+        // ext install esbenp.prettier-vscode
+        //"editor.defaultFormatter": "esbenp.prettier-vscode",
+        //
+        // https://code.visualstudio.com/docs/languages/html#_formatting
+        "editor.defaultFormatter": "vscode.html-language-features",
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "file",
     },
 
     // ext install redhat.java
@@ -446,12 +452,6 @@
         "reportUnknownParameterType": "warning",
         "reportMissingParameterType": "warning"
     },
-    "python.analysis.ignore": [
-        "**/site-packages/**/*.py",
-        ".vscode/*.py",
-        "/usr/lib/**/*.py",
-        "/usr/lib64/**/*.py",
-    ],
     "black-formatter.showNotifications": "onError",
     // Pylance should not analyze these files.
     // Note: this will not work if pyproject.toml contains [tool.pyright]
