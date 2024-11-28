@@ -246,6 +246,9 @@
     "workbench.activityBar.location": "top",
     // under testing
     "workbench.tree.enableStickyScroll": true,
+    // do not open a new tab if the file is already open, like in PhpStorm.
+    // https://stackoverflow.com/a/67756038
+    "workbench.editor.revealIfOpen": true,
 
     /**
      * By language
@@ -419,7 +422,11 @@
 
         "editor.codeActionsOnSave": {
             // ext install ms-python.isort
-            "source.organizeImports": "always"
+            "source.organizeImports": "always",
+
+            // I want vscode to remove all unused imports.
+            // https://stackoverflow.com/a/74304607
+            "source.unusedImports": "explicit",
         },
     },
     "python.defaultInterpreterPath": "/usr/bin/python",
@@ -475,6 +482,9 @@
         "/usr/lib/**/*.py",
     ],
     "pylint.showNotifications": "onError",
+    // in order to use the pylint settings "max-positional-arguments",
+    // otherwise pylint will return an error saying the parameter was not found.
+    "pylint.importStrategy": "fromEnvironment",
     "mypy-type-checker.ignorePatterns": [
         "**/site-packages/**/*.py",
         ".vscode/*.py",
@@ -560,6 +570,7 @@
         "middlewares",
         "mypy",
         "mysql",
+        "nullable",
         "openai",
         "pipx",
         "pycache",
@@ -599,6 +610,8 @@
         "markdown": false,
         "scminput": false
     },
+    // ext install xyz.local-history
+    "local-history.path": "~/.cache/vscode/history",
     "github.copilot.editor.enableAutoCompletions": true,
     "window.customTitleBarVisibility": "auto",
     "workbench.productIconTheme": "material-product-icons",
