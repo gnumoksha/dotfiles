@@ -65,7 +65,7 @@ source $XDG_CACHE_HOME/git-extras-completion.zsh
 
 zsh-plugin-installer "https://github.com/paulirish/git-open" "" "cp -f git-open /usr/local/bin/git-open"
 
-zsh-plugin-installer "https://github.com/junegunn/fzf" "" "./install --bin && mv ./bin/fzf /usr/local/bin/fzf" "source shell/completion.zsh && source shell/key-bindings.zsh"
+zsh-plugin-installer "https://github.com/junegunn/fzf" "" "./install --bin && sudo mv -f ./bin/fzf /usr/local/bin/fzf" "source shell/completion.zsh && source shell/key-bindings.zsh"
 
 # Syntax Highlighting
 # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
