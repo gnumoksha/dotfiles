@@ -406,12 +406,14 @@
     // ext install ms-python.black-formatter
     "[python]": {
         // use the extension ms-python.black-formatter
-        "editor.defaultFormatter": "ms-python.black-formatter",
-        "editor.formatOnSave": true,
-
+        //"editor.defaultFormatter": "ms-python.black-formatter",
         // black can only format the entire file
-        "editor.formatOnSaveMode": "file",
-        "editor.formatOnPaste": false,
+        //"editor.formatOnSaveMode": "file",
+        //"editor.formatOnPaste": false,
+
+        // use the extension charliermarsh.ruff
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
 
         // #TODO test
         // "editor.wordWrap": "bounded",
@@ -422,6 +424,7 @@
 
         "editor.codeActionsOnSave": {
             // ext install ms-python.isort
+            // or charliermarsh.ruff
             "source.organizeImports": "always",
 
             // I want vscode to remove all unused imports.
@@ -450,6 +453,8 @@
     "python.analysis.extraPaths": [],
     "python.analysis.inlayHints.functionReturnTypes": true,
     "python.analysis.inlayHints.variableTypes": true,
+    "python.analysis.inlayHints.callArgumentNames": "off", // under testing
+    "python.analysis.inlayHints.pytestParameters": true, // under testing
     "python.analysis.diagnosticSeverityOverrides": {
         // decrease the severity of some pylance diagnostics
         "reportUnknownVariableType":"warning",
@@ -474,7 +479,7 @@
         "/home/*/.cache/pypoetry/virtualenvs/**/*.py",
         "/usr/lib/**/*.py"
     ],
-    // pylint is incredible slow. So, only run it on save (or use flake8)
+    // pylint is incredible slow. So, only run it on save (or use flake8 or ruff)
     "pylint.lintOnChange": false,
     "pylint.ignorePatterns": [
         "**/site-packages/**/*.py",
@@ -502,6 +507,13 @@
     // https://github.com/flathub/com.vscodium.codium/issues/90
     // "python.languageServer": "Pylance",
     // "python.languageServer": "Jedi",
+    // Jupyter notebooks
+    // ext install charliermarsh.ruff
+    "notebook.formatOnSave.enabled": true,
+    "notebook.codeActionsOnSave": {
+        "notebook.source.fixAll": "explicit",
+        "notebook.source.organizeImports": "explicit"
+    },
 
     "[shellscript]": {
         // ext install foxundermoon.shell-format
