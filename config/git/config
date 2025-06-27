@@ -115,6 +115,7 @@
 	textconv = exiftool
 
 [fetch]
+  # Automatically deletes remote-tracking branches that no longer exist on the server.
 	prune = true # false if remote name?
 	;pruneTags = true
 

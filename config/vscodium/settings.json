@@ -2,10 +2,6 @@
 // #dotfiles: dst=$XDG_CONFIG_HOME/Code/User/settings.json
 // https://code.visualstudio.com/docs/getstarted/settings#_default-settings
 {
-    /**
-     * Breadcrumb
-     */
-    "breadcrumbs.enabled": false,
     "breadcrumbs.symbolSortOrder": "type",
 
     /**
@@ -53,14 +49,15 @@
     // the syntax highlighting can't be as good as in JetBrains' IDEs.
     // References:
     //   - Command pallet: "Developer: Inspect Editor Tokens and Scopes"
-    //   - https://code.visualstudio.com/docs/getstarted/themes#_editor-syntax-highlighting
-    //   - - https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide
+    //   - https://code.visualstudio.com/docs/configure/themes#_editor-syntax-highlighting
+    //   - https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide
     //   - https://github.com/dracula/visual-studio-code/blob/master/src/dracula.yml
     "editor.tokenColorCustomizations":{
         "[*Molokai*]": {
             "variables": "#ca88ff",
             "numbers": "#ffffff",
             "textMateRules": [
+                // change docstring color
                 {
                     "scope": [
                         "string.quoted.docstring.multi.python",
@@ -70,6 +67,16 @@
                     ],
                     "settings": {
                         "foreground": "#A0A0A0"
+                    }
+                },
+                // remove underline defined by the Molokai theme
+                {
+                    "scope": [
+                        "entity.name.type",
+                        "entity.name.namespace",
+                    ],
+                    "settings": {
+                        "fontStyle": "",
                     }
                 }
             ]
@@ -208,36 +215,38 @@
     /**
      * Workbench
      */
-    // ext install nonylene.dark-molokai-theme
+    // ext install nonylene.dark-molokai-theme (to use "Dark (Molokai)")
     "workbench.colorTheme": "Dark (Molokai)",
     "workbench.preferredDarkColorTheme": "Dark (Molokai)",
-    // ext install vscode-icons
+    // ext install vscode-icons (to use "vscode-icons")
+    // ext install Catppuccin.catppuccin-vsc-pack (I liked "catppuccin-latte")
     "workbench.iconTheme": "vscode-icons",
     // Customize the Visual Studio Code color theme
     // https://code.visualstudio.com/api/references/theme-color
     "workbench.colorCustomizations": {
-        "tab.activeBorder": "#1a5ce0",
-        "tab.border": "#000000",
-        "statusBar.background": "#303030",
-        "statusBar.noFolderBackground": "#222225",
-        "statusBar.debuggingBackground": "#511f1f",
-        "editorInlayHint.background": "#303030",
-        "editorInlayHint.parameterForeground": "#858585",
-        "editorInlayHint.typeForeground": "#858585",
-        // "editorBracketHighlight.foreground1": "#FFD700",
-        // "editorBracketHighlight.foreground2": "#DA70D6",
-        // "editorBracketHighlight.foreground3": "#179fff",
-        "errorLens.errorBackground": "#fff0",
-        "errorLens.infoBackground": "#fff0",
-        "errorLens.hintBackground": "#fff0",
-        "errorLens.warningBackground": "#fff0"
+        "[*Molokai*]": {
+            "tab.activeBorder": "#1a5ce0",
+            "tab.border": "#000000",
+            "statusBar.background": "#303030",
+            "statusBar.noFolderBackground": "#222225",
+            "statusBar.debuggingBackground": "#511f1f",
+            "editorInlayHint.background": "#303030",
+            "editorInlayHint.parameterForeground": "#858585",
+            "editorInlayHint.typeForeground": "#858585",
+            // "editorBracketHighlight.foreground1": "#FFD700",
+            // "editorBracketHighlight.foreground2": "#DA70D6",
+            // "editorBracketHighlight.foreground3": "#179fff",
+            "errorLens.errorBackground": "#fff0",
+            "errorLens.infoBackground": "#fff0",
+            "errorLens.hintBackground": "#fff0",
+            "errorLens.warningBackground": "#fff0",
+        },
     },
     "workbench.tree.renderIndentGuides": "always",
     "workbench.tree.indent": 20, // disable Preview Mode because it's useless
     "workbench.list.openMode": "doubleClick",
     "workbench.layoutControl.enabled": true,
     "workbench.editor.titleScrollbarSizing": "large",
-    "workbench.editor.enablePreview": false,
     "workbench.startupEditor": "welcomePageInEmptyWorkbench", // open-select-recent-projects-on-startup
     "workbench.view.alwaysShowHeaderActions": true,
     // necessary to see the problem for the current line
@@ -261,6 +270,11 @@
 
      // ext install mechatroner.rainbow-csv
     "[csv]": {
+    },
+
+    // ext install ms-azuretools.vscode-containers
+    "[dockerfile]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-containers"
     },
 
     // ext install golang.Go
@@ -371,6 +385,7 @@
     },
 
     // ext install DavidAnson.vscode-markdownlint
+    // ext install yzhang.markdown-all-in-one
     // ext install ms-vscode.Theme-MarkdownKit ?does nothing?
     // #markdown-highlight does not work for console commands
     //   may be related to https://github.com/microsoft/vscode/issues/91279
@@ -444,8 +459,9 @@
      * "If both frameworks (unittest and pytest) are enabled, then the Python
      * extension will only run pytest." (what does that mean? Because I've
      * sucefully ran the unitests with both enabled)
+     * 2025-05-30 - both can't be enabled at the same time https: //github.com/microsoft/vscode-python/issues/24926
      */
-    "python.testing.unittestEnabled": true,
+    "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
     "python.testing.autoTestDiscoverOnSaveEnabled": true,
     "python.analysis.typeCheckingMode": "strict",
@@ -456,11 +472,15 @@
     "python.analysis.inlayHints.callArgumentNames": "off", // under testing
     "python.analysis.inlayHints.pytestParameters": true, // under testing
     "python.analysis.diagnosticSeverityOverrides": {
-        // decrease the severity of some pylance diagnostics
+        // Change the severity of some pylance diagnostics.
+        // You can also use pyproject.toml to do that, like in:
+        //  [tool.pyright]
+        //  reportUnknownVariableType = false
+        // https://microsoft.github.io/pyright/#/configuration?id=diagnostic-rule-defaults
         "reportUnknownVariableType":"warning",
         "reportUnknownArgumentType": "warning",
         "reportUnknownLambdaType":"information",
-        "reportUnknownMemberType": "warning",
+        "reportUnknownMemberType": "none",
         "reportUnknownParameterType": "warning",
         "reportMissingParameterType": "warning"
     },
@@ -585,6 +605,7 @@
         "nullable",
         "openai",
         "pipx",
+        "postgresql",
         "pycache",
         "pydantic",
         "pylance",
@@ -627,4 +648,5 @@
     "github.copilot.editor.enableAutoCompletions": true,
     "window.customTitleBarVisibility": "auto",
     "workbench.productIconTheme": "material-product-icons",
+    "git.blame.editorDecoration.enabled": false
 }

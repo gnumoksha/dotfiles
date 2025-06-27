@@ -13,7 +13,7 @@ has_cmd() {
 #| Aliases
 #|
 # Note: color-related aliases are defined in colors.sh
-has_cmd "exa" && alias ls='exa'
+has_cmd "eza" && alias ls='eza'
 alias l='clear && ls --escape --classify --group-directories-first --no-group --human-readable'
 alias ll='l -l'
 alias la='l -l --almost-all' # --almost-all because I never want ./ and ../
