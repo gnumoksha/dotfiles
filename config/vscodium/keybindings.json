@@ -237,5 +237,13 @@
         "key": "shift+alt+f12",
         "command": "-references-view.findReferences",
         "when": "editorHasReferenceProvider"
+    },
+    {
+        "key": "shift+enter",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {
+            "text": "\\\r\n"
+        },
+        "when": "terminalFocus"
     }
 ]
