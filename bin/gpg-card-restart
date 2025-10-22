@@ -3,9 +3,12 @@
 while [ true ]; do
 	sudo systemctl restart pcscd
 
-	gpg --card-status
+	gpg --card-status 2>&1 > /dev/null
 	if [[ $? -eq 0 ]]; then
 		echo "Done!"
 		exit 0
 	fi
+
+	echo "Retrying..."
+	sleep 1
 done

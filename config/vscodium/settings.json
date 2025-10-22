@@ -331,6 +331,8 @@
         "editor.defaultFormatter": "vscode.html-language-features",
         "editor.formatOnSave": true,
         "editor.formatOnSaveMode": "file",
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4
     },
 
     // ext install redhat.java
@@ -353,6 +355,8 @@
         "editor.formatOnPaste": true,
         "editor.wordWrap": "wordWrapColumn",
         "editor.wordWrapColumn": 120, // but prettier's "printWidth" is set to 80
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2
     },
     "javascript.inlayHints.parameterNames.enabled": "literals",
     "javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": true,
@@ -420,6 +424,9 @@
     // ext install ms-python.mypy-type-checker
     // ext install ms-python.black-formatter
     "[python]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4,
+
         // use the extension ms-python.black-formatter
         //"editor.defaultFormatter": "ms-python.black-formatter",
         // black can only format the entire file
@@ -539,6 +546,8 @@
         // ext install foxundermoon.shell-format
         "editor.defaultFormatter": "foxundermoon.shell-format",
         "files.eol": "\n",
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2
     },
     "bashIde.highlightParsingErrors": true,
 
