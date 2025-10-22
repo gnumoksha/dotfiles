@@ -489,7 +489,8 @@
         "reportUnknownLambdaType":"information",
         "reportUnknownMemberType": "none",
         "reportUnknownParameterType": "warning",
-        "reportMissingParameterType": "warning"
+        "reportMissingParameterType": "warning",
+        "reportMissingTypeStubs": "warning"
     },
     "black-formatter.showNotifications": "onError",
     // Pylance should not analyze these files.
@@ -657,5 +658,8 @@
     "github.copilot.editor.enableAutoCompletions": true,
     "window.customTitleBarVisibility": "auto",
     "workbench.productIconTheme": "material-product-icons",
-    "git.blame.editorDecoration.enabled": false
+    "git.blame.editorDecoration.enabled": false,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
 }
