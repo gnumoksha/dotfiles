@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+export IFS=$'\n\t'
+
+if [[ ${1:-} == "--help" ]]; then
+  cat <<EOF
+This script will make a simple HTTP request to an optional host and port.
+
+Usage:
+  $(basename $0) [HOST] [PORT]
+EOF
+
+  exit 0
+fi
+
+HOST=${1:-google.com}
+PORT=${2:-80}
+
+if [ ! $(command -v "curl") ]; then
+	curl "$HOST" "$PORT"
+	exit 0
+fi
+
+# TODO use GET if nc is unavailable
+printf "GET / HTTP/1.0\r\n\r\n" | nc "$HOST" "$PORT"

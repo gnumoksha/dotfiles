@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Deletes all symbolic links to files
 
 if [[ -z "$1" ]]; then

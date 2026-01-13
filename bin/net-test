@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+export IFS=$'\n\t'
+
+if [[ ${1:-} == "--help" ]]; then
+  cat <<EOF
+This script will test network connectivity to a specified host and port using.
+
+Usage:
+  $(basename $0) [HOST] [PORT]
+EOF
+
+  exit 0
+fi
+
+if [ ! $(command -v "ncat") ]; then
+	echo "Please, install nmap netcat to use this script."
+  echo "On Debian/Ubuntu: apt install ncat"
+  echo "On Fedora: dnf install nmap-ncat"
+	exit 1
+fi
+
+HOST=${1:-google.com}
+PORT=${2:-80}
+
+# -v verbose output
+# -w timeout
+# -z don't send data
+nc -v -w 3 -z "$HOST" "$PORT"

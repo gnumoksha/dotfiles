@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -euo pipefail
+export IFS=$'\n\t'
+
+if [[ ${1:-} == "--help" ]]; then
+  cat <<EOF
+This script will decrease the quality of videos to save disk space.
+
+Usage:
+  $(basename $0)
+EOF
+
+  exit 0
+fi
+
+if [ ! $(command -v "ffmpeg") ]; then
+	echo "Please, install ffmpeg to use this script."
+	exit 1
+fi
+
+RED='\e[31m'
+GREEN='\e[32m'
+YELLOW='\e[33m'
+BLUE='\e[34m'
+NC='\e[0m' # No Color
+
+echo -e "${BLUE}Resizing videos${NC}"
+for file in $(find . -type f \( -name "*.mp4" -o -name "*.MP4" \)); do
+	# [[ -e "$file" ]] || break
+
+	if [[ "$file" =~ \.trashed ]]; then
+		echo -e "${RED}Deleting${NC} $file"
+		rm -rf "$file"
+		continue
+	fi
+
+	# videos are too big to be skipped
+	#if [[ "$file" =~ escolhid ]]; then
+	#	echo -e "${YELLOW}Skipping${NC} $file"
+	#	continue
+	#fi
+
+	echo "Resizing $file..."
+
+	# convert the video files to H.265 format
+	# https://unix.stackexchange.com/a/38380
+	# https://superuser.com/a/1600382
+	output="${file%.mp4}_resized.mp4"
+	ffmpeg -hide_banner -loglevel warning -stats -i "$file" -vcodec libx265 -x265-params log-level=error -crf 28 "$output"
+	# copy the access time from the original file to the destination file.
+	# This is useful for Google Photos to show the correct date for the videos
+	# (assuming the $file has the correct date).
+	touch --reference "$file" "$output"
+	rm -f "$file"
+	mv "$output" "$file"
+done

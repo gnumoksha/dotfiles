@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 
-# Get the TOTP string from the qrcode in the last screenshot taken.
+if [[ ${1:-} == "--help" ]]; then
+  cat <<EOF
+This script gets the TOTP string from the qrcode in the last screenshot taken.
+
+Usage:
+  $(basename $0)
+EOF
+
+  exit 0
+fi
 
 #is_gnome_42=$(cat /usr/share/gnome/gnome-version.xml | grep -i platform | grep 42)
 img_dir="$(xdg-user-dir PICTURES)"

@@ -7,4 +7,4 @@
 
 # docker volume rm nodejs-docker
 
-docker run --interactive --tty --rm --volume nodejs-docker:/usr/src/app --workdir /usr/src/app node:lts-bullseye "$@"
+docker run --interactive --tty --rm --volume nodejs-docker:/usr/src/app --workdir /usr/src/app node:lts "$@"

@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+set -euo pipefail
+export IFS=$'\n\t'
+
+if [[ ${1:-} == "--help" ]]; then
+  cat <<EOF
+This script will normalized file names based on their EXIF data and then
+decrease the quality of images to save disk space.
+
+Usage:
+  $(basename $0)
+EOF
+
+  exit 0
+fi
+
+if [ ! $(command -v "mogrify") ]; then
+  echo "Please, install imagemagick to use this script."
+  exit 1
+fi
+
+RED='\e[31m'
+GREEN='\e[32m'
+YELLOW='\e[33m'
+BLUE='\e[34m'
+NC='\e[0m' # No Color
+
+echo -e "${BLUE}Normalizing file names${NC}"
+#exiftool -ext jpg -if '$make eq "GoPro"' '-FileName<CreateDate' -dateFormat %Y%m%d_%H%M%S%%-c_GoPro.%%e .
+#exiftool -ext jpg '-FileName<${CreateDate}_${make;}' -dateFormat %Y%m%d_%H%M%S%%-c.%%e .
+exiftool '-FileName<${CreateDate}' -dateFormat %Y%m%d_%H%M%S%%-c.%%e . 2>/dev/null
+
+echo -e "${BLUE}Resizing photos${NC}"
+for file in $(find . -type f \( -name "*.jpg" -o -name "*.JPG" \)); do
+  # [[ -e "$file" ]] || break
+
+  if [[ "$file" =~ \.trashed ]]; then
+    echo -e "${RED}Deleting${NC} $file"
+    rm -rf "$file"
+    continue
+  fi
+
+  #  if [[ "$file" =~ escolhid ]]; then
+  #    echo -e "${YELLOW}Skipping${NC} $file"
+  #    continue
+  #  fi
+
+  echo "Resizing $file"
+
+  if [[ "$file" =~ GOPR ]]; then
+    # this is an image taken with a GoPro
+    mogrify -quality 50 -resize 2000 "$file"
+  else
+    mogrify -quality 80 -resize 2000 "$file"
+  fi
+done
+echo

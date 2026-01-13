@@ -11,4 +11,4 @@ _alarm() {
   \kill -9 $pid
 }
 
-_alarm 400 200
+_alarm 400 5

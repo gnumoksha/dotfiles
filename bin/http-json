@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+export IFS=$'\n\t'
+
+if [[ ${1:-} == "--help" ]]; then
+  cat <<EOF
+This script will make HTTP request expecting JSON response.
+
+Usage:
+  $(basename $0)
+EOF
+
+  exit 0
+fi
+
+if [ ! $(command -v "curl") ]; then
+	echo "Please, install curl to use this script."
+	exit 1
+fi
+
+curl --header "Content-Type: application/json" -H "Accept: application/json" "$@"

@@ -1,4 +1,22 @@
 #!/usr/bin/env bash
+set -euo pipefail
+export IFS=$'\n\t'
+
+if [[ ${1:-} == "--help" ]]; then
+  cat <<EOF
+This script will measure HTTP request timings.
+
+Usage:
+  $(basename $0)
+EOF
+
+  exit 0
+fi
+
+if [ ! $(command -v "curl") ]; then
+	echo "Please, install curl to use this script."
+	exit 1
+fi
 
 # https://stackoverflow.com/a/22625150/4668660
 

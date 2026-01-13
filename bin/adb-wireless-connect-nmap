@@ -14,7 +14,7 @@ Usage:
   $(basename $0) [ip-address]
 EOF
 
-  exit 1
+  exit 0
 fi
 
 cmd="nmap -p 20000-65535 -T 5 -n -oG - $IP"
