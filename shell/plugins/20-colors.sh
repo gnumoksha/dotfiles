@@ -88,10 +88,10 @@ fi
 if [ $(command -v bat) ]; then
   # reference: https://github.com/sharkdp/bat#man
   alias cat='bat'
-  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  export MANPAGER="bat -plman"
 elif [ $(command -v batcat) ]; then
   alias cat='batcat'
-  export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
+  export MANPAGER="batcat -plman"
 elif [ $(command -v nvim) ]; then
   export MANPAGER='nvim +Man!'
 else
