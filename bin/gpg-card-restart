@@ -3,7 +3,7 @@
 while [ true ]; do
 	sudo systemctl restart pcscd
 
-	gpg --card-status 2>&1 > /dev/null
+	gpg --card-status 2>&1 >/dev/null
 	if [[ $? -eq 0 ]]; then
 		echo "Done!"
 		exit 0

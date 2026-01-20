@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
 if [[ ${1:-} == "--help" ]]; then
-  cat <<EOF
+	cat <<EOF
 This script gets the TOTP string from the qrcode in the last screenshot taken.
 
 Usage:
   $(basename $0)
 EOF
 
-  exit 0
+	exit 0
 fi
 
 #is_gnome_42=$(cat /usr/share/gnome/gnome-version.xml | grep -i platform | grep 42)

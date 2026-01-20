@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 psgrep_old() {
-  ps -ef | {
-    read -r
-    echo "$REPLY"
-    grep "$@"
-  }
+	ps -ef | {
+		read -r
+		echo "$REPLY"
+		grep "$@"
+	}
 }
 
 [[ $(command -v grc) ]] && PS=(grc --colour=auto /usr/bin/ps) || PS=(ps)

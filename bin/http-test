@@ -3,14 +3,14 @@ set -euo pipefail
 export IFS=$'\n\t'
 
 if [[ ${1:-} == "--help" ]]; then
-  cat <<EOF
+	cat <<EOF
 This script will make a simple HTTP request to an optional host and port.
 
 Usage:
   $(basename $0) [HOST] [PORT]
 EOF
 
-  exit 0
+	exit 0
 fi
 
 HOST=${1:-google.com}

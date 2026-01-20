@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
 if [[ ${1:-} == "--help" ]]; then
-  cat <<EOF
+	cat <<EOF
 This script will perform a quick network scan on the local network.
 
 Usage:
   $(basename $0)
 EOF
 
-  exit 0
+	exit 0
 fi
 
 # https://unix.stackexchange.com/a/113652/273739

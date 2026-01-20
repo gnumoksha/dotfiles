@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 
 if [ -p /dev/stdin ]; then
-  # input is a pipe
-  input=$(cat)
+	# input is a pipe
+	input=$(cat)
 fi
 
 if [ -z "$input" ]; then
-  input=$1
+	input=$1
 fi
 
 # TODO use $@, adicionar testes, adicionar padding
@@ -18,12 +18,12 @@ fi
 #echo "in your timezone: " $(date -d "@$ts" "+%F %T %Z")
 
 if [ -z "$input" ] || [ "$1" = '--help' ]; then
-  cmd=$(basename "$0")
-  echo "Usage: "
-  echo "  $cmd [timestamp]"
-  echo
-  echo "Examples: "
-  echo "  $cmd 1617756131"
+	cmd=$(basename "$0")
+	echo "Usage: "
+	echo "  $cmd [timestamp]"
+	echo
+	echo "Examples: "
+	echo "  $cmd 1617756131"
 else
-  TZ="UTC" date -d "@$input" "+%F %T %Z"
+	TZ="UTC" date -d "@$input" "+%F %T %Z"
 fi

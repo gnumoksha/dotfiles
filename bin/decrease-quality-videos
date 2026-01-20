@@ -3,14 +3,14 @@ set -euo pipefail
 export IFS=$'\n\t'
 
 if [[ ${1:-} == "--help" ]]; then
-  cat <<EOF
+	cat <<EOF
 This script will decrease the quality of videos to save disk space.
 
 Usage:
   $(basename $0)
 EOF
 
-  exit 0
+	exit 0
 fi
 
 if [ ! $(command -v "ffmpeg") ]; then

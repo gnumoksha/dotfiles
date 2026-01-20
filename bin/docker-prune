@@ -5,12 +5,12 @@
 
 # --all Remove all unused images, not just dangling ones
 # --force Do not prompt for confirmation
-docker system df && \
-  docker container prune --force && \
-  docker image prune --all --force && \
-  docker buildx prune --all --force && \
-  docker system df
+docker system df &&
+	docker container prune --force &&
+	docker image prune --all --force &&
+	docker buildx prune --all --force &&
+	docker system df
 
 if [[ $1 == 'hard' ]]; then
-  docker volume prune --all --force
+	docker volume prune --all --force
 fi
