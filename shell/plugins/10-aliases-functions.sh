@@ -44,6 +44,7 @@ alias follow='multitail -p l '
 alias follow2="less -S +F"
 alias follow_monolog='multitail -p l -cS squid '
 alias greperrors="grep -i 'warning\|error\|alert\|critical'"
+alias dfth='grc --colour=auto /usr/bin/df -x squashfs -x overlay -x tmpfs -x devtmpfs -x efivarfs -Th'
 
 #######################################
 # Execute the last command as root.
