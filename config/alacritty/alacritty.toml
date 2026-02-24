@@ -1,0 +1,67 @@
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.bright]
+black = "0x666666"
+blue = "0x819AFF"
+cyan = "0x66D9EF"
+green = "0xA6E22E"
+magenta = "0xAE81FF"
+red = "0xF92672"
+white = "0xF8F8F2"
+yellow = "0xE2E22E"
+
+[colors.normal]
+black = "0x333333"
+blue = "0x6A7EC8"
+cyan = "0x56ADBC"
+green = "0x86B42B"
+magenta = "0x8C6BC8"
+red = "0xC4265E"
+white = "0xE3E3DD"
+yellow = "0xB3B42B"
+
+[cursor]
+unfocused_hollow = true
+
+[cursor.style]
+blinking = "On"
+shape = "Beam"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 15.0
+
+[font.bold]
+style = "Bold"
+
+[font.bold_italic]
+style = "Bold Italic"
+
+[font.italic]
+style = "Italic"
+
+[font.normal]
+#family: Droid Sans Mono Slashed for Powerline
+#family: FiraMono Nerd Font Mono
+family = "MesloLGS NF"
+style = "Regular"
+
+[scrolling]
+history = 30000
+multiplier = 3
+
+[window]
+decorations = "none"
+dynamic_padding = false
+dynamic_title = true
+startup_mode = "Maximized"
+
+[window.padding]
+x = 2
+y = 2
+
+[general]
+live_config_reload = true

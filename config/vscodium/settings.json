@@ -129,6 +129,7 @@
      */
     "git.autoStash": true,
     "git.mergeEditor": true,
+    "git.blame.editorDecoration.enabled": true,
 
     /**
      * Keyboard
@@ -207,10 +208,11 @@
     "window.zoomLevel": 1, // #eyestrain. This works in combination with "editor.fontSize"
     "window.titleBarStyle": "custom", // fixes https://github.com/microsoft/vscode/issues/80798
     "window.openFoldersInNewWindow": "on",
-    "window.commandCenter": false, // I'm testing this
+    "window.commandCenter": false, // I'm testing this (disabled is better so that I can see the entire file path)
     "window.restoreWindows": "none", // open-select-recent-projects-on-startup
     "window.restoreFullscreen": true,
     "window.newWindowDimensions": "inherit",
+    "window.customTitleBarVisibility": "auto",
 
     /**
      * Workbench
@@ -258,6 +260,8 @@
     // do not open a new tab if the file is already open, like in PhpStorm.
     // https://stackoverflow.com/a/67756038
     "workbench.editor.revealIfOpen": true,
+    // ext instal PKief.material-product-icons
+    "workbench.productIconTheme": "material-product-icons",
 
     /**
      * By language
@@ -382,6 +386,9 @@
         "editor.formatOnSaveMode": "modifications",
         "editor.defaultFormatter": "vscode.json-language-features",
     },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
 
     // Output panel
     "[Log]": {
@@ -484,13 +491,15 @@
         //  [tool.pyright]
         //  reportUnknownVariableType = false
         // https://microsoft.github.io/pyright/#/configuration?id=diagnostic-rule-defaults
-        "reportUnknownVariableType":"warning",
+        "reportUnknownVariableType":"none", // a lot of false positives
         "reportUnknownArgumentType": "warning",
         "reportUnknownLambdaType":"information",
         "reportUnknownMemberType": "none",
         "reportUnknownParameterType": "warning",
         "reportMissingParameterType": "warning",
-        "reportMissingTypeStubs": "warning"
+        "reportMissingTypeStubs": "none",
+        // mypy see some errors in locations where pylance does not
+        "reportUnnecessaryCast": "none",
     },
     "black-formatter.showNotifications": "onError",
     // Pylance should not analyze these files.
@@ -518,12 +527,14 @@
     // in order to use the pylint settings "max-positional-arguments",
     // otherwise pylint will return an error saying the parameter was not found.
     "pylint.importStrategy": "fromEnvironment",
+    // ext install ms-python.mypy-type-checker
     "mypy-type-checker.ignorePatterns": [
         "**/site-packages/**/*.py",
         ".vscode/*.py",
         "/usr/lib/**/*.py",
     ],
-    "mypy-type-checker.showNotifications": "onError",
+    // "mypy-type-checker.showNotifications": "onError",
+    "mypy-type-checker.importStrategy":"fromEnvironment",
     // ext install ms-python.isort
     "isort.args": [ "--profile", "black" ],
     // ext install ms-python.vscode-pylance
@@ -599,6 +610,7 @@
     "cSpell.diagnosticLevel": "Hint",
     "cSpell.userWords": [
         "Alacritty",
+        "amqp",
         "awslambdaric",
         "Coroutines",
         "dotenv",
@@ -606,6 +618,7 @@
         "esbenp",
         "fastapi",
         "gettext",
+        "github",
         "isort",
         "journalctl",
         "linkedin",
@@ -624,6 +637,7 @@
         "pyproject",
         "pyright",
         "pytest",
+        "rabbitmq",
         "redhat",
         "rtype",
         "sqlite",
@@ -656,10 +670,5 @@
     // ext install xyz.local-history
     "local-history.path": "~/.cache/vscode/history",
     "github.copilot.editor.enableAutoCompletions": true,
-    "window.customTitleBarVisibility": "auto",
-    "workbench.productIconTheme": "material-product-icons",
-    "git.blame.editorDecoration.enabled": false,
-    "[json]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
-    }
+    "github.copilot.nextEditSuggestions.enabled": true
 }

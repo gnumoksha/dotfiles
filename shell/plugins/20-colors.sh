@@ -80,6 +80,15 @@ if [ -x /usr/bin/dircolors ]; then
   alias watch='watch --color '
 fi
 
+if [ $(command -v lsd) ]; then
+  # https://github.com/lsd-rs/lsd
+  alias ls="lsd"
+  alias l='lsd -l'
+  alias la='lsd -a'
+  alias lla='lsd -la'
+  alias lt='lsd --tree'
+fi
+
 # Manpager
 # Test it by running: man 2 select
 # TODO use most if nvim is not available
