@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+source utils.sh
+
+if ! has_cmd vegeta; then
+	echo "Vegeta not found" >&2
+	echo "Install https://github.com/tsenart/vegeta"
+	exit 1
+fi
+
+if [[ -z "$1" ]]; then
+	echo "Usage: $0 http://www.foo.com"
+	exit 1
+fi
+
+DST=$1
+
+echo "GET $DST" |
+	vegeta attack -duration=5s -rate=200/s -timeout 10s |
+	tee results.bin |
+	vegeta report

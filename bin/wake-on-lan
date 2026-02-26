@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Reference: https://www.cyberciti.biz/tips/linux-send-wake-on-lan-wol-magic-packets.html
+
+source utils.sh
+
+assert_is_linux
+
+if [[ -z "$1" ]]; then
+	echo "Specify the Ethernet address as 00:11:22:33:44:55." >&2
+	exit 1
+fi
+
+DST=$1
+echo "Waking up $DST"
+
+if is_debian; then
+	if ! has_cmd wakeonlan; then
+		echo "Installing the required tool"
+		sudo apt install wakeonlan -y
+	fi
+	wakeonlan "$DST"
+elif is_fedora; then
+	if ! has_cmd ether-wake; then
+		echo "Installing the required tool"
+		sudo dnf install net-tools -y
+	fi
+	sudo ether-wake "$DST"
+else
+	echo "Error: unknown linux distribution" >&2
+fi
+
+echo "done"
