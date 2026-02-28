@@ -31,7 +31,7 @@ jobs:
 
     steps:
       - name: Create home
-        run: useradd --create-home --skel /dev/null --shell /bin/bash tobias
+        run: sudo useradd --create-home --skel /dev/null --shell /bin/bash tobias
 
       - name: Install
         run: |
