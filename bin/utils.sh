@@ -53,3 +53,14 @@ is_archlinux() {
 has_cmd() {
   command -v "$1" 1>/dev/null 2>&1
 }
+
+input_yes_or_no() {
+  while true; do
+    read -p "$* [y/n]: " yn
+    case $yn in
+    [Yy]*) return 0 ;;                    # Return 0 for 'yes' (success)
+    [Nn]*) return 1 ;;                    # Return 1 for 'no' (failure)
+    *) echo "Please answer yes or no." ;; # Invalid input, loop continues
+    esac
+  done
+}
