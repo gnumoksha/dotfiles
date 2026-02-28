@@ -1,6 +1,5 @@
 # dotfiles
-![pipeline](https://gitlab.com/gnumoksha/dotfiles/badges/master/pipeline.svg?style=flat-square)
-![coverage](https://gitlab.com/gnumoksha/dotfiles/badges/master/coverage.svg?style=flat-square)
+![Build Status](https://github.com/gnumoksha/dotfiles/actions/workflows/test.yml/badge.svg)
 
 Configuration files for command line and some graphical softwares.
 
