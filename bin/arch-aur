@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Simple script to install packages from AUR
+# https://wiki.archlinux.org/title/Arch_User_Repository
+
+source utils.sh
+
+if ! is_archlinux; then
+	echo "Only archlinux is supported" >&2
+	exit 1
+fi
+
+_failed() {
+	echo "$0 - script failed at line $1"
+}
+trap '_failed $LINENO' ERR
+
+if [[ -z "$1" ]]; then
+	echo "Usage: $0 package-name"
+	exit 1
+fi
+
+DIR="/usr/local/src/aur"
+PKG_NAME=$1
+
+if [[ ! -d "$DIR" ]]; then
+	sudo mkdir "$DIR"
+	sudo chown -R $USER: "$DIR"
+fi
+
+DST="$DIR/$PKG_NAME"
+if [[ ! -d "$DST" ]]; then
+	git clone https://aur.archlinux.org/"$PKG_NAME".git "$DST"
+	cd "$DST"
+else
+	cd "$DST"
+	git pull
+fi
+
+makepkg --syncdeps --install
+
+echo
+echo "$PKG_NAME was installed."
+echo "To remove the it, use: pacman -Rns $PKG_NAME"

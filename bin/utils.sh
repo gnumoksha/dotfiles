@@ -42,6 +42,14 @@ is_fedora() {
   fi
 }
 
+is_archlinux() {
+  if [[ -n "$(command -v pacman)" ]]; then
+    true
+  else
+    false
+  fi
+}
+
 has_cmd() {
   command -v "$1" 1>/dev/null 2>&1
 }
