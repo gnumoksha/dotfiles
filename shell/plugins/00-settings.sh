@@ -5,7 +5,7 @@
 #
 # Disables Software Flow Control (XON/XOFF flow control)
 # i.e. "Ctrl s" and "Ctrl q" will have no special behavior.
-[[ $- == *i*  ]] && stty -ixon <$TTY >$TTY
+[[ $- == *i* ]] && stty -ixon <$TTY >$TTY
 
 #
 # For Tilix.
@@ -17,14 +17,6 @@ if [ "$TILIX_ID" ] && [ "$VTE_VERSION" ]; then
   fi
   source /etc/profile.d/vte.sh
 fi
-
-# Remove terminal borders
-#if [ "$TERM" = "xterm-256color" ]; then
-  #xprop \
-    #-id $(xdotool getactivewindow) \
-    #-f _MOTIF_WM_HINTS 32c \
-    #-set _MOTIF_WM_HINTS "0x2, 0x0, 0x0, 0x0, 0x0"
-#fi
 
 #export PAGER=most
 # https://github.com/rkitover/vimpager
