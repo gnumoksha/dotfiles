@@ -1,0 +1,43 @@
+name: Test
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+  workflow_dispatch:
+    inputs:
+
+jobs:
+  static-analysis-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get install -yqq bash zsh shfmt shellcheck bats
+
+      - name: Shell format (to fix use shfmt -l -w bin/ shell/plugins/)
+        run: shfmt --list --diff bin/ shell/plugins/
+
+      - name: Shell check
+        run: shellcheck bin/* shell/plugins/*.sh
+
+      - name: Bats
+        run: bats shell/plugins/tests/
+
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create home
+        run: sudo useradd --create-home --skel /dev/null --shell /bin/bash tobias
+
+      - name: Install
+        run: |
+          rm -Rf $HOME/.profile $HOME/.bashrc $HOME/.config
+          mkdir -p $HOME/.local/share && mkdir $HOME/.config
+          cp -R $GITHUB_WORKSPACE $HOME/.local/share/dotfiles
+          cd $HOME/.local/share/dotfiles
+          export DOTFILES=$HOME/.local/share/dotfiles
+          ./install.sh
