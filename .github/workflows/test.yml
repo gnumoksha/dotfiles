@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get install -yqq bash zsh shfmt shellcheck bats
 
-      - name: Shell format
+      - name: Shell format (to fix use shfmt -l -w bin/ shell/plugins/)
         run: shfmt --list --diff bin/ shell/plugins/
 
       - name: Shell check

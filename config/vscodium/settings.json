@@ -619,6 +619,7 @@
         "fastapi",
         "gettext",
         "github",
+        "gnumoksha",
         "isort",
         "journalctl",
         "linkedin",
