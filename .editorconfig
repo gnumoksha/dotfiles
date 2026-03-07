@@ -16,6 +16,4 @@ indent_size = 4
 # is not possible to define rules for shebang files directly
 # https://github.com/editorconfig/editorconfig/issues/239
 [*.{sh,zsh}]
-# https://google.github.io/styleguide/shellguide.html#s5.1-indentation
-indent_style = space
-indent_size = 2
+indent_style = tab

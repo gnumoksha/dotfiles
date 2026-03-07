@@ -26,11 +26,11 @@ assert_is_linux() {
 }
 
 get_distribution() {
-	if [ -r /etc/os-release ]; then
-		echo "$(. /etc/os-release && echo "$ID" | tr '[:upper:]' '[:lower:]')"
-	fi
+  if [ -r /etc/os-release ]; then
+    echo "$(. /etc/os-release && echo "$ID" | tr '[:upper:]' '[:lower:]')"
+  fi
 
-	logger_error "Unable to determine Linux distribution"
+  logger_error "Unable to determine Linux distribution"
 }
 
 is_debian() {
