@@ -25,8 +25,24 @@ assert_is_linux() {
   fi
 }
 
+get_distribution() {
+	if [ -r /etc/os-release ]; then
+		echo "$(. /etc/os-release && echo "$ID" | tr '[:upper:]' '[:lower:]')"
+	fi
+
+	logger_error "Unable to determine Linux distribution"
+}
+
 is_debian() {
-  if [[ -n "$(command -v apt)" ]]; then
+  if [[ "$(get_distribution)" == "debian" ]]; then
+    true
+  else
+    false
+  fi
+}
+
+is_ubuntu() {
+  if [[ "$(get_distribution)" == "ubuntu" ]]; then
     true
   else
     false
@@ -34,8 +50,7 @@ is_debian() {
 }
 
 is_fedora() {
-  # TODO cat /etc/os-release | grep "^ID="
-  if [[ -n "$(command -v dnf)" ]]; then
+  if [[ "$(get_distribution)" == "fedora" ]]; then
     true
   else
     false
@@ -43,7 +58,7 @@ is_fedora() {
 }
 
 is_archlinux() {
-  if [[ -n "$(command -v pacman)" ]]; then
+  if [[ "$(get_distribution)" == "arch" ]]; then
     true
   else
     false
