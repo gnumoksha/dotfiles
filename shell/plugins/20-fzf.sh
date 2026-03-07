@@ -2,18 +2,18 @@
 # shellcheck disable=SC1117,SC1090
 
 if [[ -n "$ZSH_VERSION" && -f ~/.fzf.zsh ]]; then
-  source ~/.fzf.zsh
+	source ~/.fzf.zsh
 elif [[ -n "$BASH_VERSION" && -f ~/.fzf.bash ]]; then
-  source ~/.fzf.bash
+	source ~/.fzf.bash
 fi
 
 # Setting fd as the default source for fzf
 if [ "$(command -v fdfind)" ]; then
-  FZF_DEFAULT_COMMAND='fdfind --type f'
+	FZF_DEFAULT_COMMAND='fdfind --type f'
 elif [ "$(command -v fd)" ]; then
-  FZF_DEFAULT_COMMAND='fd --type f'
+	FZF_DEFAULT_COMMAND='fd --type f'
 else
-  FZF_DEFAULT_COMMAND='find --type f'
+	FZF_DEFAULT_COMMAND='find --type f'
 fi
 export FZF_DEFAULT_COMMAND
 # To apply the command to CTRL-T as well
@@ -25,55 +25,55 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --inline-info'
 # - The first argument to the function ($1) is the base path to start traversal
 # - See the source code (completion.{bash,zsh}) for the details.
 _fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
+	fd --hidden --follow --exclude ".git" . "$1"
 }
 
 # Use fd to generate the list for directory completion
 _fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
+	fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
 # inspired by https://gist.github.com/f440/9992963
 fzf-pass-widget() {
-  CMD=$1
-  local FILE=
-  show_pass_files() {
-    local password_store=${PASSWORD_STORE_DIR-~/.password-store}
-    cd "$password_store" || return >/dev/null
-    find . -type f ! -name .gpg-id | sort -n | sed -e 's/\.\/\(.*\).gpg$/\1/'
-  }
-  FILE=$(show_pass_files | fzf)
-  [ -n "$FILE" ] && pass "$CMD" "$FILE"
+	CMD=$1
+	local FILE=
+	show_pass_files() {
+		local password_store=${PASSWORD_STORE_DIR-~/.password-store}
+		cd "$password_store" || return >/dev/null
+		find . -type f ! -name .gpg-id | sort -n | sed -e 's/\.\/\(.*\).gpg$/\1/'
+	}
+	FILE=$(show_pass_files | fzf)
+	[ -n "$FILE" ] && pass "$CMD" "$FILE"
 
-  zle reset-prompt
+	zle reset-prompt
 }
 
 fzf-pass-copy-widget() {
-  fzf-pass-widget "-c"
+	fzf-pass-widget "-c"
 }
 
 fzf-pass-show-widget() {
-  fzf-pass-widget "show"
+	fzf-pass-widget "show"
 }
 
 # TODO is it possible just pass the arg on zle?
 fzf-pass-edit-widget() {
-  fzf-pass-widget "edit"
+	fzf-pass-widget "edit"
 }
 
 fzf-pass-otp-widget() {
-  fzf-pass-widget "otp"
+	fzf-pass-widget "otp"
 }
 
 if [ -n "$ZSH_VERSION" ]; then
-  zle -N fzf-pass-copy-widget
-  bindkey '^Pc' fzf-pass-copy-widget
-  zle -N fzf-pass-edit-widget
-  bindkey '^Pe' fzf-pass-edit-widget
-  zle -N fzf-pass-show-widget
-  bindkey '^Ps' fzf-pass-show-widget
-  zle -N fzf-pass-otp-widget
-  bindkey '^Po' fzf-pass-otp-widget
+	zle -N fzf-pass-copy-widget
+	bindkey '^Pc' fzf-pass-copy-widget
+	zle -N fzf-pass-edit-widget
+	bindkey '^Pe' fzf-pass-edit-widget
+	zle -N fzf-pass-show-widget
+	bindkey '^Ps' fzf-pass-show-widget
+	zle -N fzf-pass-otp-widget
+	bindkey '^Po' fzf-pass-otp-widget
 fi
 
 #TODO for bash

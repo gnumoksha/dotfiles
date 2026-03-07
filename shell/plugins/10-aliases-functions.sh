@@ -6,7 +6,7 @@
 # shellcheck disable=SC1117
 
 has_cmd() {
-  command -v "$@" 1>/dev/null 2>&1
+	command -v "$@" 1>/dev/null 2>&1
 }
 
 #|
@@ -33,9 +33,9 @@ alias dmesg_critical="dmesg --level=crit,alert,emerg"
 alias dd="dd status=progress"
 alias py="python3"
 python-venv() {
-  python -m venv --symlinks --clear venv
-  source venv/bin/activate
-  pip install --upgrade pip
+	python -m venv --symlinks --clear venv
+	source venv/bin/activate
+	pip install --upgrade pip
 }
 alias python-unittest="python -m unittest discover --failfast --catch --pattern '*_test.py' ."
 has_cmd "fdfind" && alias fd="fdfind" # for fd package in Debian
@@ -64,12 +64,12 @@ cpd() { echo -n "$PWD" | clip "$@"; }
 
 # Change to the file's directory
 cdf() {
-  local dest=${1:-}
-  if [[ ! -f "$dest" ]]; then
-    echo "$dest is not a file" >&2
-    return 1
-  fi
-  cd "$(dirname "$dest")" || exit 2
+	local dest=${1:-}
+	if [[ ! -f "$dest" ]]; then
+		echo "$dest is not a file" >&2
+		return 1
+	fi
+	cd "$(dirname "$dest")" || exit 2
 }
 
 # Create the directory and change to it
@@ -94,12 +94,12 @@ manp() { man "$1" | less -p "^ +$2"; }
 
 # Hide zsh right prompt. Useful when copying text.
 rprompt_hide() {
-  RPROMPT_OLD="${RPROMPT}"
-  unset RPROMPT
+	RPROMPT_OLD="${RPROMPT}"
+	unset RPROMPT
 }
 rprompt_show() {
-  RPROMPT="${RPROMPT_OLD}"
-  unset RPROMPT_OLD
+	RPROMPT="${RPROMPT_OLD}"
+	unset RPROMPT_OLD
 }
 
 # Get the value for the specified alias.
@@ -107,34 +107,44 @@ rprompt_show() {
 # Based on: https://unix.stackexchange.com/a/463391/273739
 # The voted answer does not work if no alias is defined.
 alias_get() {
-  local value
-  if [[ -n "$ZSH_VERSION" ]]; then
-    # shellcheck disable=SC2154
-    value="${aliases[$1]}"
-  else
-    value="${BASH_ALIASES[$1]}"
-  fi
+	local value
+	if [[ -n "$ZSH_VERSION" ]]; then
+		# shellcheck disable=SC2154
+		value="${aliases[$1]}"
+	else
+		value="${BASH_ALIASES[$1]}"
+	fi
 
-  if [[ -n "$value" ]]; then
-    echo "$value"
-  else
-    echo -n
-  fi
+	if [[ -n "$value" ]]; then
+		echo "$value"
+	else
+		echo -n
+	fi
 }
 # Append something to an existent alias.
 # Usage alias_append "some-alias" "foo bar"
 alias_append() {
-  local value
+	local value
 
-  value="$(alias_get "$1")"
-  if [[ -z "$value" ]]; then
-    value="$1"
-  fi
+	value="$(alias_get "$1")"
+	if [[ -z "$value" ]]; then
+		value="$1"
+	fi
 
-  # shellcheck disable=SC2139,SC2086
-  alias $1="$value $2"
+	# shellcheck disable=SC2139,SC2086
+	alias $1="$value $2"
 }
 
 alias pstree='ps xawf -eo pid,user,cgroup,args'
+
+#export PAGER=most
+# https://github.com/rkitover/vimpager
+#export PAGER=/opt/apps/vimpager/vimpager
+#alias less=$PAGER
+#alias zless=$PAGER
+export PAGER=less
+export LESS='-g -i -M -R -S -w -z-4'
+
+export PATH="$PATH:$DOTFILES/bin"
 
 #[ $(command -v pinfo)  ] && alias man='pinfo'
