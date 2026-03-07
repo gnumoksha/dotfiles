@@ -61,7 +61,7 @@ jobs:
 
       - name: Install
         run: |
-          rm -Rf $HOME/.profile $HOME/.bashrc $HOME/.config
+          rm -Rf $HOME/.bashrc $HOME/.profile $HOME/.bash_logout $HOME/.config
           mkdir -p $HOME/.local/share && mkdir $HOME/.config
           cp -R $GITHUB_WORKSPACE $HOME/.local/share/dotfiles
           cd $HOME/.local/share/dotfiles
