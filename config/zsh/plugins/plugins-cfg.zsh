@@ -12,6 +12,7 @@
 UPDATE_ZSH_DAYS=7
 # I don't automatically want url quotation because it is buggy, i.e. that ignores ''
 DISABLE_MAGIC_FUNCTIONS=true
+plugins=(command-not-found)
 zsh-plugin-installer "https://github.com/robbyrussell/oh-my-zsh" "" "" "source oh-my-zsh.sh"
 
 #|
