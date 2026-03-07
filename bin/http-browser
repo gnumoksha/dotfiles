@@ -2,6 +2,8 @@
 set -euo pipefail
 export IFS=$'\n\t'
 
+source utils.sh
+
 if [[ ${1:-} == "--help" ]]; then
 	cat <<EOF
 This script will make HTTP requests emulating a web browser.
@@ -13,7 +15,7 @@ EOF
 	exit 0
 fi
 
-if [ ! $(command -v "curl") ]; then
+if ! has_cmd "curl"; then
 	echo "Please, install curl to use this script."
 	exit 1
 fi
@@ -21,4 +23,4 @@ fi
 declare -A USER_AGENTS
 USER_AGENTS[chrome]="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36"
 
-curl --user-agent "${USER_AGENTS[chrome]}" $@
+curl --user-agent "${USER_AGENTS[chrome]}" "$@"

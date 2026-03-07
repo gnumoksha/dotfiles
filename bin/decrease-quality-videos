@@ -2,6 +2,8 @@
 set -euo pipefail
 export IFS=$'\n\t'
 
+source utils.sh
+
 if [[ ${1:-} == "--help" ]]; then
 	cat <<EOF
 This script will decrease the quality of videos to save disk space.
@@ -13,14 +15,14 @@ EOF
 	exit 0
 fi
 
-if [ ! $(command -v "ffmpeg") ]; then
+if ! has_cmd "ffmpeg"; then
 	echo "Please, install ffmpeg to use this script."
 	exit 1
 fi
 
 RED='\e[31m'
-GREEN='\e[32m'
-YELLOW='\e[33m'
+#GREEN='\e[32m'
+#YELLOW='\e[33m'
 BLUE='\e[34m'
 NC='\e[0m' # No Color
 

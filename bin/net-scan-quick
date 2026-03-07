@@ -23,12 +23,12 @@ NMAP=$(which nmap)
 # nbtscan -r #default_netmask
 
 # Scan types. Extracted from zenmap
-regular=''
+# regular=''
 intense='-T4 -A -v'
-ping='-sn'
+# ping='-sn'
 quick='-T4 -F'
-quick_plus='-sV -T4 -O -F --version-light'
-slow_comprehensive='-sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)"'
+# quick_plus='-sV -T4 -O -F --version-light'
+# slow_comprehensive='-sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)"'
 
 echo "Executing $NMAP $intense --exclude $my_ip $default_netmask"
 $GRC "$NMAP" "$quick" --exclude "$my_ip" "$default_netmask"

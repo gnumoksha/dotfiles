@@ -69,6 +69,8 @@ is_archlinux() {
 	fi
 }
 
+# Example:
+# if has_cmd foo; then echo "yes"; fi
 has_cmd() {
 	command -v "$1" 1>/dev/null 2>&1
 }

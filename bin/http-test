@@ -16,7 +16,7 @@ fi
 HOST=${1:-google.com}
 PORT=${2:-80}
 
-if [ ! $(command -v "curl") ]; then
+if has_cmd "curl"; then
 	curl "$HOST" "$PORT"
 	exit 0
 fi

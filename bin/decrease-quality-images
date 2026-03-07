@@ -2,6 +2,8 @@
 set -euo pipefail
 export IFS=$'\n\t'
 
+source utils.sh
+
 if [[ ${1:-} == "--help" ]]; then
 	cat <<EOF
 This script will normalized file names based on their EXIF data and then
@@ -14,14 +16,14 @@ EOF
 	exit 0
 fi
 
-if [ ! $(command -v "mogrify") ]; then
+if ! has_cmd "mogrify"; then
 	echo "Please, install imagemagick to use this script."
 	exit 1
 fi
 
 RED='\e[31m'
-GREEN='\e[32m'
-YELLOW='\e[33m'
+# GREEN='\e[32m'
+# YELLOW='\e[33m'
 BLUE='\e[34m'
 NC='\e[0m' # No Color
 
@@ -32,6 +34,7 @@ echo -e "${BLUE}Deleting GoPro thumbnails${NC}"
 echo -e "${BLUE}Normalizing file names${NC}"
 #exiftool -ext jpg -if '$make eq "GoPro"' '-FileName<CreateDate' -dateFormat %Y%m%d_%H%M%S%%-c_GoPro.%%e .
 #exiftool -ext jpg '-FileName<${CreateDate}_${make;}' -dateFormat %Y%m%d_%H%M%S%%-c.%%e .
+# shellcheck disable=SC2016
 exiftool '-FileName<${CreateDate}' -dateFormat %Y%m%d_%H%M%S%%-c.%%e . 2>/dev/null
 
 echo -e "${BLUE}Resizing photos${NC}"

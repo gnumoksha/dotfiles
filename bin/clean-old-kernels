@@ -8,6 +8,7 @@ if ! is_fedora; then
 	exit 1
 fi
 
+# shellcheck disable=SC2207
 old_kernels=($(dnf repoquery --installonly --latest-limit=-1 -q))
 if [ "${#old_kernels[@]}" -eq 0 ]; then
 	echo "No old kernels found"
