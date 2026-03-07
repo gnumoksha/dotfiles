@@ -34,6 +34,7 @@ alias dd="dd status=progress"
 alias py="python3"
 python-venv() {
 	python -m venv --symlinks --clear venv
+	# shellcheck disable=SC1091
 	source venv/bin/activate
 	pip install --upgrade pip
 }

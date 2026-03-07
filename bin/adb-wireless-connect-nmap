@@ -24,6 +24,7 @@ cmd="nmap -p 20000-65535 -T 5 -n -oG - $IP"
 # https://nmap.org/book/output-formats-grepable-output.html
 portsLine=$($cmd | grep "Ports: " | sed -e "s/Ports: //" | cut -d $'\t' -f 2)
 IFS=','
+# shellcheck disable=SC2206
 portsInfo=($portsLine)
 unset IFS
 

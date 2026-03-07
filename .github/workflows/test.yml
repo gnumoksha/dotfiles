@@ -8,32 +8,53 @@ on:
     inputs:
 
 jobs:
-  static-analysis-tests:
+  formatting:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: sudo apt-get install -yqq bash shfmt shellcheck bats
+        run: sudo apt-get install -yqq shfmt
 
-      - name: Shell format (to fix use shfmt -l -w bin/ shell/plugins/)
+      - name: Shell format (to fix use shfmt -l -w some-dir/)
         run: shfmt --list --diff bin/ shell/plugins/
 
-      - name: Shell check (to fix use shellcheck -f diff bin/* | git apply)
-        run: shellcheck bin/* shell/plugins/*.sh
+  static-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get install -yqq shellcheck
+
+      - name: shellcheck bin/ (try to fix using shellcheck -f diff bin/* | git apply)
+        run: cd bin/ && find . -type f -exec shellcheck {} --external-sources \;
+
+      - name: Shellcheck shell/plugins (to fix use shellcheck -f diff shell/plugins/*.sh | git apply)
+        run: shellcheck shell/plugins/*.sh
+
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get install -yqq bats bats-support bats-assert bats-file
 
       - name: Bats
         run: bats bin/tests/ shell/plugins/tests/
 
-  install:
+  installation:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: sudo apt-get install -yqq bash zsh
+        run: sudo apt-get install -yqq bash zsh git curl
 
       - name: Create home
         run: sudo useradd --create-home --skel /dev/null --shell /bin/bash tobias

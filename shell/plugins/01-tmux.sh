@@ -27,7 +27,7 @@ fi
 
 # Do not start inside Emacs, vim, vscodium.
 # note: check GIO_LAUNCHED_DESKTOP_FILE to see if the main process is a GUI (didn't work on alacritty)
-if [[ 
+if [[
 	-n "$INSIDE_EMACS" ||
 	-n "$EMACS" ||
 	-n "$VIM" ||
@@ -40,11 +40,11 @@ fi
 # #FIXME sometimes this command exits with 1 because it can't connect to the socket /tmp/tmux-1000/default
 tmux list-sessions >/dev/null 2>&1 && return
 
-tmux attach -t $TMUX_SESSION_NAME >/dev/null 2>&1 || tmux new -s $TMUX_SESSION_NAME
+tmux attach -t "$TMUX_SESSION_NAME" >/dev/null 2>&1 || tmux new -s "$TMUX_SESSION_NAME"
 tmuxExitCode=$?
 if [[ $tmuxExitCode -ne 0 ]]; then
 	echo "Tmux has closed unexpectedly"
-	read -p "Press [ENTER] to continue"
+	read -pr "Press [ENTER] to continue"
 fi
 # Automatically close the terminal when tmux exits.
 exit $tmuxExitCode

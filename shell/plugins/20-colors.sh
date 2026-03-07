@@ -17,6 +17,10 @@ if [[ "${DOTFILES_USE_COLORS}" != 'true' ]]; then
 	return 1
 fi
 
+has_cmd() {
+	command -v "$@" 1>/dev/null 2>&1
+}
+
 #
 # Remark
 #
@@ -80,7 +84,7 @@ if [ -x /usr/bin/dircolors ]; then
 	alias watch='watch --color '
 fi
 
-if [ $(command -v lsd) ]; then
+if has_cmd "lsd"; then
 	# https://github.com/lsd-rs/lsd
 	alias ls="lsd"
 	alias l='lsd -l'
@@ -94,14 +98,14 @@ fi
 # TODO use most if nvim is not available
 # http://man7.org/linux/man-pages/man7/roff.7.html
 # https://github.com/rtomayko/ronn
-if [ $(command -v bat) ]; then
+if has_cmd "bat"; then
 	# reference: https://github.com/sharkdp/bat#man
 	alias cat='bat'
 	export MANPAGER="bat -plman"
-elif [ $(command -v batcat) ]; then
+elif has_cmd "batcat"; then
 	alias cat='batcat'
 	export MANPAGER="batcat -plman"
-elif [ $(command -v nvim) ]; then
+elif has_cmd "nvim"; then
 	export MANPAGER='nvim +Man!'
 else
 	export LESS_TERMCAP_mb=$'\e[1;32m'

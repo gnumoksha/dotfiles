@@ -75,9 +75,11 @@ has_cmd() {
 	command -v "$1" 1>/dev/null 2>&1
 }
 
+# Example:
+# if input_yes_or_no "Foo?"; then echo "Foo!"; fi
 input_yes_or_no() {
 	while true; do
-		read -p "$* [y/n]: " yn
+		read -pr "$* [y/n]: " yn
 		case $yn in
 		[Yy]*) return 0 ;;                    # Return 0 for 'yes' (success)
 		[Nn]*) return 1 ;;                    # Return 1 for 'no' (failure)

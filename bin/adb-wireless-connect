@@ -23,6 +23,7 @@ for line in $(avahi-browse --terminate --resolve --parsable --no-db-lookup _adb-
 	fi
 
 	IFS=';'
+	# shellcheck disable=SC2206
 	fields=($line)
 	unset IFS
 	uri="${fields[7]}:${fields[8]}"
