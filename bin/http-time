@@ -7,7 +7,7 @@ if [[ ${1:-} == "--help" ]]; then
 This script will measure HTTP request timings.
 
 Usage:
-  $(basename $0)
+  $(basename "$0")
 EOF
 
 	exit 0

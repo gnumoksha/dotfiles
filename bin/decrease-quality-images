@@ -8,7 +8,7 @@ This script will normalized file names based on their EXIF data and then
 decrease the quality of images to save disk space.
 
 Usage:
-  $(basename $0)
+  $(basename "$0")
 EOF
 
 	exit 0

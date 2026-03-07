@@ -26,7 +26,7 @@ PKG_NAME=$1
 
 if [[ ! -d "$DIR" ]]; then
 	sudo mkdir "$DIR"
-	sudo chown -R $USER: "$DIR"
+	sudo chown -R "$USER": "$DIR"
 fi
 
 DST="$DIR/$PKG_NAME"

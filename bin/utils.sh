@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 DOTFILES_BIN_DEBUG=${DOTFILES_BIN_DEBUG:-}
 debug_is_enabled() {
 	[[ "${DOTFILES_BIN_DEBUG:-}" == "true" ]]
@@ -5,16 +7,16 @@ debug_is_enabled() {
 
 logger_debug() {
 	if debug_is_enabled; then
-		echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')] [debug]: $@"
+		echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')] [debug]: $*"
 	fi
 }
 
 logger_info() {
-	echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')] [info]: $@"
+	echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')] [info]: $*"
 }
 
 logger_error() {
-	echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')] [error]: $@" >&2
+	echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')] [error]: $*" >&2
 }
 
 assert_is_linux() {
@@ -27,7 +29,9 @@ assert_is_linux() {
 
 get_distribution() {
 	if [ -r /etc/os-release ]; then
-		echo "$(. /etc/os-release && echo "$ID" | tr '[:upper:]' '[:lower:]')"
+		# shellcheck disable=SC1091
+		. /etc/os-release && echo "$ID" | tr '[:upper:]' '[:lower:]'
+		return
 	fi
 
 	logger_error "Unable to determine Linux distribution"

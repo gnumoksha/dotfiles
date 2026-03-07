@@ -11,7 +11,7 @@ It is useful for connecting to an android device without opening the
 cumbersome.
 
 Usage:
-  $(basename $0) [ip-address]
+  $(basename "$0") [ip-address]
 EOF
 
 	exit 0

@@ -7,7 +7,7 @@ if [[ ${1:-} == "--help" ]]; then
 This script will test network connectivity to a specified host and port using.
 
 Usage:
-  $(basename $0) [HOST] [PORT]
+  $(basename "$0") [HOST] [PORT]
 EOF
 
 	exit 0

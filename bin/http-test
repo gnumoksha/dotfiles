@@ -7,7 +7,7 @@ if [[ ${1:-} == "--help" ]]; then
 This script will make a simple HTTP request to an optional host and port.
 
 Usage:
-  $(basename $0) [HOST] [PORT]
+  $(basename "$0") [HOST] [PORT]
 EOF
 
 	exit 0
