@@ -35,7 +35,7 @@ jobs:
       - name: Shellcheck shell/plugins (to fix use shellcheck -f diff shell/plugins/*.sh | git apply)
         run: shellcheck shell/plugins/*.sh
 
-  tests:
+  unit-tests:
     runs-on: ubuntu-latest
 
     steps:

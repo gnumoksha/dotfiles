@@ -1,8 +1,14 @@
 #!/usr/bin/env bats
 
-load test_helper
-
 setup() {
+	# get the containing directory of this file
+	DIR="$(cd "$(dirname "$BATS_TEST_FILENAME")" >/dev/null 2>&1 && pwd)"
+	# add the ../bin directory to the PATH
+	PATH="$DIR/../:$PATH"
+
+	# loads the script under test
+	load 10-aliases-functions.sh
+
 	mkdir -p "$BATS_TMPDIR/a/b/c"
 	touch "$BATS_TMPDIR/a/b/c/d.txt"
 }
