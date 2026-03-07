@@ -27,7 +27,7 @@ fi
 
 # Do not start inside Emacs, vim, vscodium.
 # note: check GIO_LAUNCHED_DESKTOP_FILE to see if the main process is a GUI (didn't work on alacritty)
-if [[
+if [[ 
 	-n "$INSIDE_EMACS" ||
 	-n "$EMACS" ||
 	-n "$VIM" ||
