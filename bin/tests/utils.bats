@@ -54,10 +54,15 @@ setup() {
 
 @test "is running on Linux" {
 	run assert_is_linux
+
 	assert_success
 }
 
 @test "will get the linux distribution" {
+	if [[ "$GITHUB_ACTIONS" == "true" ]]; then
+		# bats on GitHub Actions does not have refute_stderr
+		return
+	fi
 	run --separate-stderr get_distribution
 
 	refute_stderr
