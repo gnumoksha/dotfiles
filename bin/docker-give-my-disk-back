@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 docker-stop-all-containers
 docker-remove-all-containers

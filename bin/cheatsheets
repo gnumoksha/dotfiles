@@ -6,8 +6,8 @@
 CMD=$XDG_CACHE_HOME/cheat/cheatsheets-cmd
 CHEATSHEETS_DIR=$XDG_CACHE_HOME/cheat/cheatsheets
 
-if [[ ! -d "$(dirname $CMD)" ]]; then
-	mkdir -p "$(dirname $CMD)"
+if [[ ! -d "$(dirname "$CMD")" ]]; then
+	mkdir -p "$(dirname "$CMD")"
 fi
 
 if [[ ! -d "$CHEATSHEETS_DIR" ]]; then

@@ -1,0 +1,75 @@
+name: Tests
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+  workflow_dispatch:
+    inputs:
+
+jobs:
+  formatting:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get install -yqq shfmt
+
+      - name: Shell format (to fix use shfmt -l -w some-dir/)
+        run: shfmt --list --diff bin/ shell/plugins/
+
+  static-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get install -yqq shellcheck
+
+      - name: shellcheck bin/ (try to fix using shellcheck -f diff bin/* | git apply)
+        run: cd bin/ && find . -type f -print0 | xargs -0 shellcheck --external-sources
+
+      - name: Shellcheck shell/plugins (to fix use shellcheck -f diff shell/plugins/*.sh | git apply)
+        run: shellcheck shell/plugins/*.sh
+
+  unit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get install -yqq bats bats-support bats-assert bats-file
+
+      - name: Bats
+        run: bats bin/tests/ shell/plugins/tests/
+
+  installation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get install -yqq bash zsh git curl
+
+      - name: Create home
+        run: sudo useradd --create-home --skel /dev/null --shell /bin/bash tobias
+
+      - name: Install
+        run: |
+          rm -Rf $HOME/.bashrc $HOME/.profile $HOME/.bash_logout $HOME/.bash_profile $HOME/.config
+
+          export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+          export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+          export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+
+          export DOTFILES="$XDG_DATA_HOME/dotfiles"
+
+          mkdir -p $XDG_CONFIG_HOME && mkdir -p $XDG_DATA_HOME
+          cp -R $GITHUB_WORKSPACE $DOTFILES
+          cd $DOTFILES
+          ./install.sh

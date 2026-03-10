@@ -11,7 +11,7 @@ It is useful for connecting to an android device without opening the
 cumbersome.
 
 Usage:
-  $(basename $0) [ip-address]
+  $(basename "$0") [ip-address]
 EOF
 
 	exit 0
@@ -24,26 +24,27 @@ cmd="nmap -p 20000-65535 -T 5 -n -oG - $IP"
 # https://nmap.org/book/output-formats-grepable-output.html
 portsLine=$($cmd | grep "Ports: " | sed -e "s/Ports: //" | cut -d $'\t' -f 2)
 IFS=','
+# shellcheck disable=SC2206
 portsInfo=($portsLine)
 unset IFS
 
 for portInfo in "${portsInfo[@]}"; do
 	IFS='/'
+	# shellcheck disable=SC2206
 	portFields=($portInfo)
 	unset IFS
 	port=${portFields[0]}
 	state=${portFields[1]}
-	protocol=${portFields[2]}
-	owner=${portFields[3]}
+	# protocol=${portFields[2]}
+	# owner=${portFields[3]}
 	service=${portFields[4]}
-	rpc_info=${portFields[5]}
-	version=${portFields[6]}
+	# rpc_info=${portFields[5]}
+	# version=${portFields[6]}
 
 	if [[ $state == "open" && $service = "" ]]; then
 		echo "INFO: it will try the port $port"
-		adb connect "$IP:$port"
-		if [[ $? -eq 0 ]]; then
-			echo "INFO: sucefully connected"
+		if adb connect "$IP:$port"; then
+			echo "INFO: successfully connected"
 			exit 0
 		fi
 	fi

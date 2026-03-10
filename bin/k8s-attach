@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 NAMESPACE=$1
-CONTAINER=${2:-}
 
 if [[ -z "$NAMESPACE" ]]; then
 	echo "Usage: $0 NAMESPACE"

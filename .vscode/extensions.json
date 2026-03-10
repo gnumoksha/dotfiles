@@ -1,5 +1,8 @@
 {
     "recommendations": [
-        "foxundermoon.shell-format"
+        "foxundermoon.shell-format",
+        "jetmartin.bats",
+        "mads-hartmann.bash-ide-vscode",
+        "timonwong.shellcheck"
     ]
 }

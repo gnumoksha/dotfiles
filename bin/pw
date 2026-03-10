@@ -39,7 +39,7 @@ printf "> strong password: \n"
 if has pwgen; then
 	pp "pwgen: "
 	pwgen --capitalize --numerals --symbols --secure --ambiguous \
-		$pw_length 1
+		"$pw_length" 1
 fi
 
 pp "urandom: "
@@ -50,7 +50,7 @@ printf "\n> simple password: \n"
 
 if has pwgen; then
 	pp "pwgen: "
-	pwgen $pw_length 1
+	pwgen "$pw_length" 1
 fi
 
 pp "urandom:" &&
