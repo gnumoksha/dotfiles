@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 if [ -p /dev/stdin ]; then
 	# input is a pipe
