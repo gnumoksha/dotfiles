@@ -272,15 +272,17 @@ main() {
 		case ${arg} in
 		--debug)
 			DEBUG_ENABLED="true"
+			shift
 			;;
 		--verbose-debug)
 			DEBUG_ENABLED="true"
 			set -x
+			shift
 			;;
 		esac
 	done
 
-	for directory in config icons bin; do
+	for directory in "$@"; do
 		process_dotfilesrc_files "$INSTALLATION_DIR/$directory"
 		process_inline_statements "$INSTALLATION_DIR/$directory"
 	done

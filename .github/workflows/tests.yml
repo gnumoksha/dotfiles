@@ -72,4 +72,4 @@ jobs:
           mkdir -p $XDG_CONFIG_HOME && mkdir -p $XDG_DATA_HOME
           cp -R $GITHUB_WORKSPACE $DOTFILES
           cd $DOTFILES
-          ./install.sh
+          ./install.sh config icons
