@@ -6,7 +6,11 @@ Configuration files for command line and some graphical softwares.
 
 ## Installation
 ```bash
-export DOTFILES=$HOME/.local/share/dotfiles
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+
+export DOTFILES="$XDG_DATA_HOME/dotfiles"
 git clone git@github.com:gnumoksha/dotfiles.git $DOTFILES
 cd $DOTFILES
 ./install.sh
