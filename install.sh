@@ -118,7 +118,12 @@ process_statement() {
 
   if [[ ! -z "${info[execBefore]}" ]]; then
     log_debug "Executing \"execBefore\": ${info[execBefore]}"
-    eval "${info[execBefore]}" # this command must return 0, otherwise the script will stop
+    if [[ "${info[execBefore]}" == "ensureDstDirExists" ]]; then
+      dst_base_path="$(basename "${info[dst]}")"
+      [[ ! -d "$dst_base_path" ]] && mkdir -p "$dst_base_path"
+    else
+      eval "${info[execBefore]}" # this command must return 0, otherwise the script will stop
+    fi
   fi
 
   create_link "${info[src]}" "${info[dst]}" msg

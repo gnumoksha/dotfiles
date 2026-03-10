@@ -1,5 +1,5 @@
 # Grabbed (and modified) from https://github.com/alexkaratarakis/gitattributes/blob/master/Web.gitattributes
-# dotfiles: dst=$XDG_CONFIG_HOME/git/attributes execBefore='[[ ! -d "$XDG_CONFIG_HOME/git" ]] && mkdir -p "$XDG_CONFIG_HOME/git" || true'
+# dotfiles: dst=$XDG_CONFIG_HOME/git/attributes execBefore="ensureDstDirExists"
 
 
 # Details per file setting:
@@ -191,4 +191,3 @@ Procfile    text
 ## EXECUTABLES
 *.exe binary
 *.pyc binary
-
