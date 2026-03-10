@@ -272,17 +272,25 @@ main() {
 		case ${arg} in
 		--debug)
 			DEBUG_ENABLED="true"
+			shift
 			;;
 		--verbose-debug)
 			DEBUG_ENABLED="true"
 			set -x
+			shift
 			;;
 		esac
 	done
 
-	for directory in config icons bin; do
-		process_dotfilesrc_files "$INSTALLATION_DIR/$directory"
-		process_inline_statements "$INSTALLATION_DIR/$directory"
+	for directory in "$@"; do
+		if [[ "$directory" =~ ^/ ]]; then
+			full_path="$directory"
+		else
+			full_path="$INSTALLATION_DIR/$directory"
+		fi
+
+		process_dotfilesrc_files "$full_path"
+		process_inline_statements "$full_path"
 	done
 
 	log_debug "Successfully finished"

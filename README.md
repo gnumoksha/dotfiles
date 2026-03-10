@@ -1,5 +1,4 @@
 # dotfiles
-![Build Status](https://github.com/gnumoksha/dotfiles/actions/workflows/tests.yml/badge.svg)
 [![Continuous integration status](https://github.com/gnumoksha/dotfiles/workflows/Tests/badge.svg)](https://github.com/gnumoksha/dotfiles/actions?query=workflow%3ATests)
 
 Configuration files for command line and some graphical softwares.
@@ -13,7 +12,7 @@ export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 export DOTFILES="$XDG_DATA_HOME/dotfiles"
 git clone git@github.com:gnumoksha/dotfiles.git $DOTFILES
 cd $DOTFILES
-./install.sh
+./install.sh config icons
 ```
 
 ## Rules

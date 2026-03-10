@@ -56,9 +56,6 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get install -yqq bash zsh git curl
 
-      - name: Create home
-        run: sudo useradd --create-home --skel /dev/null --shell /bin/bash tobias
-
       - name: Install
         run: |
           rm -Rf $HOME/.bashrc $HOME/.profile $HOME/.bash_logout $HOME/.bash_profile $HOME/.config
@@ -72,4 +69,4 @@ jobs:
           mkdir -p $XDG_CONFIG_HOME && mkdir -p $XDG_DATA_HOME
           cp -R $GITHUB_WORKSPACE $DOTFILES
           cd $DOTFILES
-          ./install.sh
+          ./install.sh config icons
