@@ -1,5 +1,5 @@
 # Grabbed (and modified) from https://github.com/alexkaratarakis/gitattributes/blob/master/Web.gitattributes
-# dotfiles: dst=$XDG_CONFIG_HOME/git/attributes execBefore="ensureDstDirExists"
+# dotfiles: dst=$XDG_CONFIG_HOME/git/attributes
 
 
 # Details per file setting:

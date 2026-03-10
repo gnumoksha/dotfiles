@@ -1,7 +1,7 @@
 // Place your key bindings in this file to override the defaultsauto[]
 // shit shift is not possible https://github.com/microsoft/vscode/issues/5280
-// #dotfiles: dst=$XDG_CONFIG_HOME/VSCodium/User/keybindings.json execBefore="ensureDstDirExists"
-// #dotfiles: dst=$XDG_CONFIG_HOME/Code/User/keybindings.json execBefore="ensureDstDirExists"
+// #dotfiles: dst=$XDG_CONFIG_HOME/VSCodium/User/keybindings.json
+// #dotfiles: dst=$XDG_CONFIG_HOME/Code/User/keybindings.json
 [
     // PhpStorm-like shortcuts
     // https://github.com/microsoft/vscode/issues/142465

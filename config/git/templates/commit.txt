@@ -53,5 +53,5 @@
 # [1] https://www.conventionalcommits.org
 # [2] https://chris.beams.io/posts/git-commit/
 
-# dotfiles: dst=$XDG_CONFIG_HOME/git/templates/commit.txt execBefore="ensureDstDirExists"
+# dotfiles: dst=$XDG_CONFIG_HOME/git/templates/commit.txt
 # vim: ft=gitcommit
