@@ -283,8 +283,14 @@ main() {
 	done
 
 	for directory in "$@"; do
-		process_dotfilesrc_files "$INSTALLATION_DIR/$directory"
-		process_inline_statements "$INSTALLATION_DIR/$directory"
+		if [[ "$directory" =~ ^/ ]]; then
+			full_path="$directory"
+		else
+			full_path="$INSTALLATION_DIR/$directory"
+		fi
+
+		process_dotfilesrc_files "$full_path"
+		process_inline_statements "$full_path"
 	done
 
 	log_debug "Successfully finished"
