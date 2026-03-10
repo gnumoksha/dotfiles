@@ -202,7 +202,7 @@ create_link() {
 		return
 	fi
 
-	dst_base_path=$(basename "$destination")
+	dst_base_path=$(dirname "$destination")
 	[[ ! -d "$dst_base_path" ]] && mkdir -p "$dst_base_path"
 
 	ln -s "$origin" "$destination"
