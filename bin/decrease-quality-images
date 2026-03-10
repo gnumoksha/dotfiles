@@ -37,8 +37,7 @@ echo -e "${BLUE}Deleting GoPro thumbnails${NC}"
 echo
 
 echo -e "${BLUE}Resizing photos${NC}"
-while IFS= read -r -d '' file
-do
+while IFS= read -r -d '' file; do
 	if [[ "$file" =~ \.trashed ]]; then
 		echo -e "${RED}Deleting${NC} $file"
 		rm -rf "$file"
@@ -58,7 +57,7 @@ do
 	else
 		mogrify -quality 80 -resize 2000 "$file"
 	fi
-done <   <(find . -type f \( -name "*.jpg" -o -name "*.JPG" \) -print0)
+done < <(find . -type f \( -name "*.jpg" -o -name "*.JPG" \) -print0)
 echo
 
 echo -e "${BLUE}Normalizing file names${NC}"

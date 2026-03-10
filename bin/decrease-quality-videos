@@ -26,9 +26,8 @@ BLUE='\e[34m'
 NC='\e[0m' # No Color
 
 echo -e "${BLUE}Resizing videos${NC}"
-while IFS= read -r -d '' file
-do
-  	if [[ "$file" =~ \.trashed ]]; then
+while IFS= read -r -d '' file; do
+	if [[ "$file" =~ \.trashed ]]; then
 		echo -e "${RED}Deleting${NC} $file"
 		rm -rf "$file"
 		continue
@@ -54,7 +53,7 @@ do
 	touch --reference "$file" "$output"
 	rm -f "$file"
 	mv "$output" "$file"
-done <   <(find . -type f \( -name "*.mp4" -o -name "*.MP4" \) -print0)
+done < <(find . -type f \( -name "*.mp4" -o -name "*.MP4" \) -print0)
 echo
 
 echo -e "${BLUE}Done${NC}"
