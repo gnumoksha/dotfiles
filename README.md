@@ -1,5 +1,6 @@
 # dotfiles
-![Build Status](https://github.com/gnumoksha/dotfiles/actions/workflows/test.yml/badge.svg)
+![Build Status](https://github.com/gnumoksha/dotfiles/actions/workflows/tests.yml/badge.svg)
+[![Continuous integration status](https://github.com/gnumoksha/dotfiles/workflows/Tests/badge.svg)](https://github.com/gnumoksha/dotfiles/actions?query=workflow%3ATests)
 
 Configuration files for command line and some graphical softwares.
 
