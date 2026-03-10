@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
-export IFS=$'\n\t'
 
 source utils.sh
 
@@ -27,10 +26,9 @@ BLUE='\e[34m'
 NC='\e[0m' # No Color
 
 echo -e "${BLUE}Resizing videos${NC}"
-for file in $(find . -type f \( -name "*.mp4" -o -name "*.MP4" \)); do
-	# [[ -e "$file" ]] || break
-
-	if [[ "$file" =~ \.trashed ]]; then
+while IFS= read -r -d '' file
+do
+  	if [[ "$file" =~ \.trashed ]]; then
 		echo -e "${RED}Deleting${NC} $file"
 		rm -rf "$file"
 		continue
@@ -47,12 +45,16 @@ for file in $(find . -type f \( -name "*.mp4" -o -name "*.MP4" \)); do
 	# convert the video files to H.265 format
 	# https://unix.stackexchange.com/a/38380
 	# https://superuser.com/a/1600382
+	# -nostdin was required by shellcheck because of the while read loop
 	output="${file%.mp4}_resized.mp4"
-	ffmpeg -hide_banner -loglevel warning -stats -i "$file" -vcodec libx265 -x265-params log-level=error -crf 28 "$output"
+	ffmpeg -nostdin -hide_banner -loglevel warning -stats -i "$file" -vcodec libx265 -x265-params log-level=error -crf 28 "$output"
 	# copy the access time from the original file to the destination file.
 	# This is useful for Google Photos to show the correct date for the videos
 	# (assuming the $file has the correct date).
 	touch --reference "$file" "$output"
 	rm -f "$file"
 	mv "$output" "$file"
-done
+done <   <(find . -type f \( -name "*.mp4" -o -name "*.MP4" \) -print0)
+echo
+
+echo -e "${BLUE}Done${NC}"

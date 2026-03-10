@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
-export IFS=$'\n\t'
 
 source utils.sh
 
@@ -21,6 +20,11 @@ if ! has_cmd "mogrify"; then
 	exit 1
 fi
 
+if ! has_cmd "exiftool"; then
+	echo "Please, install exiftool to use this script."
+	exit 1
+fi
+
 RED='\e[31m'
 # GREEN='\e[32m'
 # YELLOW='\e[33m'
@@ -28,19 +32,13 @@ BLUE='\e[34m'
 NC='\e[0m' # No Color
 
 echo -e "${BLUE}Deleting GoPro thumbnails${NC}"
-\rm ./*.LRV
-\rm ./*.THM
-
-echo -e "${BLUE}Normalizing file names${NC}"
-#exiftool -ext jpg -if '$make eq "GoPro"' '-FileName<CreateDate' -dateFormat %Y%m%d_%H%M%S%%-c_GoPro.%%e .
-#exiftool -ext jpg '-FileName<${CreateDate}_${make;}' -dateFormat %Y%m%d_%H%M%S%%-c.%%e .
-# shellcheck disable=SC2016
-exiftool '-FileName<${CreateDate}' -dateFormat %Y%m%d_%H%M%S%%-c.%%e . 2>/dev/null
+\rm ./*.LRV || true
+\rm ./*.THM || true
+echo
 
 echo -e "${BLUE}Resizing photos${NC}"
-for file in $(find . -type f \( -name "*.jpg" -o -name "*.JPG" \)); do
-	# [[ -e "$file" ]] || break
-
+while IFS= read -r -d '' file
+do
 	if [[ "$file" =~ \.trashed ]]; then
 		echo -e "${RED}Deleting${NC} $file"
 		rm -rf "$file"
@@ -60,5 +58,14 @@ for file in $(find . -type f \( -name "*.jpg" -o -name "*.JPG" \)); do
 	else
 		mogrify -quality 80 -resize 2000 "$file"
 	fi
-done
+done <   <(find . -type f \( -name "*.jpg" -o -name "*.JPG" \) -print0)
 echo
+
+echo -e "${BLUE}Normalizing file names${NC}"
+#exiftool -ext jpg -if '$make eq "GoPro"' '-FileName<CreateDate' -dateFormat %Y%m%d_%H%M%S%%-c_GoPro.%%e .
+#exiftool -ext jpg '-FileName<${CreateDate}_${make;}' -dateFormat %Y%m%d_%H%M%S%%-c.%%e .
+# shellcheck disable=SC2016
+exiftool '-FileName<${CreateDate}' -dateFormat %Y%m%d_%H%M%S%%-c.%%e . 2>/dev/null
+echo
+
+echo -e "${BLUE}Done${NC}"
