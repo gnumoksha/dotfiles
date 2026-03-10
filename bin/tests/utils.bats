@@ -2,14 +2,7 @@
 # Tests the ../utils.sh script
 
 setup() {
-	# `sudo apt install bats-support bats-assert bats-file` or use the docker image
-	load '/usr/lib/bats/bats-support/load'
-	load '/usr/lib/bats/bats-assert/load'
-
-	# get the containing directory of this file
-	DIR="$(cd "$(dirname "$BATS_TEST_FILENAME")" >/dev/null 2>&1 && pwd)"
-	# add the ../bin directory to the PATH
-	PATH="$DIR/../:$PATH"
+	load setup.bats
 
 	# loads the script under test
 	load utils.sh
