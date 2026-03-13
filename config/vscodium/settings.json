@@ -556,10 +556,12 @@
 
     "[shellscript]": {
         // ext install foxundermoon.shell-format
-        "editor.defaultFormatter": "foxundermoon.shell-format",
+        // https://github.com/foxundermoon/vs-shell-format/pull/397
+        // "editor.defaultFormatter": "foxundermoon.shell-format",
+        "editor.defaultFormatter": "mads-hartmann.bash-ide-vscode",
         "files.eol": "\n",
         "editor.insertSpaces": true,
-        "editor.tabSize": 2
+        "editor.tabSize": 4
     },
     "bashIde.highlightParsingErrors": true,
 
@@ -671,5 +673,6 @@
     // ext install xyz.local-history
     "local-history.path": "~/.cache/vscode/history",
     "github.copilot.editor.enableAutoCompletions": true,
-    "github.copilot.nextEditSuggestions.enabled": true
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "claudeCode.preferredLocation": "panel"
 }

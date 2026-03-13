@@ -3,6 +3,8 @@ set -euo pipefail
 export IFS=$'\n\t'
 
 DEBUG_ENABLED=${DEBUG_ENABLED:-"false"}
+C_GREEN='\e[32m'
+C_NO='\e[0m' # No Color
 
 is_debug_enabled() {
 	[[ "${DEBUG_ENABLED}" == "true" ]]
@@ -298,4 +300,4 @@ main() {
 
 main "$@"
 
-echo "done"
+echo -e "${C_GREEN}done${C_NO}"

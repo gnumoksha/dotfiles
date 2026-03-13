@@ -3,10 +3,35 @@
 # This is useful because I've ended up with a slow shell startup while
 # using more complete solutions like zplug.
 zsh-plugin-installer() {
-  local REPO=${1:-}
-  local DST=${2:-}
-  local EXEC_AFTER=${3:-}
-  local EXEC_ALWAYS=${4:-}
+  local REPO=
+  local DST=
+  local EXEC_AFTER=
+  local EXEC_ALWAYS=
+
+  for arg in "$@"; do
+    case ${arg} in
+    repo=*)
+      REPO="${arg#*=}"
+      shift
+      ;;
+    dst=*)
+      DST="${arg#*=}"
+      shift
+      ;;
+    exec-after=*)
+      EXEC_AFTER="${arg#*=}"
+      shift
+      ;;
+    exec-always=*)
+      EXEC_ALWAYS="${arg#*=}"
+      shift
+      ;;
+    *)
+      echo "The option ${arg} is unknown."
+      exit 1
+      ;;
+    esac
+  done
 
   local PKG_NAME=$(basename $REPO)
   STARTED_AT=$(date +%s.%N)
