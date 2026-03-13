@@ -216,14 +216,16 @@ fi
 has_cmd "pinfo" && alias man='pinfo'
 
 #
-	# GRC
-	#
-	# Exclude fedora because there is a kind of issue with "ls" alias.
-	if [[ -n "$ZSH_VERSION" && -e /etc/grc.zsh && ! -e /etc/fedora-release ]]; then
-		source /etc/grc.zsh
-	elif [[ -n "$BASH_VERSION" && -e /etc/grc.bashrc ]]; then
-		source /etc/grc.bashrc
-	fi
+# GRC
+#
+# Exclude fedora because there is a kind of issue with "ls" alias.
+if [[ -n "$ZSH_VERSION" && -e /etc/grc.zsh && ! -e /etc/fedora-release ]]; then
+	# shellcheck disable=SC1094
+	source /etc/grc.zsh
+elif [[ -n "$BASH_VERSION" && -e /etc/grc.bashrc ]]; then
+	# shellcheck disable=SC1091
+	source /etc/grc.bashrc
+fi
 
 if [[ "$DOTFILES_USE_COLORS" == "true" ]]; then
 	# https://wiki.archlinux.org/title/Color_output_in_console
