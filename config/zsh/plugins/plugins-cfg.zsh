@@ -13,7 +13,7 @@ UPDATE_ZSH_DAYS=7
 # I don't automatically want url quotation because it is buggy, i.e. that ignores ''
 DISABLE_MAGIC_FUNCTIONS=true
 plugins=(command-not-found)
-zsh-plugin-installer repo="https://github.com/robbyrussell/oh-my-zsh" exec-always="source oh-my-zsh.sh"
+zsh-plugin-installer --repo "https://github.com/robbyrussell/oh-my-zsh" --exec-always "source oh-my-zsh.sh"
 
 #|
 #| Themes
@@ -35,9 +35,9 @@ zsh-plugin-installer repo="https://github.com/robbyrussell/oh-my-zsh" exec-alway
 
 DOTFILES_THEMES="${0:a:h}/../themes"
 
-#zsh-plugin-installer repo="https://github.com/martinrotter/powerless.git" exec-always="source powerless.zsh false && source utilities.zsh true"
+#zsh-plugin-installer --repo "https://github.com/martinrotter/powerless.git" --exec-always "source powerless.zsh false && source utilities.zsh true"
 
-#zsh-plugin-installer repo="https://github.com/eendroroy/alien-minimal" exec-always="source $DOTFILES_THEMES/alien-minimal.zsh && source alien-minimal.zsh"
+#zsh-plugin-installer --repo "https://github.com/eendroroy/alien-minimal" --exec-always "source $DOTFILES_THEMES/alien-minimal.zsh && source alien-minimal.zsh"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -45,14 +45,14 @@ DOTFILES_THEMES="${0:a:h}/../themes"
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-zsh-plugin-installer repo="https://github.com/romkatv/powerlevel10k" exec-always="source powerlevel10k.zsh-theme && source $XDG_CONFIG_HOME/zsh/.p10k.zsh"
+zsh-plugin-installer --repo "https://github.com/romkatv/powerlevel10k" --exec-always "source powerlevel10k.zsh-theme && source $XDG_CONFIG_HOME/zsh/.p10k.zsh"
 
 # starship has less options than powerlevel10k
-# zsh-plugin-installer repo="https://github.com/starship/starship" exec-after="./install/install.sh --yes --bin-dir=/usr/local/bin" exec-always='eval "$(starship init zsh)"'
+#zsh-plugin-installer --repo "https://github.com/starship/starship" --exec-after "./install/install.sh --yes --bin-dir=/usr/local/bin" exec-always='eval "$(starship init zsh)"'
 
 # oh-my-posh is difficult to customize and it is focused on Windows
 # nice themes: agnoster, mojada, nu4a, powerline, unicorn
-# zsh-plugin-installer repo="https://github.com/JanDeDobbeleer/oh-my-posh" exec-after="bash ./website/static/install.sh -d /usr/local/bin" exec-always='eval "$(oh-my-posh init zsh --config $XDG_CACHE_HOME/oh-my-posh/themes/agnoster.omp.json)"'
+#zsh-plugin-installer --repo "https://github.com/JanDeDobbeleer/oh-my-posh" --exec-after "bash ./website/static/install.sh -d /usr/local/bin" exec-always='eval "$(oh-my-posh init zsh --config $XDG_CACHE_HOME/oh-my-posh/themes/agnoster.omp.json)"'
 
 #|
 #| Tools
@@ -64,9 +64,9 @@ if [[ ! -e "/usr/local/bin/git-extras" || ! -e "$XDG_CACHE_HOME/git-extras-compl
 fi
 source $XDG_CACHE_HOME/git-extras-completion.zsh
 
-zsh-plugin-installer repo="https://github.com/paulirish/git-open" exec-after="cp -f git-open /usr/local/bin/git-open"
+zsh-plugin-installer --repo "https://github.com/paulirish/git-open" --exec-after "sudo cp -f git-open /usr/local/bin/git-open"
 
-zsh-plugin-installer repo="https://github.com/junegunn/fzf" exec-after="./install --bin && sudo mv -f ./bin/fzf /usr/local/bin/fzf" exec-always="source shell/completion.zsh && source shell/key-bindings.zsh"
+zsh-plugin-installer --repo "https://github.com/junegunn/fzf" --exec-after "./install --bin && sudo mv -f ./bin/fzf /usr/local/bin/fzf" --exec-always "source shell/completion.zsh && source shell/key-bindings.zsh"
 
 # Syntax Highlighting
 # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
@@ -79,4 +79,4 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=green'
 # Commands starting with `rm -rf` in red:
 ZSH_HIGHLIGHT_PATTERNS+=('rm -[rR]f *' 'fg=white,bold,bg=red')
 # Must be sourced at the end of the .zshrc
-zsh-plugin-installer repo="https://github.com/zsh-users/zsh-syntax-highlighting" exec-always="plug"
+zsh-plugin-installer --repo "https://github.com/zsh-users/zsh-syntax-highlighting" --exec-always "plug"
