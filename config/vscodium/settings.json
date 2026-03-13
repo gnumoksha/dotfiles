@@ -671,5 +671,6 @@
     // ext install xyz.local-history
     "local-history.path": "~/.cache/vscode/history",
     "github.copilot.editor.enableAutoCompletions": true,
-    "github.copilot.nextEditSuggestions.enabled": true
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "claudeCode.preferredLocation": "panel"
 }
