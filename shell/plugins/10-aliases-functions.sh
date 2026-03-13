@@ -218,9 +218,10 @@ has_cmd "pinfo" && alias man='pinfo'
 #
 # GRC
 #
+# https://github.com/garabik/grc
 # Exclude fedora because there is a kind of issue with "ls" alias.
 if [[ -n "$ZSH_VERSION" && -e /etc/grc.zsh && ! -e /etc/fedora-release ]]; then
-	# shellcheck disable=SC1094
+	# shellcheck disable=SC1091
 	source /etc/grc.zsh
 elif [[ -n "$BASH_VERSION" && -e /etc/grc.bashrc ]]; then
 	# shellcheck disable=SC1091

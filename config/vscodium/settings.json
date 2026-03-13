@@ -556,10 +556,12 @@
 
     "[shellscript]": {
         // ext install foxundermoon.shell-format
-        "editor.defaultFormatter": "foxundermoon.shell-format",
+        // https://github.com/foxundermoon/vs-shell-format/pull/397
+        // "editor.defaultFormatter": "foxundermoon.shell-format",
+        "editor.defaultFormatter": "mads-hartmann.bash-ide-vscode",
         "files.eol": "\n",
         "editor.insertSpaces": true,
-        "editor.tabSize": 2
+        "editor.tabSize": 4
     },
     "bashIde.highlightParsingErrors": true,
 
