@@ -65,14 +65,14 @@
 	commit-random = !git commit -m \"$(curl -s http://whatthecommit.com/index.txt)\"
 
 [core]
-	# true - converts LF endings into CRLF when you check out code. [11]
+	# true - converts LF endings into CRLF when you check out code. [11]
 	# input - tell Git to convert CRLF to LF on commit but not the other way around.
 	# false - if you are doing only a windows project with windows people.
 	# this can be set by repository with .gitattributes file.
 	autocrlf = input
 	# "warn", in which case Git will only warn about an irreversible conversion but continue the operation.
 	safecrlf = warn
-	pager = [ $(command -v diff-so-fancy) ] && diff-so-fancy | less --tabs=4 -RFX || less
+	pager = delta
 
 [commit]
 	template = ~/.config/git/templates/commit.txt
@@ -131,7 +131,7 @@
 
 [merge]
 	keepBackup = false
-	conflictstyle = diff3
+	conflictStyle = zdiff3
 	ff = yes
 	commit = no
 
@@ -178,6 +178,15 @@
 
 [tar "tar.xz"]
 	command = xz -c
+
+[interactive]
+	diffFilter = delta --color-only
+
+# https://github.com/dandavison/delta
+[delta]
+	navigate = true # use n and N to move between diff sections
+	dark = true
+	side-by-side = true
 
 #|
 #| References
