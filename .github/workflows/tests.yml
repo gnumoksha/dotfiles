@@ -58,8 +58,6 @@ jobs:
 
       - name: Install
         run: |
-          rm -Rf $HOME/.bashrc $HOME/.profile $HOME/.bash_logout $HOME/.bash_profile $HOME/.config
-
           export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
           export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
           export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
@@ -68,5 +66,6 @@ jobs:
 
           mkdir -p $XDG_CONFIG_HOME && mkdir -p $XDG_DATA_HOME
           cp -R $GITHUB_WORKSPACE $DOTFILES
+
           cd $DOTFILES
           ./install.sh config icons
