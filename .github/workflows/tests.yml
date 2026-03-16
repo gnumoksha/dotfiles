@@ -63,6 +63,8 @@ jobs:
           export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 
           export DOTFILES="$XDG_DATA_HOME/dotfiles"
+
+          mkdir -p $XDG_CONFIG_HOME && mkdir -p $XDG_DATA_HOME
           cp -R $GITHUB_WORKSPACE $DOTFILES
 
           cd $DOTFILES
