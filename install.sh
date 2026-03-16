@@ -19,6 +19,11 @@ log_error() {
 	echo "❌ $*"
 }
 
+_failed() {
+	echo "$0 - script failed at line $1"
+}
+trap '_failed $LINENO' ERR
+
 #######################################
 # Extract the inline dotfiles statements
 # that may exists in the given file.
@@ -124,6 +129,7 @@ process_statement() {
 	fi
 
 	create_link "${info[src]}" "${info[dst]}" msg
+	# shellcheck disable=SC2154
 	echo "$msg"
 
 	if [[ ! -z "${info[execAfter]}" ]]; then
@@ -184,6 +190,11 @@ create_link() {
 		rm -f "$destination"
 	fi
 
+	if [[ -f "$destination" ]]; then
+		log_debug "Destination already exists and it's a file, so it will be moved"
+		mv "$destination" "${destination}_bkp_$(date +'%Y%m%d%H%M%S')"
+	fi
+
 	if [[ -e "$destination" ]]; then
 		log_debug "Destination $destination already exists"
 		if [[ "$force_fail" == "yes" ]]; then
@@ -195,6 +206,7 @@ create_link() {
 			log_error "file $destination already exists"
 			exit 1
 		fi
+
 		pushd "$origin" >/dev/null
 		for i in **; do
 			create_link "$origin/$i" "$destination/$i" foo "yes"
