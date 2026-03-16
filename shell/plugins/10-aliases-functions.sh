@@ -197,11 +197,11 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # for fd package in Debian
 has_cmd "fdfind" && alias fd="fdfind"
 
-# https://github.com/eza-community/eza
-has_cmd "eza" && alias ls='eza'
-
 # https://gitlab.com/gnuwget/wget2
 has_cmd "wget2" && alias wget='wget2'
+
+# https://github.com/eza-community/eza
+has_cmd "eza" && alias ls='eza'
 
 # https://github.com/lsd-rs/lsd
 if has_cmd "lsd"; then

@@ -1,11 +1,4 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1117,SC1090
-
-if [[ -n "$ZSH_VERSION" && -f ~/.fzf.zsh ]]; then
-	source ~/.fzf.zsh
-elif [[ -n "$BASH_VERSION" && -f ~/.fzf.bash ]]; then
-	source ~/.fzf.bash
-fi
 
 # Setting fd as the default source for fzf
 if [ "$(command -v fdfind)" ]; then
