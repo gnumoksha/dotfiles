@@ -44,6 +44,7 @@ tmux attach -t "$TMUX_SESSION_NAME" >/dev/null 2>&1 || tmux new -s "$TMUX_SESSIO
 tmuxExitCode=$?
 if [[ $tmuxExitCode -ne 0 ]]; then
 	echo "Tmux has closed unexpectedly"
+	# FIXME sometimes (e.g. in ssh sessions) this fails with the error "-p: no coprocess"
 	read -pr "Press [ENTER] to continue"
 fi
 # Automatically close the terminal when tmux exits.

@@ -25,8 +25,15 @@ elif is_fedora; then
 		sudo dnf install net-tools -y
 	fi
 	sudo ether-wake "$DST"
+elif is_archlinux; then
+	if ! has_cmd wakeonlan; then
+		echo "Installing the required tool"
+		sudo pacman -S extra/wakeonlan
+	fi
+	sudo wakeonlan "$DST"
 else
 	echo "Error: unknown linux distribution" >&2
+	exit 1
 fi
 
 echo "done"
