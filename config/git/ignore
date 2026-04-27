@@ -113,3 +113,8 @@ venv/
 # LibreOffice locks
 .~lock.*#
 
+
+#
+# AI stuff
+#
+**/.claude/settings.local.json
