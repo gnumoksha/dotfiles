@@ -2,11 +2,18 @@
 // #dotfiles: dst=$XDG_CONFIG_HOME/Code/User/settings.json
 // https://code.visualstudio.com/docs/getstarted/settings#_default-settings
 {
+    /**
+     * |
+     * | Breadcrumbs
+     * | -----------
+     */
     "breadcrumbs.symbolSortOrder": "type",
 
-    /**
-     * Editor
-     */
+     /**
+      * |
+      * | Editor
+      * | ------
+      */
     "editor.minimap.enabled": false,
     "editor.fontFamily": "'FiraMono Nerd Font Mono','DejaVu Sans Mono','Droid Sans Mono', 'monospace', 'Droid Sans Fallback'",
     "editor.fontSize": 16, // #eyestrain. This works in combination with "window.zoomLevel"
@@ -87,8 +94,12 @@
     // https://learn.microsoft.com/en-us/visualstudio/ide/editor-sticky-scroll?view=vs-2022
     "editor.stickyScroll.enabled": true,
 
+    "debug.console.fontSize": 16, // #eyestrain
+
     /**
-     * Explorer
+     * |
+     * | Explorer
+     * | --------
      */
     // Notes:
     //  - there is no setting to increase the font size so, you need to use "window.zoomLevel" and "editor.fontSize"
@@ -104,7 +115,9 @@
     "explorer.openEditors.visible": 1, // hide Open Editors pane as I use only the workbench tabs
 
     /**
-     * Files
+     * |
+     * | Files
+     * | -----
      */
     "files.autoSave": "off", // to avoid saving unfinished code
     "files.trimTrailingWhitespace": true,
@@ -125,14 +138,18 @@
     },
 
     /**
-     * Git
+     * |
+     * | Git
+     * | ---
      */
     "git.autoStash": true,
     "git.mergeEditor": true,
     "git.blame.editorDecoration.enabled": true,
 
     /**
-     * Keyboard
+     * |
+     * | Keyboard
+     * | --------
      */
     // in 2022 the "/" key still does not work in a pt-br keyword
     // https://github.com/microsoft/vscode/issues/24147
@@ -140,12 +157,16 @@
     // "keyboard.dispatch": "keyCode",
 
     /**
-     * Problems
+     * |
+     * | Problems
+     * | --------
      */
     "problems.showCurrentInStatus": true,
 
     /**
-     * Search
+     * |
+     * | Search
+     * | ------
      */
     "search.smartCase": true,
     "search.useIgnoreFiles": true,
@@ -169,18 +190,24 @@
     },
 
     /**
-     * Security
+     * |
+     * | Security
+     * | --------
      */
     "security.workspace.trust.untrustedFiles": "open",
 
     /**
-     * Telemetry
+     * |
+     * | Telemetry
+     * | ---------
      */
     "telemetry.telemetryLevel": "off",
     "redhat.telemetry.enabled": true,
 
     /**
-     * Built-in terminal emulator
+     * |
+     * | Built-in terminal emulator
+     * | --------------------------
      */
     "terminal.integrated.fontFamily": "'DejaVuSansMono Nerd Font','Droid Sans Mono Slashed for Powerline','DejaVu Sans Mono'",
     "terminal.integrated.fontSize": 16, // #eyestrain
@@ -194,14 +221,18 @@
     },
 
     /**
-     * Testing
+     * |
+     * | Testing
+     * | -------
      */
     "testing.defaultGutterClickAction": "contextMenu",
     // Peek View is pretty annoying
     "testing.automaticallyOpenPeekView": "never",
 
-    /**
-     * Window
+     /**
+     * |
+     * | Window
+     * | ------
      */
     "window.title": "${dirty}${rootName}${separator}${activeEditorMedium}",
     "window.menuBarVisibility": "toggle",
@@ -215,9 +246,12 @@
     "window.customTitleBarVisibility": "auto",
 
     /**
-     * Workbench
+     * |
+     * | Workbench
+     * | ---------
      */
-    // ext install nonylene.dark-molokai-theme (to use "Dark (Molokai)")
+    // Dark (Molokai) - ext install nonylene.dark-molokai-theme
+    // One Dark Pro Darker - ext install zhuangtongfa.material-theme
     "workbench.colorTheme": "Dark (Molokai)",
     "workbench.preferredDarkColorTheme": "Dark (Molokai)",
     // ext install vscode-icons (to use "vscode-icons")
@@ -263,9 +297,11 @@
     // ext instal PKief.material-product-icons
     "workbench.productIconTheme": "material-product-icons",
 
-    /**
-     * By language
-     */
+    /*************************
+     *
+     * Settings by language
+     *
+     ************************/
 
     // ext install esbenp.prettier-vscode
     "[css]": {
@@ -362,15 +398,14 @@
         "editor.insertSpaces": true,
         "editor.tabSize": 2
     },
-    "javascript.inlayHints.parameterNames.enabled": "literals",
-    "javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": true,
-    "javascript.inlayHints.enumMemberValues.enabled": true,
-    "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
-    "javascript.inlayHints.parameterTypes.enabled": true,
-    "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
-    "javascript.inlayHints.variableTypes.enabled": true,
-    "javascript.inlayHints.variableTypes.suppressWhenTypeMatchesName": true,
-    "javascript.updateImportsOnFileMove.enabled": "always",
+    "js/ts.inlayHints.parameterNames.enabled": "literals",
+    "js/ts.inlayHints.parameterNames.suppressWhenArgumentMatchesName": true,
+    "js/ts.inlayHints.functionLikeReturnTypes.enabled": true,
+    "js/ts.inlayHints.parameterTypes.enabled": true,
+    "js/ts.inlayHints.propertyDeclarationTypes.enabled": true,
+    "js/ts.inlayHints.variableTypes.enabled": true,
+    "js/ts.inlayHints.variableTypes.suppressWhenTypeMatchesName": true,
+    "js/ts.updateImportsOnFileMove.enabled": "always",
     "json.maxItemsComputed": 10000,
     "json.schemas": [],
     "json.schemaDownload.enable":true,
@@ -546,6 +581,10 @@
     // https://github.com/flathub/com.vscodium.codium/issues/90
     // "python.languageServer": "Pylance",
     // "python.languageServer": "Jedi",
+    // ext install astral-sh.ty
+    // at least in the version 0.0.26 the language server is not so good
+    "python.languageServer": "Pylance",
+    "ty.disableLanguageServices": true,
     // Jupyter notebooks
     // ext install charliermarsh.ruff
     "notebook.formatOnSave.enabled": true,
@@ -567,7 +606,7 @@
 
     "[xml]": {
         // ext install redhat.vscode-xml
-        "editor.defaultFormatter": "redhat.vscode-xml",
+        "editor.defaultFormatter": "redhat.vscode-xml"
     },
     // https://github.com/redhat-developer/vscode-xml/tree/main/docs
     "xml.format.enabled": false,
@@ -580,9 +619,12 @@
     // https://github.com/redhat-developer/vscode-yaml
     "yaml.schemaStore.enable": true,
 
-    /**
+    /**************************
+     *
      * Miscellaneous Extensions
-     */
+     *
+     *************************/
+
      // https://github.com/formulahendry/vscode-code-runner#configuration
     "code-runner.executorMap": {
         // use shortcut Ctrl+Alt+J, or press F1 and then select/type Run By Language,
@@ -597,15 +639,16 @@
     },
     "code-runner.clearPreviousOutput": true,
     "code-runner.runInTerminal": false,
+
     // ext install vscode-icons
     // https://github.com/vscode-icons/vscode-icons/wiki/Configuration
     "vsicons.dontShowNewVersionMessage": true,
-    "debug.console.fontSize": 16, // #eyestrain
-    "rest-client.fontSize": 16, // #eyestrain
+
     // ext install eamodio.gitlens
     // https://github.com/gitkraken/vscode-gitlens
     "gitlens.currentLine.enabled": false, // on by default, but annoying
     "gitlens.codeLens.enabled": false, // on by default, but annoying
+
     // ext install streetsidesoftware.code-spell-checker
     // ext install streetsidesoftware.code-spell-checker-portuguese-brazilian
     "cSpell.language": "en,pt-BR",
@@ -651,8 +694,10 @@
         "venv",
         "webservice"
     ],
+
     // ext install usernamehw.errorlens
     "errorLens.addNumberOfDiagnostics": true,
+
     // ext install emeraldwalk.RunOnSave
     // go install github.com/segmentio/golines@latest
     "emeraldwalk.runonsave": {
@@ -663,6 +708,10 @@
             }
         ],
     },
+
+    // ext install humao.rest-client
+    "rest-client.fontSize": 16, // #eyestrain
+
     // ext install GitHub.copilot
     "github.copilot.enable": {
         "*": true,
@@ -670,9 +719,12 @@
         "markdown": false,
         "scminput": false
     },
-    // ext install xyz.local-history
-    "local-history.path": "~/.cache/vscode/history",
     "github.copilot.editor.enableAutoCompletions": true,
     "github.copilot.nextEditSuggestions.enabled": true,
-    "claudeCode.preferredLocation": "panel"
+
+    // ext install xyz.local-history
+    "local-history.path": "~/.cache/vscode/history",
+
+    // ext install Anthropic.claude-code
+    "claudeCode.preferredLocation": "panel",
 }
