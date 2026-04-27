@@ -1,0 +1,91 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+//
+// #dotfiles: dst=$XDG_CONFIG_HOME/zed/settings.json
+{
+  "restore_on_startup": "launchpad",
+  "session": {
+    "restore_unsaved_buffers": true
+  },
+  "buffer_line_height": "comfortable",
+  "buffer_font_weight": 400.0,
+  "when_closing_with_no_tabs": "keep_window_open",
+  "icon_theme": "Catppuccin Latte",
+  "terminal": {
+    "env": {
+      "PYTHONDEVMODE": "\"1\"",
+    },
+    "font_size": 16.0,
+    "font_family": "DejaVuSansMono Nerd Font",
+    "font_fallbacks": [
+      "Droid Sans Mono Slashed for Powerline",
+      "DejaVu Sans Mono",
+    ],
+    "cursor_shape": "underline",
+    "blinking": "on",
+  },
+  "telemetry": {
+    "diagnostics": true,
+    "metrics": true,
+  },
+  "project_panel": {
+    "hide_gitignore": false,
+    "auto_reveal_entries": false,
+    "auto_fold_dirs": false,
+  },
+  "git": {
+    "inline_blame": {
+      "enabled": true,
+    },
+  },
+  "status_bar": {
+    "experimental.show": true,
+  },
+  "search": {
+    "include_ignored": true,
+  },
+  "use_smartcase_search": true,
+  "sticky_scroll": {
+    "enabled": true,
+  },
+  "gutter": {
+    "line_numbers": true,
+  },
+  "minimap": {
+    "show": "never",
+  },
+  "current_line_highlight": "all",
+  "autosave": "off",
+  "buffer_font_fallbacks": [
+    "DejaVu Sans Mono",
+    "Droid Sans Mono",
+    "monospace",
+    "Droid Sans Fallback",
+  ],
+  "buffer_font_family": "FiraMono Nerd Font Mono",
+  "colorize_brackets": true,
+  "auto_indent_on_paste": true,
+  "linked_edits": true,
+  "use_on_type_format": true,
+  "show_whitespaces": "trailing",
+  "ensure_final_newline_on_save": true,
+  "wrap_guides": [80, 120],
+  "agent_servers": {
+    "github-copilot-cli": {
+      "type": "registry",
+    },
+    "claude-acp": {
+      "type": "registry",
+    },
+  },
+  "base_keymap": "VSCode",
+  "ui_font_size": 20,
+  "buffer_font_size": 16.0,
+  "theme": "VSCode Dark Modern",
+}
