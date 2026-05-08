@@ -15,7 +15,7 @@
       * | ------
       */
     "editor.minimap.enabled": false,
-    "editor.fontFamily": "'FiraMono Nerd Font Mono','DejaVu Sans Mono','Droid Sans Mono', 'monospace', 'Droid Sans Fallback'",
+    "editor.fontFamily": "'JetBrains Mono','FiraMono Nerd Font Mono'",
     "editor.fontSize": 16, // #eyestrain. This works in combination with "window.zoomLevel"
     "editor.inlayHints.fontSize": 13,
     "editor.lineHeight": 1.1, // #eyestrain
@@ -94,6 +94,11 @@
     // https://learn.microsoft.com/en-us/visualstudio/ide/editor-sticky-scroll?view=vs-2022
     "editor.stickyScroll.enabled": true,
 
+    /**
+     * |
+     * | Debug
+     * | -----
+     */
     "debug.console.fontSize": 16, // #eyestrain
 
     /**
@@ -102,7 +107,7 @@
      * | --------
      */
     // Notes:
-    //  - there is no setting to increase the font size so, you need to use "window.zoomLevel" and "editor.fontSize"
+    //  - #eyestrain there is no setting to increase the font size so, you need to use "window.zoomLevel" and "editor.fontSize"
     "explorer.confirmDragAndDrop": true, // future me: do not use false here :) I like that
     "explorer.confirmDelete": true,
     "explorer.confirmUndo": "verbose",
@@ -124,7 +129,7 @@
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "files.enableTrash": true,
-    //"files.hotExit": "onExit", // open-select-recent-projects-on-startup didn't work
+    //"files.hotExit": "onExit", // #open-select-recent-projects-on-startup didn't work
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -209,7 +214,7 @@
      * | Built-in terminal emulator
      * | --------------------------
      */
-    "terminal.integrated.fontFamily": "'DejaVuSansMono Nerd Font','Droid Sans Mono Slashed for Powerline','DejaVu Sans Mono'",
+    "terminal.integrated.fontFamily": "MesloLGS Nerd Font Mono",
     "terminal.integrated.fontSize": 16, // #eyestrain
     "terminal.integrated.cursorStyle": "underline",
     "terminal.integrated.cursorBlinking": true,
@@ -239,8 +244,8 @@
     "window.zoomLevel": 1, // #eyestrain. This works in combination with "editor.fontSize"
     "window.titleBarStyle": "custom", // fixes https://github.com/microsoft/vscode/issues/80798
     "window.openFoldersInNewWindow": "on",
-    "window.commandCenter": false, // I'm testing this (disabled is better so that I can see the entire file path)
-    "window.restoreWindows": "none", // open-select-recent-projects-on-startup
+    "window.commandCenter": true,
+    "window.restoreWindows": "none", // #open-select-recent-projects-on-startup
     "window.restoreFullscreen": true,
     "window.newWindowDimensions": "inherit",
     "window.customTitleBarVisibility": "auto",
@@ -283,7 +288,7 @@
     "workbench.list.openMode": "doubleClick",
     "workbench.layoutControl.enabled": true,
     "workbench.editor.titleScrollbarSizing": "large",
-    "workbench.startupEditor": "welcomePageInEmptyWorkbench", // open-select-recent-projects-on-startup
+    "workbench.startupEditor": "welcomePageInEmptyWorkbench", // #open-select-recent-projects-on-startup
     "workbench.view.alwaysShowHeaderActions": true,
     // necessary to see the problem for the current line
     // as the mouse hover can show too much unnecessary info

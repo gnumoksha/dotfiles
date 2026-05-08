@@ -16,5 +16,5 @@ cd $DOTFILES
 ```
 
 ## Rules
-* [If possible](https://wiki.archlinux.org/index.php/XDG_Base_Directory#Support), configuration files will follow [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html).
+* [If possible](https://wiki.archlinux.org/index.php/XDG_Base_Directory#Support), configuration files will follow [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir/latest/).
 * A descriptive name is better than a short name.
