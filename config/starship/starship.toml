@@ -71,14 +71,14 @@ RedHatEnterprise = "󱄛"
 
 [username]
 show_always = false
-style_user = "bg:red fg:left_fg"
-style_root = "bg:red fg:left_fg"
+style_user = "bg:os_bg fg:left_fg"
+style_root = "bg:os_bg fg:left_fg"
 format = '[ $user]($style)'
 
 [sudo]
 disabled = false
 format = '[$symbol]($style)'
-style = "bg:red fg:left_fg"
+style = "bg:os_bg fg:left_fg"
 
 [directory]
 format = '[$path]($style)[$read_only]($read_only_style)'

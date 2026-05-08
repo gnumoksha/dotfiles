@@ -13,7 +13,9 @@ UPDATE_ZSH_DAYS=7
 # I don't automatically want url quotation because it is buggy, i.e. that ignores ''
 DISABLE_MAGIC_FUNCTIONS=true
 plugins=(command-not-found)
-zsh-plugin-installer --repo "https://github.com/robbyrussell/oh-my-zsh" --exec-always "source oh-my-zsh.sh"
+zsh-plugin-installer \
+	--repo "https://github.com/robbyrussell/oh-my-zsh" \
+	--exec-always "source oh-my-zsh.sh"
 
 #|
 #| Themes
@@ -35,9 +37,13 @@ zsh-plugin-installer --repo "https://github.com/robbyrussell/oh-my-zsh" --exec-a
 
 DOTFILES_THEMES="${0:a:h}/../themes"
 
-#zsh-plugin-installer --repo "https://github.com/martinrotter/powerless.git" --exec-always "source powerless.zsh false && source utilities.zsh true"
+#zsh-plugin-installer \
+#	--repo "https://github.com/martinrotter/powerless.git" \
+#	--exec-always "source powerless.zsh false && source utilities.zsh true"
 
-#zsh-plugin-installer --repo "https://github.com/eendroroy/alien-minimal" --exec-always "source $DOTFILES_THEMES/alien-minimal.zsh && source alien-minimal.zsh"
+#zsh-plugin-installer \
+#	--repo "https://github.com/eendroroy/alien-minimal" \
+#	--exec-always "source $DOTFILES_THEMES/alien-minimal.zsh && source alien-minimal.zsh"
 
 # powerlevel10k is on life support
 # https://github.com/romkatv/powerlevel10k/commit/bde5ca4c2aa6e0c52dd7f15cf216dffdb1ec788c
@@ -47,15 +53,23 @@ DOTFILES_THEMES="${0:a:h}/../themes"
 # if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 # 	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
-# zsh-plugin-installer --repo "https://github.com/romkatv/powerlevel10k" --exec-always "source powerlevel10k.zsh-theme && source $XDG_CONFIG_HOME/zsh/.p10k.zsh"
+# zsh-plugin-installer \
+#	--repo "https://github.com/romkatv/powerlevel10k" \
+#	--exec-always "source powerlevel10k.zsh-theme && source $XDG_CONFIG_HOME/zsh/.p10k.zsh"
 
-# starship has less options than powerlevel10k, such as the k8s context
-zsh-plugin-installer --repo "https://github.com/starship/starship" --exec-after "./install/install.sh --yes --bin-dir=$HOME/.local/bin"
-eval "$(starship init zsh)"
+# starship has less options than powerlevel10k (such as the highlight of current
+# dir, number of modified files in git) but powerlevel10k is on life support.
+zsh-plugin-installer \
+	--repo "https://github.com/starship/starship" \
+	--exec-after "./install/install.sh --yes --bin-dir=$HOME/.local/bin" \
+	--exec-always 'eval "$(starship init zsh)"'
 
 # oh-my-posh is difficult to customize and it is focused on Windows
 # nice themes: agnoster, mojada, nu4a, powerline, unicorn
-#zsh-plugin-installer --repo "https://github.com/JanDeDobbeleer/oh-my-posh" --exec-after "bash ./website/static/install.sh -d /usr/local/bin" --exec-always='eval "$(oh-my-posh init zsh --config $XDG_CACHE_HOME/oh-my-posh/themes/agnoster.omp.json)"'
+#zsh-plugin-installer \
+#	--repo "https://github.com/JanDeDobbeleer/oh-my-posh" \
+#	--exec-after "bash ./website/static/install.sh -d /usr/local/bin" \
+#	--exec-always='eval "$(oh-my-posh init zsh --config $XDG_CACHE_HOME/oh-my-posh/themes/agnoster.omp.json)"'
 
 #|
 #| Tools
@@ -63,13 +77,19 @@ eval "$(starship init zsh)"
 if [[ ! -e "/usr/local/bin/git-extras" || ! -e "$XDG_CACHE_HOME/git-extras-completion.zsh" ]]; then
 	echo "Installing git-extras"
 	curl -sSL http://git.io/git-extras-setup | sudo bash /dev/stdin
-	curl -sSL https://raw.githubusercontent.com/tj/git-extras/master/etc/git-extras-completion.zsh -o $XDG_CACHE_HOME/git-extras-completion.zsh
+	curl -sSL https://raw.githubusercontent.com/tj/git-extras/master/etc/git-extras-completion.zsh \
+		-o $XDG_CACHE_HOME/git-extras-completion.zsh
 fi
 source $XDG_CACHE_HOME/git-extras-completion.zsh
 
-zsh-plugin-installer --repo "https://github.com/paulirish/git-open" --exec-after "sudo cp -f git-open /usr/local/bin/git-open"
+zsh-plugin-installer \
+	--repo "https://github.com/paulirish/git-open" \
+	--exec-after "cp -f git-open $HOME/.local/bin/git-open"
 
-zsh-plugin-installer --repo "https://github.com/junegunn/fzf" --exec-after "./install --bin && sudo mv -f ./bin/fzf /usr/local/bin/fzf" --exec-always "source shell/completion.zsh && source shell/key-bindings.zsh"
+zsh-plugin-installer \
+	--repo "https://github.com/junegunn/fzf" \
+	--exec-after "./install --bin && mv -f ./bin/fzf $HOME/.local/bin/fzf" \
+	--exec-always "source shell/completion.zsh && source shell/key-bindings.zsh"
 
 # Syntax Highlighting
 # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md

@@ -20,12 +20,6 @@
 STARTED_AT=$(date +%s.%N)
 
 #|
-#| Plugins and custom scripts
-#|
-source $ZDOTDIR/plugins/plugin-installer.zsh
-source $ZDOTDIR/plugins/plugins-cfg.zsh
-
-#|
 #| ZSH settings
 #|
 # man 1 zshoptions
@@ -61,8 +55,16 @@ PROMPT_EOL_MARK=''
 #FIXME tmux.sh should be started alone to not open other terminal and then load ?all plugins? again
 for filename in "${DOTFILES_SHELL_PLUGINS}"/*.sh; do
   [ -f "$filename" ] || continue
+  # shellcheck disable=SC1090
   source "$filename"
 done
+
+#|
+#| ZSH plugins
+#| It is defined at this point because it needs the ~/.local/bin in $PATH
+#|
+source "$ZDOTDIR"/plugins/plugin-installer.zsh
+source "$ZDOTDIR"/plugins/plugins-cfg.zsh
 
 #|
 #| Profiling
