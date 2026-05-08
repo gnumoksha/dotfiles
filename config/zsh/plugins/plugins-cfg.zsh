@@ -39,28 +39,31 @@ DOTFILES_THEMES="${0:a:h}/../themes"
 
 #zsh-plugin-installer --repo "https://github.com/eendroroy/alien-minimal" --exec-always "source $DOTFILES_THEMES/alien-minimal.zsh && source alien-minimal.zsh"
 
+# powerlevel10k is on life support
+# https://github.com/romkatv/powerlevel10k/commit/bde5ca4c2aa6e0c52dd7f15cf216dffdb1ec788c
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-zsh-plugin-installer --repo "https://github.com/romkatv/powerlevel10k" --exec-always "source powerlevel10k.zsh-theme && source $XDG_CONFIG_HOME/zsh/.p10k.zsh"
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+# 	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
+# zsh-plugin-installer --repo "https://github.com/romkatv/powerlevel10k" --exec-always "source powerlevel10k.zsh-theme && source $XDG_CONFIG_HOME/zsh/.p10k.zsh"
 
-# starship has less options than powerlevel10k
-#zsh-plugin-installer --repo "https://github.com/starship/starship" --exec-after "./install/install.sh --yes --bin-dir=/usr/local/bin" exec-always='eval "$(starship init zsh)"'
+# starship has less options than powerlevel10k, such as the k8s context
+zsh-plugin-installer --repo "https://github.com/starship/starship" --exec-after "./install/install.sh --yes --bin-dir=$HOME/.local/bin"
+eval "$(starship init zsh)"
 
 # oh-my-posh is difficult to customize and it is focused on Windows
 # nice themes: agnoster, mojada, nu4a, powerline, unicorn
-#zsh-plugin-installer --repo "https://github.com/JanDeDobbeleer/oh-my-posh" --exec-after "bash ./website/static/install.sh -d /usr/local/bin" exec-always='eval "$(oh-my-posh init zsh --config $XDG_CACHE_HOME/oh-my-posh/themes/agnoster.omp.json)"'
+#zsh-plugin-installer --repo "https://github.com/JanDeDobbeleer/oh-my-posh" --exec-after "bash ./website/static/install.sh -d /usr/local/bin" --exec-always='eval "$(oh-my-posh init zsh --config $XDG_CACHE_HOME/oh-my-posh/themes/agnoster.omp.json)"'
 
 #|
 #| Tools
 #|
 if [[ ! -e "/usr/local/bin/git-extras" || ! -e "$XDG_CACHE_HOME/git-extras-completion.zsh" ]]; then
-  echo "Installing git-extras"
-  curl -sSL http://git.io/git-extras-setup | sudo bash /dev/stdin
-  curl -sSL https://raw.githubusercontent.com/tj/git-extras/master/etc/git-extras-completion.zsh -o $XDG_CACHE_HOME/git-extras-completion.zsh
+	echo "Installing git-extras"
+	curl -sSL http://git.io/git-extras-setup | sudo bash /dev/stdin
+	curl -sSL https://raw.githubusercontent.com/tj/git-extras/master/etc/git-extras-completion.zsh -o $XDG_CACHE_HOME/git-extras-completion.zsh
 fi
 source $XDG_CACHE_HOME/git-extras-completion.zsh
 

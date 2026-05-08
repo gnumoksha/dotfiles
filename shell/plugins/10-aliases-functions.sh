@@ -273,3 +273,7 @@ if [[ "$DOTFILES_USE_COLORS" == "true" ]]; then
 fi
 
 export PATH="$PATH:$DOTFILES/bin"
+
+# User-specific executable files may be stored in $HOME/.local/bin.
+# https://specifications.freedesktop.org/basedir/latest/
+# [[ ":$PATH:" != *":$HOME/.local/bin:"* ]] && export PATH="$PATH:$HOME/.local/bin"
