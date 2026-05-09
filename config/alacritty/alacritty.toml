@@ -1,25 +1,9 @@
+[general]
+live_config_reload = true
+import = ["themes/monokay-dark-modified.toml"]
+
 [colors]
 draw_bold_text_with_bright_colors = true
-
-[colors.bright]
-black = "0x666666"
-blue = "0x819AFF"
-cyan = "0x66D9EF"
-green = "0xA6E22E"
-magenta = "0xAE81FF"
-red = "0xF92672"
-white = "0xF8F8F2"
-yellow = "0xE2E22E"
-
-[colors.normal]
-black = "0x333333"
-blue = "0x6A7EC8"
-cyan = "0x56ADBC"
-green = "0x86B42B"
-magenta = "0x8C6BC8"
-red = "0xC4265E"
-white = "0xE3E3DD"
-yellow = "0xB3B42B"
 
 [cursor]
 unfocused_hollow = true
@@ -59,6 +43,3 @@ dynamic_title = true
 startup_mode = "Maximized"
 # opacity = 0.8
 # blur = true
-
-[general]
-live_config_reload = true
