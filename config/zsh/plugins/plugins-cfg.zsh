@@ -8,13 +8,15 @@
 #|
 #| Oh-my-zsh
 #|
-#DISABLE_AUTO_UPDATE=true
-UPDATE_ZSH_DAYS=7
+zstyle ':omz:update' frequency 7
+# This avoids omz to set the alias ls="ls --color=tty" which will list one
+# entry per line with no colors.
+DISABLE_LS_COLORS="true"
 # I don't automatically want url quotation because it is buggy, i.e. that ignores ''
 DISABLE_MAGIC_FUNCTIONS=true
 plugins=(command-not-found)
 zsh-plugin-installer \
-	--repo "https://github.com/robbyrussell/oh-my-zsh" \
+	--repo "https://github.com/ohmyzsh/ohmyzsh" \
 	--exec-always "source oh-my-zsh.sh"
 
 #|
@@ -102,4 +104,6 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=green'
 # Commands starting with `rm -rf` in red:
 ZSH_HIGHLIGHT_PATTERNS+=('rm -[rR]f *' 'fg=white,bold,bg=red')
 # Must be sourced at the end of the .zshrc
-zsh-plugin-installer --repo "https://github.com/zsh-users/zsh-syntax-highlighting" --exec-always "plug"
+zsh-plugin-installer \
+	--repo "https://github.com/zsh-users/zsh-syntax-highlighting" \
+	--exec-always "plug"
