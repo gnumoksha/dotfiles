@@ -6,7 +6,7 @@ command -v tmux >/dev/null 2>&1 || return
 
 # Tmux does not support a custom variable to point to the tmux.conf :(
 # https://github.com/tmux/tmux/issues/142
-alias tmux='tmux -f "$XDG_CONFIG_HOME"/tmux/tmux.conf'
+# alias tmux='tmux -f "$XDG_CONFIG_HOME"/tmux/tmux.conf'
 
 TMUX_SESSION_NAME=${TMUX_SESSION_NAME:=TMUX}
 
@@ -25,12 +25,14 @@ if [[ -n "$TMUX" ]]; then
 	return
 fi
 
-# Do not start inside Emacs, vim, vscodium.
+# Do not start inside Emacs, vim, vscodium, etc.
 # note: check GIO_LAUNCHED_DESKTOP_FILE to see if the main process is a GUI (didn't work on alacritty)
 if [[ 
 	-n "$INSIDE_EMACS" ||
 	-n "$EMACS" ||
 	-n "$VIM" ||
+	-n "$INTELLIJ_ENVIRONMENT_READER" ||
+	-n "$ZED_TERM" ||
 	-n "$VSCODE_RESOLVING_ENVIRONMENT" ||
 	"$TERM_PROGRAM" = "vscode" ]]; then
 	return
