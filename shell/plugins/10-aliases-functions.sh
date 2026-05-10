@@ -9,12 +9,6 @@ alias rm='rm --interactive'
 alias cp="cp --interactive"
 alias mv="mv --interactive"
 
-alias ls='ls --color=auto'
-alias l='clear && ls --escape --classify --group-directories-first --no-group --human-readable'
-alias ll='l -l'
-alias la='l -l --almost-all' # --almost-all because I never want ./ and ../
-alias ls_full='ll -l --author --context'
-
 alias dir='dir --color=auto'
 
 alias vdir='vdir --color=auto'
@@ -200,16 +194,22 @@ has_cmd "fdfind" && alias fd="fdfind"
 # https://gitlab.com/gnuwget/wget2
 has_cmd "wget2" && alias wget='wget2'
 
-# https://github.com/eza-community/eza
-has_cmd "eza" && alias ls='eza'
-
-# https://github.com/lsd-rs/lsd
 if has_cmd "lsd"; then
+	# https://github.com/lsd-rs/lsd
 	alias ls="lsd"
 	alias l='lsd -l'
 	alias la='lsd -a'
 	alias lla='lsd -la'
 	alias lt='lsd --tree'
+elif has_cmd "eza"; then
+	# https://github.com/eza-community/eza
+	alias ls='eza'
+else
+	alias ls='ls --color=auto'
+	alias l='clear && ls --escape --classify --group-directories-first --no-group --human-readable'
+	alias ll='l -l'
+	alias la='l -l --almost-all' # --almost-all because I never want ./ and ../
+	alias ls_full='ll -l --author --context'
 fi
 
 # https://github.com/baszoetekouw/pinfo
