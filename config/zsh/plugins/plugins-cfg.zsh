@@ -8,12 +8,16 @@
 #|
 #| Oh-my-zsh
 #|
+# Updates every 7 days
 zstyle ':omz:update' frequency 7
 # This avoids omz to set the alias ls="ls --color=tty" which will list one
 # entry per line with no colors.
 DISABLE_LS_COLORS="true"
 # I don't automatically want url quotation because it is buggy, i.e. that ignores ''
 DISABLE_MAGIC_FUNCTIONS=true
+# Disable all oh-my-zsh aliases (in lib files and enabled plugins)
+zstyle ':omz:*' aliases no
+# Enabled plugins
 plugins=(command-not-found)
 zsh-plugin-installer \
 	--repo "https://github.com/ohmyzsh/ohmyzsh" \
@@ -61,6 +65,7 @@ DOTFILES_THEMES="${0:a:h}/../themes"
 
 # starship has less options than powerlevel10k (such as the highlight of current
 # dir, number of modified files in git) but powerlevel10k is on life support.
+[[ ":$PATH:" != *":$HOME/.local/bin:"* ]] && export PATH="$PATH:$HOME/.local/bin"
 zsh-plugin-installer \
 	--repo "https://github.com/starship/starship" \
 	--exec-after "./install/install.sh --yes --bin-dir=$HOME/.local/bin" \

@@ -276,4 +276,4 @@ export PATH="$PATH:$DOTFILES/bin"
 
 # User-specific executable files may be stored in $HOME/.local/bin.
 # https://specifications.freedesktop.org/basedir/latest/
-export PATH="$PATH:$HOME/.local/bin"
+[[ ":$PATH:" != *":$HOME/.local/bin:"* ]] && export PATH="$PATH:$HOME/.local/bin"

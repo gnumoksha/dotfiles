@@ -20,6 +20,14 @@
 STARTED_AT=$(date +%s.%N)
 
 #|
+#| ZSH plugins
+#| It is defined at this point because I will override some stuff, like
+#| the fzf key-bindings, in my $DOTFILES_SHELL_PLUGINS
+#|
+source "$ZDOTDIR"/plugins/plugin-installer.zsh
+source "$ZDOTDIR"/plugins/plugins-cfg.zsh
+
+#|
 #| ZSH settings
 #|
 # man 1 zshoptions
@@ -58,13 +66,6 @@ for filename in "${DOTFILES_SHELL_PLUGINS}"/*.sh; do
   # shellcheck disable=SC1090
   source "$filename"
 done
-
-#|
-#| ZSH plugins
-#| It is defined at this point because it needs the ~/.local/bin in $PATH
-#|
-source "$ZDOTDIR"/plugins/plugin-installer.zsh
-source "$ZDOTDIR"/plugins/plugins-cfg.zsh
 
 #|
 #| Profiling
