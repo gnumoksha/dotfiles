@@ -85,6 +85,7 @@ format = '[$path]($style)[$read_only]($read_only_style)'
 truncation_length = 3
 truncation_symbol = "…/"
 # I think this isn't working
+# https://github.com/starship/starship/discussions/7264
 fish_style_pwd_dir_length = 3
 # Whether or not to truncate to the root of the git repo that you're currently in.
 truncate_to_repo = false
@@ -106,6 +107,16 @@ style = "bg:git_bg"
 format = '[[ $symbol $branch ](fg:left_fg bg:git_bg)]($style)'
 
 [git_status]
+ahead = "⇡${count}"
+behind = "⇣${count}"
+conflicted = '$count'
+deleted = " "
+diverged = '↑$ahead_count↓$behind_count'
+modified = "󱇬 "
+renamed = " "
+staged = "󰝒 "
+stashed = "󰬲 "
+untracked = "? "
 style = "bg:git_bg"
 format = '[[($all_status$ahead_behind )](fg:left_fg bg:git_bg)]($style)'
 
@@ -150,6 +161,8 @@ style = "bg:green"
 format = '[[ $symbol( $version) ](fg:left_fg bg:green)]($style)'
 
 [python]
+# not useful because https://github.com/starship/starship/discussions/7473
+disabled = true
 symbol = ""
 style = "bg:green"
 format = '[[ $symbol( $version)(\(#$virtualenv\)) ](fg:left_fg bg:green)]($style)'
@@ -184,7 +197,7 @@ style = "fg:#5f8787 bg:right_bg"
 format = '[ $time  ]($style)'
 
 [cmd_duration]
-show_milliseconds = true
+show_milliseconds = false
 format = "[❮ $duration ]($style)"
 style = "fg:h5 bg:right_bg"
 disabled = false
