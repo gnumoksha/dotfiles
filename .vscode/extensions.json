@@ -3,6 +3,7 @@
         "jetmartin.bats",
         "mads-hartmann.bash-ide-vscode",
         "timonwong.shellcheck",
-        "editorconfig.editorconfig"
+        "editorconfig.editorconfig",
+        "sumneko.lua"
     ]
 }

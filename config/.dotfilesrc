@@ -5,12 +5,14 @@ src=environment.d dst=$XDG_CONFIG_HOME/
 src=grc dst=$XDG_CONFIG_HOME/
 src=htop dst=$XDG_CONFIG_HOME/
 src=http-prompt dst=$XDG_CONFIG_HOME/
+src=hypr dst=$XDG_CONFIG_HOME/
 src=ipython dst=$XDG_CONFIG_HOME/
 src=jupyter dst=$XDG_CONFIG_HOME/
 src=kitty dst=$XDG_CONFIG_HOME/
 src=konsole dst=$XDG_CONFIG_HOME/
 src=lsd dst=$XDG_CONFIG_HOME/
 src=procps dst=$XDG_CONFIG_HOME/
+src=rofi dst=$XDG_CONFIG_HOME/
 src=ssh/keys dst=$HOME/.ssh/keys execBefore='[[ ! -d "$HOME/.ssh/config.d" ]] && mkdir -p "$HOME/.ssh/config.d" || true'
 src=tilix dst=$XDG_CONFIG_HOME/
 src=tmux dst=$XDG_CONFIG_HOME/

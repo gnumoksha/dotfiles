@@ -2,5 +2,13 @@
     "cSpell.words": [
         "shellcheck",
         "shfmt"
+    ],
+    // https://wiki.hypr.land/Configuring/Start/#autocompletions
+    // ext install sumneko.lua
+    "Lua.workspace.library": [
+        "/usr/share/hypr/stubs"
+    ],
+    "Lua.diagnostics.globals": [
+        "hl"
     ]
 }
