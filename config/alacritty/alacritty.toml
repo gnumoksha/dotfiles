@@ -41,5 +41,5 @@ decorations = "none"
 dynamic_padding = false
 dynamic_title = true
 startup_mode = "Maximized"
-# opacity = 0.8
-# blur = true
+opacity = 0.8
+#blur = true
