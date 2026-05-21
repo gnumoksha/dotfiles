@@ -66,6 +66,21 @@ DOTFILES_THEMES="${0:a:h}/../themes"
 # starship has less options than powerlevel10k (such as the highlight of current
 # dir, number of modified files in git) but powerlevel10k is on life support.
 [[ ":$PATH:" != *":$HOME/.local/bin:"* ]] && export PATH="$PATH:$HOME/.local/bin"
+# use a different config for terminals inside text editors or IDEs
+if [[ 
+	-n "$INSIDE_EMACS" ||
+	-n "$EMACS" ||
+	-n "$VIM" ||
+	-n "$INTELLIJ_ENVIRONMENT_READER" ||
+	-n "$ZED_TERM" ||
+	-n "$VSCODE_RESOLVING_ENVIRONMENT" ||
+	"$TERM_PROGRAM" = "vscode" ]]; then
+	export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship_inside_editor.toml"
+else
+	# the default location is ~/.config/starship.toml but I want to put all the
+	# files inside $XDG_CONFIG_HOME/starship/
+	export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
+fi
 zsh-plugin-installer \
 	--repo "https://github.com/starship/starship" \
 	--exec-after "./install/install.sh --yes --bin-dir=$HOME/.local/bin" \

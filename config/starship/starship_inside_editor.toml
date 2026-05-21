@@ -1,4 +1,4 @@
-# Based on https://starship.rs/presets/catppuccin-powerline (catppuccin_latte)
+# Config for terminals inside text editors or IDEs
 
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
@@ -6,11 +6,8 @@
 continuation_prompt = '[▶](bright-black) '
 
 format = """
-$os\
 $username\
 $sudo\
-$hostname\
-[](bg:dir_bg fg:os_bg)\
 $directory\
 [](bg:git_bg fg:peach)\
 $git_branch\
@@ -30,43 +27,13 @@ $line_break\
 $character"""
 
 right_format = """
-[](fg:right_bg)\
-$kubernetes\
-$jobs\
 $status\
-$cmd_duration\
-$time"""
+$jobs"""
 
 # Disable the blank line at the start of the prompt
 add_newline = false
 
 palette = 'p10k'
-
-[os]
-disabled = false
-style = "bg:os_bg fg:left_fg"
-
-[os.symbols]
-Windows = ""
-Ubuntu = "󰕈"
-SUSE = ""
-Raspbian = "󰐿"
-Mint = "󰣭"
-Macos = "󰀵"
-Manjaro = ""
-Linux = "󰌽"
-Gentoo = "󰣨"
-Fedora = "󰣛"
-Alpine = ""
-Amazon = ""
-Android = ""
-AOSC = ""
-Arch = "󰣇"
-Artix = "󰣇"
-CentOS = ""
-Debian = "󰣚"
-Redhat = "󱄛"
-RedHatEnterprise = "󱄛"
 
 [username]
 show_always = false
@@ -81,7 +48,7 @@ style = "bg:os_bg fg:left_fg"
 
 [directory]
 format = '[$path]($style)[$read_only]($read_only_style)'
-truncation_length = 3
+truncation_length = 1
 truncation_symbol = "…/"
 # I think this isn't working
 # https://github.com/starship/starship/discussions/7264
@@ -189,25 +156,6 @@ vimcmd_replace_one_symbol = '[❮](bold fg:lavender)'
 vimcmd_replace_symbol = '[❮](bold fg:lavender)'
 vimcmd_visual_symbol = '[❮](bold fg:yellow)'
 
-[time]
-disabled = false
-time_format = "❮ %T"
-style = "fg:#5f8787 bg:right_bg"
-format = '[ $time  ]($style)'
-
-[cmd_duration]
-show_milliseconds = false
-format = "[❮ $duration ]($style)"
-style = "fg:h5 bg:right_bg"
-disabled = false
-show_notifications = false
-# Shortest duration for notification (in milliseconds)
-min_time_to_notify = 10_000
-
-[kubernetes]
-disabled = false
-style = "bg:right_bg"
-
 [status]
 disabled = false
 format = '[$symbol$status]($style)'
@@ -233,4 +181,4 @@ left_bg = "#303030"
 right_bg = "#303030"
 right_fg = "#5e8585"
 
-# #dotfiles: dst=$XDG_CONFIG_HOME/starship/starship.toml
+# #dotfiles: dst=$XDG_CONFIG_HOME/starship/starship_inside_editor.toml
