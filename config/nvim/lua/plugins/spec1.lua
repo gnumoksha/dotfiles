@@ -180,8 +180,16 @@ return {
       statuscolumn = { enabled = true },
       words = { enabled = true },
     },
-  }
+  },
 
-  -- TODO load https://git.zx2c4.com/password-store/tree/contrib/vim/redact_pass.vim
+  -- load https://git.zx2c4.com/password-store/tree/contrib/vim/redact_pass.vim
   -- https://github.com/folke/lazy.nvim/discussions/1315
+  ---@module 'lazy'
+  ---@type LazySpec
+  -- {
+  --   url = 'https://git.zx2c4.com/password-store',
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function() vim.cmd('runtime contrib/vim/redact_pass.vim') end,
+  -- }
 }

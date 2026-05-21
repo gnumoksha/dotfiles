@@ -1,3 +1,6 @@
+-- show line number
+vim.opt.number = true
+
 -- to open a file at the last cursor position
 vim.api.nvim_create_autocmd("BufReadPost", {
     callback = function()

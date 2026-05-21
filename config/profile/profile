@@ -33,14 +33,16 @@ fi
 #   files.
 # VISUAL contains command to run the full-fledged editor that is used for more
 #   demanding tasks, such as editing email (e.g., vi, vim, emacs etc).
+#   I'm using vim instead of nvim because currently I'm unable to load the
+#   redact_pass.vim in neovim.
 # BROWSER contains the path to the web browser.
 if [ -n "${DISPLAY:-}" ]; then
-  export EDITOR=nvim
+  export EDITOR=vim
   export VISUAL=codium
   #export BROWSER=firefox
 else
-  export EDITOR=nvim
-  export VISUAL=nvim
+  export EDITOR=vim
+  export VISUAL=vim
   #export BROWSER=links
 fi
 
