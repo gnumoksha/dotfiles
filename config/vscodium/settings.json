@@ -1,4 +1,5 @@
 // #dotfiles: dst=$XDG_CONFIG_HOME/VSCodium/User/settings.json
+// #dotfiles: dst="$XDG_CONFIG_HOME/Code - OSS/User/settings.json"
 // #dotfiles: dst=$XDG_CONFIG_HOME/Code/User/settings.json
 // https://code.visualstudio.com/docs/getstarted/settings#_default-settings
 {
@@ -257,6 +258,7 @@
      */
     // Dark (Molokai) - ext install nonylene.dark-molokai-theme
     // One Dark Pro Darker - ext install zhuangtongfa.material-theme
+    // Eva theme - ext install fisheva.eva-theme
     "workbench.colorTheme": "Dark (Molokai)",
     "workbench.preferredDarkColorTheme": "Dark (Molokai)",
     // ext install vscode-icons (to use "vscode-icons")
@@ -585,11 +587,16 @@
     // https://github.com/VSCodium/vscodium/issues/892
     // https://github.com/flathub/com.vscodium.codium/issues/90
     // "python.languageServer": "Pylance",
-    // "python.languageServer": "Jedi",
+    //
     // ext install astral-sh.ty
-    // at least in the version 0.0.26 the language server is not so good
-    "python.languageServer": "Pylance",
+    // at least in the version 0.0.35 the language server is not so good
+    // because it does not find usages for __init__ and __call__
+    // "python.languageServer": "Pylance",
     "ty.disableLanguageServices": true,
+    //
+    // ext install meta.pyrefly
+    "python.languageServer": "Default",
+    "python.pyrefly.typeCheckingMode": "strict",
     // Jupyter notebooks
     // ext install charliermarsh.ruff
     "notebook.formatOnSave.enabled": true,
@@ -645,7 +652,7 @@
     "code-runner.clearPreviousOutput": true,
     "code-runner.runInTerminal": false,
 
-    // ext install vscode-icons
+    // ext install vscode-icons (or vscode-icons-team.vscode-icons)
     // https://github.com/vscode-icons/vscode-icons/wiki/Configuration
     "vsicons.dontShowNewVersionMessage": true,
 
