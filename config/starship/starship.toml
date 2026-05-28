@@ -206,7 +206,9 @@ min_time_to_notify = 10_000
 
 [kubernetes]
 disabled = false
+format = '[$symbol$context( \($namespace\))]($style)'
 style = "bg:right_bg"
+detect_folders = ['kubernetes', 'k8s']
 
 [status]
 disabled = false
