@@ -266,5 +266,9 @@
         "key": "ctrl+shift+-",
         "command": "-workbench.action.navigateForward",
         "when": "canNavigateForward"
+    },
+    {
+        "key": "ctrl+4 t",
+        "command": "workbench.action.terminal.new"
     }
 ]

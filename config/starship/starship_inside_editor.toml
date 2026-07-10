@@ -12,7 +12,11 @@ $directory\
 [](bg:git_bg fg:peach)\
 $git_branch\
 $git_status\
-[](fg:git_bg bg:green)\
+[](fg:git_bg)\
+$character"""
+
+right_format = """
+$status\
 $c\
 $rust\
 $golang\
@@ -22,12 +26,6 @@ $java\
 $kotlin\
 $haskell\
 $python\
-[ ](fg:green)\
-$line_break\
-$character"""
-
-right_format = """
-$status\
 $jobs"""
 
 # Disable the blank line at the start of the prompt
@@ -65,7 +63,7 @@ before_repo_root_style = 'fg:h5'
 "Downloads" = ""
 "Music" = "󰝚"
 "Pictures" = ""
-# "dev" = "󰲋"
+"dev" = "󰲋"
 
 [git_branch]
 symbol = ""
@@ -158,7 +156,7 @@ vimcmd_visual_symbol = '[❮](bold fg:yellow)'
 
 [status]
 disabled = false
-format = '[$symbol$status]($style)'
+format = '[$symbol $status]($style)[](fg:green)'
 success_symbol = ""
 style = "fg:green bg:right_bg"
 failure_style = "bold red bg:right_bg"

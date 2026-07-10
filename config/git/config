@@ -73,6 +73,7 @@
 	# "warn", in which case Git will only warn about an irreversible conversion but continue the operation.
 	safecrlf = warn
 	pager = delta
+	editor = code --wait
 
 [commit]
 	template = ~/.config/git/templates/commit.txt

@@ -31,10 +31,12 @@ fi
 
 DST="$DIR/$PKG_NAME"
 if [[ ! -d "$DST" ]]; then
+	echo "Downloading $PKG_NAME"
 	git clone https://aur.archlinux.org/"$PKG_NAME".git "$DST"
 	cd "$DST"
 else
 	cd "$DST"
+	echo "Updating $PKG_NAME"
 	git pull
 fi
 

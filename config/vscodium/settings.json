@@ -593,6 +593,7 @@
     // because it does not find usages for __init__ and __call__
     // "python.languageServer": "Pylance",
     "ty.disableLanguageServices": true,
+    "ty.importStrategy": "fromEnvironment",
     //
     // ext install meta.pyrefly
     "python.languageServer": "Default",
@@ -674,6 +675,7 @@
         "dotfiles",
         "esbenp",
         "fastapi",
+        "Geolocation",
         "gettext",
         "github",
         "gnumoksha",
@@ -739,4 +741,10 @@
 
     // ext install Anthropic.claude-code
     "claudeCode.preferredLocation": "panel",
+    "workbench.editorAssociations": {
+        "{git,gitlens,chat-editing-snapshot-text-model,copilot,git-graph,git-graph-3}:/**/*.qrc": "default",
+        "*.qrc": "qt-core.qrcEditor"
+    },
+    "gitlens.ai.model": "vscode",
+    "gitlens.ai.vscode.model": "copilot:gpt-5.3-codex",
 }
