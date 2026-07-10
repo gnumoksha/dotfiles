@@ -10,6 +10,7 @@ src=ipython dst=$XDG_CONFIG_HOME/
 src=jupyter dst=$XDG_CONFIG_HOME/
 src=kitty dst=$XDG_CONFIG_HOME/
 src=konsole dst=$XDG_CONFIG_HOME/
+src=lazygit dst=$XDG_CONFIG_HOME/
 src=lsd dst=$XDG_CONFIG_HOME/
 src=procps dst=$XDG_CONFIG_HOME/
 src=rofi dst=$XDG_CONFIG_HOME/

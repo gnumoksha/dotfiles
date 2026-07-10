@@ -1,0 +1,16 @@
+# Reference: https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+
+gui:
+  showFileTree: false
+  nerdFontsVersion: "3"
+  showDivergenceFromBaseBranch: arrowAndNumber
+  border: single
+
+git:
+  pagers:
+   - pager: delta --dark --paging=never
+
+  commit:
+    signOff: true
+
+  parseEmoji: true
